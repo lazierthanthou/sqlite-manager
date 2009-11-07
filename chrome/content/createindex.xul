@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
+ 
+<dialog id="createindex" title="&window.title; - &createIndex;"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        buttons="accept,cancel"
+        ondialogaccept="return CreateManager.doOKCreateIndex();"
+        ondialogcancel="return CreateManager.doCancel();"
+				onload="CreateManager.loadCreateIndexDialog();"
+				flex="1">
+
+  <script type="application/x-javascript" src="createManager.js"/>  
+  <script type="application/x-javascript" src="globals.js"/>  
+
+	<hbox flex="1" style="margin:5px 0 5px 0;">
+    <spacer flex="1"/>
+		<label style="padding-top:3px" 
+				accesskey="D"
+				control="dbName" 
+				value="&createIndex.dbName;"/>
+    <menulist id="dbName"
+      oncommand="CreateManager.selectDb('dbName')"/>
+		<label style="padding-top:3px" 
+				accesskey="N"
+				control="indexname" 
+				value="&createIndex.indexname;"/>
+    <textbox id="indexname"/>
+    <spacer flex="1"/>
+  </hbox>
+	<groupbox flex="1">
+	<caption label="&createIndex.indexproperties;"/>
+
+	<hbox flex="1" style="margin:4px 3px 4px 3px;" align="right">
+    <label style="padding-top:5px" 
+				accesskey="T"
+				control="tabletoindex" 
+				value="&createIndex.tabletoindex;"/>
+     <menulist id="tabletoindex" 
+		 		style="width: 25ex" 
+				 sizetopopup="always" 
+				 oncommand="CreateManager.selectTable('tabletoindex')"
+				 value="">
+      <menupopup>
+        <menuitem label="&createIndex.loading;" selected="true"/>
+      </menupopup>
+    </menulist>
+  </hbox>
+
+	<hbox flex="1" style="margin:4px 3px 4px 3px" align="right">
+    <label style="padding-top:5px" 
+				accesskey="d"
+				control="duplicatevalues" 
+				value="&createIndex.duplicatevalues;"/>
+     <menulist id="duplicatevalues" 
+		 		style="width: 25ex" 
+				 sizetopopup="always"
+				 value="">
+      <menupopup>
+        <menuitem label="&createIndex.allowed;" value="" selected="true"/>
+        <menuitem label="&createIndex.notallowed;" value="UNIQUE"/>
+      </menupopup>
+    </menulist>
+  </hbox>
+	</groupbox>
+  
+	<groupbox>
+  	<caption label="&createIndex.indexcolumns;"/>
+  	<vbox id="definecolumns" flex="1" style="overflow-y:auto" height="200"/>
+	</groupbox>
+  
+</dialog>

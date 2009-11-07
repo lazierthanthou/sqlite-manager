@@ -1,0 +1,11 @@
+<!ENTITY udf.selectDir     "Select UDF DB Directory">
+<!ENTITY udf.selectDir.ak  "S">
+
+<!ENTITY udf-exp-ok    "OK">
+<!ENTITY udf-imp-ok    "OK">
+<!ENTITY udf-cancel    "Close Tab">
+
+<!ENTITY udf.newFunction    "Add New Function"><!ENTITY udf.existingFunction    "Available Functions">
+
+<!ENTITY udf.funcName    "Function Name"><!ENTITY udf.funcArgLength    "Number of arguments"><!ENTITY udf.funcBody    "Function body: ">
+

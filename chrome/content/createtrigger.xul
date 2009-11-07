@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
+
+<dialog id="createtrigger" title="&window.title; - &createTrigger;"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        buttons="accept,cancel"
+        ondialogaccept="return CreateManager.doOKCreateTrigger();"
+        ondialogcancel="return CreateManager.doCancel();"
+				onload="CreateManager.loadCreateTriggerDialog();">
+
+  <script type="application/x-javascript" src="createManager.js"/>  
+  <script type="application/x-javascript" src="globals.js"/>  
+
+	<hbox flex="1" style="margin:5px 0 5px 0;">
+    <spacer flex="1"/>
+		<label style="padding-top:3px" 
+				accesskey="D"
+				control="dbName" 
+				value="&createTrigger.dbName;"/>
+    <menulist id="dbName"
+      oncommand="CreateManager.selectDb('dbName')"/>
+		<label style="padding-top:3px" 
+				accesskey="N"
+				control="objectName" 
+				value="&createTrigger.triggername;"/>
+    <textbox id="objectName"/>
+    
+    <label style="padding-top:5px" 
+				accesskey="a"
+				control="tabletoindex" 
+				value="&createTrigger.tabletoindex;"/>
+     <menulist id="tabletoindex" 
+		 		style="width: 25ex" 
+				 sizetopopup="always" 
+				 value="">
+      <menupopup>
+        <menuitem label="&createTrigger.loading;" selected="true"/>
+      </menupopup>
+    </menulist>
+    
+    <spacer flex="1"/>
+  </hbox>
+	<hbox flex="1" style="margin:5px 0 5px 0;">
+    <spacer flex="1"/>
+		<checkbox id="tempObject"
+				accesskey="&createTrigger.tempObject.ak;"
+				label="&createTrigger.tempObject;"/>
+		<checkbox id="ifnotexists"
+				accesskey="&createTrigger.ifnotexists.ak;"
+				label="&createTrigger.ifnotexists;"/>
+    <spacer flex="1"/>
+  </hbox>
+  <vbox id="details-view">
+  <groupbox>
+    <caption label="&createTrigger.databaseevent;"/>
+    <hbox>
+		<label style="padding-top:3px" 
+				accesskey="&createTrigger.triggerTime.ak;"
+				control="triggerTime" 
+				value="&createTrigger.triggerTime;"/>
+     <menulist id="triggerTime" 
+		 		style="width: 25ex" 
+				 sizetopopup="always" 
+				 value="">
+      <menupopup>
+        <menuitem label="" selected="true"/>
+        <menuitem label="BEFORE"/>
+        <menuitem label="AFTER"/>
+      </menupopup>
+    </menulist>
+		<label style="padding-top:3px" 
+				accesskey="&createTrigger.dbEvent.ak;"
+				control="dbEvent" 
+				value="&createTrigger.dbEvent;"/>
+     <menulist id="dbEvent" 
+		 		style="width: 25ex" 
+				 sizetopopup="always" 
+				 value="">
+      <menupopup>
+        <menuitem label="DELETE" selected="true"/>
+        <menuitem label="INSERT"/>
+        <menuitem label="UPDATE"/>
+      </menupopup>
+    </menulist>
+		</hbox>    
+		</groupbox>
+  <groupbox>
+    <caption label="&createTrigger.triggeraction;"/>
+		<checkbox id="foreachrow"
+				accesskey="&createTrigger.foreachrow.ak;"
+				label="&createTrigger.foreachrow;"/>
+  	<label control="txtWhenExpression" value="&createTrigger.txtWhenExpression;"
+			accesskey="&createTrigger.txtWhenExpression.ak;"/>
+		<textbox id="txtWhenExpression" multiline="true" rows="2" cols="50" 
+						align="stretch"/>
+  	<label control="txtTriggerSteps" value="&createTrigger.txtTriggerSteps;"
+			accesskey="&createTrigger.txtTriggerSteps.ak;"/>
+		<textbox id="txtTriggerSteps" multiline="true" rows="4" cols="50" 
+						align="stretch"/>
+		</groupbox>
+  </vbox>
+
+</dialog>

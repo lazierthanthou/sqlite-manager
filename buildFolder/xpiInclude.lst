@@ -1,0 +1,5 @@
+/chrome/*
+/defaults/*
+/chrome.manifest
+/install.rdf
+/extra/*

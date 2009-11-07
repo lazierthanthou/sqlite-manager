@@ -1,0 +1,127 @@
+/*
+@import url(chrome://global/skin/)
+*/
+
+.tabs-closebutton {
+  list-style-image: url("chrome://sqlitemanager/skin/images/close.gif");
+}
+
+tabs#sm-tabs tab {
+  padding: 4px 5px;
+}
+
+label.dbinfo {
+	padding-top: 5px;
+	width: 30ex;
+	text-align: right;
+}
+
+label.forControl {
+	padding-top: 5px;
+}
+
+tabbox#sm-tabbox tabpanel {
+  overflow: auto;
+}
+
+vbox#vb-dbInfoTab textbox,
+vbox#vb-dbInfoTab menulist {
+  width: 20ex;
+}
+
+/*toolbar images*/
+.sm-tab-close-button {
+  list-style-image: url("chrome://sqlitemanager/skin/images/close.gif");
+}
+.tbb_questionmark {
+  list-style-image: url("chrome://sqlitemanager/skin/images/questionMark_24.png");
+}
+#tbb_refresh {
+  list-style-image: url("chrome://sqlitemanager/skin/images/refresh.png");
+}
+#tbb_options {
+  list-style-image: url("chrome://sqlitemanager/skin/images/options.png");
+}
+#tbb_newDb {
+  list-style-image: url("chrome://sqlitemanager/skin/images/new.png");
+}
+#tbb_openDb {
+  list-style-image: url("chrome://sqlitemanager/skin/images/open.png");
+}
+#tbb_import {
+  list-style-image: url("chrome://sqlitemanager/skin/images/import.png");
+}
+#tbb_udf {
+  list-style-image: url("chrome://sqlitemanager/skin/images/userfunctions.png");
+}
+#tbb_createTable {
+  list-style-image: url("chrome://sqlitemanager/skin/images/createTable.png");
+}
+#tbb_dropTable {
+  list-style-image: url("chrome://sqlitemanager/skin/images/dropTable.png");
+}
+#tbb_modifyTable {
+  list-style-image: url("chrome://sqlitemanager/skin/images/modifyTable.png");
+}
+#tbb_createIndex {
+  list-style-image: url("chrome://sqlitemanager/skin/images/createIndex.png");
+}
+#tbb_dropIndex {
+  list-style-image: url("chrome://sqlitemanager/skin/images/dropIndex.png");
+}
+#tbb_aboutConfig {
+  list-style-image: url("chrome://sqlitemanager/skin/images/aboutConfig.png");
+}
+#tbb_console {
+  list-style-image: url("chrome://sqlitemanager/skin/images/console.png");
+}
+#tbb_dominspector {
+  list-style-image: url("chrome://sqlitemanager/skin/images/dominspector.gif");
+}
+
+/*execute-sql tab toolbar*/
+#hb-queryHistory > image {
+  height: 16px;
+  padding: 0px 4px;
+}
+#queryHistoryPrevImage {
+  list-style-image: url("chrome://sqlitemanager/skin/images/arrow-left-white.png");
+}
+#queryHistoryNextImage {
+  list-style-image: url("chrome://sqlitemanager/skin/images/arrow-right-white.png");
+}
+#querySaveByNameImage {
+  list-style-image: url("chrome://sqlitemanager/skin/images/save.png");
+}
+#queryHistoryClearImage {
+  list-style-image: url("chrome://sqlitemanager/skin/images/delete.png");
+}
+
+/*About dialog*/
+#about-icon {
+  list-style-image: url("chrome://sqlitemanager/skin/images/default32.png");
+}
+
+/*tree*/
+treechildren::-moz-tree-cell-text(selected) {
+  font-weight: bold;
+}
+
+/*tree in structure sidebar*/
+treechildren::-moz-tree-cell(dbObjTable1) {
+  background-color: #ccffcc;
+}
+treechildren::-moz-tree-cell(dbObjIndex1) {
+  background-color: #ccccff;
+}
+treechildren::-moz-tree-cell(dbObjTrigger1) {
+  background-color: #ffcccc;
+}
+treechildren::-moz-tree-cell(dbObjTable1 selected) {
+  background-color: #339933;
+}
+
+/*tree in browse and execute tabs*/
+treechildren::-moz-tree-cell(tabledata) {
+  border-right: 1px solid black;
+}

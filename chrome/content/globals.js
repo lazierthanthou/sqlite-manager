@@ -1,0 +1,452 @@
+const Cc = Components.classes;
+const Ci = Components.interfaces;
+const Cu = Components.utils;
+
+var SmGlobals = {
+  chromes: {
+    preferences: "chrome://sqlitemanager/content/preferences.xul",
+    console: "chrome://global/content/console.xul",
+    aboutconfig: "chrome://global/content/config.xul",
+    confirm: "chrome://sqlitemanager/content/confirm.xul",
+    aboutSM: "chrome://sqlitemanager/content/about.xul"
+  },
+
+  webpages: {
+    home: "http://sqlite-manager.googlecode.com/",
+    faq: "http://code.google.com/p/sqlite-manager/wiki/FAQ",
+    issueNew: "http://code.google.com/p/sqlite-manager/issues/entry",
+    sqliteHome: "http://www.sqlite.org/",
+    sqliteLang: "http://www.sqlite.org/lang.html",
+    mpl: "http://www.mozilla.org/MPL/MPL-1.1.html"
+  },
+
+  //these are the preferences which are being observed and which need to be initially read.
+  observedPrefs: ["styleDataTree", "hideMainToolbar", "showMainToolbarDatabase", "showMainToolbarTable", "showMainToolbarIndex", "showMainToolbarDebug", "sqliteFileExtensions", "displayNumRecords", "textForBlob", "showBlobSize", "maxSizeToShowBlobData", "mruPath.1",
+        "posInTargetApp" /* this one for firefox only*/,
+        "handleADS" /* this one for Windows only*/ ],
+
+  tempNamePrefix: "__temp__",
+  sbPanelDisplay: null,
+
+  appInfo: null,
+  extVersion: "",
+  extCreator: "",
+  extLocation: "",
+
+  dialogFeatures: "chrome,resizable,centerscreen,modal,dialog",
+
+  setAppInfo: function() {
+    var extId = "SQLiteManager@mrinalkant.blogspot.com";
+    this.appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+    this.gecko_1914pre = (Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator).compare(this.appInfo.platformVersion, "1.9.1.4pre") >= 0);
+    if (this.appInfo.ID == extId) {
+      this.extVersion = this.appInfo.version;
+      this.extCreator = this.appInfo.vendor;
+
+      //TODO: why not resource:app instead of CurProcD?
+      this.extLocation = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties).get('CurProcD', Ci.nsIFile).path;
+    }
+    else {
+      var extInfo = Cc["@mozilla.org/extensions/manager;1"].getService(Ci.nsIExtensionManager).getItemForID(extId);
+      this.extVersion = extInfo.version;
+      this.extCreator = "Mrinal Kant";
+      this.extLocation = Cc["@mozilla.org/extensions/manager;1"].getService(Ci.nsIExtensionManager).getInstallLocation(extId).getItemFile(extId, '').path;
+    }
+  },
+
+  // Remove all child elements 
+  $empty: function(el) {
+    while (el.firstChild) 
+      el.removeChild(el.firstChild);
+  },
+
+  //cTimePrecision: Y, M, D, h, m, s
+  getISODateTimeFormat: function(dt, cSeparator, cPrecision) {
+    var aPrecision = ["Y", "M", "D", "h", "m", "s"];
+    var aSeparators = ["", "-", "-", "T", ":", ":"];
+    if (dt == null)
+      dt = new Date();
+
+    var tt;
+    var iPrecision = aPrecision.indexOf(cPrecision);
+    var sDate = dt.getFullYear();
+    for (var i = 1; i <= iPrecision; i++) {
+      switch (i) {
+        case 1:
+          tt = new Number(dt.getMonth() + 1);
+          break;
+        case 2:
+          tt = new Number(dt.getDate());
+          break;
+        case 3:
+          tt = new Number(dt.getHours());
+          break;
+        case 4:
+          tt = new Number(dt.getMinutes());
+          break;
+        case 5:
+          tt = new Number(dt.getSeconds());
+          break;
+      }
+      var cSep = (cSeparator == null)?aSeparators[i]:cSeparator;
+      sDate += cSep + ((tt < 10)? "0" + tt.toString() : tt);
+    }
+    return sDate;
+  }
+
+};
+
+//constant for branch of nsIPrefService                 
+const sm_prefsBranch = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).getBranch("extensions.sqlitemanager.");
+
+var gMktPreferences = {};
+
+/* set unicode string value */
+function sm_setUnicodePref(prefName, prefValue) {
+    var sString = Cc["@mozilla.org/supports-string;1"].createInstance(Ci.nsISupportsString);
+    sString.data = prefValue;
+    sm_prefsBranch.setComplexValue(prefName, Ci.nsISupportsString, sString);
+}
+
+SmGlobals.setAppInfo();
+
+var smStrings = Cc["@mozilla.org/intl/stringbundle;1"].getService(Ci.nsIStringBundleService).createBundle("chrome://sqlitemanager/locale/strings.properties");
+//gets localized string
+function sm_getLStr(sName) {
+  return smStrings.GetStringFromName(sName);
+}
+//gets localized and formatted string
+function sm_getLFStr(sName, params, len) {
+  return smStrings.formatStringFromName(sName, params, params.length);
+}
+
+var smPrompt = 	Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
+
+SmGlobals.allPrefs = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
+
+function $$(sId) {
+  return document.getElementById(sId);
+}
+
+function smShow(aId) {
+  for (var i in aId) {
+    $$(aId[i]).hidden = false;
+  }
+}
+
+function smHide(aId) {
+  for (var i in aId) {
+    $$(aId[i]).hidden = true;
+  }
+}
+
+//adjust the rows of a multiline textbox according to content so that there is no scrollbar subject to the min/max constraints
+//tb = textbox element
+function adjustTextboxRows(tb, iMinRows, iMaxRows) {
+  tb.setAttribute('rows', iMinRows);
+  //subtract 10 so that there are no scrollbars even if all content is visible
+  while (tb.inputField.scrollHeight > tb.boxObject.height - 10) {
+    iMinRows++;
+    tb.setAttribute("rows", iMinRows);
+    if (iMinRows >= iMaxRows)
+      break;
+  }
+}
+
+// PopulateDropDownItems: Populate a dropdown listbox with menuitems
+function PopulateDropDownItems(aItems, dropdown, sSelectedItemLabel) {   
+  dropdown.removeAllItems();
+  dropdown.selectedIndex = -1;
+
+  for (var i = 0; i < aItems.length; i++) {
+ 		var bSelect = false;
+  	if(i == 0)
+  		bSelect = true;
+  	
+    if (typeof aItems[i] == "string") {
+    	if(aItems[i] == sSelectedItemLabel)
+    		bSelect = true;
+    }
+    else {
+    	if(aItems[i][0] == sSelectedItemLabel)
+    		bSelect = true;
+  	}
+    var menuitem = AddDropdownItem(aItems[i], dropdown, bSelect);
+  }
+}
+
+// AddDropdownItem: Add a menuitem to the dropdown
+function AddDropdownItem(sLabel, dropdown, bSelect) {
+  var menuitem;
+  if (typeof sLabel == "string") {
+	  menuitem = dropdown.appendItem(sLabel, sLabel);
+  }
+  else {
+	  menuitem = dropdown.appendItem(sLabel[0], sLabel[1]);
+	}
+
+  //make this item selected
+	if (bSelect)
+    dropdown.selectedItem = menuitem;
+
+  return menuitem;
+}
+
+function sm_notify(sBoxId, sMessage, sType, iTime) {
+  if (iTime == undefined)
+    iTime = 3;
+
+  iTime = iTime * 1000;
+  var notifyBox = $$(sBoxId);
+  var notification = notifyBox.appendNotification(sMessage);
+  notification.type = sType;
+  //notification.priority = notifyBox.PRIORITY_INFO_HIGH;
+  setTimeout('$$("'+sBoxId+'").removeAllNotifications(false);', iTime);
+}
+
+//not yet called anywhere
+SmGlobals.launchHelp = function() {
+	var urlHelp = sm_getLStr("sm.url.help");
+	SmGlobals.openURL(urlHelp);
+};
+
+SmGlobals.openURL = function(UrlToGoTo) {
+  var ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
+  var uri = ios.newURI(UrlToGoTo, null, null);
+  var protocolSvc = Cc["@mozilla.org/uriloader/external-protocol-service;1"].getService(Ci.nsIExternalProtocolService);
+
+  if (!protocolSvc.isExposedProtocol(uri.scheme)) {
+    // If we're not a browser, use the external protocol service to load the URI.
+    protocolSvc.loadUrl(uri);
+    return;
+  }
+
+  var navWindow;
+
+  // Try to get the most recently used browser window
+  try {
+    var wm = Cc["@mozilla.org/appshell/window-mediator;1"].getService(Ci.nsIWindowMediator);
+    navWindow = wm.getMostRecentWindow("navigator:browser");
+  } catch(ex) {}
+
+  if (navWindow) {  // Open the URL in most recently used browser window
+    if ("delayedOpenTab" in navWindow) {
+      navWindow.delayedOpenTab(UrlToGoTo);
+    } 
+    else if ("openNewTabWith" in navWindow) {
+      navWindow.openNewTabWith(UrlToGoTo);
+    } 
+    else if ("loadURI" in navWindow) {
+      navWindow.loadURI(UrlToGoTo);
+    }
+    else {
+      navWindow._content.location.href = UrlToGoTo;
+    }
+  }
+  else {
+    // If there is no recently used browser window then open new browser window with the URL
+    var ass = Cc["@mozilla.org/appshell/appShellService;1"].getService(Ci.nsIAppShellService);
+    var win = ass.hiddenDOMWindow;
+    win.openDialog(SmGlobals.getBrowserURL(), "", "chrome,all,dialog=no", UrlToGoTo );
+  }
+};
+
+SmGlobals.getBrowserURL = function() {
+   // For SeaMonkey etc where the browser window is different.
+   try {
+      var url = SmGlobals.allPrefs.getCharPref("browser.chromeURL");
+      if (url)
+         return url;
+   } catch(e) {}
+   return "chrome://browser/content/browser.xul";
+};
+
+SmGlobals.chooseDirectory = function(sTitle) {
+	const nsIFilePicker = Ci.nsIFilePicker;
+	var fp = Cc["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
+	fp.init(window, sTitle, nsIFilePicker.modeGetFolder);
+
+	var rv = fp.show();
+
+	//if chosen then
+	if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace)
+		return fp.file;
+
+	return null; 
+};
+
+function sm_message(str, where) {
+	if(where & 0x1)
+		alert(str);
+	if(where & 0x2 && SmGlobals.sbPanelDisplay != null)
+		SmGlobals.sbPanelDisplay.label= str;;
+	if(where & 0x4)
+		sm_log(str);
+}
+
+function sm_confirm(sTitle, sMessage) {
+	var aRetVals = {};
+  var oWin = window.openDialog(SmGlobals.chromes.confirm, "confirmDialog", SmGlobals.dialogFeatures, sTitle, sMessage, aRetVals, "confirm");
+  return aRetVals.bConfirm;
+}
+
+function sm_alert(sTitle, sMessage) {
+	var aRetVals = {};
+  var oWin = window.openDialog(SmGlobals.chromes.confirm, "alertDialog", SmGlobals.dialogFeatures, sTitle, sMessage, aRetVals, "alert");
+}
+
+function sm_log(sMsg) {
+  var aConsoleService = Cc["@mozilla.org/consoleservice;1"].getService(Ci.nsIConsoleService);
+
+  aConsoleService.logStringMessage("SQLiteManager: " + sMsg);
+}
+
+SmGlobals.confirmBeforeExecuting = function(aQ, sMessage, confirmPrefName) {
+  if (confirmPrefName == undefined)
+    confirmPrefName = "confirm.otherSql";
+  var bConfirm = sm_prefsBranch.getBoolPref(confirmPrefName);
+
+  var answer = true;
+  var ask = sm_getLStr("globals.confirm.msg");
+  //in case confirmation is needed, reassign value to answer
+  if (bConfirm) {
+  	var txt = ask + "\n" + sMessage + "\nSQL:\n" + aQ.join("\n");
+  	if (typeof sMessage == "object" && !sMessage[1]) {
+  		txt = ask + "\n" + sMessage[0];
+  	}
+	  answer = sm_confirm(sm_getLStr("globals.confirm.title"), txt);
+  }
+
+  return answer;
+};
+
+////////////////////////////////////////////////
+function sm_convertdataTreeStylePref() {
+  var oStyle = sm_prefsBranch.getCharPref("styleDataTree");
+
+  if (oStyle == 'none') {
+    return true;
+  }
+
+  try {
+    var objDtStyle = JSON.parse(oStyle);
+  } catch (e) {
+    sm_log(e.message);
+    return;
+  }
+
+  var sPref;
+  for (var j in objDtStyle) {
+    sPref = ['dataTreeStyle',j,'unselected','background-color'].join('.');
+    setMktPref(sPref, objDtStyle[j][0][1]);
+
+    sPref = ['dataTreeStyle',j,'selected','background-color'].join('.');
+    setMktPref(sPref, objDtStyle[j][0][2]);
+
+    sPref = ['dataTreeStyle',j,'unselected','color'].join('.');
+    setMktPref(sPref, objDtStyle[j][1][1]);
+
+    sPref = ['dataTreeStyle',j,'selected','color'].join('.');
+    setMktPref(sPref, objDtStyle[j][1][2]);
+  }
+  var newPref = JSON.stringify(gMktPreferences.dataTreeStyle);
+  alert([oStyle, newPref].join('\n\n'));
+  sm_prefsBranch.setCharPref("styleDataTree", newPref);
+}
+
+function sm_setDataTreeStyle(sType) {
+  if (sType == "none") {
+    sm_prefsBranch.setCharPref("styleDataTree", 'none');
+    return;
+  }
+  if (sType == "default") {
+    sm_prefsBranch.clearUserPref("styleDataTree");
+    sm_setDataTreeStyleControls();
+    return;
+  }
+  if (sType == "user") {
+    var sPref = setMktPreferences('datatree-options');
+    sm_prefsBranch.setCharPref("styleDataTree", sPref);
+    return;
+  }
+}
+
+function sm_setDataTreeStyleControls() {
+  var oStyle = sm_prefsBranch.getCharPref("styleDataTree");
+  var objDtStyle = {};
+  if (oStyle == 'none') {
+    $$('btnTreeStyleApply').setAttribute('disabled', true);
+  }
+  else {
+    $$('btnTreeStyleApply').removeAttribute('disabled');
+    objDtStyle = JSON.parse(oStyle);
+  }
+
+  gMktPreferences.dataTreeStyle = objDtStyle;
+  getMktPreferences('datatree-options');
+}
+
+function getMktPreferences(sId) {
+  var pElt = $$(sId);
+  var aElt = pElt.querySelectorAll("[mktpref]");
+  for (var i = 0; i < aElt.length; i++) {
+    var mktpref = aElt[i].getAttribute('mktpref');
+    var val = getMktPref(mktpref);
+//    if (val == null)
+//      continue;
+    switch (aElt[i].localName.toLowerCase()) {
+      case 'colorpicker':
+        if (val == null)
+          aElt[i].color = '';
+        else
+        aElt[i].color = val;
+        break;
+      default:
+        aElt[i].value = val;
+        break;
+    }
+  }
+}
+
+function setMktPreferences(sId) {
+  var pElt = $$(sId);
+  var aElt = pElt.querySelectorAll("[mktpref]");
+  for (var i = 0; i < aElt.length; i++) {
+    var mktpref = aElt[i].getAttribute('mktpref');
+    var val = "";
+    switch (aElt[i].localName.toLowerCase()) {
+      case 'colorpicker':
+        val = aElt[i].color;
+        break;
+      default:
+        val = aElt[i].value;
+        break;
+    }
+    setMktPref(mktpref, val);
+  }
+  return JSON.stringify(gMktPreferences.dataTreeStyle);
+}
+
+function setMktPref(str, val) {
+  var o = gMktPreferences;
+  var parts = str.split('.');
+  var len = parts.length;
+  for (var i = 0; i < len - 1; i++) {
+    o = o[parts[i]] = o[parts[i]] || {};
+  }
+  o[parts[i]] = val;
+  return o;
+}
+
+function getMktPref(str) {
+  var o = gMktPreferences;
+  var parts = str.split('.');
+  var len = parts.length;
+  for (var i = 0; i < len; i++) {
+    if (o[parts[i]])
+      o = o[parts[i]];
+    else
+      return null;
+  }
+  return o;
+}

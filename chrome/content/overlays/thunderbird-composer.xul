@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://sqlitemanager/skin/smoverlay.css" type="text/css"?>
+<overlay id="overlay"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript" src="overlay.js"/>  
+
+  <menupopup id="taskPopup">
+    <menuitem oncommand="com.googlecode.sqlitemanager.openInOwnWindow()"
+      label="SQLite Manager" id="menuitem-sqlitemanager"
+      insertafter="prefSep" class="menuitem-iconic"
+      accesskey="Q"/>
+  </menupopup>
+
+  <toolbarpalette id="MsgComposeToolbarPalette">
+    <toolbarbutton
+      class="toolbarbutton-1"
+      id="button-sqlitemanager"
+      label="SQLite Manager"
+      oncommand="com.googlecode.sqlitemanager.openInOwnWindow()"
+      tooltiptext="SQLite Manager"/>
+  </toolbarpalette>
+</overlay>

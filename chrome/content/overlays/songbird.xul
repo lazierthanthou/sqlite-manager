@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://sqlitemanager/skin/smoverlay.css" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://songbird/locale/songbird.dtd">
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="songbird_menu_overlay"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:xbl="http://www.mozilla.org/xbl">
+
+  <script type="application/x-javascript" src="overlay.js"/>  
+
+  <!-- Into the "Tools" menu, before the Prefs Separator -->
+  <menupopup id="menu_ToolsPopup">
+    <menuitem oncommand="OpenSMInOwnWindow()"
+      label="SQLite Manager" id="menuitem-sqlitemanager"
+      insertbefore="menu_PrefsSeparator" class="menuitem-iconic"
+      accesskey="Q"/>
+  </menupopup>
+</overlay>

@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://sqlitemanager/skin/sqlitemanager.css" type="text/css"?>
+ 
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
+
+<dialog id="dialog-copier" title="&window.title; - &copyTable;"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  buttons="accept,cancel"
+  ondialogaccept="return SmTableCopier.doOK();"
+  ondialogcancel="return true;"
+  onload="SmTableCopier.loadDialog();">
+
+  <script type="application/x-javascript" src="globals.js"/>  
+  <script type="application/x-javascript">
+  <![CDATA[
+    var SmTableCopier = {
+      loadDialog: function() {
+        document.getElementById("dbNameFrom").appendItem(window.arguments[0], window.arguments[0]);
+        document.getElementById("dbNameFrom").selectedIndex = 0;
+        document.getElementById("mlTableFrom").value = window.arguments[1];
+        var dbList = document.getElementById("dbNameTo");
+        for (var i = 0; i < window.arguments[2].length; i++) {
+          dbList.appendItem(window.arguments[2][i], window.arguments[2][i]);
+        }
+        dbList.selectedIndex = 0;
+        document.getElementById("mlTableTo").focus();
+      },
+
+      doOK: function() {
+        var aRetVals = window.arguments[3];
+        aRetVals.newDbName = document.getElementById("dbNameTo").value;
+        aRetVals.newTableName = document.getElementById("mlTableTo").value;
+        aRetVals.onlyStructure = document.getElementById("onlyStructure").checked;
+      }
+    }
+  ]]>
+  </script>  
+
+  <hbox>
+<!-- from -->
+  <groupbox id="hb-from">
+    <caption label="&From;"/>
+		<label style="padding-top:3px" control="dbNameFrom" 
+				value="&Database;:"/>
+    <menulist id="dbNameFrom" disabled="true"/>
+		<label style="padding-top:3px" control="mlTableFrom" value="&Table;:"/>
+     <textbox id="mlTableFrom" style="width: 25ex" readonly="true"/>
+  </groupbox>
+<!-- to -->
+  <groupbox id="hb-to">
+    <caption label="&To;"/>
+		<label style="padding-top:3px" control="dbNameTo" 
+				value="&Database;:" accesskey="D"/>
+    <menulist id="dbNameTo" />
+		<label style="padding-top:3px" control="mlTableTo" accesskey="&enterNewTable.ak;" value="&enterNewTable;:"/>
+     <textbox id="mlTableTo" style="width: 25ex"/>
+  </groupbox>
+  </hbox>
+	<checkbox id="onlyStructure" label="&onlyStructure;"/>
+</dialog>

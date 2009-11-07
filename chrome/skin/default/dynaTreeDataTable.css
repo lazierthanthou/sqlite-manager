@@ -1,0 +1,32 @@
+/*a separate css for freely deleting all rules before inserting any rules so that one does not have to pick and choose before deleting the rules*/
+/*this css is for styling the data tree in browse and execute tabs*/
+/*data tree styles*/
+/*
+treechildren::-moz-tree-cell(nullvalue selected) {
+}
+treechildren::-moz-tree-cell(nullvalue) {
+}
+
+treechildren::-moz-tree-cell(integervalue selected) {
+}
+treechildren::-moz-tree-cell(integervalue) {
+}
+
+treechildren::-moz-tree-cell(floatvalue selected) {
+}
+treechildren::-moz-tree-cell(floatvalue) {
+}
+
+treechildren::-moz-tree-cell(textvalue selected) {
+}
+treechildren::-moz-tree-cell(textvalue) {
+}
+
+treechildren::-moz-tree-cell(blobvalue selected) {
+  background-color: white;
+}
+treechildren::-moz-tree-cell(blobvalue) {
+  background-color: white;
+}
+*/
+

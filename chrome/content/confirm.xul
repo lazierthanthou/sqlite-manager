@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+ 
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
+
+<dialog id="dialog-confirm" title="&window.title; - "
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    buttons="accept,cancel"
+    buttonlabelcancel="&confirm.button.cancel;"
+    buttonlabelaccept="&confirm.button.accept;"
+    ondialogaccept="return SmConfirm.onClose(true);"
+    ondialogcancel="return SmConfirm.onClose(false);"
+    onload="SmConfirm.onLoad();">
+
+  <script type="application/x-javascript">
+  <![CDATA[
+    var SmConfirm = {
+      onLoad: function() {
+        if (window.arguments[3] == "alert") {
+          document.getElementById("dialog-confirm").buttons = "accept";
+          document.getElementById("dialog-confirm").getButton("accept").label = "Close";
+        }
+        document.title += " " + window.arguments[0];
+        document.getElementById("tbMessage").value = window.arguments[1];
+      },
+
+      onClose: function(bConfirm) {
+        var aRetVals = window.arguments[2];
+        aRetVals.bConfirm = bConfirm;
+        return true;
+      }
+    }
+  ]]>
+  </script>  
+
+  <textbox id="tbMessage" rows="8" multiline="true" readonly="true" width="400px"/>
+</dialog>

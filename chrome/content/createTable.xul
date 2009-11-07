@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
+
+<dialog id="createtable" title="&window.title; - &createTable;"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+				persist="width sizemode"
+        buttons="accept,cancel"
+        ondialogaccept="return CreateManager.doOKCreateTable();"
+        ondialogcancel="return CreateManager.doCancel();"
+				onload="CreateManager.loadCreateTableDialog();">
+
+  <script type="application/x-javascript" src="createManager.js"/>  
+  <script type="application/x-javascript" src="globals.js"/>  
+
+	<hbox flex="1" style="margin:5px 0 5px 0;">
+    <spacer flex="1"/>
+		<label style="padding-top:3px" accesskey="D"
+				control="dbName" value="&createTable.dbName;"/>
+    <menulist id="dbName"/>
+		<label style="padding-top:3px" accesskey="N"
+				control="tablename" value="&createTable.tablename;"/>
+    <textbox id="tablename"/>
+    <spacer flex="1"/>
+  </hbox>
+	<hbox id="hb-temp-exists" flex="1" style="margin:5px 0 5px 0;">
+    <spacer flex="1"/>
+		<checkbox id="temptable" accesskey="&createTable.temptable.ak;" label="&createTable.temptable;"/>
+		<checkbox id="ifnotexists" accesskey="&createTable.ifnotexists.ak;" label="&createTable.ifnotexists;"/>
+    <spacer flex="1"/>
+  </hbox>
+	<groupbox id="rows-grbox">
+	<caption label="&createTable.tablecolumns;"/>
+		<grid style="overflow-y:auto" height="300">
+		  <columns>
+		    <column/>
+		    <column/>
+		    <column/>
+		    <column/>
+		  </columns>
+		  <rows id="rows-all">
+		    <row>
+		      <label control="colname" value="&createTable.colname;"/>
+		      <label control="datatype" value="&createTable.datatype;"/>
+		      <label control="primarykey" value="&createTable.primarykey;"/>
+		      <label control="autoincrement" value="&createTable.autoincrement;"/>
+		      <label control="allownull" value="&createTable.allownull;"/>
+		      <label control="" value="&createTable.default;"/>
+<!--
+		      <label control="" value="&createTable.unique;"/>
+-->
+		    </row>
+		    <row id="row-template" style="display:none">
+		      <textbox id="colname"  width="10"/>
+		      <menulist id="datatype"   style="width:120px"
+						sizetopopup="always" editable="true"
+						oncommand="CreateManager.changeDataType(this.id);"
+						onblur="CreateManager.changeDataType(this.id);">
+		        <menupopup>
+		          <menuitem label="" selected="true"/>
+		          <menuitem label="INTEGER" />
+		          <menuitem label="BOOL" />
+		          <menuitem label="DOUBLE" />
+		          <menuitem label="FLOAT" />
+		          <menuitem label="REAL" />
+		          <menuitem label="CHAR" />
+		          <menuitem label="TEXT" />
+		          <menuitem label="VARCHAR" />
+		          <menuitem label="BLOB" />
+		          <menuitem label="NUMERIC" />
+		          <menuitem label="DATETIME" />
+		          <menuitem label="INTEGER (strict)" sm_type="INTEGER" sm_check="check(typeof(zzzz) = 'integer')"/>
+		          <menuitem label="REAL (strict)" sm_type="REAL" sm_check="check(typeof(zzzz) = 'real')"/>
+		          <menuitem label="TEXT (strict)" sm_type="TEXT" sm_check="check(typeof(zzzz) = 'text')"/>
+		        </menupopup>
+				  </menulist>
+		      <checkbox id="primarykey" 
+						label="&createTable.primarykey.yes;" checked="false"
+            oncommand="CreateManager.togglePrimaryKey(this.id);"/>
+		      <checkbox id="autoincrement" 
+						label="&createTable.autoincrement.yes;" checked="false" disabled="true"
+						tooltiptext="&createTable.autoincrement.tooltip;"
+            onclick=""/>
+		      <checkbox id="allownull" 
+						label="&createTable.allownull.yes;"	checked="true"/>
+		      <menulist id="defaultvalue"   style="width:150px"
+						sizetopopup="always" editable="true">
+		        <menupopup>
+		          <menuitem id="mi-val-null" label="" selected="true"/>
+		          <menuitem label="CURRENT_DATE" />
+		          <menuitem label="CURRENT_TIME" />
+		          <menuitem label="CURRENT_TIMESTAMP" />
+		        </menupopup>
+				  </menulist>
+<!--
+		      <menulist id="unique"
+								sizetopopup="always"
+								oncommand="">
+				        <menupopup>
+				          <menuitem label="" selected="true"/>
+				          <menuitem label="&createTable.unique.column;" />
+				          <menuitem label="&createTable.unique.columnlist;" />
+				        </menupopup>
+				  </menulist>
+-->
+		    </row>
+		  </rows>
+		</grid>  
+	</groupbox>
+</dialog>

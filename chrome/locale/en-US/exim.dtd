@@ -1,0 +1,44 @@
+<!ENTITY tablename     "Name of the Table:">
+<!ENTITY tablename.ak     "N">
+
+<!ENTITY CSV     "CSV">
+<!ENTITY SQL     "SQL">
+<!ENTITY XML     "XML">
+
+<!ENTITY csv.tableName     "Enter the name of the table in which data will be imported:">
+<!ENTITY Comma     "Comma">
+<!ENTITY Comma.ak     "C">
+<!ENTITY Semicolon     "Semicolon">
+<!ENTITY Pipe     "Pipe">
+<!ENTITY Tab     "Tab">
+
+<!ENTITY csv.firstrow     "First row contains column names">
+<!ENTITY csv.separate     "Fields separated by">
+<!ENTITY csv.enclose     "Fields enclosed by">
+
+<!ENTITY sql.settings     "SQL Settings">
+<!ENTITY sql.create     "Include CREATE TABLE statement">
+<!ENTITY sql.transaction     "BEGIN TRANSACTION/COMMIT statements should be used">
+<!ENTITY sql.transaction.desc     "If this option is checked, it is assumed that, in the selected file, the first and last statements are BEGIN TRANSACTION and COMMIT respectively. The extension will exclude these and execute all the remaining statements in a single transaction. If there are transaction related statements in between too these should be manually removed from the file before importing.">
+
+<!ENTITY xml.type     "Include/Use Type as an attribute">
+<!ENTITY xml.type.desc     "Uncheck this option if you are importing data which does not contain this attribute. It is recommended to use this feature if you intend to export data using SQLite Manager. The extra information can then be used during import to distinguish strings, nulls, integers, etc. from each other.">
+
+<!ENTITY importWizard             "Import Wizard">
+<!ENTITY eximDbName               "Database:">
+<!ENTITY eximDbName.ak            "D">
+<!ENTITY loading                  "(loading)">
+<!ENTITY eximFilename             "Select File">
+<!ENTITY eximFilename.ak          "S">
+<!ENTITY eximFileCharSet  "Character Encoding">
+<!ENTITY eximFileCharSet.ak  "h">
+<!ENTITY eximCsv_encloser.doublequotes.standard     "Double quotes (&quot;), if necessary (Standard)">
+<!ENTITY eximCsv_encloser.doublequotes.standard.ak  "q">
+<!ENTITY eximCsv_encloser.doublequotes.always       "Double quotes (&quot;), always">
+<!ENTITY eximCsv_encloser.singlequotes              "Single quotes (')">
+<!ENTITY eximCsv_encloser.other        "Other">
+<!ENTITY eximXml_root-element          "Name of Root Element:">
+<!ENTITY eximXml_prefix-table-element  "Prefix this to Table Element:">
+<!ENTITY exim-exp-ok                   "OK">
+<!ENTITY exim-imp-ok                   "OK">
+<!ENTITY exim-cancel                   "Close Wizard">

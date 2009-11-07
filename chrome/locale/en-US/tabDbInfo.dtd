@@ -1,0 +1,52 @@
+<!ENTITY change     "Change">
+<!ENTITY useWithCaution     "use with caution">
+<!ENTITY dbSettingsDesc "These settings modify the operation of the SQLite library.">
+
+<!ENTITY versions "Versions">
+<!ENTITY schema_version "Schema Version">
+<!ENTITY user_version "User Version">
+
+<!ENTITY cache_size "Cache Size (no. of pages)">
+<!ENTITY default_cache_size "Default Cache Size (no. of pages)">
+
+<!ENTITY pages "Pages">
+<!ENTITY page_size "Page Size (bytes)">
+<!ENTITY max_page_count "Max Page Count">
+<!ENTITY page_count "Page Count">
+<!ENTITY freelist_count "Freelist Count">
+
+<!ENTITY journals "Journals">
+<!ENTITY journal_mode "Journal Mode">
+<!ENTITY journal_size_limit "Journal Size Limit">
+
+<!ENTITY others "Others">
+<!ENTITY auto_vacuum "Auto Vacuum">
+<!ENTITY case_sensitive_like "Case-sensitive Like">
+<!ENTITY count_changes "Count Changes">
+<!ENTITY empty_result_callbacks "Empty Result Callbacks">
+<!ENTITY encoding "Encoding">
+<!ENTITY UTF8 "UTF-8">
+<!ENTITY UTF16 "UTF-16">
+<!ENTITY UTF16le "UTF-16le">
+<!ENTITY UTF16be "UTF-16be">
+<!ENTITY full_column_names "Full Column Names">
+<!ENTITY fullfsync "Fullfsync flag">
+<!ENTITY legacy_file_format "Legacy File Format">
+<!ENTITY locking_mode "Locking Mode">
+<!ENTITY read_uncommitted "Read Uncommitted">
+<!ENTITY short_column_names "Short Column Names">
+<!ENTITY synchronous "Synchronous">
+
+<!ENTITY temp_store "Temporary Store">
+<!ENTITY temp_store_directory "Temporary Store Directory">
+
+<!ENTITY On "On">
+<!ENTITY Off "Off">
+<!ENTITY Default "Default">
+<!ENTITY File "File">
+<!ENTITY Memory "Memory">
+<!ENTITY Normal "Normal">
+<!ENTITY Exclusive "Exclusive">
+<!ENTITY Full "Full">
+<!ENTITY None "None">
+<!ENTITY Incremental "Incremental">

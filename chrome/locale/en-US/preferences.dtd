@@ -1,0 +1,61 @@
+<!ENTITY  prefwinTitle	"SQLiteManager Options">
+
+<!ENTITY  paneMain.title	"Main">
+
+<!ENTITY  pref-openMode.label	"Start SQLite Manager">
+<!ENTITY  pref-openMode-win	"in a new window">
+<!ENTITY  pref-openMode-win.ak	"w">
+<!ENTITY  pref-openMode-tab	"in a new tab">
+
+<!ENTITY  pref-openADS.label	"Open ADS (Windows/NTFS only)">
+<!ENTITY  disable	"Disable">
+<!ENTITY  enable	"Enable">
+
+<!ENTITY  whenSMStarts	"When SQLite Manager starts">
+<!ENTITY  pref-openWithLastDb.label	"Open the last used database">
+<!ENTITY  pref-openWithLastDb.ak	"O">
+<!ENTITY  pref-promptForLastDb.label	"Always confirm when opening the last used database">
+<!ENTITY  pref-promptForLastDb.ak	"A">
+
+<!ENTITY  pref-autoBackup.label	"Create a timestamped Backup before opening a database">
+<!ENTITY  pref-autoBackup.ak		"B">
+<!ENTITY  pref-autoBackup.on		"on">
+<!ENTITY  pref-autoBackup.off		"off">
+<!ENTITY  pref-sqliteFileExtensions.label	"Default file extension for SQLite files">
+<!ENTITY  pref-sqliteFileExtensions.ak		"S">
+<!ENTITY  pref-tableForExtensionManagement.label	"Name of the table to store extension management data">
+<!ENTITY  pref-tableForExtensionManagement.ak	"m">
+
+<!ENTITY  panePrompts.title	"Prompts">
+
+<!ENTITY  confirmBeforeExecute		"Confirm before executing the following">
+<!ENTITY  pref-confirm.records.label	"Before adding/editing a record">
+<!ENTITY  pref-confirm.records.label	"Before adding/editing a record">
+<!ENTITY  pref-confirm.create.label		"Before creating a table/index/view/trigger">
+<!ENTITY  pref-confirm.otherSql.label	"Any other operations on the table">
+
+<!ENTITY  paneInterface.title	"User Interface">
+
+<!ENTITY  toolbar.caption	"Toolbar Settings">
+<!ENTITY  pref-hideMainToolbar.label	"Hide all the toolbars">
+<!ENTITY  pref-showMainToolbarDatabase.label	"Show the Database toolbar">
+<!ENTITY  pref-showMainToolbarIndex.label	"Show the Index toolbar">
+<!ENTITY  pref-showMainToolbarTable.label	"Show the Table toolbar">
+<!ENTITY  pref-showMainToolbarDebug.label	"Show the Debug toolbar">
+
+<!ENTITY  pref-displayNumRecords.label	"Number of records to display (Browse &amp; Search tab)">
+<!ENTITY  pref-displayNumRecords.ak		"N">
+<!ENTITY  pref-sqlTextboxRows.label	"Number of Rows in textbox to enter sql (Execute SQL tab)">
+<!ENTITY  pref-sqlTextboxRows.ak	"R">
+<!ENTITY  pref-maxColumnsInTable.label	"Max number of columns in Create Table dialog">
+<!ENTITY  pref-maxColumnsInTable.ak	"M">
+
+<!ENTITY  blobDisplay.caption	"How to display BLOB data?">
+<!ENTITY  pref-textForBlob.label	"Text to display for BLOB value">
+<!ENTITY  pref-textForBlob.ak	"B">
+<!ENTITY  pref-showBlobSize.label	"Display size of blob data">
+<!ENTITY  pref-maxSizeToShowBlobData.label	"Size (in bytes) below which blob should be displayed as string">
+<!ENTITY  pref-maxSizeToShowBlobData.ak	"z">
+
+<!ENTITY  pref-whenInsertingShow.label	"When adding new record, show previously added values, or default values">
+<!ENTITY  pref-whenInsertingShow.ak	"W">

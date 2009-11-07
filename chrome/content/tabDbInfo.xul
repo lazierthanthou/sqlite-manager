@@ -1,0 +1,266 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://sqlitemanager/skin/sqlitemanager.css" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/tabDbInfo.dtd">
+
+<overlay id="tabDbInfo-overlay"
+      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <tabpanel id="dbInfoTab" flex="1">
+    <notificationbox id="boxNotifyDbInfo" flex="1">
+
+<!--
+Omitted: case_sensitive_like, incremental_vacuum(N)
+Do not work: locking_mode
+-->
+	<vbox id="vb-dbInfoTab" flex="1" style="overflow:auto">
+ 	<groupbox>
+		<caption label="&versions;"/>
+  	<hbox>
+  		<label value="&schema_version;" class="dbinfo"/>
+			<textbox id="pr-schema_version" type="number"	value=""/>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('schema_version');" style="color:red;"/>
+  	</hbox>
+  	<hbox>
+  		<label value="&user_version;" class="dbinfo"/>
+			<textbox id="pr-user_version" type="number"	value=""/>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('user_version');"/>
+  	</hbox>
+ 	</groupbox>
+
+ 	<groupbox>
+		<caption label="&pages;"/>
+  	<hbox>
+  		<label value="&page_size;" class="dbinfo"/>
+			<menulist id="pr-page_size">
+				<menupopup>
+					<menuitem label="512" value="512"/>
+					<menuitem label="1024" value="1024"/>
+					<menuitem label="2048" value="2048"/>
+					<menuitem label="4096" value="4096"/>
+					<menuitem label="8192" value="8192"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('page_size');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&page_count;" class="dbinfo"/>
+			<textbox id="pr-page_count" style="width:10ex" readonly="true"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&freelist_count;" class="dbinfo"/>
+			<textbox id="pr-freelist_count" style="width:10ex" readonly="true"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&max_page_count;" class="dbinfo"/>
+			<textbox id="pr-max_page_count" type="number" value=""/>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('max_page_count');"/>
+  	</hbox>
+ 	</groupbox>
+
+ 	<groupbox>
+		<caption label="&cache_size;"/>
+  	<hbox>
+  		<label value="&cache_size;" class="dbinfo"/>
+			<textbox id="pr-cache_size" type="number" value=""/>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('cache_size');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&default_cache_size;" class="dbinfo"/>
+			<textbox id="pr-default_cache_size" type="number" value=""/>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('default_cache_size');"/>
+  	</hbox>
+ 	</groupbox>
+
+ 	<groupbox>
+		<caption label="&journals;"/>
+  	<hbox>
+  		<label value="&journal_mode;" class="dbinfo"/>
+			<menulist id="pr-journal_mode">
+				<menupopup>
+					<menuitem label="delete" value="delete"/>
+					<menuitem label="truncate" value="truncate"/>
+					<menuitem label="persist" value="persist"/>
+					<menuitem label="memory" value="memory"/>
+					<menuitem label="off" value="off"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('journal_mode');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&journal_size_limit;" class="dbinfo"/>
+			<textbox id="pr-journal_size_limit" type="number" value=""/>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('journal_size_limit');"/>
+  	</hbox>
+ 	</groupbox>
+
+ 	<groupbox>
+		<caption label="&others;"/>
+  	<hbox>
+  		<label value="&auto_vacuum;" class="dbinfo"/>
+			<menulist id="pr-auto_vacuum">
+				<menupopup>
+					<menuitem label="&None;" value="0"/>
+					<menuitem label="&Full;" value="1"/>
+					<menuitem label="&Incremental;" value="2"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('auto_vacuum');"/>
+  	</hbox>
+
+<!-- can set the value but not get it; see pragma help at sqlite.org
+  	<hbox>
+  		<label value="&case_sensitive_like;" class="dbinfo"/>
+			<menulist id="pr-case_sensitive_like">
+				<menupopup>
+					<menuitem label="&On;" value="1"/>
+					<menuitem label="&Off;" value="0"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('case_sensitive_like');"/>
+  	</hbox>
+-->
+
+  	<hbox>
+  		<label value="&count_changes;" class="dbinfo"/>
+			<menulist id="pr-count_changes">
+				<menupopup>
+					<menuitem label="&On;" value="1"/>
+					<menuitem label="&Off;" value="0"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('count_changes');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&empty_result_callbacks;" class="dbinfo"/>
+			<menulist id="pr-empty_result_callbacks">
+				<menupopup>
+					<menuitem label="&On;" value="1"/>
+					<menuitem label="&Off;" value="0"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('empty_result_callbacks');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&encoding;" class="dbinfo"/>
+			<menulist id="pr-encoding">
+				<menupopup>
+					<menuitem label="&UTF8;" value="UTF-8"/>
+					<menuitem label="&UTF16;" value="UTF-16"/>
+					<menuitem label="&UTF16le;" value="UTF-16le"/>
+					<menuitem label="&UTF16be;" value="UTF-16be"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('encoding');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&fullfsync;" class="dbinfo"/>
+			<menulist id="pr-fullfsync">
+				<menupopup>
+					<menuitem label="&On;" value="1"/>
+					<menuitem label="&Off;" value="0"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('fullfsync');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&legacy_file_format;" class="dbinfo"/>
+			<menulist id="pr-legacy_file_format">
+				<menupopup>
+					<menuitem label="&On;" value="1"/>
+					<menuitem label="&Off;" value="0"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('legacy_file_format');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&locking_mode;" class="dbinfo"/>
+			<menulist id="pr-locking_mode">
+				<menupopup>
+					<menuitem label="&Normal;" value="normal"/>
+					<menuitem label="&Exclusive;" value="exclusive"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('locking_mode');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&read_uncommitted;" class="dbinfo"/>
+			<menulist id="pr-read_uncommitted">
+				<menupopup>
+					<menuitem label="&On;" value="1"/>
+					<menuitem label="&Off;" value="0"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('read_uncommitted');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&full_column_names;" class="dbinfo"/>
+			<menulist id="pr-full_column_names">
+				<menupopup>
+					<menuitem label="&On;" value="1"/>
+					<menuitem label="&Off;" value="0"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('full_column_names');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&short_column_names;" class="dbinfo"/>
+			<menulist id="pr-short_column_names">
+				<menupopup>
+					<menuitem label="&On;" value="1"/>
+					<menuitem label="&Off;" value="0"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('short_column_names');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&synchronous;" class="dbinfo"/>
+			<menulist id="pr-synchronous">
+				<menupopup>
+					<menuitem label="&Off;" value="0"/>
+					<menuitem label="&Normal;" value="1"/>
+					<menuitem label="&Full;" value="2"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('synchronous');"/>
+  	</hbox>
+ 	</groupbox>
+
+ 	<groupbox>
+		<caption label="&temp_store;"/>
+  	<hbox>
+  		<label value="&temp_store;" class="dbinfo"/>
+			<menulist id="pr-temp_store">
+				<menupopup>
+					<menuitem label="&Default;" value="0"/>
+					<menuitem label="&File;" value="1"/>
+					<menuitem label="&Memory;" value="2"/>
+				</menupopup>
+			</menulist>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('temp_store');"/>
+  	</hbox>
+
+  	<hbox>
+  		<label value="&temp_store_directory;" class="dbinfo"/>
+			<textbox id="pr-temp_store_directory" value=""/>
+			<button label="&change;" oncommand="SQLiteManager.changeDbSetting('temp_store_directory');"/>
+  	</hbox>
+ 	</groupbox>
+	</vbox>
+	</notificationbox>
+	</tabpanel>
+</overlay>

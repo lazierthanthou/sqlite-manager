@@ -1,0 +1,8 @@
+content     sqlitemanager file:content/
+skin        sqlitemanager default file:skin/default/
+locale      sqlitemanager en-US   file:locale/en-US/
+resource    sqlitemanager file:resource/
+
+#overrides
+style chrome://sqlitemanager/content/sqlitemanager.xul chrome://sqlitemanager/skin/darwin/sqlitemanager.css os=darwin
+

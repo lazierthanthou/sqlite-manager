@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
+ 
+<dialog id="createview" title="&window.title; - &createView;"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        buttons="accept,cancel"
+        ondialogaccept="return CreateManager.doOKCreateView();"
+        ondialogcancel="return CreateManager.doCancel();"
+				onload="CreateManager.loadCreateViewDialog();">
+
+  <script type="application/x-javascript" src="createManager.js"/>
+  <script type="application/x-javascript" src="globals.js"/>
+
+	<hbox style="margin:5px 0 5px 0;">
+    <spacer flex="1"/>
+		<label style="padding-top:3px" control="dbName"
+				accesskey="&Database.ak;"	value="&Database;:"/>
+    <menulist id="dbName"/>
+		<label style="padding-top:3px" control="objectName"
+				accesskey="&Name.ak;"	value="&ViewName;:"/>
+    <textbox id="objectName"/>
+    <spacer flex="1"/>
+  </hbox>
+	<hbox style="margin:5px 0 5px 0;">
+    <spacer flex="1"/>
+		<checkbox id="tempObject"	accesskey="&Temporary.ak;"	label="&Temporary;"/>
+		<checkbox id="ifnotexists"	accesskey="&ifNotExists.ak;"	label="&ifNotExists;"/>
+    <spacer flex="1"/>
+  </hbox>
+  <vbox id="details-view" flex="1">
+  	<label control="txtSelectStatement" value="&SelectStatement;:"
+			accesskey="&SelectStatement.ak;"/>
+		<textbox id="txtSelectStatement" multiline="true" rows="4" cols="50"
+						align="stretch" value="select * from tablename"
+						style="height:100%;" flex="1"/>
+  </vbox>
+
+</dialog>

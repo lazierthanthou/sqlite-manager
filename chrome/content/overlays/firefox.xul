@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://sqlitemanager/skin/smoverlay.css" type="text/css"?>
+<overlay id="overlay"
+   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript" src="chrome://sqlitemanager/content/overlays/overlay.js"/>  
+  <script type="application/x-javascript">
+  <![CDATA[
+    // Register handlers to maintain extension life cycle.
+    window.addEventListener("load", com.googlecode.sqlitemanager.start, false);
+    window.addEventListener("unload", com.googlecode.sqlitemanager.shutdown, false);
+  ]]>
+  </script>
+
+  <menupopup id="menu_ToolsPopup">
+    <menuitem oncommand="com.googlecode.sqlitemanager.open()"
+      label="SQLite Manager" id="menuitem-sqlitemanager"
+      insertafter="devToolsSeparator" class="menuitem-iconic"
+      accesskey="Q"/>
+  </menupopup>
+
+  <toolbarpalette id="BrowserToolbarPalette">
+    <toolbarbutton
+      class="toolbarbutton-1"
+      id="button-sqlitemanager"
+      label="SQLite Manager"
+      oncommand="com.googlecode.sqlitemanager.open()"
+      tooltiptext="SQLite Manager"/>
+  </toolbarpalette>
+</overlay>

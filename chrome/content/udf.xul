@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://sqlitemanager/skin/sqlitemanager.css" type="text/css"?>
+ 
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/udf.dtd">
+<!-- all id should begin with udf -->
+<overlay id="udfOverlay"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<tabpanel id="udfTabpanel" flex="1">
+  <notificationbox id="udfNotifyBox" flex="1">
+  <hbox id="udfStatus" hidden="true">
+    <label id="udfStatusLabel" style="background-color: #ffff66;padding-top:2px;"/>
+    <button label="Cancel Operation" oncommand="SmUdf.handleImportCompletion(0);"/>
+  </hbox>
+  <vbox flex="1" style="overflow:auto">
+    <!-- hbox for udf db dir selection-->
+    <hbox>
+	    <textbox id="udfDbDirPath" flex="1" readonly="true"/>
+      <button id="udfDbDirPathButton" label="&udf.selectDir;" accesskey="&udf.selectDir.ak;" oncommand="SmUdf.selectUdfDir();"/>
+	  </hbox>
+
+  	<tabbox>
+  		<tabs id="udfTabs" onselect="SmUdf.onSelectTab();">
+  			<tab id="udfTabNew" class="exportTabs"  linkedpanel="udfPanelNew" label="&udf.newFunction;" persist="selected"/>
+  			<tab id="udfTabView" class="exportTabs"  linkedpanel="udfPanelView" label="&udf.existingFunction;" persist="selected"/>
+  		</tabs>
+  		<tabpanels>
+  			<tabpanel id="udfPanelNew">
+  				<vbox>
+  				  <hbox>
+  				    <label class="forControl" value="&udf.funcName;"/>
+  				    <textbox id="udfNewFuncName" value=""/>
+  				  </hbox>
+  				  <hbox>
+  				    <label class="forControl" value="&udf.funcArgLength;"/>
+  				    <textbox id="udfNewFuncArgLength" value=""/>
+              <toolbarbutton class="tbb_questionmark" oncommand="SmUdf.showHelp('newFunctionArgLength')"/>
+  				  </hbox>
+  				  <hbox>
+  				    <label class="forControl" value="&udf.funcBody;"/>
+              <toolbarbutton class="tbb_questionmark" oncommand="SmUdf.showHelp('newFunctionBody')"/>
+  				  </hbox>
+  				  <hbox>
+  				    <textbox id="udfNewFuncBody" multiline="true" rows="6" flex="1"/>
+  				  </hbox>
+  				</vbox>
+  			</tabpanel>
+
+  			<tabpanel id="udfPanelView">
+  				<vbox>
+    				<hbox>
+      		    <label style="padding-top:3px" control="udfFuncMenuList" value="Function Names :"/>
+              <menulist id="udfFuncMenuList" oncommand="SmUdf.onSelectFuncName()"/>
+    				</hbox>
+    				<description id="udfViewFunc" style="white-space: pre-wrap;" />
+  				</vbox>
+  			</tabpanel>
+  		</tabpanels>
+  	</tabbox>
+
+    <hbox>
+      <button id="udfCancelButton" label="&udf-cancel;" style="color:red;" oncommand="SQLiteManager.closeTab();"/>
+    </hbox>
+  </vbox>
+</notificationbox>
+</tabpanel>
+</overlay>

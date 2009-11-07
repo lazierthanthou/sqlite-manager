@@ -1,0 +1,261 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/global.css"?>
+
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/preferences.dtd">
+
+<prefwindow type="prefwindow" id="SQLiteManagerPreferences"
+  windowtype="Browser:Preferences" title="&prefwinTitle;"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  style="">
+
+  <script type="application/x-javascript" src="globals.js"/>  
+  <script type="application/x-javascript">
+  <![CDATA[
+    window.addEventListener("load", sm_setDataTreeStyleControls, false);
+  ]]>
+  </script>
+
+  <prefpane id="main-options" label="&paneMain.title;">
+    <preferences>
+      <preference id="pref-openMode" 
+				name="extensions.sqlitemanager.openMode" type="int"/>
+      <preference id="pref-openADS" 
+				name="extensions.sqlitemanager.handleADS" type="int"/>
+      <preference id="pref-openWithLastDb" 
+				name="extensions.sqlitemanager.openWithLastDb" type="bool"/>
+      <preference id="pref-promptForLastDb" 
+				name="extensions.sqlitemanager.promptForLastDb" type="bool"/>
+      <preference id="pref-autoBackup" 
+				name="extensions.sqlitemanager.autoBackup" type="string"/>
+      <preference id="pref-sqliteFileExtensions" 
+				name="extensions.sqlitemanager.sqliteFileExtensions" type="string"/>
+      <preference id="pref-tableForExtensionManagement" 
+				name="extensions.sqlitemanager.tableForExtensionManagement" type="string"/>
+    </preferences>
+		<groupbox>
+			<caption label="&pref-openMode.label;"/>
+			<radiogroup id="rg-openMode" value="1" preference="pref-openMode">
+				<radio label="&pref-openMode-win;" value="1" selected="true" accesskey="&pref-openMode-win.ak;"/>
+			  <radio label="&pref-openMode-tab;" value="2"/>
+			</radiogroup>
+			</groupbox>
+			<groupbox>
+			<caption label="&whenSMStarts;"/>
+			<checkbox id="cb-openWithLastDb" 
+				label="&pref-openWithLastDb.label;"
+				accesskey="&pref-openWithLastDb.ak;"
+				preference="pref-openWithLastDb" 
+				checked="true"/>
+			<checkbox id="cb-promptForLastDb" 
+				label="&pref-promptForLastDb.label;"
+				accesskey="&pref-promptForLastDb.ak;"
+				preference="pref-promptForLastDb" 
+				checked="true"/>
+			</groupbox>
+    	<hbox>
+    		<label style="padding-top:3px" 
+    				accesskey="&pref-autoBackup.ak;"
+    				control="ml-autoBackup" 
+    				value="&pref-autoBackup.label;"/>
+        <spacer flex="1"/>
+        <menulist id="ml-autoBackup" style="width: 20ex" sizetopopup="always" preference="pref-autoBackup">
+  				<menupopup>
+  				  <menuitem label="&pref-autoBackup.off;" value="off"/>
+  				  <menuitem label="&pref-autoBackup.on;" value="on"/>
+  				  <menuitem label="prompt" value="prompt"/>
+  				</menupopup>
+        </menulist>
+      </hbox>
+			<hbox>
+			  <label value="&pref-sqliteFileExtensions.label;" style="padding-top:5px" accesskey="&pref-sqliteFileExtensions.ak;" control="tb-sqliteFileExtensions"/>
+		        <spacer flex="1"/>
+			  <textbox id="tb-sqliteFileExtensions" flex="1" preference="pref-sqliteFileExtensions"/>
+			  </hbox>
+  			<hbox>
+			  <label value="&pref-tableForExtensionManagement.label;" style="padding-top:5px" accesskey="&pref-tableForExtensionManagement.ak;" control="tb-tableForExtensionManagement"/>
+		        <spacer flex="1"/>
+			  <textbox id="tb-tableForExtensionManagement" flex="1" preference="pref-tableForExtensionManagement"/>
+			  </hbox>
+			<groupbox>
+			<caption label="&pref-openADS.label;"/>
+			<radiogroup id="rg-openADS" preference="pref-openADS">
+			 <hbox>
+				  <radio label="&disable;" value="0"/>
+          <radio label="&enable;" value="1"/>
+			 </hbox>
+			</radiogroup>
+			</groupbox>
+      </prefpane>
+      <prefpane id="confirm-options" label="&panePrompts.title;">
+        <preferences>
+          <preference id="pref-confirm.records" name="extensions.sqlitemanager.confirm.records" type="bool"/>
+          <preference id="pref-confirm.create" name="extensions.sqlitemanager.confirm.create" type="bool"/>
+          <preference id="pref-confirm.otherSql" name="extensions.sqlitemanager.confirm.otherSql" type="bool"/>
+        </preferences>
+			  <groupbox>
+			  <caption label="&confirmBeforeExecute;"/>
+				  <checkbox id="cb-pref-confirm.records" label="&pref-confirm.records.label;" preference="pref-confirm.records" checked="true"/>
+				  <checkbox id="cb-pref-confirm.create" label="&pref-confirm.create.label;" preference="pref-confirm.create" checked="true"/>
+				  <checkbox id="cb-pref-confirm.otherSql" label="&pref-confirm.otherSql.label;" preference="pref-confirm.otherSql" checked="true"/>
+			  </groupbox>
+      </prefpane>
+      <prefpane id="interface-options" label="&paneInterface.title;">
+        <preferences>
+          <preference id="pref-hideMainToolbar" name="extensions.sqlitemanager.hideMainToolbar" type="bool"/>
+          <preference id="pref-showMainToolbarDatabase" name="extensions.sqlitemanager.showMainToolbarDatabase" type="bool"/>
+          <preference id="pref-showMainToolbarTable" name="extensions.sqlitemanager.showMainToolbarTable" type="bool"/>
+          <preference id="pref-showMainToolbarIndex" name="extensions.sqlitemanager.showMainToolbarIndex" type="bool"/>
+          <preference id="pref-showMainToolbarDebug" name="extensions.sqlitemanager.showMainToolbarDebug" type="bool"/>
+
+          <preference id="pref-displayNumRecords" name="extensions.sqlitemanager.displayNumRecords" type="int"/>
+          <preference id="pref-maxColumnsInTable" name="extensions.sqlitemanager.maxColumnsInTable" type="int"/>
+
+          <preference id="pref-textForBlob" name="extensions.sqlitemanager.textForBlob" type="string"/>
+          <preference id="pref-showBlobSize" name="extensions.sqlitemanager.showBlobSize" type="bool"/>
+          <preference id="pref-maxSizeToShowBlobData" name="extensions.sqlitemanager.maxSizeToShowBlobData" type="int"/>
+
+          <preference id="pref-whenInsertingShow" name="extensions.sqlitemanager.whenInsertingShow" type="string"/>
+        </preferences>
+			  <groupbox>
+			  <caption label="&toolbar.caption;"/>
+				  <checkbox id="cb-hideMainToolbar" label="&pref-hideMainToolbar.label;" preference="pref-hideMainToolbar" checked="false"/>
+				  <checkbox id="cb-showMainToolbarDatabase" label="&pref-showMainToolbarDatabase.label;" style="padding-left:20px" preference="pref-showMainToolbarDatabase" checked="true"/>
+				  <checkbox id="cb-showMainToolbarTable" label="&pref-showMainToolbarTable.label;" style="padding-left:20px" preference="pref-showMainToolbarTable" checked="true"/>
+				  <checkbox id="cb-showMainToolbarIndex" label="&pref-showMainToolbarIndex.label;" style="padding-left:20px" preference="pref-showMainToolbarIndex" checked="true"/>
+				  <checkbox id="cb-showMainToolbarDebug" label="&pref-showMainToolbarDebug.label;" style="padding-left:20px" preference="pref-showMainToolbarDebug"/>
+			  </groupbox>
+			  <hbox>
+			  <label value="&pref-displayNumRecords.label;" style="padding-top:5px" accesskey="&pref-displayNumRecords.ak;" control="tb-displayNumRecords"/>
+        <spacer flex="1"/>
+			  <textbox id="tb-displayNumRecords" type="number" min="0" preference="pref-displayNumRecords"/>
+			  </hbox>
+			  <hbox>
+			  <label value="&pref-maxColumnsInTable.label;" style="padding-top:5px" accesskey="&pref-maxColumnsInTable.ak;" control="tb-maxColumnsInTable"/>
+        <spacer flex="1"/>
+			  <textbox id="tb-maxColumnsInTable" type="number" min="5" preference="pref-maxColumnsInTable"/>
+			  </hbox>
+      	<hbox>
+      		<label style="padding-top:3px" accesskey="&pref-whenInsertingShow.ak;" control="ml-whenInsertingShow" value="&pref-whenInsertingShow.label;"/>
+          <spacer flex="1"/>
+          <menulist id="ml-whenInsertingShow" style="width: 20ex" sizetopopup="always" preference="pref-whenInsertingShow">
+    				<menupopup>
+    				  <menuitem label="previous" value="previous"/>
+    				  <menuitem label="default" value="default"/>
+    				</menupopup>
+          </menulist>
+        </hbox>
+			  <groupbox>
+			  <caption label="&blobDisplay.caption;"/>
+  			<hbox>
+			  <label value="&pref-textForBlob.label;" style="padding-top:5px" accesskey="&pref-textForBlob.ak;" control="tb-textForBlob"/>
+        <spacer flex="1"/>
+			  <textbox id="tb-textForBlob" flex="1" preference="pref-textForBlob"/>
+			  </hbox>
+			  <hbox>
+				  <checkbox id="cb-showBlobSize" 
+						label="&pref-showBlobSize.label;" style="padding-left:20px" preference="pref-showBlobSize" checked="true"/>
+			  </hbox>
+			  <hbox>
+			  <label value="&pref-maxSizeToShowBlobData.label;" style="padding-top:5px" accesskey="&pref-maxSizeToShowBlobData.ak;" control="tb-maxSizeToShowBlobData"/>
+        <spacer flex="1"/>
+			  <textbox id="tb-maxSizeToShowBlobData" type="number" min="-1" preference="pref-maxSizeToShowBlobData"/>
+			  </hbox>
+			  </groupbox>
+      </prefpane>
+
+      <prefpane id="datatree-options" label="Data Tree Style">
+        <preferences>
+          <preference id="pref-dataTreeStyle" name="extensions.sqlitemanager.dataTreeStyle" type="string"/>
+        </preferences>
+
+		    <grid>
+			    <columns>
+				    <column style="padding: 2px 15px;"/>
+				    <column style="padding: 2px 15px;"/>
+				    <column style="padding: 6px;" flex="1"/>
+				    <column style="padding: 6px;" flex="1"/>
+			    </columns>
+			    <rows>
+				    <row align="center">
+				      <label value="Data type"/>
+				      <label value="Property"/>
+				      <label value="Unselected"/>
+				      <label value="Selected"/>
+				    </row>
+				    <row align="center">
+				      <html:hr/>
+				      <html:hr/>
+				      <html:hr/>
+				      <html:hr/>
+				    </row>
+				    <row align="center">
+				      <label value="Null"/>
+				      <label value="color"/>
+				      <colorpicker mktpref="dataTreeStyle.nullvalue.unselected.color" type="button"/>
+				      <colorpicker mktpref="dataTreeStyle.nullvalue.selected.color" type="button"/>
+				    </row>
+				    <row align="center">
+				      <label value=""/>
+				      <label value="background-color"/>
+				      <colorpicker mktpref="dataTreeStyle.nullvalue.unselected.background-color" type="button"/>
+				      <colorpicker mktpref="dataTreeStyle.nullvalue.selected.background-color" type="button"/>
+				    </row>
+				    <row align="center">
+				      <label value="Integer"/>
+				      <label value="color"/>
+				      <colorpicker mktpref="dataTreeStyle.integervalue.unselected.color" type="button"/>
+				      <colorpicker mktpref="dataTreeStyle.integervalue.selected.color" type="button"/>
+				    </row>
+				    <row align="center">
+				      <label value=""/>
+				      <label value="background-color"/>
+				      <colorpicker mktpref="dataTreeStyle.integervalue.unselected.background-color" type="button"/>
+				      <colorpicker mktpref="dataTreeStyle.integervalue.selected.background-color" type="button"/>
+				    </row>
+				    <row align="center">
+				      <label value="Float"/>
+				      <label value="color"/>
+				      <colorpicker mktpref="dataTreeStyle.floatvalue.unselected.color" type="button"/>
+				      <colorpicker mktpref="dataTreeStyle.floatvalue.selected.color" type="button"/>
+				    </row>
+				    <row align="center">
+				      <label value=""/>
+				      <label value="background-color"/>
+				      <colorpicker mktpref="dataTreeStyle.floatvalue.unselected.background-color" type="button"/>
+				      <colorpicker mktpref="dataTreeStyle.floatvalue.selected.background-color" type="button"/>
+				    </row>
+				    <row align="center">
+				      <label value="String"/>
+				      <label value="color"/>
+				      <colorpicker mktpref="dataTreeStyle.textvalue.unselected.color" type="button"/>
+				      <colorpicker mktpref="dataTreeStyle.textvalue.selected.color" type="button"/>
+				    </row>
+				    <row align="center">
+				      <label value=""/>
+				      <label value="background-color"/>
+				      <colorpicker mktpref="dataTreeStyle.textvalue.unselected.background-color" type="button"/>
+				      <colorpicker mktpref="dataTreeStyle.textvalue.selected.background-color" type="button"/>
+				    </row>
+				    <row align="center">
+				      <label value="Blob"/>
+				      <label value="color"/>
+				      <colorpicker mktpref="dataTreeStyle.blobvalue.unselected.color" type="button"/>
+				      <colorpicker mktpref="dataTreeStyle.blobvalue.selected.color" type="button"/>
+				    </row>
+				    <row align="center">
+				      <label value=""/>
+				      <label value="background-color"/>
+				      <colorpicker mktpref="dataTreeStyle.blobvalue.unselected.background-color" type="button"/>
+				      <colorpicker mktpref="dataTreeStyle.blobvalue.selected.background-color" type="button"/>
+				    </row>
+			    </rows>
+		    </grid>
+		    <hbox style="text-align:right;">
+		      <button id="btnTreeStyleDefault" label="Set Default" oncommand="sm_setDataTreeStyle('default')" />
+		      <button id="btnTreeStyleNone" label="None" oncommand="sm_setDataTreeStyle('none')" />
+		      <button id="btnTreeStyleApply" label="Apply" oncommand="sm_setDataTreeStyle('user')" />
+		    </hbox>
+      </prefpane>
+</prefwindow>

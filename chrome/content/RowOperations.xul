@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
+
+<dialog id="dialog-table-operations" title=""
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  buttons="accept,cancel"
+	persist="width sizemode"
+  ondialogaccept="return RowOperations.doOK();"
+  ondialogcancel="return RowOperations.doCancel();"
+	onload="RowOperations.loadDialog();">
+
+  <script type="application/x-javascript" src="globals.js"/>  
+  <script type="application/x-javascript" src="RowOperations.js"/>  
+
+  <keyset>
+    <key id="const-1" modifiers="control" key="1" oncommand="RowOperations.typeConstant('CURRENT_DATE')"/>
+    <key id="const-2" modifiers="control" key="2" oncommand="RowOperations.typeConstant('CURRENT_TIME')"/>
+    <key id="const-3" modifiers="control" key="3" oncommand="RowOperations.typeConstant('CURRENT_TIMESTAMP')"/>
+  </keyset>
+
+<notificationbox id="boxNotify" flex="1">
+
+<deck id="deck-rowedit" selectedIndex="0" flex="1">
+<vbox id="vbEdit" style="overflow:auto" flex="1">
+<!-- dropdown list for table names-->
+	<hbox style="margin:5px 0 5px 0;">
+    <spacer flex="1"/>
+		<label id="label-name" style="padding-top:3px" 
+			accesskey="&rowOperations.tablenames.ak;"
+			control="tablenames" value="&rowOperations.tablenames;"/>
+    <menulist id="tablenames" value=""
+      style="width: 25ex" sizetopopup="always" 
+      oncommand="RowOperations.selectTable('tablenames')">
+      <menupopup>
+        <menuitem label="&rowOperations.loading;" selected="true"/>
+      </menupopup>
+    </menulist>
+    <spacer flex="1"/>
+		<textbox id="reference" readonly="true" hidden="true" style="width:1px;"	/>
+  </hbox>
+
+<!-- vbox to show when insert/update/delete/search operation is invoked -->
+  <vbox id="vbox-insert">
+		<groupbox id="columnEntryFields" flex="1">
+		</groupbox>
+	</vbox>
+	<vbox hidden="true">
+    <menulist id="defaultvalue" style="width:150px"
+			sizetopopup="always" editable="true"
+			oncommand="">
+      <menupopup>
+				<menuitem id="mi-val-null" label="" selected="true"/>
+        <menuitem label="CURRENT_DATE" />
+        <menuitem label="CURRENT_TIME" />
+        <menuitem label="CURRENT_TIMESTAMP" />
+      </menupopup>
+	  </menulist>
+	</vbox>
+</vbox>
+<vbox id="vbConfirm">
+<description id="tbMessage" style="white-space: pre-wrap;" flex="1"/>
+<!--<textbox id="tbMessage" rows="8" multiline="true" readonly="true" flex="1"/>-->
+</vbox>
+</deck>
+</notificationbox>
+</dialog>

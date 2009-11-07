@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://sqlitemanager/skin/sqlitemanager.css" type="text/css"?>
+ 
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/exim.dtd">
+<!-- all id should begin with exim -->
+<overlay id="eximOverlay"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<tabpanel id="eximTabpanel" flex="1">
+  <notificationbox id="boxNotifyExim" flex="1">
+  <hbox id="eximStatus" hidden="true">
+  <label id="eximStatusLabel" style="background-color: #ffff66;padding-top:2px;"/>
+  <button label="Cancel Import" oncommand="SmExim.handleImportCompletion(0);"/>
+  </hbox>
+  <vbox flex="1" style="overflow:auto">
+  <vbox>
+  <label id="eximSubtitle"/>
+  </vbox>
+    <vbox id="eximPageFileAndFormat">
+      <!-- dropdown list for table names-->
+    	<hbox id="eximObjectSelection" style="margin: 10px;">
+        <spacer flex="1"/>
+    		<label style="padding-top:3px" accesskey="&eximDbName.ak;"	control="eximDbName" value="&eximDbName;"/>
+        <menulist id="eximDbName" oncommand="SmExim.onSelectDb('dbName')"/>
+    		<label id="eximLblObjectType" style="padding-top:3px" 
+   				accesskey="&tablename.ak;" control="eximObjectNames" 
+    				value="&tablename;"/>
+         <menulist id="eximObjectNames" style="width: 25ex" sizetopopup="always" oncommand="SmExim.onSelectObject();">
+          <menupopup>
+            <menuitem label="&loading;" selected="true"/>
+          </menupopup>
+        </menulist>
+        <spacer flex="1"/>
+      </hbox>
+    <!-- hbox for file selection-->
+  	<vbox id="eximFileSelection" hidden="true" style="margin: 10px;">
+      <hbox>
+  		  <textbox id="eximFilename" flex="1" readonly="true"/>
+        <button label="&eximFilename;" accesskey="&eximFilename.ak;"	oncommand="SmExim.selectFile();"/>
+  		</hbox>
+      <hbox>
+    		<label style="padding-top:3px" accesskey="&eximFileCharSet.ak;" control="eximFileCharSet" value="&eximFileCharSet;"/>
+        <menulist id="eximFileCharSet" style="width:15ex" editable="true"	sizetopopup="none">
+		    </menulist>
+  		</hbox>
+    </vbox>
+
+  	<tabbox>
+  		<tabs id="eximTabsFormat" onselect="SmExim.onSelectTab();">
+  			<tab id="eximTabCsv" class="exportTabs" label="&CSV;" persist="selected"/>
+  			<tab id="eximTabSql" class="exportTabs" label="&SQL;" persist="selected"/>
+  			<tab id="eximTabXml" class="exportTabs" label="&XML;" persist="selected"/>
+  		</tabs>
+  		<tabpanels>
+  			<tabpanel>
+  				<vbox>
+  				<label id="eximCsvTableNameLbl" value="&csv.tableName;"/>
+  				<textbox id="eximCsvTableName"/>
+  				<checkbox id="eximCsv_column-names" label="&csv.firstrow;"/>
+  				<groupbox>
+  				<caption label="&csv.separate;" />
+  				<radiogroup id="eximCsv_separator" value=",">
+  				<hbox>
+  					<radio label="&Comma; (,)" value="," accesskey="&Comma.ak;" selected="true"/>
+  					<radio label="&Semicolon; (;)" value=";"/>
+  					<radio label="&Pipe; (|)" value="|"/>
+            <radio label="&Tab;" value="\t"/>
+  				</hbox>
+  				</radiogroup>
+  				<checkbox id="eximCsv_ignoreTrailingDelimiter" label="Ignore Trailing Separator/Delimiter"/>
+  				</groupbox>
+  				<groupbox>
+  				<caption label="&csv.enclose;" />
+  				<radiogroup id="eximCsv_encloser" value="din">
+  				<hbox>
+  					<radio label="&eximCsv_encloser.doublequotes.standard;" value="din" 
+				       accesskey="&eximCsv_encloser.doublequotes.standard.ak;" selected="true"/>
+  				</hbox>
+  				<hbox>
+  					<radio label="&eximCsv_encloser.doublequotes.always;" value="&quot;"/>
+  				</hbox>
+  				<hbox>
+  <!--
+  					<radio label="&eximCsv_encloser.singlequotes;" value="'"/>
+  					<radio label="&eximCsv_encloser.other;" value="other"/>
+  					<textbox id="eximCsv_encloser-text" value=""/>
+  -->
+  				</hbox>
+  				</radiogroup>
+  				</groupbox>
+  				</vbox>
+  			</tabpanel>
+  			<tabpanel>
+  				<vbox>
+  				<groupbox>
+  				<caption label="&sql.settings;"/>
+  					<checkbox id="eximSql-create-statement" label="&sql.create;"/>
+  					<checkbox id="eximSql-transact-statement" label="&sql.transaction;"/>
+  					<description id="eximSql-transact-desc" width="60">&sql.transaction.desc;</description>
+  				</groupbox>
+  				</vbox>
+  			</tabpanel>
+  			<tabpanel>
+  				<vbox>
+  					<checkbox id="eximXml_type-attribute" style="width:300px" label="&xml.type;" checked="true"/>
+  					<description width="60">&xml.type.desc;</description>
+  				</vbox>
+  			</tabpanel>
+  		</tabpanels>
+  	</tabbox>
+  
+  <hbox>
+    <button id="exim-exp-ok" label="&exim-exp-ok;" oncommand="SmExim.doOKExport();"/>
+    <button id="exim-imp-ok" label="&exim-imp-ok;" oncommand="SmExim.doOKImport();"/>
+    <button id="exim-cancel" label="&exim-cancel;" style="color:red;" oncommand="SQLiteManager.closeTab();"/>
+  </hbox>
+</vbox>
+</vbox>
+</notificationbox>
+</tabpanel>
+</overlay>

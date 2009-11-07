@@ -88,4 +88,4 @@
   adding: defaults/preferences/ (stored 0%)
   adding: defaults/preferences/xulapp.js (deflated 39%)
   adding: defaults/preferences/sqlitemanager.js (deflated 67%)
-  adding: application.ini (deflated 24%)
+  adding: application.ini (deflated 25%)

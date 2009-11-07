@@ -1,12 +1,13 @@
-fxDir="/home/user/.mozilla/firefox/vxs9kov2.default/"
-smDir=$fxDir"mrinal/SQLiteManager/"
-destDir="/home/user/Desktop/"
+pname="sqlite-manager"
+fxDir=""
+smDir=$fxDir"sqlite-manager/"
+destDir=""
 
 #echo "Specify version: \c"
 #read version
 version="0.5.7a1"
-xrFile="SQLiteManager_XR_"$version".zip"
-xpiFile="SQLiteManager_"$version".xpi"
+xrFile="sqlite-manager-XR-"$version".zip"
+xpiFile="sqlite-manager-"$version".xpi"
 
 cd $smDir
 

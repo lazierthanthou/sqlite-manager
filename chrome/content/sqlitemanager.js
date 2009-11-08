@@ -474,9 +474,8 @@ var SQLiteManager = {
 			return;
 		
 		switch(data) {
-		  case "styleDataTree":
-				var oStyle = sm_prefsBranch.getCharPref("styleDataTree");
-				if (SmGlobals.stylerDataTree.addTreeStyle(oStyle))
+		  case "jsonDataTreeStyle":
+				if (SmGlobals.stylerDataTree.addTreeStyle())
   		    this.loadTabBrowse();
 				break;
 			case "hideMainToolbar":
@@ -2519,28 +2518,77 @@ SmGlobals.stylerDataTree = {
     }
   },
 
-  addTreeStyle: function(oStyle) {
-    if (oStyle == 'none') {
-      this.getStyleSheet();
-      this.deleteAllRules();
-      return true;
-    }
-    else {
-      //check whether conversion needed; if yes, convert
-      var oPref = JSON.parse(oStyle);
-      if (oPref.integervalue.unselected.color) {}
-      else {
-        //alert('conversion needed. converting...');
-        sm_convertdataTreeStylePref();
-        return false;
+  convert: function() {
+    //if styleDataTree preference is still there and it has a value set by the user, then conversion needed
+    try {
+      if (!sm_prefsBranch.prefHasUserValue("styleDataTree")) {
+        sm_prefsBranch.clearUserPref("styleDataTree");
+        return true;
       }
+    } catch (e) {
+      return false;
     }
+
+    var oOldStyle = sm_prefsBranch.getCharPref("styleDataTree");
+    sm_prefsBranch.clearUserPref("styleDataTree");
+
+    //TODO:should get the default value here
+    var oNewStyle = sm_prefsBranch.getCharPref("jsonDataTreeStyle");
+    var objNew = JSON.parse(oNewStyle);
+
+    if (oOldStyle == 'none') {
+      objNew.setting = 'none';
+      var newPref = JSON.stringify(objNew);
+      sm_prefsBranch.setCharPref("jsonDataTreeStyle", newPref);
+      return;
+    }
+
+    objNew.setting = 'user';
+    try {
+      var objOld = JSON.parse(oOldStyle);
+    } catch (e) {
+      sm_log(e.message + '\nFailed to convert old treeStyle preference "styleDataTree" into new preference "jsonDataTreeStyle"');
+      sm_prefsBranch.clearUserPref("jsonDataTreeStyle");
+      return;
+    }
+
+    for (var j in objOld) {
+      try {
+        objNew[j]['unselected']['background-color'] = objOld[j][0][1];
+      } catch (e) {}
+      try {
+        objNew[j]['selected']['background-color'] = objOld[j][0][2];
+      } catch (e) {}
+      try {
+        objNew[j]['unselected']['color'] = objOld[j][1][1];
+      } catch (e) {}
+      try {
+        objNew[j]['selected']['color'] = objOld[j][1][2];
+      } catch (e) {}
+    }
+
+    var newPref = JSON.stringify(objNew);
+    sm_prefsBranch.setCharPref("jsonDataTreeStyle", newPref);
+    return true;
+  },
+
+  addTreeStyle: function() {
+    try {
+      this.convert();
+    } catch (e) {}
 
     this.getStyleSheet();
     this.deleteAllRules();
 
+		var oStyle = sm_prefsBranch.getCharPref("jsonDataTreeStyle");
     var obj = JSON.parse(oStyle);
-    for (var j in obj) {
+    if (oStyle.setting == 'none') {
+      return true;
+    }
+
+    var aIdx = ["nullvalue", "integervalue", "floatvalue", "textvalue", "blobvalue"];
+    for (var k = 0; k < aIdx.length; k++) {
+      var j = aIdx[k];
       var ruleSelCell = 'treechildren::-moz-tree-cell(' + j + ' selected) { ';
       var ruleCell = 'treechildren::-moz-tree-cell(' + j + ') { ';
       var ruleSelText = 'treechildren::-moz-tree-cell-text(' + j + ' selected) { ';
@@ -2582,5 +2630,3 @@ SmGlobals.stylerDataTree = {
     }    
   }
 };
-
-

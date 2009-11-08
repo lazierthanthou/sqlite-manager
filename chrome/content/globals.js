@@ -21,7 +21,7 @@ var SmGlobals = {
   },
 
   //these are the preferences which are being observed and which need to be initially read.
-  observedPrefs: ["styleDataTree", "hideMainToolbar", "showMainToolbarDatabase", "showMainToolbarTable", "showMainToolbarIndex", "showMainToolbarDebug", "sqliteFileExtensions", "displayNumRecords", "textForBlob", "showBlobSize", "maxSizeToShowBlobData", "mruPath.1",
+  observedPrefs: ["jsonDataTreeStyle", "hideMainToolbar", "showMainToolbarDatabase", "showMainToolbarTable", "showMainToolbarIndex", "showMainToolbarDebug", "sqliteFileExtensions", "displayNumRecords", "textForBlob", "showBlobSize", "maxSizeToShowBlobData", "mruPath.1",
         "posInTargetApp" /* this one for firefox only*/,
         "handleADS" /* this one for Windows only*/ ],
 
@@ -321,68 +321,38 @@ SmGlobals.confirmBeforeExecuting = function(aQ, sMessage, confirmPrefName) {
 };
 
 ////////////////////////////////////////////////
-function sm_convertdataTreeStylePref() {
-  var oStyle = sm_prefsBranch.getCharPref("styleDataTree");
-
-  if (oStyle == 'none') {
-    return true;
-  }
-
-  try {
-    var objDtStyle = JSON.parse(oStyle);
-  } catch (e) {
-    sm_log(e.message);
-    return;
-  }
-
-  var sPref;
-  for (var j in objDtStyle) {
-    sPref = ['dataTreeStyle',j,'unselected','background-color'].join('.');
-    setMktPref(sPref, objDtStyle[j][0][1]);
-
-    sPref = ['dataTreeStyle',j,'selected','background-color'].join('.');
-    setMktPref(sPref, objDtStyle[j][0][2]);
-
-    sPref = ['dataTreeStyle',j,'unselected','color'].join('.');
-    setMktPref(sPref, objDtStyle[j][1][1]);
-
-    sPref = ['dataTreeStyle',j,'selected','color'].join('.');
-    setMktPref(sPref, objDtStyle[j][1][2]);
-  }
-  var newPref = JSON.stringify(gMktPreferences.dataTreeStyle);
-  alert([oStyle, newPref].join('\n\n'));
-  sm_prefsBranch.setCharPref("styleDataTree", newPref);
-}
-
 function sm_setDataTreeStyle(sType) {
   if (sType == "none") {
-    sm_prefsBranch.setCharPref("styleDataTree", 'none');
+    var sPref = sm_prefsBranch.getCharPref("jsonDataTreeStyle");
+    var obj = JSON.parse(sPref);
+    obj.setting = 'none';
+    sPref = JSON.stringify(obj);
+    sm_prefsBranch.setCharPref("jsonDataTreeStyle", sPref);
     return;
   }
   if (sType == "default") {
-    sm_prefsBranch.clearUserPref("styleDataTree");
+    sm_prefsBranch.clearUserPref("jsonDataTreeStyle");
     sm_setDataTreeStyleControls();
     return;
   }
   if (sType == "user") {
     var sPref = setMktPreferences('datatree-options');
-    sm_prefsBranch.setCharPref("styleDataTree", sPref);
+    sm_prefsBranch.setCharPref("jsonDataTreeStyle", sPref);
     return;
   }
 }
 
 function sm_setDataTreeStyleControls() {
-  var oStyle = sm_prefsBranch.getCharPref("styleDataTree");
-  var objDtStyle = {};
-  if (oStyle == 'none') {
+  var oStyle = sm_prefsBranch.getCharPref("jsonDataTreeStyle");
+  var obj = JSON.parse(oStyle);
+  if (obj.setting == 'none') {
     $$('btnTreeStyleApply').setAttribute('disabled', true);
   }
   else {
     $$('btnTreeStyleApply').removeAttribute('disabled');
-    objDtStyle = JSON.parse(oStyle);
   }
 
-  gMktPreferences.dataTreeStyle = objDtStyle;
+  gMktPreferences.dataTreeStyle = obj;
   getMktPreferences('datatree-options');
 }
 
@@ -399,7 +369,7 @@ function getMktPreferences(sId) {
         if (val == null)
           aElt[i].color = '';
         else
-        aElt[i].color = val;
+          aElt[i].color = val;
         break;
       default:
         aElt[i].value = val;

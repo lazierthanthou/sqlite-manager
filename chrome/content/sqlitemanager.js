@@ -51,9 +51,6 @@ var SQLiteManager = {
 
   maFileExt: [],
 
-  //the mru list which is stored in a pref
-  maMruList: [],
-
   generateFKTriggers: function() {
   //foreign key triggers
   //http://www.sqlite.org/cvstrac/wiki?p=ForeignKeyTriggers
@@ -200,8 +197,6 @@ var SQLiteManager = {
 
     var mi = $$("menu-general-sharedPagerCache");
 
-    this.showMruList();
-
     // Load clipboard service
     this.clipService = Cc["@mozilla.org/widget/clipboardhelper;1"].getService(Ci.nsIClipboardHelper);
 
@@ -290,7 +285,7 @@ var SQLiteManager = {
     if(!bPrefVal)
       return;
 
-    var sPath = this.getMruLatest();
+    var sPath = SmGlobals.mru.getLatest();
     if(sPath == null) 
       return;
 
@@ -395,78 +390,16 @@ var SQLiteManager = {
     }
   },
 
-  setMruList: function(sPath) {
-    var iMruSize = sm_prefsBranch.getIntPref("mruSize");
-    var aNewList = [];
-    var aPrefList = [];
-
-    var fDir = Cc["@mozilla.org/file/directory_service;1"]
-            .getService(Ci.nsIProperties).get("ProfD", Ci.nsIFile);
-    if (sPath.indexOf(fDir.path) == 0) {
-      var sRelPath = "[ProfD]" + sPath.substring(fDir.path.length);
-      aNewList.push(sRelPath);
-    } else {
-      aNewList.push(sPath);
-    }
-
-    for (var i = 0; i < this.maMruList.length; i++) {
-      if (this.getMruFullPath(this.maMruList[i]) != sPath)
-        aNewList.push(this.maMruList[i]);
-
-      if (aNewList.length >= iMruSize)
-        break;
-    }
-    this.maMruList = aNewList;
-
-    sm_setUnicodePref("mruPath.1", this.maMruList.join(","));
-    this.showMruList();
-  },
-
-  removeFromMru: function(sPath) {
-    for (var i = 0; i < this.maMruList.length; i++) {
-      if (this.getMruFullPath(this.maMruList[i]) == sPath) {
-        this.maMruList.splice(i, 1);
-        sm_setUnicodePref("mruPath.1", this.maMruList.join(","));
-        this.showMruList();
-        return true;
-      }
-    }
-    return false;
-  },
-
-  getMruLatest: function() {
-    var sMru = sm_prefsBranch.getComplexValue("mruPath.1", Ci.nsISupportsString).data;
-    this.maMruList = sMru.split(",");
-    if (this.maMruList.length > 0)
-      return this.getMruFullPath(this.maMruList[0]);
-    else
-      return null;
-  },
-
-  getMruFullPath: function(sMruVal) {
-    var sRelConst = "[ProfD]";
-    var fDir = Cc["@mozilla.org/file/directory_service;1"]
-            .getService(Ci.nsIProperties).get("ProfD", Ci.nsIFile);
-
-    var sFullPath = sMruVal;
-    if (sFullPath.indexOf(sRelConst) == 0)
-      sFullPath = fDir.path + sFullPath.substring(sRelConst.length);
-
-    return sFullPath;
-  },
-
   showMruList: function() {
-    this.getMruLatest();
+    var aList = SmGlobals.mru.getList();
 
     var menupopupNode = $$("menu-mru").firstChild;
     SmGlobals.$empty(menupopupNode);
-    for (var i = 0; i < this.maMruList.length; i++) {
-      var sFullPath = this.getMruFullPath(this.maMruList[i])
-
+    for (var i = 0; i < aList.length; i++) {
       var mp = $$("mi-mru");
       var mi = mp.cloneNode(true);
       mi.setAttribute("id", "mi-mru-" + i);
-      mi.setAttribute("label", sFullPath);
+      mi.setAttribute("label", aList[i]);
       mi.removeAttribute("hidden");
       menupopupNode.appendChild(mi);
     }
@@ -480,6 +413,9 @@ var SQLiteManager = {
       case "jsonDataTreeStyle":
         if (SmGlobals.stylerDataTree.addTreeStyle())
           this.loadTabBrowse();
+        break;
+      case "jsonMruData":
+        this.showMruList();
         break;
       case "hideMainToolbar":
         var bPrefVal = sm_prefsBranch.getBoolPref("hideMainToolbar");
@@ -1619,7 +1555,7 @@ var SQLiteManager = {
       newfile.initWithPath(sPath);
     } catch (e) {
       alert(sm_getLStr("sqlm.alert.fileNotFound") + sPath);
-      this.removeFromMru(sPath);
+      SmGlobals.mru.remove(sPath);
       return false;
     }
     if(newfile.exists()) {
@@ -1631,7 +1567,7 @@ var SQLiteManager = {
     }
     else {
       alert(sm_getLStr("sqlm.alert.fileNotFound") + sPath);
-      this.removeFromMru(sPath);
+      SmGlobals.mru.remove(sPath);
     }
     return false;
   },
@@ -2387,8 +2323,8 @@ var SQLiteManager = {
       if (nsiFileObj.path) {
         path = nsiFileObj.path;
         leafName = nsiFileObj.leafName;
-        //change the mruPath.1 in preferences
-        this.setMruList(path);
+        //add this path to mru list
+        SmGlobals.mru.add(path);
       }
       else {
         path = "in-memory database";
@@ -2631,5 +2567,124 @@ SmGlobals.stylerDataTree = {
     while (this.mStyleSheet.cssRules.length > 0) {
       this.mStyleSheet.deleteRule(0);
     }    
+  }
+};
+
+//this object handles MRU using one preference 'jsonMruData'
+SmGlobals.mru = {
+  mbInit: false,
+  mSize: 0,
+  mList: [],
+  mProfilePath: '',
+
+  initialize: function() {
+    try {
+      this.convert();
+    } catch (e) {}
+
+    this.getPref();
+
+    this.mProfilePath = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties).get("ProfD", Ci.nsIFile).path;
+    this.mbInit = true;
+  },
+
+  convert: function() {
+    //use the two prefs and remove them; so, the following can happen only once.
+    var sPref = sm_prefsBranch.getComplexValue("mruPath.1", Ci.nsISupportsString).data;
+    this.mList = sPref.split(",");
+    this.mSize = sm_prefsBranch.getIntPref("mruSize");
+
+    sm_prefsBranch.clearUserPref("mruPath.1");
+    sm_prefsBranch.clearUserPref("mruSize");
+
+    this.setPref();
+    return true;
+  },
+
+  add: function(sPath) {
+    if (sPath.indexOf(this.mProfilePath) == 0)
+      sPath = "[ProfD]" + sPath.substring(this.mProfilePath.length);
+
+    var iPos = this.mList.indexOf(sPath);
+    if (iPos >= 0) {
+      //remove at iPos
+      this.mList.splice(iPos, 1);
+    }
+    //add in the beginning
+    this.mList.splice(0, 0, sPath);
+    
+    if (this.mList.length > this.mSize) {
+      //remove the extra entries
+      this.mList.splice(this.mSize, this.mList.length  - this.mSize);
+    }
+
+    this.setPref();
+  },
+
+  remove: function(sPath) {
+    if (sPath.indexOf(this.mProfilePath) == 0)
+      sPath = "[ProfD]" + sPath.substring(this.mProfilePath.length);
+
+    var iPos = this.mList.indexOf(sPath);
+    if (iPos >= 0) {
+      //remove at iPos
+      this.mList.splice(iPos, 1);
+      this.setPref();
+      return true;
+    }
+    return false;
+  },
+
+  getList: function() {
+    if (!this.mbInit)
+      this.initialize();
+
+    var aList = [];
+    for (var i = 0; i < this.mList.length; i++) {
+      aList.push(this.getFullPath(this.mList[i]));
+    }
+    return aList;
+  },
+
+  getLatest: function() {
+    if (!this.mbInit)
+      this.initialize();
+
+    if (this.mList.length > 0)
+      return this.getFullPath(this.mList[0]);
+    else
+      return null;
+  },
+
+  getFullPath: function(sVal) {
+    var sRelConst = "[ProfD]";
+    if (sVal.indexOf(sRelConst) == 0)
+      sVal = this.mProfilePath + sVal.substring(sRelConst.length);
+
+    return sVal;
+  },
+
+  getPref: function() {
+    try {
+      var sPref = sm_prefsBranch.getComplexValue("jsonMruData", Ci.nsISupportsString).data;
+    } catch (e) {
+      var sPref = sm_prefsBranch.getCharPref("jsonMruData");
+    }
+    var obj = JSON.parse(sPref);
+    this.mList = obj.list;
+    this.mSize = obj.size;
+  },
+
+  setPref: function() {
+    try {
+      var sPref = sm_prefsBranch.getComplexValue("jsonMruData", Ci.nsISupportsString).data;
+    } catch (e) {
+      var sPref = sm_prefsBranch.getCharPref("jsonMruData");
+    }
+    var obj = JSON.parse(sPref);
+    obj.list = this.mList;
+    obj.size = this.mSize;
+    sPref = JSON.stringify(obj);
+    sm_setUnicodePref("jsonMruData", sPref);
   }
 };

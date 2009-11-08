@@ -18,10 +18,6 @@ pref("extensions.sqlitemanager.promptForLastDb", true);
 //how many records to display when browsing and searching; -1 means all
 pref("extensions.sqlitemanager.displayNumRecords", 100);
 
-//kind of MRU
-pref("extensions.sqlitemanager.mruPath.1", "");
-pref("extensions.sqlitemanager.mruSize", 10);
-
 pref("extensions.sqlitemanager.userDir", "");
 
 //related to main toolbar area and the included toolbars
@@ -70,6 +66,11 @@ pref("extensions.sqlitemanager.whenInsertingShow", "previous");
 //full path of dir where smFunctions.sqlite is located.
 //This db stores user-defined functions (udf).
 pref("extensions.sqlitemanager.udfDbDirPath", "");
+
+//stores JSON object for MRU
+pref("extensions.sqlitemanager.jsonMruData", '{"meta":{"version":"1"},"size":10,"list":[]}');
+
 //stores JSON object for data tree style.
-pref("extensions.sqlitemanager.jsonDataTreeStyle", '{"meta":{"version":"1"},"setting":"default","nullvalue":{"unselected":{"background-color":"#ffcccc","color":"#000000"},"selected":{"background-color":"#ff6666","color":"#ffffff"}},"integervalue":{"unselected":{"background-color":"#ccffcc","color":"#000000"},"selected":{"background-color":"#339933","color":"#ffffff"}},"floatvalue":{"unselected":{"background-color":"#ccffcc","color":"#000000"},"selected":{"background-color":"#339933","color":"#ffffff"}},"textvalue":{"unselected":{"background-color":"#ccffff","color":"#000000"},"selected":{"background-color":"#000066","color":"#ffffff"}},"blobvalue":{"unselected":{"background-color":"#ccccff","color":"#000000"},"selected":{"background-color":"#333399","color":"#ffffff"}}}');//stores JSON object for data tree style.
+pref("extensions.sqlitemanager.jsonDataTreeStyle", '{"meta":{"version":"1"},"setting":"default","nullvalue":{"unselected":{"background-color":"#ffcccc","color":"#000000"},"selected":{"background-color":"#ff6666","color":"#ffffff"}},"integervalue":{"unselected":{"background-color":"#ccffcc","color":"#000000"},"selected":{"background-color":"#339933","color":"#ffffff"}},"floatvalue":{"unselected":{"background-color":"#ccffcc","color":"#000000"},"selected":{"background-color":"#339933","color":"#ffffff"}},"textvalue":{"unselected":{"background-color":"#ccffff","color":"#000000"},"selected":{"background-color":"#000066","color":"#ffffff"}},"blobvalue":{"unselected":{"background-color":"#ccccff","color":"#000000"},"selected":{"background-color":"#333399","color":"#ffffff"}}}');
+//stores JSON object for data tree style.
 pref("extensions.sqlitemanager.jsonEximSettings", '{"meta":{"version":"1"},"csv":{"export":{"separator":",","encloser":"din"},"import":{"separator":",","encloser":"din"}}}');

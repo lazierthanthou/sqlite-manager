@@ -353,10 +353,11 @@ function sm_setDataTreeStyleControls() {
   }
 
   gMktPreferences.dataTreeStyle = obj;
-  getMktPreferences('datatree-options');
+  applyMktPreferences('datatree-options');
 }
 
-function getMktPreferences(sId) {
+//this function applies mktpreferences to descendants of element whose id=sId and which have the attribute 'mktpref'
+function applyMktPreferences(sId) {
   var pElt = $$(sId);
   var aElt = pElt.querySelectorAll("[mktpref]");
   for (var i = 0; i < aElt.length; i++) {

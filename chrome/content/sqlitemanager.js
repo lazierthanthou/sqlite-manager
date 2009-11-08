@@ -191,7 +191,7 @@ var SQLiteManager = {
     this.createMenu();
 
     //initialize the structure tree
-     smStructTrees[0].init();
+    smStructTrees[0].init();
 
     this.refreshDbStructure();
 
@@ -241,22 +241,25 @@ var SQLiteManager = {
     //2. extension: open last db
 
     var bOpenLastDb = true;
-    if (window.arguments) {
-      //commandline arguments if running with xulrunner
-      try {
-        var cmdLine = window.arguments[0];
-        cmdLine = cmdLine.QueryInterface(Ci.nsICommandLine);
-        var fArg = cmdLine.handleFlagWithParam("f", true);
-        if (fArg != null) {
-          bOpenLastDb = false;
-          var file = cmdLine.resolveFile(fArg);
-          this.sCurrentDatabase = file;
-          this.setDatabase(this.sCurrentDatabase);
-          if (this.sCurrentDatabase == null)
-            alert('Failed to connect to ' + file.path);
+    //proceed to check commandline arguments only if we are in an xulrunner app
+    if(SmGlobals.appInfo.name == 'sqlite-manager') {
+      if (window.arguments) {
+        //commandline arguments if running with xulrunner
+        try {
+          var cmdLine = window.arguments[0];
+          cmdLine = cmdLine.QueryInterface(Ci.nsICommandLine);
+          var fArg = cmdLine.handleFlagWithParam("f", true);
+          if (fArg != null) {
+            bOpenLastDb = false;
+            var file = cmdLine.resolveFile(fArg);
+            this.sCurrentDatabase = file;
+            this.setDatabase(this.sCurrentDatabase);
+            if (this.sCurrentDatabase == null)
+              alert('Failed to connect to ' + file.path);
+          }
+        } catch (e) {
+          sm_log('Command line error: ' + e.message);
         }
-      } catch (e) {
-        sm_log('Command line error: ' + e.message);
       }
     }
 
@@ -2583,7 +2586,6 @@ SmGlobals.stylerDataTree = {
     var oStyle = sm_prefsBranch.getCharPref("jsonDataTreeStyle");
     var obj = JSON.parse(oStyle);
     if (obj.setting == 'none') {
-      alert('none');
       return true;
     }
 

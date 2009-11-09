@@ -69,6 +69,9 @@ SQLiteHandler.prototype = {
   mFuncConfirm: null,
   mBlobPrefs: {sStrForBlob: 'BLOB', bShowSize: true, iMaxSizeToShowData: 100},
 
+  //array to hold names of added functions; will be used in removing functions
+  maAddedFunctions: [],
+
   // openDatabase: opens a connection to the db file nsIFile
   // bShared = true: first attempt shared mode, then unshared
   // bShared = false: attempt unshared cache mode only
@@ -155,6 +158,7 @@ SQLiteHandler.prototype = {
     this.aTableType = null;
     this.aColumns = null;
     this.mOpenStatus = "";
+    this.maAddedFunctions = [];
   },
 
   createFunction: function(fnName, argLength, fnObject) {
@@ -165,7 +169,28 @@ SQLiteHandler.prototype = {
     try {
       this.dbConn.createFunction(fnName, argLength, fnObject);
     } catch (e) {
-      this.onSqlError(e, "Failed to create storage function: " + fnName);    
+      this.onSqlError(e, "Failed to create storage function: " + fnName);
+      return false;
+    }
+    this.maAddedFunctions.push(fnName);
+    return true;
+  },
+
+  //remove all functions created by createFunction
+  removeAllFunctions: function() {
+    var i = 0;
+    while (i < this.maAddedFunctions.length) {
+      try {
+        var step = 0;
+        var fnName = this.maAddedFunctions[i];
+        step = 1;
+        this.dbConn.removeFunction(fnName);
+        step = 2;
+        this.maAddedFunctions.splice(i, 1);
+      } catch (e) {
+        i++;
+        this.onSqlError(e, "removeAllFunctions: Failed while attempting to remove storage function: " + fnName + '\nstep: ' + step);
+      }
     }
   },
 

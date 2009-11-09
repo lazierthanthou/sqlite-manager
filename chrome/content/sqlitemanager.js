@@ -2354,15 +2354,7 @@ var SQLiteManager = {
       var sV = sm_getLStr("sqlite") + " " + Database.sqliteVersion;
       $$("sbSqliteVersion").setAttribute("label",sV);
 
-      //this function should return functions that need to be applied to this db
-      var udf = SmUdf.getDbFunctions();
-      for (var fn in udf) {        if (SmGlobals.gecko_1914pre) //for gecko 1.9.1.4pre and higher
-          Database.createFunction(udf[fn].fName, udf[fn].fLength, udf[fn].onFunctionCall);
-        else   //for older gecko
-          Database.createFunction(udf[fn].fName, udf[fn].fLength, udf[fn]);
-
-        sm_log("Loaded SQLite function: " + udf[fn].fName + ", args.length = " + udf[fn].fLength);
-      }
+      this.createFunctions(false);
     }
 
     if (!bConnected) {
@@ -2374,6 +2366,28 @@ var SQLiteManager = {
     this.refreshDbStructure();
 
     this.mbDbJustOpened = false;
+  },
+
+  createFunctions: function(bAppendMode) {
+    if(this.sCurrentDatabase == null)  {
+      sm_log('createFunctions: returning because this.sCurrentDatabase is null');
+      return;
+    }
+
+    //get all functions that need to be created for this db
+    var udf = SmUdf.getDbFunctions();
+
+    //before creating functions here, remove all
+    if (!bAppendMode)
+      Database.removeAllFunctions();
+
+    for (var fn in udf) {      if (SmGlobals.gecko_1914pre) //for gecko >= 1.9.1.4pre
+        Database.createFunction(udf[fn].fName, udf[fn].fLength, udf[fn].onFunctionCall);
+      else   //for older gecko
+        Database.createFunction(udf[fn].fName, udf[fn].fLength, udf[fn]);
+
+      sm_log("Loaded SQLite function: " + udf[fn].fName + ", args.length = " + udf[fn].fLength);
+    }
   },
 
   selectAllRecords: function() {

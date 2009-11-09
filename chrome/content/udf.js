@@ -10,17 +10,18 @@ var SmUdf = {
       this.dbFunc = new SQLiteHandler();
 
     try {
-//      this.dbFunc.openDatabase(this.getUserFile());
-      this.dbFunc.openDatabase(this.getSuppliedFile());
+      var fUserFile = this.getUserFile();
+      if (fUserFile != null)
+        this.dbFunc.openDatabase(fUserFile);
+      else
+        this.dbFunc.openDatabase(this.getSuppliedFile());
     } catch (e) {
-      sm_log('Failed to open a connection to UDF database');
-      this.dbFunc = null;
+      sm_log('Failed to open a connection to UDF database\n' + (fUserFile != null)?'db: user selected':'db: supplied');
       return false;
     }
-
     return true;
   },
-  
+
   close: function() {
     //close connection to udf db
     try {
@@ -36,25 +37,21 @@ var SmUdf = {
   },
   
   loadTab: function() {
-    $$("udfDbDirPathButton").setAttribute('disabled', true);
-    $$("udfTabNew").setAttribute('disabled', true);
-
     //connect to udf db
     this.init();
 
     //get udfDbDirPath from prefs
-    var udfDbDirPath = sm_prefsBranch.getCharPref("udfDbDirPath");
-    $$("udfDbDirPath").value = udfDbDirPath;
+    $$("udfDbDirPath").value = sm_prefsBranch.getCharPref("udfDbDirPath");
 
     //populate menulist with all function names
     this.populateFuncMenuList();
   },
-  
+
   selectUdfDir: function() {
     //select a dir
     var dir = SmGlobals.chooseDirectory("Choose location of user-defined functions database (smFunctions.sqlite)...");
     if (dir == null) {
-      alert("Please choose a directory before proceeding.\nIf you already have smFunctions.sqlite file, then choose the directory where it is located.\nIf you do NOT have an existing smFunctions.sqlite file, then one will be created in the directory you choose.");
+      alert("Please choose a directory before proceeding.\nIf you already have smFunctions.sqlite file, then choose the directory where it is located.\nIf you do NOT have an existing smFunctions.sqlite file, then one will be created in the directory you choose.\nThe chosen location should have read/write permissions.");
     }
     else {
       sm_prefsBranch.setCharPref("udfDbDirPath", dir.path);
@@ -65,6 +62,8 @@ var SmUdf = {
         if (!fUser.exists()) {
           this.copySuppliedFile();
         }
+        //if user file exists/created, connect to it, etc.
+        this.loadTab();
       } catch (e) {
         var udfDbDirPath = sm_prefsBranch.getCharPref("udfDbDirPath");
         alert(e.message);
@@ -75,7 +74,12 @@ var SmUdf = {
 
   copySuppliedFile: function() {
     var fileOrig = this.getSuppliedFile();
-    fileOrig.copyTo(this.getUserDir(), "");
+    var dirUser = this.getUserDir();
+    if (dirUser != null) {
+      fileOrig.copyTo(dirUser, "");
+      return true;
+    }
+    return false;
   },
 
   getSuppliedFile: function() {
@@ -109,7 +113,12 @@ var SmUdf = {
     }
   },
 
+  //this function populates the menu in 'Available Functions' tab
   populateFuncMenuList: function() {
+    //of course, we cannot proceed without a db connection
+    if (this.dbFunc == null)
+      return;
+
     var records = [];
     try {
       this.dbFunc.selectQuery('SELECT name FROM functions ORDER BY name');
@@ -166,6 +175,10 @@ var SmUdf = {
   },
 
   getDbFunctions: function() {
+    //of course, we cannot proceed without a db connection
+    if (this.dbFunc == null)
+      return;
+
     var allUdf = [];
 
     this.dbFunc.selectQuery('SELECT name, body, argLength FROM functions WHERE enabled = 1 AND aggregate = 0');

@@ -41,21 +41,21 @@
 <!-- from -->
   <groupbox id="hb-from">
     <caption label="&From;"/>
-		<label style="padding-top:3px" control="dbNameFrom" 
-				value="&Database;:"/>
+    <label style="padding-top:3px" control="dbNameFrom" 
+        value="&Database;:"/>
     <menulist id="dbNameFrom" disabled="true"/>
-		<label style="padding-top:3px" control="mlTableFrom" value="&Table;:"/>
+    <label style="padding-top:3px" control="mlTableFrom" value="&Table;:"/>
      <textbox id="mlTableFrom" style="width: 25ex" readonly="true"/>
   </groupbox>
 <!-- to -->
   <groupbox id="hb-to">
     <caption label="&To;"/>
-		<label style="padding-top:3px" control="dbNameTo" 
-				value="&Database;:" accesskey="D"/>
+    <label style="padding-top:3px" control="dbNameTo" 
+        value="&Database;:" accesskey="D"/>
     <menulist id="dbNameTo" />
-		<label style="padding-top:3px" control="mlTableTo" accesskey="&enterNewTable.ak;" value="&enterNewTable;:"/>
+    <label style="padding-top:3px" control="mlTableTo" accesskey="&enterNewTable.ak;" value="&enterNewTable;:"/>
      <textbox id="mlTableTo" style="width: 25ex"/>
   </groupbox>
   </hbox>
-	<checkbox id="onlyStructure" label="&onlyStructure;"/>
+  <checkbox id="onlyStructure" label="&onlyStructure;"/>
 </dialog>

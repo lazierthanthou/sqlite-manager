@@ -15,18 +15,18 @@ SMExtensionManager.prototype = {
   m_oColStates: {},
 
   _init: function(dbPath) {
-		//if the table does not exist, create it
-		if (!this.m_db.tableExists(this.m_tbl))	{
+    //if the table does not exist, create it
+    if (!this.m_db.tableExists(this.m_tbl))  {
       if (!this.m_bUseConfig)
         return false;
 
-		  var aQueries = [];
-		  aQueries.push("create table " + this.m_tbl + " (`id` integer primary key, `type` text not null , `value` text)");
+      var aQueries = [];
+      aQueries.push("create table " + this.m_tbl + " (`id` integer primary key, `type` text not null , `value` text)");
       this.m_db.executeTransaction(aQueries);
-		}
+    }
     this.m_db.executeTransaction(["delete from " + this.m_tbl + " where `type` = 'Enabled'", "insert into " + this.m_tbl + "(`type`, `value`) values('Enabled', '1')"]);
 
-		return true;
+    return true;
   },
 
   setUsage: function(bUse, bImplicit) {
@@ -39,15 +39,15 @@ SMExtensionManager.prototype = {
     else {
       if (bImplicit) return;
 
-  		if (this.m_db.tableExists(this.m_tbl)) {
-  		  var aQueries = [];
-  		  aQueries.push();
-  		  var bRet = confirm(sm_getLFStr("extManager.dropTableConfirm", [this.m_tbl],1));
+      if (this.m_db.tableExists(this.m_tbl)) {
+        var aQueries = [];
+        aQueries.push();
+        var bRet = confirm(sm_getLFStr("extManager.dropTableConfirm", [this.m_tbl],1));
         if (bRet)
           this.m_db.executeTransaction(["drop table " + this.m_tbl]);
         else
           this.m_db.executeTransaction(["delete from " + this.m_tbl + " where `type` = 'Enabled'", "insert into " + this.m_tbl + "(`type`, `value`) values('Enabled', '0')"]);
-  		}
+      }
     }
   },
 
@@ -117,15 +117,15 @@ SMExtensionManager.prototype = {
     return true;
   },
 
-	saveSqlByName: function(sQuery) {
+  saveSqlByName: function(sQuery) {
     if (!this.m_bUseConfig)
       return false;
 
-		var qName = prompt(sm_getLStr("extManager.qName.enter"), "");
+    var qName = prompt(sm_getLStr("extManager.qName.enter"), "");
 
-		//if cancelled, abort
-		if (qName == "" || qName == null)
-			return false;
+    //if cancelled, abort
+    if (qName == "" || qName == null)
+      return false;
 
     var temp = this.getQueryList(qName);
     if (temp.length > 0) {
@@ -135,36 +135,36 @@ SMExtensionManager.prototype = {
 
     this.m_db.executeTransaction(['INSERT INTO ' + this.m_tbl + '("type", "value") VALUES(' + SQLiteFn.makeSqlValue('NamedQuery:' + qName) + ', ' + SQLiteFn.makeSqlValue(sQuery) + ')']);
     return true;
-	},
+  },
 
-	getQueryList: function(sQueryName) {
+  getQueryList: function(sQueryName) {
     if (!this.m_bUseConfig)
       return false;
 
-		var prefix = "NamedQuery:", criteria;
+    var prefix = "NamedQuery:", criteria;
     if (sQueryName == undefined)
       criteria = "like '" + prefix + "%'";
     else
       criteria = "= '" + prefix + sQueryName + "'";
 
     try {
-		this.m_db.selectQuery('SELECT "type", "value" FROM ' + this.m_tbl + ' WHERE "type" ' + criteria + ' ORDER BY "type"');
-		} catch (e) {
-			alert(e);
-		}
+    this.m_db.selectQuery('SELECT "type", "value" FROM ' + this.m_tbl + ' WHERE "type" ' + criteria + ' ORDER BY "type"');
+    } catch (e) {
+      alert(e);
+    }
     var aData = this.m_db.getRecords();
 
     var aQueries = new Array();
     var aTemp, sName;
     for (var iC = 0; iC < aData.length; iC++)
     {
-    	sName = aData[iC][0].substring(prefix.length);
-	    aTemp = [sName, aData[iC][1]];
+      sName = aData[iC][0].substring(prefix.length);
+      aTemp = [sName, aData[iC][1]];
       aQueries.push(aTemp);
     }
 
     return aQueries;
-	},
+  },
 
   goToLastQuery: function() {
     if (!this.m_bUseConfig)

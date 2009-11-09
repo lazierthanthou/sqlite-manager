@@ -41,24 +41,24 @@ var FileIO = {
   },
 
   getLines: function(file, charset) {
-	  var istream = Cc["@mozilla.org/network/file-input-stream;1"].createInstance(Ci.nsIFileInputStream);
-	  istream.init(file, 0x01, 0444, 0);
+    var istream = Cc["@mozilla.org/network/file-input-stream;1"].createInstance(Ci.nsIFileInputStream);
+    istream.init(file, 0x01, 0444, 0);
 
     var is = Cc["@mozilla.org/intl/converter-input-stream;1"].createInstance(Ci.nsIConverterInputStream);
 
     //This assumes that istream is the nsIInputStream you want to read from
     is.init(istream, charset, 1024, 0xFFFD);
 
-	  // read lines into array
-	  var lines = [], line = {}, bHasMore = true;
+    // read lines into array
+    var lines = [], line = {}, bHasMore = true;
     if (is instanceof Ci.nsIUnicharLineInputStream) {
       do {
-    			bHasMore = is.readLine(line);
-    			lines.push(line.value);
+          bHasMore = is.readLine(line);
+          lines.push(line.value);
       } while (bHasMore);
     }
-	  istream.close();
-	  return lines;
+    istream.close();
+    return lines;
   },
 
 //directory listing
@@ -69,7 +69,7 @@ var FileIO = {
     var file;
     var iFileCount = 0;
     var aFiles = [];
-	  while (fileList.hasMoreElements()) {
+    while (fileList.hasMoreElements()) {
       file = fileList.getNext().QueryInterface(Ci.nsIFile);
       if (bRecursive) {
         if (file.isDirectory()) {

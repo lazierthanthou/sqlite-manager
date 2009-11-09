@@ -120,7 +120,7 @@ function sm_getLFStr(sName, params, len) {
   return smStrings.formatStringFromName(sName, params, params.length);
 }
 
-var smPrompt = 	Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
+var smPrompt =   Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
 
 SmGlobals.allPrefs = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
 
@@ -159,18 +159,18 @@ function PopulateDropDownItems(aItems, dropdown, sSelectedItemLabel) {
   dropdown.selectedIndex = -1;
 
   for (var i = 0; i < aItems.length; i++) {
- 		var bSelect = false;
-  	if(i == 0)
-  		bSelect = true;
-  	
+     var bSelect = false;
+    if(i == 0)
+      bSelect = true;
+    
     if (typeof aItems[i] == "string") {
-    	if(aItems[i] == sSelectedItemLabel)
-    		bSelect = true;
+      if(aItems[i] == sSelectedItemLabel)
+        bSelect = true;
     }
     else {
-    	if(aItems[i][0] == sSelectedItemLabel)
-    		bSelect = true;
-  	}
+      if(aItems[i][0] == sSelectedItemLabel)
+        bSelect = true;
+    }
     var menuitem = AddDropdownItem(aItems[i], dropdown, bSelect);
   }
 }
@@ -179,14 +179,14 @@ function PopulateDropDownItems(aItems, dropdown, sSelectedItemLabel) {
 function AddDropdownItem(sLabel, dropdown, bSelect) {
   var menuitem;
   if (typeof sLabel == "string") {
-	  menuitem = dropdown.appendItem(sLabel, sLabel);
+    menuitem = dropdown.appendItem(sLabel, sLabel);
   }
   else {
-	  menuitem = dropdown.appendItem(sLabel[0], sLabel[1]);
-	}
+    menuitem = dropdown.appendItem(sLabel[0], sLabel[1]);
+  }
 
   //make this item selected
-	if (bSelect)
+  if (bSelect)
     dropdown.selectedItem = menuitem;
 
   return menuitem;
@@ -206,8 +206,8 @@ function sm_notify(sBoxId, sMessage, sType, iTime) {
 
 //not yet called anywhere
 SmGlobals.launchHelp = function() {
-	var urlHelp = sm_getLStr("sm.url.help");
-	SmGlobals.openURL(urlHelp);
+  var urlHelp = sm_getLStr("sm.url.help");
+  SmGlobals.openURL(urlHelp);
 };
 
 SmGlobals.openURL = function(UrlToGoTo) {
@@ -262,36 +262,36 @@ SmGlobals.getBrowserURL = function() {
 };
 
 SmGlobals.chooseDirectory = function(sTitle) {
-	const nsIFilePicker = Ci.nsIFilePicker;
-	var fp = Cc["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
-	fp.init(window, sTitle, nsIFilePicker.modeGetFolder);
+  const nsIFilePicker = Ci.nsIFilePicker;
+  var fp = Cc["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
+  fp.init(window, sTitle, nsIFilePicker.modeGetFolder);
 
-	var rv = fp.show();
+  var rv = fp.show();
 
-	//if chosen then
-	if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace)
-		return fp.file;
+  //if chosen then
+  if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace)
+    return fp.file;
 
-	return null; 
+  return null; 
 };
 
 function sm_message(str, where) {
-	if(where & 0x1)
-		alert(str);
-	if(where & 0x2 && SmGlobals.sbPanelDisplay != null)
-		SmGlobals.sbPanelDisplay.label= str;;
-	if(where & 0x4)
-		sm_log(str);
+  if(where & 0x1)
+    alert(str);
+  if(where & 0x2 && SmGlobals.sbPanelDisplay != null)
+    SmGlobals.sbPanelDisplay.label= str;;
+  if(where & 0x4)
+    sm_log(str);
 }
 
 function sm_confirm(sTitle, sMessage) {
-	var aRetVals = {};
+  var aRetVals = {};
   var oWin = window.openDialog(SmGlobals.chromes.confirm, "confirmDialog", SmGlobals.dialogFeatures, sTitle, sMessage, aRetVals, "confirm");
   return aRetVals.bConfirm;
 }
 
 function sm_alert(sTitle, sMessage) {
-	var aRetVals = {};
+  var aRetVals = {};
   var oWin = window.openDialog(SmGlobals.chromes.confirm, "alertDialog", SmGlobals.dialogFeatures, sTitle, sMessage, aRetVals, "alert");
 }
 
@@ -310,11 +310,11 @@ SmGlobals.confirmBeforeExecuting = function(aQ, sMessage, confirmPrefName) {
   var ask = sm_getLStr("globals.confirm.msg");
   //in case confirmation is needed, reassign value to answer
   if (bConfirm) {
-  	var txt = ask + "\n" + sMessage + "\nSQL:\n" + aQ.join("\n");
-  	if (typeof sMessage == "object" && !sMessage[1]) {
-  		txt = ask + "\n" + sMessage[0];
-  	}
-	  answer = sm_confirm(sm_getLStr("globals.confirm.title"), txt);
+    var txt = ask + "\n" + sMessage + "\nSQL:\n" + aQ.join("\n");
+    if (typeof sMessage == "object" && !sMessage[1]) {
+      txt = ask + "\n" + sMessage[0];
+    }
+    answer = sm_confirm(sm_getLStr("globals.confirm.title"), txt);
   }
 
   return answer;

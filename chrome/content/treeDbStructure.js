@@ -17,7 +17,7 @@ TreeDbStructure.prototype = {
   mAllPrefix: "all-",
 
   init: function() {
- 		document.getElementById(this.treeId).view = this;
+     document.getElementById(this.treeId).view = this;
   },
 
   removeChildData: function() {
@@ -25,7 +25,7 @@ TreeDbStructure.prototype = {
     this.init();
   },
   
-	setChildData: function(aObjects)	{
+  setChildData: function(aObjects)  {
     this.mbSettingChildren = true;
 
     this.visibleData = [];
@@ -41,8 +41,8 @@ TreeDbStructure.prototype = {
         this.childData[idx] = aObjects[idx];
 
         var sLabel = lbl[pp] + " (" + aObjects[idx].length + ")";
-  		//[cellText, isContainer, isContainerOpen, SmType, iLevel]
-  		//SmType is application defined attribute set by the extension author here
+      //[cellText, isContainer, isContainerOpen, SmType, iLevel]
+      //SmType is application defined attribute set by the extension author here
         this.visibleData.push([sLabel, true, false, this.mAllPrefix+idx,0]);
       }
     }
@@ -50,27 +50,27 @@ TreeDbStructure.prototype = {
     //for categories
     for (var iii=0; iii < this.rowCount; iii++) {
       if (this.getLevel(iii) == 0) {
-    		for (var jjj=0; jjj < this.aExpandedNodes[0].length; jjj++) {
-    		  if (this.aExpandedNodes[0][jjj] == this.getSmType(iii)) {
-    		    this.toggleOpenState(iii);
-    		  }
-    		}
-    	}
+        for (var jjj=0; jjj < this.aExpandedNodes[0].length; jjj++) {
+          if (this.aExpandedNodes[0][jjj] == this.getSmType(iii)) {
+            this.toggleOpenState(iii);
+          }
+        }
+      }
     }
     //for db objects
     for (var iii=0; iii < this.rowCount; iii++) {
       if (this.getLevel(iii) == 1) {
-    		for (var jjj=0; jjj < this.aExpandedNodes[1].length; jjj++) {
-    		  if (this.aExpandedNodes[1][jjj] == this.getCellText(iii)) {
-    		    this.toggleOpenState(iii);
-    		  }
-    		}
-    	}
-		}
+        for (var jjj=0; jjj < this.aExpandedNodes[1].length; jjj++) {
+          if (this.aExpandedNodes[1][jjj] == this.getCellText(iii)) {
+            this.toggleOpenState(iii);
+          }
+        }
+      }
+    }
 
     this.mbSettingChildren = false;
     this.init();
-	},
+  },
 
   setExpandableNodes: function(aExpand) {
     this.aExpandedNodes = aExpand;
@@ -137,26 +137,26 @@ TreeDbStructure.prototype = {
       this.visibleData[idx][2] = true;
 
       if(thisLevel == 0) {
-	      var label = this.getSmType(idx).substring(this.mAllPrefix.length);
-	      var toinsert = this.childData[label];
-	      var sType = label;
-	      var bContainer = false;
+        var label = this.getSmType(idx).substring(this.mAllPrefix.length);
+        var toinsert = this.childData[label];
+        var sType = label;
+        var bContainer = false;
         if (label == "table" || label == "master") bContainer = true;
 
-	      for (var i = 0; i < toinsert.length; i++) {
+        for (var i = 0; i < toinsert.length; i++) {
            this.visibleData.splice(idx + i + 1, 0, [toinsert[i], bContainer,false,sType,thisLevel + 1]);
-	      }
-	      this.treeBox.rowCountChanged(idx + 1, toinsert.length);
-	    }
+        }
+        this.treeBox.rowCountChanged(idx + 1, toinsert.length);
+      }
 
       if(thisLevel == 1 && (this.getSmType(idx) == "table" || this.getSmType(idx) == "master")) {
-    		var info = Database.getTableInfo(this.getCellText(idx), "");
-//    		var cols = info[0];
-    		for(var i = 0; i < info.length; i++) {
-    			this.visibleData.splice(idx + i + 1, 0, [[info[i].name], false,false,"someColumn",thisLevel + 1]);
+        var info = Database.getTableInfo(this.getCellText(idx), "");
+//        var cols = info[0];
+        for(var i = 0; i < info.length; i++) {
+          this.visibleData.splice(idx + i + 1, 0, [[info[i].name], false,false,"someColumn",thisLevel + 1]);
         }
-	      this.treeBox.rowCountChanged(idx + 1, info.length);
-	    }
+        this.treeBox.rowCountChanged(idx + 1, info.length);
+      }
     }
     //use indexOf to search, then add or delete
     //populate aExpandedNodes again

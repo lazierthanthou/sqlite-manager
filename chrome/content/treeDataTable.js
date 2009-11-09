@@ -116,12 +116,12 @@ TreeDataTable.prototype = {
     if (bExtraRowId)
       treecol.setAttribute("extraRowId", true);
     treecol.setAttribute("id", sId);
-		treecol.setAttribute("width",iWidth);
-		treecol.setAttribute("minwidth",60);
-		if (sClickFn != null)
-		  treecol.setAttribute("onclick", sClickFn);
-		if (sBgColor != null)
-		  treecol.setAttribute("style","color:"+sBgColor);
+    treecol.setAttribute("width",iWidth);
+    treecol.setAttribute("minwidth",60);
+    if (sClickFn != null)
+      treecol.setAttribute("onclick", sClickFn);
+    if (sBgColor != null)
+      treecol.setAttribute("style","color:"+sBgColor);
 
 // sColType is based on data in first row, which may not be the same
 // as the type defined for that column in schema
@@ -130,7 +130,7 @@ TreeDataTable.prototype = {
 
     if (bLast) {
       //want to do anything special for the last column? do it here.
-		  treecol.setAttribute("flex", 1);
+      treecol.setAttribute("flex", 1);
     }
     treecols.appendChild(treecol);
 
@@ -177,7 +177,7 @@ TreeDataTable.prototype = {
       iColumnCount = iColumnCount + 1;
       var aTemp = [aColumns[col][0], aColumns[col][1]];
       allCols.push(aTemp);
-		}
+    }
 
     var iTreeWidth = this.treeTable.boxObject.width;
     for (var iColumn = 0; iColumn < iColumnCount; iColumn++) {
@@ -230,14 +230,14 @@ TreeDataTable.prototype = {
     // 2 dimensional array containing table contents
     this.aTableData = aTableData;
     // Column information
-  	this.aColumns = aColumns;
-  	this.aTypes = aTypes;
+    this.aColumns = aColumns;
+    this.aTypes = aTypes;
 
-  	this.aOrder = [];
-  	for (var i=0; i < this.aColumns.length; i++)
-  	 this.aOrder.push(-1);//0=asc; 1=desc
+    this.aOrder = [];
+    for (var i=0; i < this.aColumns.length; i++)
+     this.aOrder.push(-1);//0=asc; 1=desc
 
-  	// Number of rows in the table
+    // Number of rows in the table
     this.rowCount = aTableData.length;
 
     this.getCellText = function(row,col) {
@@ -261,24 +261,24 @@ TreeDataTable.prototype = {
         case SQLiteTypes.INTEGER:
           var atom = atomService.getAtom("integervalue");
           properties.AppendElement(atom);
-			    break;
+          break;
         case SQLiteTypes.FLOAT:
           var atom = atomService.getAtom("floatvalue");
           properties.AppendElement(atom);
-			    break;
+          break;
         case SQLiteTypes.BLOB:
           var atom = atomService.getAtom("blobvalue");
           properties.AppendElement(atom);
-			    break;
+          break;
         case SQLiteTypes.NULL: 
           var atom = atomService.getAtom("nullvalue");
           properties.AppendElement(atom);
-			    break;
+          break;
         case SQLiteTypes.TEXT:
         default:
           var atom = atomService.getAtom("textvalue");
           properties.AppendElement(atom);
-			    break;
+          break;
       }
       if (typeof this.getCellText(row,col) == "number") {
         var atom = atomService.getAtom("numbervalue");

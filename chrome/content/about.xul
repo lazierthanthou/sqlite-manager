@@ -18,46 +18,46 @@
     }
   </script>  
 
-	<keyset id="smAbout-keys">
-		<key keycode="VK_ESCAPE" oncommand="window.close();"/>
-		<key keycode="VK_ENTER" oncommand="window.close();"/>
-		<key keycode="VK_RETURN" oncommand="window.close();"/>
-	</keyset>
+  <keyset id="smAbout-keys">
+    <key keycode="VK_ESCAPE" oncommand="window.close();"/>
+    <key keycode="VK_ENTER" oncommand="window.close();"/>
+    <key keycode="VK_RETURN" oncommand="window.close();"/>
+  </keyset>
 
   <vbox flex="1">
-		<grid>
-			<columns>
-				<column style="padding: 2px 15px;"/>
-				<column style="padding: 6px;" flex="1"/>
-			</columns>
-			<rows>
-				<row align="center">
-					<image id="about-icon"/>
-					<vbox>
+    <grid>
+      <columns>
+        <column style="padding: 2px 15px;"/>
+        <column style="padding: 6px;" flex="1"/>
+      </columns>
+      <rows>
+        <row align="center">
+          <image id="about-icon"/>
+          <vbox>
             <label class="text-link" href="http://sqlite-manager.googlecode.com/" value="http://sqlite-manager.googlecode.com/"/>
-					</vbox>
-				</row>
-			</rows>
-		</grid>
-		<grid>
-			<columns>
-				<column style="padding: 2px 15px;"/>
-				<column style="padding: 3px 6px 3px 5px;" flex="1"/>
-			</columns>
-			<rows>
-				<row align="center">
-					<text value="&version; :"/>
-					<text id="about-version"/>
-				</row>
-				<row align="center">
-					<text value="&author; :"/>
-					<text id="about-creator"/>
-				</row>
-				<row align="center">
-					<text value="&license; :"/>
+          </vbox>
+        </row>
+      </rows>
+    </grid>
+    <grid>
+      <columns>
+        <column style="padding: 2px 15px;"/>
+        <column style="padding: 3px 6px 3px 5px;" flex="1"/>
+      </columns>
+      <rows>
+        <row align="center">
+          <text value="&version; :"/>
+          <text id="about-version"/>
+        </row>
+        <row align="center">
+          <text value="&author; :"/>
+          <text id="about-creator"/>
+        </row>
+        <row align="center">
+          <text value="&license; :"/>
           <label id="about-license" class="text-link" href="" value="&license.mpl;"/>
-				</row>
-			</rows>
-		</grid>
+        </row>
+      </rows>
+    </grid>
   </vbox>
 </dialog>

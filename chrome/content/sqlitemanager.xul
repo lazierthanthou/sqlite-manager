@@ -19,7 +19,7 @@
  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
  xmlns:html="http://www.w3.org/1999/xhtml">
 
-	<!-- Icon from chrome -->
+  <!-- Icon from chrome -->
 <!-- without div, there is error -->
   <html:div>
     <html:link rel="icon" href="chrome://sqlitemanager/skin/images/default16.png"/>
@@ -55,7 +55,7 @@
     <command id="smc-createView" oncommand="SQLiteManager.createObject('view')" tooltiptext="&createView;" observes="bc-dbOpen"/>
     <command id="smc-dropView" oncommand="SQLiteManager.dropObject('view')" tooltiptext="&dropView;" observes="bc-dbOpen"/>
     <command id="smc-renameView" oncommand="SQLiteManager.renameObject('view')" tooltiptext="&renameView;" observes="bc-dbOpen"/>
-    <command id="smc-modifyView" oncommand="SQLiteManager.modifyView()"	tooltiptext="&modifyView;" observes="bc-dbOpen"/>
+    <command id="smc-modifyView" oncommand="SQLiteManager.modifyView()"  tooltiptext="&modifyView;" observes="bc-dbOpen"/>
     <command id="smc-exportView" oncommand="SQLiteManager.exportObject('view')" tooltiptext="&exportView;" observes="bc-dbOpen"/>
 
     <!-- commands for indexes -->
@@ -91,30 +91,30 @@
   </broadcasterset>
 
   <popupset>
-  	<menupopup id="mp-opTableColumn">
+    <menupopup id="mp-opTableColumn">
       <menuitem label="&menu.editColumn;" accesskey="&menu.editColumn.ak;" oncommand="SQLiteManager.startEditColumn()"/>
       <menuitem label="&menu.dropColumn;" accesskey="&menu.dropColumn.ak;" oncommand="SQLiteManager.dropColumn()"/>
-  	</menupopup>
+    </menupopup>
 
-  	<menupopup id="mp-copy">
+    <menupopup id="mp-copy">
   <!--
       <menuitem label="&menu.copyCell;" accesskey="&menu.copyCell.ak;" oncommand="treeExecute.UserCopyCell()"/>
   -->
       <menuitem label="&menu.copyRows;" accesskey="&menu.copyRows.ak;" oncommand="treeExecute.UserCopyRows('csv')"/>
       <menuitem label="&menu.copyRowsForExcel;" oncommand="treeExecute.UserCopyRows('csv-excel')"/>
       <menuitem label="&menu.copyRowsAsSql;" accesskey="&menu.copyRowsAsSql.ak;" oncommand="treeExecute.UserCopyRows('sql')"/>
-  	</menupopup>
+    </menupopup>
 
-  	<menupopup id="mp-browse-copy">
+    <menupopup id="mp-browse-copy">
   <!--
       <menuitem label="&menu.copyCell;" accesskey="&menu.copyCell.ak;" oncommand="treeBrowse.UserCopyCell()"/>
   -->
       <menuitem label="&menu.copyRows;" accesskey="&menu.copyRows.ak;" oncommand="treeBrowse.UserCopyRows('csv')"/>
       <menuitem label="&menu.copyRowsForExcel;" oncommand="treeBrowse.UserCopyRows('csv-excel')"/>
       <menuitem label="&menu.copyRowsAsSql;" accesskey="&menu.copyRowsAsSql.ak;" oncommand="treeBrowse.UserCopyRows('sql')"/>
-  	</menupopup>
+    </menupopup>
   
-  	<menupopup id="mp-editTableRow">
+    <menupopup id="mp-editTableRow">
       <menuitem label="&menu.editSelected;" accesskey="&menu.editSelected.ak;" oncommand="SQLiteManager.operateOnTable('update')"/>
       <menuitem label="&menu.deleteSelected;" accesskey="&menu.deleteSelected.ak;" oncommand="SQLiteManager.operateOnTable('delete')"/>
       <menuitem label="&menu.duplicateRecord;" accesskey="&menu.duplicateRecord.ak;" oncommand="SQLiteManager.operateOnTable('duplicate')"/>
@@ -125,7 +125,7 @@
       <menuitem label="&menu.copyRows;" accesskey="&menu.copyRows.ak;" oncommand="treeBrowse.UserCopyRows('csv')"/>
       <menuitem label="&menu.copyRowsForExcel;" oncommand="treeBrowse.UserCopyRows('csv-excel')"/>
       <menuitem label="&menu.copyRowsAsSql;" accesskey="&menu.copyRowsAsSql.ak;" oncommand="treeBrowse.UserCopyRows('sql')"/>
-  	</menupopup>
+    </menupopup>
 
     <menupopup id="mp-create-table">
       <menuitem label="&createTable;" accesskey="&create.ak;" command="smc-createTable"/>
@@ -137,7 +137,7 @@
       <menuitem label="&createView;" accesskey="&create.ak;" command="smc-createView"/>
     </menupopup>
     <menupopup id="mp-create-trigger">
-      <menuitem label="&createTrigger;"	accesskey="&create.ak;" command="smc-createTrigger"/>
+      <menuitem label="&createTrigger;"  accesskey="&create.ak;" command="smc-createTrigger"/>
     </menupopup>
 
     <menupopup id="mp-dbstructure" onpopupshowing="SQLiteManager.setTreeStructureContextMenu();">
@@ -150,116 +150,116 @@
 
   <vbox id="hello" flex="1">
     <toolbox id="tb-main">
-			<menubar id="sm-menubar">
-			  <menu id="menu-database" label="&menu.db;" accesskey="&menu.db.ak;">
-			    <menupopup>
-			      <menuitem label="&menu.db.new;" accesskey="&menu.db.new.ak;" command="smc-newDb"/>
-			      <menuitem label="&menu.db.newMemory;" accesskey="&menu.db.newMemory.ak;" oncommand="SQLiteManager.openMemoryDatabase()"/>
-			      <menuitem label="&menu.db.connect;" accesskey="&menu.db.connect.ak;" command="smc-openDb"/>
-			      <menuitem id="mi-connect-ads-win" hidden="true" label="&menu.db.connectADS;" oncommand="SQLiteManager.openDatabaseADS()"/>
-			      <menuitem label="&menu.db.close;" accesskey="&menu.db.close.ak;" oncommand="SQLiteManager.closeDatabase()" observes="bc-dbOpen"/>  
-			      <menu label="&menu.db.mru;" id="menu-mru"	accesskey="&menu.db.mru.ak;">
+      <menubar id="sm-menubar">
+        <menu id="menu-database" label="&menu.db;" accesskey="&menu.db.ak;">
+          <menupopup>
+            <menuitem label="&menu.db.new;" accesskey="&menu.db.new.ak;" command="smc-newDb"/>
+            <menuitem label="&menu.db.newMemory;" accesskey="&menu.db.newMemory.ak;" oncommand="SQLiteManager.openMemoryDatabase()"/>
+            <menuitem label="&menu.db.connect;" accesskey="&menu.db.connect.ak;" command="smc-openDb"/>
+            <menuitem id="mi-connect-ads-win" hidden="true" label="&menu.db.connectADS;" oncommand="SQLiteManager.openDatabaseADS()"/>
+            <menuitem label="&menu.db.close;" accesskey="&menu.db.close.ak;" oncommand="SQLiteManager.closeDatabase()" observes="bc-dbOpen"/>  
+            <menu label="&menu.db.mru;" id="menu-mru"  accesskey="&menu.db.mru.ak;">
               <menupopup>
               </menupopup>
             </menu>
-			      <menuseparator/>
-			      <menuitem label="&menu.db.attach;" accesskey="&menu.db.attach.ak;" oncommand="SQLiteManager.attachDatabase()" observes="bc-dbOpen"/>
-			      <menuitem label="&menu.db.detach;" accesskey="&menu.db.detach.ak;" oncommand="SQLiteManager.detachDatabase()" observes="bc-dbOpen"/>
-			      <menuseparator/>
-			      <menuitem label="&menu.db.copy;" accesskey="&menu.db.copy.ak;" oncommand="SQLiteManager.copyDatabase()" observes="bc-dbOpen"/>  
-			      <menuitem label="&menu.db.compact;" accesskey="&menu.db.compact.ak;" oncommand="SQLiteManager.compactDatabase()" observes="bc-dbOpen"/>  
-			      <menuitem label="&menu.db.analyze;" accesskey="&menu.db.analyze.ak;" oncommand="SQLiteManager.analyzeDatabase()" observes="bc-dbOpen"/>  
-			      <menuitem label="&menu.db.check;" accesskey="&menu.db.check.ak;" oncommand="SQLiteManager.checkIntegrity()" observes="bc-dbOpen"/>  
-			      <menuseparator/>
-			      <menuitem label="&exportAll;" accesskey="&exportAll.ak;" oncommand="SQLiteManager.exportAll('tables')" observes="bc-dbOpen"/>  
-			      <menuitem label="&exportDb;" accesskey="&exportDb.ak;" oncommand="SQLiteManager.exportAll('db')" observes="bc-dbOpen"/>  
-			      <menuitem label="&exportDbStr;" accesskey="&exportDbStr.ak;" oncommand="SQLiteManager.exportAll('dbstructure')" observes="bc-dbOpen"/>  
-			      <menuitem label="&import;" accesskey="&import.ak;" command="smc-import"/>  
-			      <menuseparator/>
-			      <menuitem	label="&refresh;" accesskey="&refresh.ak;" command="smc-refresh" key="refresh-key"/>  
-			      <menuitem label="&reconnect;" accesskey="&reconnect.ak;" oncommand="SQLiteManager.reconnect()" observes="bc-dbOpen"/>  
+            <menuseparator/>
+            <menuitem label="&menu.db.attach;" accesskey="&menu.db.attach.ak;" oncommand="SQLiteManager.attachDatabase()" observes="bc-dbOpen"/>
+            <menuitem label="&menu.db.detach;" accesskey="&menu.db.detach.ak;" oncommand="SQLiteManager.detachDatabase()" observes="bc-dbOpen"/>
+            <menuseparator/>
+            <menuitem label="&menu.db.copy;" accesskey="&menu.db.copy.ak;" oncommand="SQLiteManager.copyDatabase()" observes="bc-dbOpen"/>  
+            <menuitem label="&menu.db.compact;" accesskey="&menu.db.compact.ak;" oncommand="SQLiteManager.compactDatabase()" observes="bc-dbOpen"/>  
+            <menuitem label="&menu.db.analyze;" accesskey="&menu.db.analyze.ak;" oncommand="SQLiteManager.analyzeDatabase()" observes="bc-dbOpen"/>  
+            <menuitem label="&menu.db.check;" accesskey="&menu.db.check.ak;" oncommand="SQLiteManager.checkIntegrity()" observes="bc-dbOpen"/>  
+            <menuseparator/>
+            <menuitem label="&exportAll;" accesskey="&exportAll.ak;" oncommand="SQLiteManager.exportAll('tables')" observes="bc-dbOpen"/>  
+            <menuitem label="&exportDb;" accesskey="&exportDb.ak;" oncommand="SQLiteManager.exportAll('db')" observes="bc-dbOpen"/>  
+            <menuitem label="&exportDbStr;" accesskey="&exportDbStr.ak;" oncommand="SQLiteManager.exportAll('dbstructure')" observes="bc-dbOpen"/>  
+            <menuitem label="&import;" accesskey="&import.ak;" command="smc-import"/>  
+            <menuseparator/>
+            <menuitem  label="&refresh;" accesskey="&refresh.ak;" command="smc-refresh" key="refresh-key"/>  
+            <menuitem label="&reconnect;" accesskey="&reconnect.ak;" oncommand="SQLiteManager.reconnect()" observes="bc-dbOpen"/>  
 <!--
-			      <menuitem label="Save Database" accesskey="s" disabled="true"/>  
+            <menuitem label="Save Database" accesskey="s" disabled="true"/>  
 -->
-						<menuseparator/>
-			      <menuitem label="&exit;" accesskey="&exit.ak;" oncommand="window.close()"/>
-			    </menupopup>
-			  </menu>
-			  <!-- menupopups in the next 4 menus have been reused using javascript createMenu function-->
-			  <menu id="menu-table" label="&menu.table;" accesskey="&menu.table.ak;">
-			    <menupopup>
+            <menuseparator/>
+            <menuitem label="&exit;" accesskey="&exit.ak;" oncommand="window.close()"/>
+          </menupopup>
+        </menu>
+        <!-- menupopups in the next 4 menus have been reused using javascript createMenu function-->
+        <menu id="menu-table" label="&menu.table;" accesskey="&menu.table.ak;">
+          <menupopup>
             <menuitem label="&createTable;" accesskey="&create.ak;" command="smc-createTable"/>
             <menuitem label="&dropTable;" accesskey="&drop.ak;" command="smc-dropTable"/>
             <menuitem label="&emptyTable;" accesskey="&empty.ak;" command="smc-emptyTable"/>
-        		<menuseparator/>
+            <menuseparator/>
             <menuitem label="&renameTable;" accesskey="&rename.ak;" command="smc-renameTable"/>
             <menuitem label="&modifyTable;" accesskey="&modify.ak;" command="smc-modifyTable"/>
             <menuitem label="&copyTable;" accesskey="&copy.ak;" command="smc-copyTable"/>
             <menuitem label="&exportTable;" accesskey="&export.ak;" command="smc-exportTable"/>
-        		<menuseparator/>
-            <menuitem label="&reindexTable;"	accesskey="&reindex.ak;" command="smc-reindexTable"/>
-        		<!-- some error: says unknown collation -->
-        		<!--
+            <menuseparator/>
+            <menuitem label="&reindexTable;"  accesskey="&reindex.ak;" command="smc-reindexTable"/>
+            <!-- some error: says unknown collation -->
+            <!--
             <menuitem label="&analyzeTable;" accesskey="&analyze.ak;" oncommand="SQLiteManager.operateOnTable('analyze')"/>
-        		-->
-			    </menupopup>
-				</menu> 
-			  <menu id="menu-index" label="&menu.index;" accesskey="&menu.index.ak;"> 
-			    <menupopup>
+            -->
+          </menupopup>
+        </menu> 
+        <menu id="menu-index" label="&menu.index;" accesskey="&menu.index.ak;"> 
+          <menupopup>
             <menuitem label="&createIndex;" accesskey="&create.ak;" command="smc-createIndex"/>
             <menuitem label="&dropIndex;" accesskey="&drop.ak;" command="smc-dropIndex"/>
-        		<menuseparator/>
+            <menuseparator/>
             <menuitem label="&reindexIndex;" accesskey="&reindex.ak;" command="smc-reindexIndex"/>
-			    </menupopup>
-				</menu> 
-			  <menu id="menu-view" label="&menu.view;" accesskey="&menu.view.ak;">
-			    <menupopup>
+          </menupopup>
+        </menu> 
+        <menu id="menu-view" label="&menu.view;" accesskey="&menu.view.ak;">
+          <menupopup>
             <menuitem label="&createView;" accesskey="&create.ak;" command="smc-createView"/>
             <menuitem label="&dropView;" accesskey="&drop.ak;" command="smc-dropView"/>
-        		<menuseparator/>
+            <menuseparator/>
             <menuitem label="&renameView;" accesskey="&rename.ak;" command="smc-renameView"/>
             <menuitem label="&modifyView;" accesskey="&modify.ak;" command="smc-modifyView"/>
             <menuitem label="&exportView;" accesskey="&export.ak;" command="smc-exportView"/>
-			    </menupopup>
-				</menu> 
-			  <menu id="menu-trigger" label="&menu.trigger;" accesskey="&menu.trigger.ak;">
-			    <menupopup>
+          </menupopup>
+        </menu> 
+        <menu id="menu-trigger" label="&menu.trigger;" accesskey="&menu.trigger.ak;">
+          <menupopup>
             <menuitem label="&createTrigger;" accesskey="&create.ak;" command="smc-createTrigger"/>
             <menuitem label="&dropTrigger;" accesskey="&drop.ak;" command="smc-dropTrigger"/>
-        		<menuseparator/>
+            <menuseparator/>
             <menuitem label="&renameTrigger;" accesskey="&rename.ak;" command="smc-renameTrigger"/>
-			    </menupopup>
-				</menu> 
-			  <menu id="menu-tools" label="&menu.tools;" accesskey="&menu.tools.ak;">
-			    <menupopup id="sm_menu_tools_popup">
-				  <menuitem label="&mi.options;" accesskey="&mi.options.ak;" command="smc-options"/>
-				  <menuitem id="menu-general-sharedPagerCache" label="&mi.sharedPagerCache;"	accesskey="&mi.sharedPagerCache.ak;" type="checkbox" checked="true"/>
-				  <menuitem id="menu-general-extensionTable" type="checkbox" label="&mi.extensionTable;" accesskey="&mi.extensionTable.ak;" oncommand="SQLiteManager.useExtensionManagementTable(this.hasAttribute('checked'),false);" observes="bc-dbOpen"/>
+          </menupopup>
+        </menu> 
+        <menu id="menu-tools" label="&menu.tools;" accesskey="&menu.tools.ak;">
+          <menupopup id="sm_menu_tools_popup">
+          <menuitem label="&mi.options;" accesskey="&mi.options.ak;" command="smc-options"/>
+          <menuitem id="menu-general-sharedPagerCache" label="&mi.sharedPagerCache;"  accesskey="&mi.sharedPagerCache.ak;" type="checkbox" checked="true"/>
+          <menuitem id="menu-general-extensionTable" type="checkbox" label="&mi.extensionTable;" accesskey="&mi.extensionTable.ak;" oncommand="SQLiteManager.useExtensionManagementTable(this.hasAttribute('checked'),false);" observes="bc-dbOpen"/>
 
-			      <menuitem id="experiment" label="Experiment" oncommand="SQLiteManager.experiment()"/>
-			    </menupopup>
-			  </menu>
-			  <menu id="menu-help" label="&menu.help;">
-			    <menupopup>
-			      <menuitem label="&menu.help.reportProblem;" accesskey="&menu.help.reportProblem.ak;" oncommand="SmGlobals.openURL(SmGlobals.webpages.issueNew)"/>
-			      <menuitem label="&menu.help.faq;" accesskey="&menu.help.faq.ak;" oncommand="SmGlobals.openURL(SmGlobals.webpages.faq)"/>
-			      <menuseparator/>
-			      <menuitem label="&menu.help.sqlitehome;" accesskey="&menu.help.sqlitehome.ak;" oncommand="SmGlobals.openURL(SmGlobals.webpages.sqliteHome)"/>
-			      <menuitem label="&menu.help.sqlitesyntax;" accesskey="&menu.help.sqlitesyntax.ak;" oncommand="SmGlobals.openURL(SmGlobals.webpages.sqliteLang)"/>
-			      <menuseparator/>
-			      <menuitem label="&menu.help.extensionhome;" accesskey="&menu.help.extensionhome.ak;" oncommand="SmGlobals.openURL(SmGlobals.webpages.home)"/>
-			      <menuitem label="&menu.help.aboutextension;" accesskey="&menu.help.aboutextension.ak;" oncommand="window.openDialog(SmGlobals.chromes.aboutSM,'about','chrome, centerscreen, modal, dialog');"/>
-			    </menupopup>
-			  </menu>
+            <menuitem id="experiment" label="Experiment" oncommand="SQLiteManager.experiment()"/>
+          </menupopup>
+        </menu>
+        <menu id="menu-help" label="&menu.help;">
+          <menupopup>
+            <menuitem label="&menu.help.reportProblem;" accesskey="&menu.help.reportProblem.ak;" oncommand="SmGlobals.openURL(SmGlobals.webpages.issueNew)"/>
+            <menuitem label="&menu.help.faq;" accesskey="&menu.help.faq.ak;" oncommand="SmGlobals.openURL(SmGlobals.webpages.faq)"/>
+            <menuseparator/>
+            <menuitem label="&menu.help.sqlitehome;" accesskey="&menu.help.sqlitehome.ak;" oncommand="SmGlobals.openURL(SmGlobals.webpages.sqliteHome)"/>
+            <menuitem label="&menu.help.sqlitesyntax;" accesskey="&menu.help.sqlitesyntax.ak;" oncommand="SmGlobals.openURL(SmGlobals.webpages.sqliteLang)"/>
+            <menuseparator/>
+            <menuitem label="&menu.help.extensionhome;" accesskey="&menu.help.extensionhome.ak;" oncommand="SmGlobals.openURL(SmGlobals.webpages.home)"/>
+            <menuitem label="&menu.help.aboutextension;" accesskey="&menu.help.aboutextension.ak;" oncommand="window.openDialog(SmGlobals.chromes.aboutSM,'about','chrome, centerscreen, modal, dialog');"/>
+          </menupopup>
+        </menu>
         <spacer flex="1"/>
-			 </menubar>
-			<!-- this hbox holds all main toolbars. --> 
-			<hbox id="hbox-main-toolbar">
-			<!-- each toolbar must end with a toolbarseparator to allow dynamic	arrangement of toolbars without spoiling the display-->
+       </menubar>
+      <!-- this hbox holds all main toolbars. --> 
+      <hbox id="hbox-main-toolbar">
+      <!-- each toolbar must end with a toolbarseparator to allow dynamic  arrangement of toolbars without spoiling the display-->
       <toolbar id="sm-toolbar-refresh">
         <toolbarbutton id="tbb_refresh" command="smc-refresh"/>
         <toolbarbutton id="tbb_options" command="smc-options"/>
-				<toolbarseparator/>
+        <toolbarseparator/>
       </toolbar>
 
       <toolbar id="sm-toolbar-database">
@@ -267,44 +267,44 @@
         <toolbarbutton id="tbb_openDb" command="smc-openDb"/>
         <toolbarbutton id="tbb_import" command="smc-import"/>
         <toolbarbutton id="tbb_udf" command="smc-udf"/>
-				<toolbarseparator/>
+        <toolbarseparator/>
       </toolbar>
 
       <toolbar id="sm-toolbar-table">
         <toolbarbutton id="tbb_createTable" command="smc-createTable"/>
         <toolbarbutton id="tbb_dropTable" command="smc-dropTable"/>
         <toolbarbutton id="tbb_modifyTable" command="smc-modifyTable"/>
-				<toolbarseparator/>
+        <toolbarseparator/>
       </toolbar>
       <toolbar id="sm-toolbar-index">
         <toolbarbutton id="tbb_createIndex" command="smc-createIndex"/>
         <toolbarbutton id="tbb_dropIndex" command="smc-dropIndex"/>
-				<toolbarseparator/>
+        <toolbarseparator/>
       </toolbar>
 
-			<toolbar id="sm-toolbar-profileDB">
-			  <menu id="menu-DbList" label="&dir;" tooltiptext="&dir;">
-			    <menupopup>
-				  <menuitem label="&profileDir;" type="radio" name="menu-defaultDir" checked="true" oncommand="SQLiteManager.populateDBList('profile');"/>
-				  <menuitem label="&userDir;" type="radio" name="menu-defaultDir" oncommand="SQLiteManager.populateDBList('user');"/>
-					<menuseparator/>
-				  <menuitem label="&selectUserDir;" oncommand="SQLiteManager.selectDefaultDir();"/>
-			    </menupopup>
-			  </menu>
-	      <menulist id="listbox-profileDB" style="max-width: 25ex" sizetopopup="always" dirType="profile">
-	        <menupopup>
-	          <menuitem label="&profile.dblist.select;" selected="true"/>
-	        </menupopup>
-	      </menulist>
+      <toolbar id="sm-toolbar-profileDB">
+        <menu id="menu-DbList" label="&dir;" tooltiptext="&dir;">
+          <menupopup>
+          <menuitem label="&profileDir;" type="radio" name="menu-defaultDir" checked="true" oncommand="SQLiteManager.populateDBList('profile');"/>
+          <menuitem label="&userDir;" type="radio" name="menu-defaultDir" oncommand="SQLiteManager.populateDBList('user');"/>
+          <menuseparator/>
+          <menuitem label="&selectUserDir;" oncommand="SQLiteManager.selectDefaultDir();"/>
+          </menupopup>
+        </menu>
+        <menulist id="listbox-profileDB" style="max-width: 25ex" sizetopopup="always" dirType="profile">
+          <menupopup>
+            <menuitem label="&profile.dblist.select;" selected="true"/>
+          </menupopup>
+        </menulist>
         <toolbarbutton label="&profile.dblist.buttonlabel;" tooltiptext="&profile.dblist.buttonlabel;" oncommand="SQLiteManager.openSelectedDatabase('listbox-profileDB')" />
-				<toolbarseparator/>
+        <toolbarseparator/>
       </toolbar>
 
       <toolbar id="sm-toolbar-debug" hidden="true">
         <toolbarbutton id="tbb_aboutConfig" command="smc-aboutconfig"/>
         <toolbarbutton id="tbb_console" command="smc-console"/>
         <toolbarbutton id="tbb_dominspector" command="smc-dominspector" hidden="true"/>
-				<toolbarseparator/>
+        <toolbarseparator/>
       </toolbar>
 
       <!-- required to let the toolbar occupy the whole width flex=1 is necessary. -->
@@ -314,128 +314,128 @@
 
   <hbox flex="1">
     <vbox id="sidebar-left" flex="1" persist="width">
-      <menulist id="ml-dbNames" style="font-weight: bold;	color: blue; padding: 3px 3px;" context="mp-detachDb" oncommand="SQLiteManager.changeAttachedDb();"/>
-  		<tree id="t-dbStructNorm" flex="1" hidecolumnpicker="true" seltype="single" selstyle="primary" onselect="SQLiteManager.getDbObjectInfo()">
-    	  <treecols>
-    	  	<!-- primary=true required to put +/- sign for hierarchical tree -->
-    	    <treecol id="col-dbStructNorm" hideheader="true" primary="true" flex="1"/>
-    	  </treecols>
-    	    <treechildren id="tc-dbStructNorm" context="mp-dbstructure"/>  
-  		</tree>
-		</vbox>
+      <menulist id="ml-dbNames" style="font-weight: bold;  color: blue; padding: 3px 3px;" context="mp-detachDb" oncommand="SQLiteManager.changeAttachedDb();"/>
+      <tree id="t-dbStructNorm" flex="1" hidecolumnpicker="true" seltype="single" selstyle="primary" onselect="SQLiteManager.getDbObjectInfo()">
+        <treecols>
+          <!-- primary=true required to put +/- sign for hierarchical tree -->
+          <treecol id="col-dbStructNorm" hideheader="true" primary="true" flex="1"/>
+        </treecols>
+          <treechildren id="tc-dbStructNorm" context="mp-dbstructure"/>  
+      </tree>
+    </vbox>
 
     <splitter id="localsplitter" persist="state" collapse="before">
       <grippy/>
     </splitter>
 
     <vbox flex="1" persist="width">
-		<tabbox id="sm-tabbox" flex="1">
-		  <tabs id="sm-tabs" onselect="SQLiteManager.loadTabWithId(this.selectedItem.id)" closebutton="false" onclosetab="SQLiteManager.closeTab()">
-		    <tab id="tab-structure" linkedpanel="structureTab" label="&tab.structure;"	persist="selected"/>
-		    <tab id="tab-browse" linkedpanel="browseTab" label="&tab.browse;" persist="selected"/>
-		    <tab id="tab-execute" linkedpanel="executeTab" label="&tab.execute;"	persist="selected"/>
-		    <tab id="tab-dbinfo" linkedpanel="dbInfoTab" label="&tab.dbinfo;" persist="selected"/>
+    <tabbox id="sm-tabbox" flex="1">
+      <tabs id="sm-tabs" onselect="SQLiteManager.loadTabWithId(this.selectedItem.id)" closebutton="false" onclosetab="SQLiteManager.closeTab()">
+        <tab id="tab-structure" linkedpanel="structureTab" label="&tab.structure;"  persist="selected"/>
+        <tab id="tab-browse" linkedpanel="browseTab" label="&tab.browse;" persist="selected"/>
+        <tab id="tab-execute" linkedpanel="executeTab" label="&tab.execute;"  persist="selected"/>
+        <tab id="tab-dbinfo" linkedpanel="dbInfoTab" label="&tab.dbinfo;" persist="selected"/>
         <tab id="tab-exim" linkedpanel="eximTabpanel" collapsed="true"/>
         <tab id="tab-udf" linkedpanel="udfTabpanel" label="&tab.udf;" collapsed="true"/>
-		  </tabs>
+      </tabs>
 
-		  <tabpanels id="sm-tabpanels" flex="1">
-		    <tabpanel id="structureTab" flex="1">
-		    <vbox id="vb-structureTab" flex="1">
-		      <groupbox>
-		      <caption id="cap-object-info"/>
-		      <deck id="d-master-ops" hidden="true">
-					<hbox id="gb-master-ops-master">
-		        <button label="&export;" command="smc-exportTable"/>
-					</hbox>
-					<hbox id="gb-master-ops-table">
-						<button label="&drop;" command="smc-dropTable"/>
-		        <button label="&empty;" command="smc-emptyTable"/>
-		        <button label="&rename;" command="smc-renameTable"/>
-		        <button label="&reindex;" command="smc-reindexTable"/>
-		        <button label="&copy;" command="smc-copyTable"/>
-		        <button label="&export;" command="smc-exportTable"/>
-		        <button label="FK" oncommand="SQLiteManager.generateFKTriggers()"/>
-					</hbox>
-				  <hbox id="gb-master-ops-view">
-		        <button label="&drop;" command="smc-dropView"/>
-		        <button label="&rename;" command="smc-renameView"/>
-		        <button label="&modify;" command="smc-modifyView"/>
-		        <button label="&export;" command="smc-exportView"/>
-					</hbox>
-				  <hbox id="gb-master-ops-index">
-		        <button label="&drop;" command="smc-dropIndex"/>
-		        <button label="&reindex;" command="smc-reindexIndex"/>
-					</hbox>
-				  <hbox id="gb-master-ops-trigger">
-		        <button label="&drop;" command="smc-dropTrigger"/>
-		        <button label="&rename;" command="smc-renameTrigger"/>
-					</hbox>
-					</deck>
-					</groupbox>
-				  <vbox flex="1" style="overflow:auto">
-				  <groupbox id="gb-master-info" hidden="true">
-				  <caption label="&masterinfo.sql;"/>
-				  <description id="desc-sql" style="white-space: pre-wrap;"  tooltiptext="Double-click to copy the SQL statement" ondblclick="SQLiteManager.copyText(this.textContent);" hidden="true"/>
-				  <textbox id="str-sql" multiline="true" rows="1" align="stretch" style="overflow: auto" readonly="true"/>
-				  </groupbox>
-				  <deck id="d-more-info" hidden="true">
-				  <vbox id="gb-more-info-table" flex="1">
-					<groupbox>
-					<caption label="&moreInfo;"/>
+      <tabpanels id="sm-tabpanels" flex="1">
+        <tabpanel id="structureTab" flex="1">
+        <vbox id="vb-structureTab" flex="1">
+          <groupbox>
+          <caption id="cap-object-info"/>
+          <deck id="d-master-ops" hidden="true">
+          <hbox id="gb-master-ops-master">
+            <button label="&export;" command="smc-exportTable"/>
+          </hbox>
+          <hbox id="gb-master-ops-table">
+            <button label="&drop;" command="smc-dropTable"/>
+            <button label="&empty;" command="smc-emptyTable"/>
+            <button label="&rename;" command="smc-renameTable"/>
+            <button label="&reindex;" command="smc-reindexTable"/>
+            <button label="&copy;" command="smc-copyTable"/>
+            <button label="&export;" command="smc-exportTable"/>
+            <button label="FK" oncommand="SQLiteManager.generateFKTriggers()"/>
+          </hbox>
+          <hbox id="gb-master-ops-view">
+            <button label="&drop;" command="smc-dropView"/>
+            <button label="&rename;" command="smc-renameView"/>
+            <button label="&modify;" command="smc-modifyView"/>
+            <button label="&export;" command="smc-exportView"/>
+          </hbox>
+          <hbox id="gb-master-ops-index">
+            <button label="&drop;" command="smc-dropIndex"/>
+            <button label="&reindex;" command="smc-reindexIndex"/>
+          </hbox>
+          <hbox id="gb-master-ops-trigger">
+            <button label="&drop;" command="smc-dropTrigger"/>
+            <button label="&rename;" command="smc-renameTrigger"/>
+          </hbox>
+          </deck>
+          </groupbox>
+          <vbox flex="1" style="overflow:auto">
+          <groupbox id="gb-master-info" hidden="true">
+          <caption label="&masterinfo.sql;"/>
+          <description id="desc-sql" style="white-space: pre-wrap;"  tooltiptext="Double-click to copy the SQL statement" ondblclick="SQLiteManager.copyText(this.textContent);" hidden="true"/>
+          <textbox id="str-sql" multiline="true" rows="1" align="stretch" style="overflow: auto" readonly="true"/>
+          </groupbox>
+          <deck id="d-more-info" hidden="true">
+          <vbox id="gb-more-info-table" flex="1">
+          <groupbox>
+          <caption label="&moreInfo;"/>
 
-					<hbox>
-				    <label class="forControl" value="&numRecords;:"/>
-				    <textbox id="numRecords" style="width: 8ex" readonly="true"/>
-				    <label class="forControl" value="&numIndexes;:"/>
-				    <textbox id="numIndexes" style="width: 8ex" readonly="true"/>
-				    <label class="forControl" value="&numTriggers;:"/>
-				    <textbox id="numTriggers" style="width: 8ex" readonly="true"/>
-				  </hbox>
-					</groupbox>
-					<groupbox id="gb-editColumn" hidden="true">
-				  <caption label="&menu.editColumn;"/>
-		        <grid>
-			        <columns>
-				        <column style="padding: 1px 5px; width: 100px;"/>
-				        <column style="padding: 1px 5px; width: 200px;"/>
-				        <column style="padding: 1px 5px; width: 200px;"/>
-				        <column style="padding: 1px 5px; width: 200px;"/>
-			        </columns>
-			        <rows>
-				        <row align="center">
-					        <text value=""/>
-					        <text value="Column Name"/>
-					        <text value="Column Type"/>
-					        <text value="Default Value"/>
-				        </row>
-				        <row align="center">
-				          <text value="Old values"/>
-					        <textbox id="tb-ec-oldName" readonly="true"/>
-					        <textbox id="tb-ec-oldType" readonly="true"/>
-					        <textbox id="tb-ec-oldDefault" readonly="true"/>
-				        </row>
-				        <row align="center">
-				          <text value="New values"/>
-					        <textbox id="tb-ec-newName"/>
-					        <textbox id="tb-ec-newType"/>
-					        <textbox id="tb-ec-newDefault"/>
-				        </row>
-				        <row align="center">
-					        <text value=""/>
-					        <text value=""/>
-					        <hbox>
-				          <text id="tb-ec-table" hidden="true"/>
-					        <button label="Cancel" oncommand="SQLiteManager.cancelEditColumn()"/>
-					        <button label="Change" oncommand="SQLiteManager.alterColumn()"/>
-					        </hbox>
-					        <text value=""/>
-				        </row>
-			        </rows>
-		        </grid>
-					</groupbox>
-					<groupbox>
-				  <caption id="capColumns" labelPrefix="&Columns;"/>
+          <hbox>
+            <label class="forControl" value="&numRecords;:"/>
+            <textbox id="numRecords" style="width: 8ex" readonly="true"/>
+            <label class="forControl" value="&numIndexes;:"/>
+            <textbox id="numIndexes" style="width: 8ex" readonly="true"/>
+            <label class="forControl" value="&numTriggers;:"/>
+            <textbox id="numTriggers" style="width: 8ex" readonly="true"/>
+          </hbox>
+          </groupbox>
+          <groupbox id="gb-editColumn" hidden="true">
+          <caption label="&menu.editColumn;"/>
+            <grid>
+              <columns>
+                <column style="padding: 1px 5px; width: 100px;"/>
+                <column style="padding: 1px 5px; width: 200px;"/>
+                <column style="padding: 1px 5px; width: 200px;"/>
+                <column style="padding: 1px 5px; width: 200px;"/>
+              </columns>
+              <rows>
+                <row align="center">
+                  <text value=""/>
+                  <text value="Column Name"/>
+                  <text value="Column Type"/>
+                  <text value="Default Value"/>
+                </row>
+                <row align="center">
+                  <text value="Old values"/>
+                  <textbox id="tb-ec-oldName" readonly="true"/>
+                  <textbox id="tb-ec-oldType" readonly="true"/>
+                  <textbox id="tb-ec-oldDefault" readonly="true"/>
+                </row>
+                <row align="center">
+                  <text value="New values"/>
+                  <textbox id="tb-ec-newName"/>
+                  <textbox id="tb-ec-newType"/>
+                  <textbox id="tb-ec-newDefault"/>
+                </row>
+                <row align="center">
+                  <text value=""/>
+                  <text value=""/>
+                  <hbox>
+                  <text id="tb-ec-table" hidden="true"/>
+                  <button label="Cancel" oncommand="SQLiteManager.cancelEditColumn()"/>
+                  <button label="Change" oncommand="SQLiteManager.alterColumn()"/>
+                  </hbox>
+                  <text value=""/>
+                </row>
+              </rows>
+            </grid>
+          </groupbox>
+          <groupbox>
+          <caption id="capColumns" labelPrefix="&Columns;"/>
   <tree id="treeTabCols" rows="6" seltype="single" smTableName="" onselect="">
       <treecols>
         <treecol id="cCid" label="Column ID" flex="1" persist="width"/>
@@ -453,52 +453,52 @@
           <treechildren id="smTableColumns" context="mp-opTableColumn">
           </treechildren>
   </tree>
-				  <vbox id="hb-addcol">
-				  <hbox>
-  				  <label style="width:24ex;" value="&name;"/>
-  				  <label style="width:15ex;" value="&type;"/>
-  				  <label style="width:6ex;" value="&notNull;"/>
-  				  <label style="width:10ex;" value="&default;"/>
-				  </hbox>
-				  <hbox>
-			    <textbox id="tb-addcol-name" style="width:24ex"/>
-		      <menulist id="tb-addcol-type" style="width:15ex" editable="true"	sizetopopup="none">
-		        <menupopup>
-		          <menuitem label="" selected="true"/>
-		          <menuitem label="INTEGER" />
-		          <menuitem label="BOOL" />
-		          <menuitem label="REAL" />
-		          <menuitem label="DOUBLE" />
-		          <menuitem label="FLOAT" />
-		          <menuitem label="CHAR" />
-		          <menuitem label="TEXT" />
-		          <menuitem label="VARCHAR" />
-		          <menuitem label="BLOB" />
-		          <menuitem label="NUMERIC" />
-		          <menuitem label="DATETIME" />
-		        </menupopup>
-				  </menulist>
-		    <checkbox id="tb-addcol-notnull" style="width:7ex"	value=""/>
-			    <textbox id="tb-addcol-default" style="width:10ex"/>
-					<button id="btn-addcol" label="&btn.addcol;" oncommand="SQLiteManager.operateOnTable('addColumn')"/>
-				  </hbox>
-				  </vbox>
-				  </groupbox>
-				  </vbox>
-				  <groupbox id="gb-more-info-view"/>
-				  <vbox id="gb-more-info-index">
-						<groupbox>
-						<caption label="&indexProp;"/>
-					
-						<hbox>
-	            <label class="forControl" value="&indexedTable;:"/>
-  			      <textbox id="tabletoindex" style="width: 25ex" readonly="true"/>
-					    <label class="forControl" value="&indexDuplicate;:"/>
-					    <textbox id="duplicatevalues" style="width: 25ex" readonly="true"/>
-					  </hbox>
-						</groupbox>
-					<groupbox>
-				  <caption label="&indexedFields;"/>
+          <vbox id="hb-addcol">
+          <hbox>
+            <label style="width:24ex;" value="&name;"/>
+            <label style="width:15ex;" value="&type;"/>
+            <label style="width:6ex;" value="&notNull;"/>
+            <label style="width:10ex;" value="&default;"/>
+          </hbox>
+          <hbox>
+          <textbox id="tb-addcol-name" style="width:24ex"/>
+          <menulist id="tb-addcol-type" style="width:15ex" editable="true"  sizetopopup="none">
+            <menupopup>
+              <menuitem label="" selected="true"/>
+              <menuitem label="INTEGER" />
+              <menuitem label="BOOL" />
+              <menuitem label="REAL" />
+              <menuitem label="DOUBLE" />
+              <menuitem label="FLOAT" />
+              <menuitem label="CHAR" />
+              <menuitem label="TEXT" />
+              <menuitem label="VARCHAR" />
+              <menuitem label="BLOB" />
+              <menuitem label="NUMERIC" />
+              <menuitem label="DATETIME" />
+            </menupopup>
+          </menulist>
+        <checkbox id="tb-addcol-notnull" style="width:7ex"  value=""/>
+          <textbox id="tb-addcol-default" style="width:10ex"/>
+          <button id="btn-addcol" label="&btn.addcol;" oncommand="SQLiteManager.operateOnTable('addColumn')"/>
+          </hbox>
+          </vbox>
+          </groupbox>
+          </vbox>
+          <groupbox id="gb-more-info-view"/>
+          <vbox id="gb-more-info-index">
+            <groupbox>
+            <caption label="&indexProp;"/>
+          
+            <hbox>
+              <label class="forControl" value="&indexedTable;:"/>
+              <textbox id="tabletoindex" style="width: 25ex" readonly="true"/>
+              <label class="forControl" value="&indexDuplicate;:"/>
+              <textbox id="duplicatevalues" style="width: 25ex" readonly="true"/>
+            </hbox>
+            </groupbox>
+          <groupbox>
+          <caption label="&indexedFields;"/>
   <tree id="treeIdxCols" rows="4" seltype="single">
       <treecols>
         <treecol id="ciSeqno" label="Seq. No." flex="1" persist="width"/>
@@ -510,118 +510,118 @@
           <treechildren id="smIndexColumns">
           </treechildren>
   </tree>
-						</groupbox>
-				  </vbox>
-				  <groupbox id="gb-more-info-trigger"/>
-				  </deck>
-				  </vbox>
-				  </vbox>
-		    </tabpanel>
-		    <tabpanel id="browseTab" flex="1">
-				  <vbox id="vb-browseTab" flex="1">
-						<hbox align="center" id="optionbar" style="min-height: 1.4em">
-				      <label id="browse-type" accesskey="" value="" persist="value"/>
-				      <textbox id="browse-name" value="" persist="value" readonly="true" width="80"/>
-			        <button id="btnSearch" command="smc-search"/>
-			        <button id="btnShowAll"	command="smc-showAll"/>
-				      <spacer flex="1"/>
-			        <button id="btnAddRecord" label="&btn.addrecord;" tooltiptext="&btn.addrecord;" accesskey="&btn.addrecord.ak;" oncommand="SQLiteManager.operateOnTable('insert')"/>
-			        <button id="btnAddDupRecord" label="&menu.duplicateRecord;" tooltiptext="&menu.duplicateRecord;" accesskey="&menu.duplicateRecord.ak;" oncommand="SQLiteManager.operateOnTable('duplicate')"/>
-			        <button id="btnEditRecord" label="&menu.editSelected;" tooltiptext="&menu.editSelected;" accesskey="&menu.editSelected.ak;" oncommand="SQLiteManager.operateOnTable('update')" />
-			        <button id="btnDeleteRecord" label="&menu.deleteSelected;" tooltiptext="&menu.deleteSelected;"	accesskey="&menu.deleteSelected.ak;" oncommand="SQLiteManager.operateOnTable('delete')" />
-				    </hbox>
+            </groupbox>
+          </vbox>
+          <groupbox id="gb-more-info-trigger"/>
+          </deck>
+          </vbox>
+          </vbox>
+        </tabpanel>
+        <tabpanel id="browseTab" flex="1">
+          <vbox id="vb-browseTab" flex="1">
+            <hbox align="center" id="optionbar" style="min-height: 1.4em">
+              <label id="browse-type" accesskey="" value="" persist="value"/>
+              <textbox id="browse-name" value="" persist="value" readonly="true" width="80"/>
+              <button id="btnSearch" command="smc-search"/>
+              <button id="btnShowAll"  command="smc-showAll"/>
+              <spacer flex="1"/>
+              <button id="btnAddRecord" label="&btn.addrecord;" tooltiptext="&btn.addrecord;" accesskey="&btn.addrecord.ak;" oncommand="SQLiteManager.operateOnTable('insert')"/>
+              <button id="btnAddDupRecord" label="&menu.duplicateRecord;" tooltiptext="&menu.duplicateRecord;" accesskey="&menu.duplicateRecord.ak;" oncommand="SQLiteManager.operateOnTable('duplicate')"/>
+              <button id="btnEditRecord" label="&menu.editSelected;" tooltiptext="&menu.editSelected;" accesskey="&menu.editSelected.ak;" oncommand="SQLiteManager.operateOnTable('update')" />
+              <button id="btnDeleteRecord" label="&menu.deleteSelected;" tooltiptext="&menu.deleteSelected;"  accesskey="&menu.deleteSelected.ak;" oncommand="SQLiteManager.operateOnTable('delete')" />
+            </hbox>
 <!-- trial for sliding forms -->
             <vbox flex="1">
-				    <vbox id="box-rowedit" flex="1" hidden="true" style="overflow: auto"/>
-				    <tree id="browse-tree" style="min-height:20em" editable="true"	flex="1" seltype="multiple" enableColumnDrag="false">
-				      <treecols hidden="true"/>
-				      <treechildren id="browse-treechildren" editable="true" hidden="true" flex="1" context="mp-editTableRow"/>  
-				    </tree>
-				    </vbox>
-				    <hbox id="browse-navigate">
-				    	<button id="btn-nav-first" label="&lt;&lt;" tooltiptext="&first;" oncommand="SQLiteManager.onBrowseNavigate('first')"/>
-				    	<button id="btn-nav-previous" label="&lt;" tooltiptext="&previous;" oncommand="SQLiteManager.onBrowseNavigate('previous')"/>
-				    	<label id="nav-start-val" style="padding-top:5px;font-weight:bold;"/>
+            <vbox id="box-rowedit" flex="1" hidden="true" style="overflow: auto"/>
+            <tree id="browse-tree" style="min-height:20em" editable="true"  flex="1" seltype="multiple" enableColumnDrag="false">
+              <treecols hidden="true"/>
+              <treechildren id="browse-treechildren" editable="true" hidden="true" flex="1" context="mp-editTableRow"/>  
+            </tree>
+            </vbox>
+            <hbox id="browse-navigate">
+              <button id="btn-nav-first" label="&lt;&lt;" tooltiptext="&first;" oncommand="SQLiteManager.onBrowseNavigate('first')"/>
+              <button id="btn-nav-previous" label="&lt;" tooltiptext="&previous;" oncommand="SQLiteManager.onBrowseNavigate('previous')"/>
+              <label id="nav-start-val" style="padding-top:5px;font-weight:bold;"/>
 <!--
-				    	<textbox id="nav-start-val" style="width:50px"/>
+              <textbox id="nav-start-val" style="width:50px"/>
 -->
-				    	<label value="&to;" style="padding-top:5px"/>
-				    	<label id="nav-end-val" style="padding-top:5px;font-weight:bold;"/>
+              <label value="&to;" style="padding-top:5px"/>
+              <label id="nav-end-val" style="padding-top:5px;font-weight:bold;"/>
 <!--
-				    	<textbox id="nav-end-val" style="width:50px"/>
+              <textbox id="nav-end-val" style="width:50px"/>
 -->
-				    	<label value="&of;" style="padding-top:5px"/>
-				    	<label id="nav-total-val" style="padding-top:5px;font-weight:bold;"/>
+              <label value="&of;" style="padding-top:5px"/>
+              <label id="nav-total-val" style="padding-top:5px;font-weight:bold;"/>
 <!--
-				    	<textbox id="nav-total-val" readonly="true" style="width:50px"/>
+              <textbox id="nav-total-val" readonly="true" style="width:50px"/>
 -->
-				    	<button id="btn-nav-next" label="&gt;" tooltiptext="&next;" oncommand="SQLiteManager.onBrowseNavigate('next')"/>
-				    	<button id="btn-nav-last" label="&gt;&gt;" tooltiptext="&last;" oncommand="SQLiteManager.onBrowseNavigate('last')"/>
-				    </hbox>
-				  </vbox>
-		    </tabpanel>
+              <button id="btn-nav-next" label="&gt;" tooltiptext="&next;" oncommand="SQLiteManager.onBrowseNavigate('next')"/>
+              <button id="btn-nav-last" label="&gt;&gt;" tooltiptext="&last;" oncommand="SQLiteManager.onBrowseNavigate('last')"/>
+            </hbox>
+          </vbox>
+        </tabpanel>
 
-		    <tabpanel id="executeTab" flex="1">
-					<vbox id="vb-executeTab" flex="1">
-  					<hbox>
-  					<label style="font-size:10pt;" value="&string.enterSql;" accesskey="&string.enterSql.ak;" control="txtSqlStatement"/>
-  					<hbox id="hb-queryHistory">
- 					  <image id="queryHistoryPrevImage" hidden="true" tooltiptext="&btn.prevSql;" onclick="SQLiteManager.showPrevSql()"/>
-  					<image id="queryHistoryNextImage" hidden="true" tooltiptext="&btn.nextSql;" onclick="SQLiteManager.showNextSql()"/>
-  					<image id="querySaveByNameImage" hidden="true" tooltiptext="&btn.saveQuery;" onclick="SQLiteManager.saveSqlByName()"/>
-  					<image id="queryHistoryClearImage" hidden="true" tooltiptext="&btn.clearHistory;" onclick="SQLiteManager.clearSqlHistory()"/>
-  					</hbox>
+        <tabpanel id="executeTab" flex="1">
+          <vbox id="vb-executeTab" flex="1">
+            <hbox>
+            <label style="font-size:10pt;" value="&string.enterSql;" accesskey="&string.enterSql.ak;" control="txtSqlStatement"/>
+            <hbox id="hb-queryHistory">
+             <image id="queryHistoryPrevImage" hidden="true" tooltiptext="&btn.prevSql;" onclick="SQLiteManager.showPrevSql()"/>
+            <image id="queryHistoryNextImage" hidden="true" tooltiptext="&btn.nextSql;" onclick="SQLiteManager.showNextSql()"/>
+            <image id="querySaveByNameImage" hidden="true" tooltiptext="&btn.saveQuery;" onclick="SQLiteManager.saveSqlByName()"/>
+            <image id="queryHistoryClearImage" hidden="true" tooltiptext="&btn.clearHistory;" onclick="SQLiteManager.clearSqlHistory()"/>
+            </hbox>
   
-  					<spacer flex="1"/>
-  			    <toolbox id="tb-sql-helper">
-  			    	<!-- comes from menuSqlHelper.xul overlay -->
-  						<menubar id="sql-help-menubar"/>
-  					</toolbox>
-  					</hbox>
+            <spacer flex="1"/>
+            <toolbox id="tb-sql-helper">
+              <!-- comes from menuSqlHelper.xul overlay -->
+              <menubar id="sql-help-menubar"/>
+            </toolbox>
+            </hbox>
   
-  					<vbox style="min-height:5em">
-  					<textbox id="txtSqlStatement" multiline="true" rows="2" flex="1" value="SELECT * FROM tablename" />
+            <vbox style="min-height:5em">
+            <textbox id="txtSqlStatement" multiline="true" rows="2" flex="1" value="SELECT * FROM tablename" />
 
-  					<hbox flex="0">
-  		      <menulist id="listbox-queries" hidden="true" style="max-width: 25ex" sizetopopup="always" oncommand="SQLiteManager.onSelectQuery();">
-  		        <menupopup/>
-  		      </menulist>
-  					<button id="buttonRun" label="&btn.runsql;" accesskey="&btn.runsql.ak;" oncommand="SQLiteManager.runSqlStatement('select')" />
+            <hbox flex="0">
+            <menulist id="listbox-queries" hidden="true" style="max-width: 25ex" sizetopopup="always" oncommand="SQLiteManager.onSelectQuery();">
+              <menupopup/>
+            </menulist>
+            <button id="buttonRun" label="&btn.runsql;" accesskey="&btn.runsql.ak;" oncommand="SQLiteManager.runSqlStatement('select')" />
   <!--
-  					<button id="buttonRun" label="&buttonRun;" accesskey="&buttonRun.ak;" oncommand="SQLiteManager.runSqlStatement('select')" />
-  					<button id="buttonExecute" label="&buttonExecute;" accesskey="&buttonExecute.ak;" oncommand="SQLiteManager.runSqlStatement('execute')" />
+            <button id="buttonRun" label="&buttonRun;" accesskey="&buttonRun.ak;" oncommand="SQLiteManager.runSqlStatement('select')" />
+            <button id="buttonExecute" label="&buttonExecute;" accesskey="&buttonExecute.ak;" oncommand="SQLiteManager.runSqlStatement('execute')" />
   -->
             <label class="forControl" value="&label.sqlLastError;:"/>
             <textbox id="sqlLastError" readonly="true" flex="1"/>
-  					</hbox>
-  					</vbox>
+            </hbox>
+            </vbox>
             <splitter id="executetabsplitter" persist="state" collapse="before"/>
 
-  					<hbox flex="1">
-  				    <tree align="stretch" id="treeSqlOutput" style="min-height:10em" enableColumnDrag="true" seltype="multiple" flex="1">
-  				      <treecols hidden="true"/>
-  				      <treechildren hidden="true" flex="1" onclick="treeExecute.UserTreeClick(event)" context="mp-copy"/>  
-  				    </tree>
-  					</hbox>
-					</vbox>
-		    </tabpanel>
+            <hbox flex="1">
+              <tree align="stretch" id="treeSqlOutput" style="min-height:10em" enableColumnDrag="true" seltype="multiple" flex="1">
+                <treecols hidden="true"/>
+                <treechildren hidden="true" flex="1" onclick="treeExecute.UserTreeClick(event)" context="mp-copy"/>  
+              </tree>
+            </hbox>
+          </vbox>
+        </tabpanel>
 
-		    <tabpanel id="dbInfoTab"/>
-		    <tabpanel id="eximTabpanel"/>
-		    <tabpanel id="udfTabpanel"/>
-		  </tabpanels>
-		</tabbox>
-		</vbox>
-		</hbox>
-		</vbox>
+        <tabpanel id="dbInfoTab"/>
+        <tabpanel id="eximTabpanel"/>
+        <tabpanel id="udfTabpanel"/>
+      </tabpanels>
+    </tabbox>
+    </vbox>
+    </hbox>
+    </vbox>
 
     <statusbar id="sbFull">
-    	<statusbarpanel id="sbSqliteVersion" style="font-weight:bold"/>
-    	<statusbarpanel id="sbGeckoVersion"/>
-    	<statusbarpanel id="sbExtVersion" style="color:#666666"/>
-    	<statusbarpanel id="sbSharedMode" label="---" style="font-weight:bold;"/>
-    	<statusbarpanel id="sbPanel-display" flex="1"/>
-    	<statusbarpanel id="sbQueryTime"/>
+      <statusbarpanel id="sbSqliteVersion" style="font-weight:bold"/>
+      <statusbarpanel id="sbGeckoVersion"/>
+      <statusbarpanel id="sbExtVersion" style="color:#666666"/>
+      <statusbarpanel id="sbSharedMode" label="---" style="font-weight:bold;"/>
+      <statusbarpanel id="sbPanel-display" flex="1"/>
+      <statusbarpanel id="sbQueryTime"/>
     </statusbar>  
 
 <!-- for cloning; hidden=true otherwise awkward space at the bottom-->

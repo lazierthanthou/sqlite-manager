@@ -4,7 +4,7 @@ Components.utils.import("resource://sqlitemanager/fileIO.js");
 var SmUdf = {
   dbFunc: null,
 
-	init: function() {
+  init: function() {
     //open connection to udf db
     if (this.dbFunc == null)
       this.dbFunc = new SQLiteHandler();
@@ -19,9 +19,9 @@ var SmUdf = {
     }
 
     return true;
-	},
-	
-	close: function() {
+  },
+  
+  close: function() {
     //close connection to udf db
     try {
       if (this.dbFunc != null)
@@ -33,23 +33,23 @@ var SmUdf = {
     }
 
     return true;
-	},
-	
-	loadTab: function() {
+  },
+  
+  loadTab: function() {
     $$("udfDbDirPathButton").setAttribute('disabled', true);
     $$("udfTabNew").setAttribute('disabled', true);
 
     //connect to udf db
-	  this.init();
+    this.init();
 
-	  //get udfDbDirPath from prefs
+    //get udfDbDirPath from prefs
     var udfDbDirPath = sm_prefsBranch.getCharPref("udfDbDirPath");
     $$("udfDbDirPath").value = udfDbDirPath;
 
     //populate menulist with all function names
     this.populateFuncMenuList();
-	},
-	
+  },
+  
   selectUdfDir: function() {
     //select a dir
     var dir = SmGlobals.chooseDirectory("Choose location of user-defined functions database (smFunctions.sqlite)...");
@@ -99,15 +99,15 @@ var SmUdf = {
     return fileDb;
   },
 
-	onSelectTab: function() {
-	  var sId = $$("udfTabs").selectedItem.id;
-		switch(sId) {
-			case "udfTabNew":
-			  break;
-			case "udfTabView":
-				break;
-		}
-	},
+  onSelectTab: function() {
+    var sId = $$("udfTabs").selectedItem.id;
+    switch(sId) {
+      case "udfTabNew":
+        break;
+      case "udfTabView":
+        break;
+    }
+  },
 
   populateFuncMenuList: function() {
     var records = [];
@@ -163,7 +163,7 @@ var SmUdf = {
     }
     $$("udfViewFunc").textContent = sTxt.join('\n');
     return true;
-	},
+  },
 
   getDbFunctions: function() {
     var allUdf = [];

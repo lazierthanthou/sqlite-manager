@@ -5,21 +5,27 @@ var SmUdf = {
   dbFunc: null,
 
   init: function() {
-    //open connection to udf db
-    if (this.dbFunc == null)
-      this.dbFunc = new SQLiteHandler();
-
     try {
+      //open connection to udf db
+      if (this.dbFunc == null)
+        this.dbFunc = new SQLiteHandler();
+
       var fUserFile = this.getUserFile();
+      var bConnected = false;
       if (fUserFile != null)
-        this.dbFunc.openDatabase(fUserFile);
+        bConnected = this.dbFunc.openDatabase(fUserFile);
       else
-        this.dbFunc.openDatabase(this.getSuppliedFile());
+        bConnected = this.dbFunc.openDatabase(this.getSuppliedFile());
+
+      if (bConnected) {
+        return true;
+      }
     } catch (e) {
-      sm_log('Failed to open a connection to UDF database\n' + (fUserFile != null)?'db: user selected':'db: supplied');
-      return false;
+      Components.utils.reportError('Failed to open a connection to UDF database\n' + (fUserFile != null)?'db: user selected':'db: supplied');
     }
-    return true;
+
+    this.dbFunc = null;
+    return false;
   },
 
   close: function() {

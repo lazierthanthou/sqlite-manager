@@ -808,6 +808,14 @@ SQLiteHandler.prototype = {
     }
   },
 
+  attachDatabase: function(sName, sPath) {
+    if (sName == 'main' || sName == 'temp')
+      return false;
+
+    var sQuery = "ATTACH DATABASE " + SQLiteFn.quote(sPath) + " AS " + SQLiteFn.quoteIdentifier(sName);
+    return this.selectQuery(sQuery);  
+  },
+
   onSqlError: function(ex, msg, SQLmsg) {
     msg = "SQLiteManager: " + msg;
     if (SQLmsg != null)
@@ -859,7 +867,32 @@ SQLiteHandler.prototype = {
 //The following functions are for Pragmas to query the database schema
 /////////////////////////////////////////////
 
-//functions for db list (main, temp and attached)
+//function for attached db list (not main & temp)
+//returns all columns
+  getAttachedDbList: function() {
+    var sQuery = "PRAGMA database_list";
+    var stmt = this.dbConn.createStatement(sQuery);
+    var aRows = [];
+    try {
+      while (stmt.executeStep()) {
+        if (stmt.row.seq > 1) {//excludes main & temp
+          var oRow = {};
+
+          oRow.seq = stmt.row.seq;
+          oRow.name = stmt.row.name;
+          oRow.file = stmt.row.file;
+
+          aRows.push(oRow);
+        }
+      }
+    } finally {
+      stmt.reset();
+    }
+    return aRows;
+  },
+
+//function for db list (main, temp and attached)
+//returns only name, not file
   getDatabaseList: function() {
     var sQuery = "PRAGMA database_list";
     var stmt = this.dbConn.createStatement(sQuery);

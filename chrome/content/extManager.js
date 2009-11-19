@@ -238,5 +238,32 @@ SMExtensionManager.prototype = {
     }
 
     return aStr;
+  },
+
+  getAttachedDbList: function() {
+    if (!this.m_bUseConfig)
+      return false;
+
+    var sEc = "StructTree:AttachedDb";
+    var aAttached = [];
+
+    this.m_db.selectQuery('select "value" from ' + this.m_tbl + " where type = '" + sEc + "'");
+    var aData = this.m_db.getRecords();
+    if (aData.length > 0) {
+      aAttached = JSON.parse(aData[0][0]);
+    }
+
+    return aAttached;
+  },
+
+  setAttachedDbList: function(aAttached) {
+    if (!this.m_bUseConfig)
+      return false;
+
+    var sEc = "StructTree:AttachedDb";
+
+    var q1 = "delete from " + this.m_tbl + " where type = '" + sEc + "'";
+    var q2 = "insert into " + this.m_tbl + "(type, value) values('" + sEc + "', '" + JSON.stringify(aAttached) + "')";
+    this.m_db.executeTransaction([q1,q2]);
   }
 };

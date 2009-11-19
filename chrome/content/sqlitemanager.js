@@ -1400,9 +1400,13 @@ var SQLiteManager = {
     if(!answer)
       return false;
 
-    //save StructureTreeState in ext mgmt table if mgmt is in use
+    //if extmgmt table is in use
     if (smExtManager.getUsage()) {
+      //save StructureTreeState
       smExtManager.setStructTreeState(smStructTrees[0].aExpandedNodes);
+      //save info on attached tables
+      var aAttached = Database.getAttachedDbList();
+      smExtManager.setAttachedDbList(aAttached);
     }
     //make the current database as null and 
     //call setDatabase to do appropriate things
@@ -2190,7 +2194,7 @@ var SQLiteManager = {
     var rv = fp.show();
     if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
       // work with returned nsILocalFile...
-      var sPath = SQLiteFn.quoteIdentifier(fp.file.path);
+      var sPath = fp.file.path;
 
       var check = {value: false};
       var input = {value: ""};
@@ -2200,8 +2204,7 @@ var SQLiteManager = {
       if (!result || sDbName.length == 0)
         return false;
 
-      var sQuery = "ATTACH DATABASE " + sPath + " AS " + SQLiteFn.quoteIdentifier(sDbName);
-      if (Database.selectQuery(sQuery)) {
+      if (Database.attachDatabase(sDbName, sPath)) {
         var mi = $$("ml-dbNames").appendItem(sDbName, sDbName, fp.file.leafName);
         mi.setAttribute("dbName", sDbName);
         mi.setAttribute("tooltiptext", sPath);
@@ -2215,6 +2218,37 @@ var SQLiteManager = {
       }      
     }
     return false;
+  },
+
+  initDbListMenu: function(leafName, path) {
+    var mlist = $$("ml-dbNames");
+    mlist.removeAllItems();
+
+    var mi = mlist.appendItem(leafName, leafName, "");
+    mi.setAttribute("dbName", "main");
+    mi.setAttribute("tooltiptext", path);
+
+    var mi = mlist.appendItem(sm_getLStr("sqlm.tooltip.tempObj"), sm_getLStr("sqlm.tooltip.tempObj"), "");
+    mi.setAttribute("dbName", "temp");
+    mi.setAttribute("tooltiptext", sm_getLStr("sqlm.tooltip.tempDbObj"));
+
+    var mi = mlist.appendItem(sm_getLStr("sqlm.tooltip.attachedDbs"), sm_getLStr("sqlm.tooltip.attachedDbs"), "");
+    mi.setAttribute("dbName", "");
+    mi.setAttribute("disabled", "true");
+  
+    //attach all db that were attached when this db was last closed
+    var aAttached = smExtManager.getAttachedDbList();
+    for (var i = 0; i < aAttached.length; i++) {
+      var sName = aAttached[i].name;
+      var sPath = aAttached[i].file;
+      if (Database.attachDatabase(sName, sPath)) {
+        var mi = mlist.appendItem(sName, sName, sPath);
+        mi.setAttribute("dbName", sName);
+        mi.setAttribute("tooltiptext", sPath);
+      }
+    }
+    mlist.selectedIndex = 0;
+    this.changeAttachedDb();
   },
 
   createTimestampedBackup: function(nsiFileObj) {
@@ -2335,21 +2369,9 @@ var SQLiteManager = {
       smExtManager = new SMExtensionManager();
       this.useExtensionManagementTable(smExtManager.getUsage(), true);
 
-      //populate the db list menu with main and temp
-      var mlist = $$("ml-dbNames");
-      mlist.removeAllItems();
-      var mi = mlist.appendItem(leafName, leafName, "");
-      mi.setAttribute("dbName", "main");
-      mi.setAttribute("tooltiptext", path);
-      var mi = mlist.appendItem(sm_getLStr("sqlm.tooltip.tempObj"), sm_getLStr("sqlm.tooltip.tempObj"), "");
-      mi.setAttribute("dbName", "temp");
-      mi.setAttribute("tooltiptext", sm_getLStr("sqlm.tooltip.tempDbObj"));
-      var mi = mlist.appendItem(sm_getLStr("sqlm.tooltip.attachedDbs"), sm_getLStr("sqlm.tooltip.attachedDbs"), "");
-      mi.setAttribute("dbName", "");
-      mi.setAttribute("disabled", "true");
-  
-      mlist.selectedIndex = 0;
-      this.changeAttachedDb();
+      //init the db menulist with main, temp & attached db
+      this.initDbListMenu(leafName, path);
+
       //display the sqlite version in the status bar
       var sV = sm_getLStr("sqlite") + " " + Database.sqliteVersion;
       $$("sbSqliteVersion").setAttribute("label",sV);

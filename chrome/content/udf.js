@@ -1,4 +1,5 @@
 Components.utils.import("resource://sqlitemanager/fileIO.js");
+Components.utils.import("resource://sqlitemanager/tokenize.js");
 
 //var Database;
 var SmUdf = {
@@ -18,6 +19,13 @@ var SmUdf = {
         bConnected = this.dbFunc.openDatabase(this.getSuppliedFile());
 
       if (bConnected) {
+        //if connected & if table 'functions' does not exist, create it and populate it
+        if (!this.dbFunc.tableExists('functions')) {
+          var file = this.getSuppliedSqlFile();
+          var sData = FileIO.read(file, 'UTF-8');
+          var aQueries = sql_tokenizer(sData);
+          this.dbFunc.executeTransaction(aQueries);
+        }
         return true;
       }
     } catch (e) {
@@ -61,31 +69,9 @@ var SmUdf = {
     }
     else {
       sm_prefsBranch.setCharPref("udfDbDirPath", dir.path);
-
-      try {
-        //copy the supplied db if none exists
-        var fUser = this.getUserFile();
-        if (!fUser.exists()) {
-          this.copySuppliedFile();
-        }
-        //if user file exists/created, connect to it, etc.
-        this.loadTab();
-      } catch (e) {
-        var udfDbDirPath = sm_prefsBranch.getCharPref("udfDbDirPath");
-        alert(e.message);
-        Cu.reportError('SQLiteManager: ' + e.message + '\nudfDbDirPath: ' + udfDbDirPath);
-      }
+      //reload this tab
+      this.loadTab();
     }
-  },
-
-  copySuppliedFile: function() {
-    var fileOrig = this.getSuppliedFile();
-    var dirUser = this.getUserDir();
-    if (dirUser != null) {
-      fileOrig.copyTo(dirUser, "");
-      return true;
-    }
-    return false;
   },
 
   getSuppliedFile: function() {
@@ -96,16 +82,24 @@ var SmUdf = {
     return fileOrig;
   },
 
-  getUserDir: function() {
-    var udfDbDirPath = sm_prefsBranch.getCharPref("udfDbDirPath");
-    var fileDb = FileIO.getFile(udfDbDirPath);
-    return fileDb;
+  getSuppliedSqlFile: function() {
+    //find the location of this extension/xul app
+    var fileOrig = FileIO.getFile(SmGlobals.extLocation);
+    fileOrig.append('extra');
+    fileOrig.append('smFunctions.sql');
+    return fileOrig;
   },
 
   getUserFile: function() {
-    var fileDb = this.getUserDir();
-    if (fileDb != null)
-      fileDb.append("smFunctions.sqlite");
+    var udfDbDirPath = sm_prefsBranch.getCharPref("udfDbDirPath");
+    if (udfDbDirPath == null || udfDbDirPath == '')
+      return null;
+
+    var fileDb = FileIO.getFile(udfDbDirPath);
+    if (fileDb == null)
+      return null;
+
+    fileDb.append("smFunctions.sqlite");
     return fileDb;
   },
 
@@ -152,6 +146,9 @@ var SmUdf = {
   },
 
   onSelectFuncName: function() {
+    if (this.dbFunc == null)
+      return;
+
     $$("udfViewFunc").textContent = '';
     var sFuncName = $$("udfFuncMenuList").value;
     if (sFuncName == '--')

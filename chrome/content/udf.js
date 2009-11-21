@@ -145,35 +145,63 @@ var SmUdf = {
     return true;
   },
 
+  addFunction: function() {
+    var sName = $$("udfNewFuncName").value;
+    var iArg = $$("udfNewFuncArgLength").value;
+    var iEnabled = $$("udfNewFuncEnabled").checked?1:0;
+    var sBody = $$("udfNewFuncBody").value;
+
+    try {
+      var sQuery = "INSERT INTO functions (name, body, argLength, enabled) VALUES (" + SQLiteFn.quote(sName) + "," + SQLiteFn.quote(sBody) + "," + iArg + "," + iEnabled + ")";
+      this.dbFunc.executeSimpleSQLs([sQuery]);
+    } catch (e) {
+      sm_log(e.message);
+      return false;
+    }
+    //populate menulist with all function names
+    this.populateFuncMenuList();
+    //notify the user
+    sm_notify('udfNotifyBox', 'New function added: ' + sName + '. Press "Reload Functions" button to access this function in SQL statements.', 'info', 4);
+    return true;
+  },
+
+  reloadFunctions: function() {
+    SQLiteManager.createFunctions(false);
+  },
+
   onSelectFuncName: function() {
     if (this.dbFunc == null)
       return;
 
-    $$("udfViewFunc").textContent = '';
+    $$("udfViewFuncHead").textContent = '';
+    $$("udfViewFuncBody").textContent = '';
+    $$("udfViewFuncTail").textContent = '';
     var sFuncName = $$("udfFuncMenuList").value;
     if (sFuncName == '--')
       return false;
 
     var records = [];
     try {
-      this.dbFunc.selectQuery("SELECT name, body, argLength, enabled, aggregate FROM functions WHERE name = '" + sFuncName + "' ORDER BY name");
+      this.dbFunc.selectQuery("SELECT name, body, argLength, enabled FROM functions WHERE name = '" + sFuncName + "' ORDER BY name");
       records = this.dbFunc.getRecords();
     } catch (e) {
       sm_log(e.message);
       return false;
     }
 
-    var sTxt = [];
+    var sTxt = [], sBody;
     for (var i in records) {
       sTxt.push('// name      = ' + records[i][0]);
       sTxt.push('// argLength = ' + records[i][2]);
-      sTxt.push('// aggregate = ' + records[i][4]);
       sTxt.push('// enabled   = ' + records[i][3]);
       sTxt.push('function ' + records[i][0] + ' (aValues) {');
-      sTxt.push(records[i][1]);
-      sTxt.push('}');
+      //sTxt.push(records[i][1]);
+      sBody = records[i][1];
+      //sTxt.push('}');
     }
-    $$("udfViewFunc").textContent = sTxt.join('\n');
+    $$("udfViewFuncHead").textContent = sTxt.join('\n');
+    $$("udfViewFuncBody").textContent = sBody;
+    $$("udfViewFuncTail").textContent = '}';
     return true;
   },
 
@@ -199,10 +227,10 @@ var SmUdf = {
   showHelp: function(sArg) {
     switch (sArg) {
       case 'newFunctionArgLength':
-        alert('-1 means unlimited');
+        smPrompt.alert(null, sm_getLStr("extName"), 'The number of arguments that the function will accept should be an integer.\n-1 means unlimited number of arguments.');
         break;
       case 'newFunctionBody':
-        alert('body without braces');
+        smPrompt.alert(null, sm_getLStr("extName"), 'Write the function body without braces.\nThe argument to the function is "aValues" which can be used within the function body as in the example functions which you can see under the Available Functions tab.');
         break;
     }
   }

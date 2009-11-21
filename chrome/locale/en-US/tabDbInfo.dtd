@@ -6,8 +6,8 @@
 <!ENTITY schema_version "Schema Version">
 <!ENTITY user_version "User Version">
 
-<!ENTITY cache_size "Cache Size (no. of pages)">
-<!ENTITY default_cache_size "Default Cache Size (no. of pages)">
+<!ENTITY cache_size "Cache Size">
+<!ENTITY default_cache_size "Default Cache Size">
 
 <!ENTITY pages "Pages">
 <!ENTITY page_size "Page Size (bytes)">

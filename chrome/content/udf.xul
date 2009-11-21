@@ -18,31 +18,34 @@
     <hbox>
       <textbox id="udfDbDirPath" flex="1" readonly="true"/>
       <button id="udfDbDirPathButton" label="&udf.selectDir;" accesskey="&udf.selectDir.ak;" oncommand="SmUdf.selectUdfDir();"/>
+      <button id="udfReloadFuncButton" label="&udf.reloadFunc;" oncommand="SmUdf.reloadFunctions();"/>
     </hbox>
 
-    <tabbox>
+    <tabbox flex="1">
       <tabs id="udfTabs" onselect="SmUdf.onSelectTab();">
         <tab id="udfTabNew" class="exportTabs"  linkedpanel="udfPanelNew" label="&udf.newFunction;" persist="selected"/>
         <tab id="udfTabView" class="exportTabs"  linkedpanel="udfPanelView" label="&udf.existingFunction;" persist="selected"/>
       </tabs>
       <tabpanels>
-        <tabpanel id="udfPanelNew">
-          <vbox>
+        <tabpanel id="udfPanelNew" flex="1">
+          <vbox flex="1">
             <hbox>
               <label class="forControl" value="&udf.funcName;"/>
-              <textbox id="udfNewFuncName" value=""/>
-            </hbox>
-            <hbox>
+              <textbox id="udfNewFuncName" style="width:150px"/>
               <label class="forControl" value="&udf.funcArgLength;"/>
-              <textbox id="udfNewFuncArgLength" value=""/>
+              <textbox id="udfNewFuncArgLength" type="number" min="-1" style="width:60px"/>
               <toolbarbutton class="tbb_questionmark" oncommand="SmUdf.showHelp('newFunctionArgLength')"/>
+              <checkbox id="udfNewFuncEnabled" label="Enabled"/>
             </hbox>
             <hbox>
               <label class="forControl" value="&udf.funcBody;"/>
               <toolbarbutton class="tbb_questionmark" oncommand="SmUdf.showHelp('newFunctionBody')"/>
             </hbox>
             <hbox>
-              <textbox id="udfNewFuncBody" multiline="true" rows="6" flex="1"/>
+              <textbox id="udfNewFuncBody" multiline="true" rows="10" flex="1"/>
+            </hbox>
+            <hbox>
+            <button id="udfAddFuncButton" label="Add Function" oncommand="SmUdf.addFunction();"/>
             </hbox>
           </vbox>
         </tabpanel>
@@ -53,7 +56,9 @@
               <label style="padding-top:3px" control="udfFuncMenuList" value="Function Names :"/>
               <menulist id="udfFuncMenuList" oncommand="SmUdf.onSelectFuncName()"/>
             </hbox>
-            <description id="udfViewFunc" style="white-space: pre-wrap;" />
+            <description id="udfViewFuncHead" style="white-space: pre-wrap;" />
+            <description id="udfViewFuncBody" style="white-space: pre-wrap;padding-left:10px;" />
+            <description id="udfViewFuncTail" style="white-space: pre-wrap;" />
           </vbox>
         </tabpanel>
       </tabpanels>

@@ -216,10 +216,13 @@ var SmUdf = {
     var records = this.dbFunc.getRecords();
 
     for (var i in records) {
-      var func = new Function("aValues", records[i][1]);
-      var udf = {fName: records[i][0], fLength: records[i][2],
-                  onFunctionCall: func};
-      allUdf.push(udf);
+      try {
+        var func = new Function("aValues", records[i][1]);
+        var udf = {fName: records[i][0], fLength: records[i][2], onFunctionCall: func};
+        allUdf.push(udf);
+      } catch (e) {
+        sm_log("Failed to create function: " + records[i][0]);
+      }
     }
     return allUdf;
   },

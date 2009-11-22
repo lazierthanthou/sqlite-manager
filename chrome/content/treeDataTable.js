@@ -29,7 +29,7 @@ TreeDataTable.prototype = {
     } 
   },
 
-  // UserCopyCell: Handle user choosing to copy the cell contents
+  // UserCopyCell: copy the cell contents
   UserCopyCell: function() {
     if (this.lastRow && this.lastCol) {
       var sCell= this.treeTable.view.getCellText(this.lastRow, this.lastCol);
@@ -38,7 +38,7 @@ TreeDataTable.prototype = {
     }
   },
   
-  // UserCopyRows: Handle user choosing to copy all currently highlighted rows
+  // UserCopyRows: copy all currently highlighted rows
   // sFormat: csv, csv-excel, sql
   UserCopyRows: function(sFormat) {
     var sel = this.treeTable.view.selection;
@@ -99,11 +99,8 @@ TreeDataTable.prototype = {
 
   // UserTreeClick: Handle the user clicking on the tree
   UserTreeClick: function(ev) {
-  // This event happens AFTER the window has scrolled (if necessary). This means
-  //that if the user clicked on an element that is partially off screen, and the
-  //screen scrolls to fully display it, then the mouse may no longer be over the 
-  //correct element.
-  //if (ev.button==2) // Right-click
+  // This event happens AFTER the window has scrolled (if necessary). This means that if the user clicked on an element that is partially off screen, and the screen scrolls to fully display it, then the mouse may no longer be over the correct element.
+  //if (ev.button == 2) // Right-click
       this.StoreClickLocation(ev);
   },
 
@@ -116,12 +113,13 @@ TreeDataTable.prototype = {
     if (bExtraRowId)
       treecol.setAttribute("extraRowId", true);
     treecol.setAttribute("id", sId);
-    treecol.setAttribute("width",iWidth);
-    treecol.setAttribute("minwidth",60);
+    treecol.setAttribute("width", iWidth);
+    treecol.setAttribute("minwidth", 60);
+    //treecol.setAttribute("context", 'mp-data-treecol');
     if (sClickFn != null)
       treecol.setAttribute("onclick", sClickFn);
     if (sBgColor != null)
-      treecol.setAttribute("style","color:"+sBgColor);
+      treecol.setAttribute("style", "color:"+sBgColor);
 
 // sColType is based on data in first row, which may not be the same
 // as the type defined for that column in schema
@@ -143,20 +141,20 @@ TreeDataTable.prototype = {
     treecols.appendChild(splitter); 
   },
 
-  // StoreClickLocation: Store the row/column that the click occurred; used later when copying cell text
+  // StoreClickLocation: store the row/column that the click occurred on; used later when copying cell text
   StoreClickLocation: function(ev) {
     // http://www.xulplanet.com/references/elemref/ref_tree.html
     if (ev && this.treeTable && ev.type == "click") {
       var row = {}, col = {}, obj = {};
       this.treeTable.treeBoxObject.getCellAt(ev.clientX, ev.clientY, row, col, obj);            
-      if (row && row.value && col && col.value!=null) // Clicked on a cell
-      {
-        this.lastRow= row.value;
-        this.lastCol= col.value;
-      } else
-      {
-        this.lastRow= null;
-        this.lastCol= null;
+      if (row && row.value && col && col.value != null) {
+        // clicked on a cell
+        this.lastRow = row.value;
+        this.lastCol = col.value;
+      }
+      else {
+        this.lastRow = null;
+        this.lastCol = null;
       }
     }
   },

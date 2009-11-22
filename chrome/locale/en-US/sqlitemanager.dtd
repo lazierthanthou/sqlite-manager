@@ -155,6 +155,9 @@
 <!ENTITY	menu.duplicateRecord "Duplicate">
 <!ENTITY	menu.duplicateRecord.ak "p">
 
+<!ENTITY	menu.copyColName "Copy Column Name">
+<!ENTITY	menu.copyColName.ak "C">
+
 <!ENTITY	menu.copyCell "Copy Cell">
 <!ENTITY	menu.copyCell.ak "C">
 <!ENTITY	menu.copyRows "Copy Row(s) as CSV">

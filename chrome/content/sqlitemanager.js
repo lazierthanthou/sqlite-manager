@@ -364,7 +364,7 @@ var SQLiteManager = {
       idx = 0;
     var objName = tree.view.getCellText(idx, tree.columns.getColumnAt(0));
     var level = tree.view.getLevel(idx);
-     var info = smStructTrees[this.miDbObjects].getSmType(idx);
+    var info = smStructTrees[this.miDbObjects].getSmType(idx);
 
     //there is a database object at level 1 only
     var mpId = "";
@@ -932,6 +932,10 @@ var SQLiteManager = {
       treeBrowse.PopulateTableData(records, columns, types);
     }
     return true;
+  },
+
+  copyColumnName: function() {
+    //treeBrowse
   },
 
   onBrowseNavigate: function(sType) {

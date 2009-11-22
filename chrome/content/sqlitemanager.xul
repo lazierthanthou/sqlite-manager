@@ -96,36 +96,40 @@
       <menuitem label="&menu.dropColumn;" accesskey="&menu.dropColumn.ak;" oncommand="SQLiteManager.dropColumn()"/>
     </menupopup>
 
+    <!-- context menu for tree columns in treeDataTable -->
+    <menupopup id="mp-data-treecol">
+      <menuitem label="&menu.copyColName;" accesskey="&menu.copyColName.ak;" oncommand="SQLiteManager.copyColumnName()"/>
+    </menupopup>
+
+    <!-- context menu for tree in execute tab -->
     <menupopup id="mp-copy">
-  <!--
-      <menuitem label="&menu.copyCell;" accesskey="&menu.copyCell.ak;" oncommand="treeExecute.UserCopyCell()"/>
-  -->
       <menuitem label="&menu.copyRows;" accesskey="&menu.copyRows.ak;" oncommand="treeExecute.UserCopyRows('csv')"/>
       <menuitem label="&menu.copyRowsForExcel;" oncommand="treeExecute.UserCopyRows('csv-excel')"/>
       <menuitem label="&menu.copyRowsAsSql;" accesskey="&menu.copyRowsAsSql.ak;" oncommand="treeExecute.UserCopyRows('sql')"/>
+      <menuseparator/>
+      <menuitem label="&menu.copyCell;" accesskey="&menu.copyCell.ak;" oncommand="treeExecute.UserCopyCell()"/>
     </menupopup>
 
+    <!-- context menu for tree in browse tab for master tables & views -->
     <menupopup id="mp-browse-copy">
-  <!--
-      <menuitem label="&menu.copyCell;" accesskey="&menu.copyCell.ak;" oncommand="treeBrowse.UserCopyCell()"/>
-  -->
       <menuitem label="&menu.copyRows;" accesskey="&menu.copyRows.ak;" oncommand="treeBrowse.UserCopyRows('csv')"/>
       <menuitem label="&menu.copyRowsForExcel;" oncommand="treeBrowse.UserCopyRows('csv-excel')"/>
       <menuitem label="&menu.copyRowsAsSql;" accesskey="&menu.copyRowsAsSql.ak;" oncommand="treeBrowse.UserCopyRows('sql')"/>
+      <menuseparator/>
+      <menuitem label="&menu.copyCell;" accesskey="&menu.copyCell.ak;" oncommand="treeBrowse.UserCopyCell()"/>
     </menupopup>
   
+    <!-- context menu for tree in browse tab for other tables -->
     <menupopup id="mp-editTableRow">
       <menuitem label="&menu.editSelected;" accesskey="&menu.editSelected.ak;" oncommand="SQLiteManager.operateOnTable('update')"/>
       <menuitem label="&menu.deleteSelected;" accesskey="&menu.deleteSelected.ak;" oncommand="SQLiteManager.operateOnTable('delete')"/>
       <menuitem label="&menu.duplicateRecord;" accesskey="&menu.duplicateRecord.ak;" oncommand="SQLiteManager.operateOnTable('duplicate')"/>
-  <!--
-      <menuitem label="&menu.copyCell;" accesskey="&menu.copyCell.ak;" oncommand="treeBrowse.UserCopyCell()"/>
-  -->
       <menuseparator/>
       <menuitem label="&menu.copyRows;" accesskey="&menu.copyRows.ak;" oncommand="treeBrowse.UserCopyRows('csv')"/>
       <menuitem label="&menu.copyRowsForExcel;" oncommand="treeBrowse.UserCopyRows('csv-excel')"/>
       <menuitem label="&menu.copyRowsAsSql;" accesskey="&menu.copyRowsAsSql.ak;" oncommand="treeBrowse.UserCopyRows('sql')"/>
-    </menupopup>
+      <menuseparator/>
+      <menuitem label="&menu.copyCell;" accesskey="&menu.copyCell.ak;" oncommand="treeBrowse.UserCopyCell()"/>    </menupopup>
 
     <menupopup id="mp-create-table">
       <menuitem label="&createTable;" accesskey="&create.ak;" command="smc-createTable"/>
@@ -535,7 +539,7 @@
             <vbox id="box-rowedit" flex="1" hidden="true" style="overflow: auto"/>
             <tree id="browse-tree" style="min-height:20em" editable="true"  flex="1" seltype="multiple" enableColumnDrag="false">
               <treecols hidden="true"/>
-              <treechildren id="browse-treechildren" editable="true" hidden="true" flex="1" context="mp-editTableRow"/>  
+              <treechildren id="browse-treechildren" editable="true" hidden="true" flex="1" context="mp-editTableRow" onclick="treeBrowse.UserTreeClick(event)"/>
             </tree>
             </vbox>
             <hbox id="browse-navigate">

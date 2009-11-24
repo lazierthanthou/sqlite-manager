@@ -176,7 +176,22 @@ SQLiteHandler.prototype = {
     return true;
   },
 
-  //remove all functions created by createFunction
+  createAggregateFunction: function(fnName, argLength, fnObject) {
+    if (funcNamesAll.indexOf(fnName) != -1) {
+      this.logMessage("Cannot create aggregate function called: " + fnName + "\nThis name belongs to a core, aggregate or datetime function.");
+      return;
+    }
+    try {
+      this.dbConn.createAggregateFunction(fnName, argLength, fnObject);
+    } catch (e) {
+      this.onSqlError(e, "Failed to create storage function: " + fnName);
+      return false;
+    }
+    this.maAddedFunctions.push(fnName);
+    return true;
+  },
+
+  //remove all functions created by createFunction & createAggregateFunction
   removeAllFunctions: function() {
     var i = 0;
     while (i < this.maAddedFunctions.length) {

@@ -2400,19 +2400,27 @@ var SQLiteManager = {
       return;
     }
 
-    //get all functions that need to be created for this db
-    var udf = SmUdf.getDbFunctions();
-
     //before creating functions here, remove all
     if (!bAppendMode)
       Database.removeAllFunctions();
+
+    //get all functions that need to be created for this db
+    var udf = SmUdf.getFunctions();
 
     for (var fn in udf) {      if (SmGlobals.gecko_1914pre) //for gecko >= 1.9.1.4pre
         Database.createFunction(udf[fn].fName, udf[fn].fLength, udf[fn].onFunctionCall);
       else   //for older gecko
         Database.createFunction(udf[fn].fName, udf[fn].fLength, udf[fn]);
 
-      sm_log("Loaded SQLite function: " + udf[fn].fName + ", args.length = " + udf[fn].fLength);
+      sm_log("Loaded user-defined function: " + udf[fn].fName + ", args.length = " + udf[fn].fLength);
+    }
+
+    //get all functions that need to be created for this db
+    var udf = SmUdf.getAggregateFunctions();
+
+    for (var fn in udf) {      Database.createAggregateFunction(udf[fn].fName, udf[fn].fLength, udf[fn].objFunc);
+
+      sm_log("Loaded user-defined aggregate function: " + udf[fn].fName + ", args.length = " + udf[fn].fLength);
     }
   },
 

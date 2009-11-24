@@ -1,5 +1,4 @@
 Components.utils.import("resource://sqlitemanager/fileIO.js");
-Components.utils.import("resource://sqlitemanager/tokenize.js");
 
 //var Database;
 var SmUdf = {
@@ -15,16 +14,16 @@ var SmUdf = {
       var bConnected = false;
       if (fUserFile != null)
         bConnected = this.dbFunc.openDatabase(fUserFile);
-      else
-        bConnected = this.dbFunc.openDatabase(this.getSuppliedFile());
 
       if (bConnected) {
-        //if connected & if table 'functions' does not exist, create it and populate it
+        //if connected & if tables do not exist, create them and insert example rows
         if (!this.dbFunc.tableExists('functions')) {
-          var file = this.getSuppliedSqlFile();
-          var sData = FileIO.read(file, 'UTF-8');
-          var aQueries = sql_tokenizer(sData);
-          this.dbFunc.executeTransaction(aQueries);
+          var aQ = this.getFuncQueries();
+          this.dbFunc.executeTransaction(aQ);
+        }
+        if (!this.dbFunc.tableExists('aggregateFunctions')) {
+          var aQ = this.getAggFuncQueries();
+          this.dbFunc.executeTransaction(aQ);
         }
         return true;
       }
@@ -34,6 +33,24 @@ var SmUdf = {
 
     this.dbFunc = null;
     return false;
+  },
+
+  getFuncQueries: function() {
+    var aSql = [];
+    aSql.push('DROP TABLE IF EXISTS "functions";');
+    aSql.push('CREATE TABLE "functions" ("name" TEXT PRIMARY KEY  NOT NULL, "body" TEXT NOT NULL, "argLength" INTEGER, "aggregate" INTEGER NOT NULL  DEFAULT 0, "enabled" INTEGER NOT NULL  DEFAULT 1, "extraInfo" TEXT);');
+    aSql.push('INSERT INTO "functions" VALUES("regexp",\'var regExp = new RegExp(aValues.getString(0));\nvar strVal = new String(aValues.getString(1));\n\nif (strVal.match(regExp)) return 1;\nelse return 0;\',2,0,1,NULL);');
+    aSql.push('INSERT INTO "functions" VALUES("addAll","var sum = 0;\nfor (var j = 0; j < aValues.numEntries; j++) {\n  sum += aValues.getInt32(j);\n}\nreturn sum;",-1,0,1,NULL);');
+    aSql.push('INSERT INTO "functions" VALUES("joinValues","var valArr = [];\n\nfor (var j = 0; j < aValues.numEntries; j++) {\n  switch (aValues.getTypeOfIndex(j)) {\n    case 0: //NULL\n      valArr.push(null);\n      break;\n    case 1: //INTEGER\n      valArr.push(aValues.getInt64(j));\n      break;\n    case 2: //FLOAT\n      valArr.push(aValues.getDouble(j));\n      break;\n    case 3: //TEXT\n      default:\n      valArr.push(aValues.getString(j));\n  }\n}\nreturn valArr.join(\',\');",-1,0,1,NULL);');
+    return aSql;
+  },
+
+  getAggFuncQueries: function() {
+    var aSql = [];
+    aSql.push('DROP TABLE IF EXISTS "aggregateFunctions";');
+    aSql.push('CREATE TABLE "aggregateFunctions" ("name" TEXT PRIMARY KEY  NOT NULL, "argLength" INTEGER, "onStepBody" TEXT, "onFinalBody" TEXT, "enabled" INTEGER NOT NULL DEFAULT 1, "extraInfo" TEXT);');
+    aSql.push('INSERT INTO "aggregateFunctions" ("name", "argLength", "onStepBody", "onFinalBody", "enabled", "extraInfo") VALUES("stdDev", 1, "this._store.push(aValues.getInt32(0));", "var iLength = this._store.length;\nlet total = 0;\nthis._store.forEach(function(elt) { total += elt });\nlet mean = total / iLength;\nlet data = this._store.map(function(elt) {\n  let value = elt - mean;\n  return value * value;\n});\ntotal = 0;\ndata.forEach(function(elt) { total += elt });\nthis._store = [];\nreturn Math.sqrt(total / iLength);",1,NULL);');
+    return aSql;
   },
 
   close: function() {
@@ -58,7 +75,8 @@ var SmUdf = {
     $$("udfDbDirPath").value = sm_prefsBranch.getCharPref("udfDbDirPath");
 
     //populate menulist with all function names
-    this.populateFuncMenuList();
+    this.populateFuncMenuList(false);
+    this.populateFuncMenuList(true);
   },
 
   selectUdfDir: function() {
@@ -72,22 +90,6 @@ var SmUdf = {
       //reload this tab
       this.loadTab();
     }
-  },
-
-  getSuppliedFile: function() {
-    //find the location of this extension/xul app
-    var fileOrig = FileIO.getFile(SmGlobals.extLocation);
-    fileOrig.append('extra');
-    fileOrig.append('smFunctions.sqlite');
-    return fileOrig;
-  },
-
-  getSuppliedSqlFile: function() {
-    //find the location of this extension/xul app
-    var fileOrig = FileIO.getFile(SmGlobals.extLocation);
-    fileOrig.append('extra');
-    fileOrig.append('smFunctions.sql');
-    return fileOrig;
   },
 
   getUserFile: function() {
@@ -113,39 +115,49 @@ var SmUdf = {
     }
   },
 
-  //this function populates the menu in 'Available Functions' tab
-  populateFuncMenuList: function() {
+  //this function populates the menu in 'Simple Functions' tab
+  populateFuncMenuList: function(bAggregate) {
     //of course, we cannot proceed without a db connection
     if (this.dbFunc == null)
       return;
 
+    var sMlId = "udfFuncMenuList";
+    var sQuery = 'SELECT name FROM functions ORDER BY name';
+    if (bAggregate) {
+      sMlId = "udfAggFuncMenuList";
+      sQuery = 'SELECT name FROM aggregateFunctions ORDER BY name';
+    }
+
     var records = [];
     try {
-      this.dbFunc.selectQuery('SELECT name FROM functions ORDER BY name');
+      this.dbFunc.selectQuery(sQuery);
       records = this.dbFunc.getRecords();
     } catch (e) {
       sm_log(e.message);
       return false;
     }
 
-    $$("udfFuncMenuList").removeAllItems();
+    var ml = $$(sMlId);
+    ml.removeAllItems();
     var mi;
-    if (records.length == 0) {
-      mi = $$("udfFuncMenuList").appendItem('--No Function Found--', '--');
-    }
-    else {
-      mi = $$("udfFuncMenuList").appendItem('--Select Function--', '--');
+    if (records.length > 0) {
+      mi = ml.appendItem('--Select Function--', '--');
     }
     mi.setAttribute("disabled", "true");
-    $$("udfFuncMenuList").selectedIndex = 0;
 
     for (var i in records) {
-      $$("udfFuncMenuList").appendItem(records[i][0], records[i][0]);
+      ml.appendItem(records[i][0], records[i][0]);
     }
+    if (records.length > 0) {
+      mi = ml.appendItem('--------------------------', '--');
+      mi.setAttribute("disabled", "true");
+    }
+    mi = ml.appendItem('--Add New Function--', '--');
+    ml.selectedIndex = 0;
     return true;
   },
 
-  addFunction: function() {
+  saveFunction: function() {
     var sName = $$("udfNewFuncName").value;
     var iArg = $$("udfNewFuncArgLength").value;
     var iEnabled = $$("udfNewFuncEnabled").checked?1:0;
@@ -159,9 +171,30 @@ var SmUdf = {
       return false;
     }
     //populate menulist with all function names
-    this.populateFuncMenuList();
+    this.populateFuncMenuList(false);
     //notify the user
     sm_notify('udfNotifyBox', 'New function added: ' + sName + '. Press "Reload Functions" button to access this function in SQL statements.', 'info', 4);
+    return true;
+  },
+
+  saveAggFunction: function() {
+    var sName = $$("udfNewAggFuncName").value;
+    var iArg = $$("udfNewAggFuncArgLength").value;
+    var iEnabled = $$("udfNewAggFuncEnabled").checked?1:0;
+    var sOnStepBody = $$("udfNewAggFuncOnStepBody").value;
+    var sOnFinalBody = $$("udfNewAggFuncOnFinalBody").value;
+
+    try {
+      var sQuery = "INSERT INTO aggregateFunctions (name, argLength, onStepBody, onFinalBody, enabled) VALUES (" + SQLiteFn.quote(sName) + "," + iArg + "," + SQLiteFn.quote(sOnStepBody) + "," + SQLiteFn.quote(sOnFinalBody) + "," + iEnabled + ")";
+      this.dbFunc.executeSimpleSQLs([sQuery]);
+    } catch (e) {
+      sm_log(e.message);
+      return false;
+    }
+    //populate menulist with all function names
+    this.populateFuncMenuList(true);
+    //notify the user
+    sm_notify('udfNotifyBox', 'New aggregate function added: ' + sName + '. Press "Reload Functions" button to access this function in SQL statements.', 'info', 4);
     return true;
   },
 
@@ -169,9 +202,20 @@ var SmUdf = {
     SQLiteManager.createFunctions(false);
   },
 
-  onSelectFuncName: function() {
+  addFunction: function() {
     if (this.dbFunc == null)
       return;
+
+    $$("udfVbFuncEdit").hidden = false;
+    $$("udfVbFuncView").hidden = true;
+  },
+
+  viewFunction: function() {
+    if (this.dbFunc == null)
+      return;
+
+    $$("udfVbFuncEdit").hidden = true;
+    $$("udfVbFuncView").hidden = false;
 
     $$("udfViewFuncHead").textContent = '';
     $$("udfViewFuncBody").textContent = '';
@@ -195,9 +239,7 @@ var SmUdf = {
       sTxt.push('// argLength = ' + records[i][2]);
       sTxt.push('// enabled   = ' + records[i][3]);
       sTxt.push('function ' + records[i][0] + ' (aValues) {');
-      //sTxt.push(records[i][1]);
       sBody = records[i][1];
-      //sTxt.push('}');
     }
     $$("udfViewFuncHead").textContent = sTxt.join('\n');
     $$("udfViewFuncBody").textContent = sBody;
@@ -205,7 +247,7 @@ var SmUdf = {
     return true;
   },
 
-  getDbFunctions: function() {
+  getFunctions: function() {
     //of course, we cannot proceed without a db connection
     if (this.dbFunc == null)
       return;
@@ -227,6 +269,31 @@ var SmUdf = {
     return allUdf;
   },
 
+  getAggregateFunctions: function() {
+    //of course, we cannot proceed without a db connection
+    if (this.dbFunc == null)
+      return;
+
+    var allUdf = [];
+
+    this.dbFunc.selectQuery('SELECT name, argLength, onStepBody, onFinalBody FROM aggregateFunctions WHERE enabled = 1');
+    var records = this.dbFunc.getRecords();
+    for (var i in records) {
+      try {
+        var objAggFunc = {
+          _store: [],
+          onStep: new Function("aValues", records[i][2]),
+          onFinal: new Function(records[i][3])
+        };
+        var udf = {fName: records[i][0], fLength: records[i][1], objFunc: objAggFunc};
+        allUdf.push(udf);
+      } catch (e) {
+        sm_log("Failed to create function: " + records[i][0]);
+      }
+    }
+    return allUdf;
+  },
+
   showHelp: function(sArg) {
     switch (sArg) {
       case 'newFunctionArgLength':
@@ -236,5 +303,6 @@ var SmUdf = {
         smPrompt.alert(null, sm_getLStr("extName"), 'Write the function body without braces.\nThe argument to the function is "aValues" which can be used within the function body as in the example functions which you can see under the Available Functions tab.');
         break;
     }
-  }
+  },
 };
+

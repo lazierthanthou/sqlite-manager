@@ -89,6 +89,9 @@
           </hbox>
           </radiogroup>
           </groupbox>
+          <hbox>
+            <button id="eximCsv-expSaveSetting" label="&eximCsv-expSaveSetting;" tooltiptext="&eximCsv-expSaveSetting-tooltiptext;" hidden="true" oncommand="SmExim.saveCsvExportSetting();"/>
+          </hbox>
           </vbox>
         </tabpanel>
         <tabpanel>

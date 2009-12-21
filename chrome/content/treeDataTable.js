@@ -87,8 +87,16 @@ TreeDataTable.prototype = {
       result.push(txt);
     }
 
-    if (sFormat == "csv")
-      return result.join(',');
+    if (sFormat == "csv") {
+      var sPrefVal = sm_prefsBranch.getCharPref("jsonEximSettings");
+      var obj = JSON.parse(sPrefVal);
+
+      var cSeparator = obj.csv.export.separator;
+      //var cEncloser = obj.csv.export.encloser;
+      //var bColNames = obj.csv.export.includeColNames;
+
+      return result.join(cSeparator);
+    }
     if (sFormat == "csv-excel")
       return result.join('\t');
     if (sFormat == "sql") //do we need column names too?

@@ -173,6 +173,7 @@
 
 <!ENTITY	btn.runsql        "Run SQL">
 <!ENTITY	btn.runsql.ak 	  "R">
+<!ENTITY	btn.runsql.tooltiptext 	  "Use 'control + ;' to execute the query.">
 <!ENTITY	buttonRun 	      "Run SQL Statement (with results)">
 <!ENTITY	buttonRun.ak 	  "R">
 <!ENTITY	buttonExecute 	  "Execute Statement (no results)">

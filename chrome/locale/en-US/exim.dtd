@@ -37,6 +37,9 @@
 <!ENTITY eximCsv_encloser.doublequotes.always       "Double quotes (&quot;), always">
 <!ENTITY eximCsv_encloser.singlequotes              "Single quotes (')">
 <!ENTITY eximCsv_encloser.other        "Other">
+<!ENTITY eximCsv-expSaveSetting        "Save CSV Export Settings">
+<!ENTITY eximCsv-expSaveSetting-tooltiptext "You can save these settings if you want 'Copy Rows as CSV' operations to use these settings.">
+
 <!ENTITY eximXml_root-element          "Name of Root Element:">
 <!ENTITY eximXml_prefix-table-element  "Prefix this to Table Element:">
 <!ENTITY exim-exp-ok                   "OK">

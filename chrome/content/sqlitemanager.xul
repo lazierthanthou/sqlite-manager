@@ -78,11 +78,15 @@
     <command id="smc-aboutconfig" oncommand="SQLiteManager.openAboutConfigWindow()" tooltiptext="&mi.aboutconfig;" accesskey="&mi.aboutconfig.ak;"/>
     <command id="smc-console" oncommand="SQLiteManager.openConsoleWindow()" tooltiptext="&mi.console;" accesskey="&mi.console.ak;"/>
     <command id="smc-selectAllRecords" oncommand="SQLiteManager.selectAllRecords()" tooltiptext="&selectAllRecords;" label="&selectAllRecords;" accesskey="&selectAllRecords.ak;" observes="bc-dbOpen"/>
+
+    <!-- for commands under execute tab-->
+    <command id="smc-runQuery" oncommand="SQLiteManager.runSqlStatement('select')" />
   </commandset>
 
   <keyset id="smKeyset">
     <key id="refresh-key" modifiers="shift" keycode="VK_F5" command="smc-refresh"/>
     <key id="key-selectAllRecords" modifiers="accel shift" key="A" command="smc-selectAllRecords"/>
+    <key id="key-runQuery" modifiers="accel" key=";" command="smc-runQuery"/>
   </keyset>
 
   <!-- hidden because it occupies some space in Songbird -->
@@ -590,7 +594,7 @@
             <menulist id="listbox-queries" hidden="true" style="max-width: 25ex" sizetopopup="always" oncommand="SQLiteManager.onSelectQuery();">
               <menupopup/>
             </menulist>
-            <button id="buttonRun" label="&btn.runsql;" accesskey="&btn.runsql.ak;" oncommand="SQLiteManager.runSqlStatement('select')" />
+            <button id="buttonRun" command="smc-runQuery" label="&btn.runsql;" accesskey="&btn.runsql.ak;" tooltiptext="&btn.runsql.tooltiptext;"/>
   <!--
             <button id="buttonRun" label="&buttonRun;" accesskey="&buttonRun.ak;" oncommand="SQLiteManager.runSqlStatement('select')" />
             <button id="buttonExecute" label="&buttonExecute;" accesskey="&buttonExecute.ak;" oncommand="SQLiteManager.runSqlStatement('execute')" />

@@ -41,7 +41,7 @@ var SmExim = {
 
       smShow(["exim-imp-ok", "eximFileSelection", "eximCsvTableNameLbl", "eximCsvTableName", "eximCsv_ignoreTrailingDelimiter"]);
 
-      smHide(["exim-exp-ok", "eximSql-create-statement", "eximObjectSelection"]);
+      smHide(["exim-exp-ok", "eximSql-create-statement", "eximObjectSelection", "eximCsv-expSaveSetting"]);
 
       $$("eximFilename").value = "";
       this.loadCharsetMenu();
@@ -54,7 +54,7 @@ var SmExim = {
 //      $$("eximSubtitle").value = sm_getLFStr("eximTab.export.subtitle", [sObjectType], 1) + this.sObjectName;
       smHide(["exim-imp-ok", "eximFileSelection", "eximCsvTableNameLbl", "eximCsvTableName", "eximCsv_ignoreTrailingDelimiter"]);
 
-      smShow(["exim-exp-ok", "eximSql-create-statement", "eximObjectSelection"]);
+      smShow(["exim-exp-ok", "eximSql-create-statement", "eximObjectSelection", "eximCsv-expSaveSetting"]);
 
       this.loadDbNames("eximDbName", Database.logicalDbName);
       this.loadObjectNames("eximObjectNames", this.sObjectName, sObjectType);
@@ -660,5 +660,31 @@ var SmExim = {
     var sCols = aCols.toString();
     sQuery = "CREATE TABLE IF NOT EXISTS " + sTabName + " (" + sCols + ")";
     return {error: false, query: sQuery, tableName: sTabName};
+  },
+
+  saveCsvExportSetting: function() {
+   //separator
+    var cSeparator = $$("eximCsv_separator").value;
+    if(cSeparator == "other")
+      cSeparator = $$("eximCsv_separator-text").value;
+    else if(cSeparator == "\\t")
+      cSeparator = "\t";
+    //encloser
+    var cEncloser = $$("eximCsv_encloser").value;
+    if(cEncloser == "other")
+     cEncloser = $$("eximCsv_encloser-text").value;
+    //colnames needed or not
+    var bColNames = $$("eximCsv_column-names").checked;
+
+
+    var sPrefVal = sm_prefsBranch.getCharPref("jsonEximSettings");
+    var obj = JSON.parse(sPrefVal);
+
+    obj.csv.export.separator = cSeparator;
+    obj.csv.export.encloser = cEncloser;
+    obj.csv.export.includeColNames = bColNames;
+
+    sPrefVal = JSON.stringify(obj);
+    sm_prefsBranch.setCharPref("jsonEximSettings", sPrefVal);
   }
 };

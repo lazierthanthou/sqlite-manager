@@ -51,9 +51,10 @@ var SQLiteManager = {
 
   maFileExt: [],
 
-  generateFKTriggers: function() {
-  //foreign key triggers
+  //Purpose: generates foreign key triggers based on
   //http://www.sqlite.org/cvstrac/wiki?p=ForeignKeyTriggers
+  //TODO: remove this function after sqlite 3.6.19 and use PRAGMA foreign_keys instead
+  generateFKTriggers: function() {
     var sTableName = this.aCurrObjNames["table"];
     var allRows = Database.getForeignKeyList(sTableName, "");
     if (allRows.length == 0) {
@@ -97,7 +98,6 @@ var SQLiteManager = {
       var sOnDelete = aOneKey[0].on_delete;
       var sToTable = aOneKey[0].table;
       var id = aOneKey[0].id;
-      var aFromCols = Database.getTableInfo(aOneKey[0].table, "");
 
       var sSelectColsTo = "", sSelectColsFrom = "", sWhereTo = "", sWhereFrom = "", sNullCols = "", sSetClause = "";
 
@@ -116,7 +116,9 @@ var SQLiteManager = {
         sWhereFrom += '"' + oneRow.from + '" = OLD."' + oneRow.to + '"';
         sSetClause += '"' + oneRow.from + '" = NEW."' + oneRow.to + '"';
         //if from column is not notnull
+        var aFromCols = Database.getTableInfo(sTableName, "");
         for (var k = 0; k < aFromCols.length; k++) {
+//        alert(k + " : " + oneRow.from + " : " + aFromCols[k].name + " : " + aFromCols[k].notnull);
           if (oneRow.from == aFromCols[k].name && aFromCols[k].notnull == 0) {
             sNullCols += ' NEW."' + oneRow.from + '" IS NOT NULL AND '; 
           }
@@ -167,8 +169,6 @@ var SQLiteManager = {
   },
 
   experiment: function() {
-//    var sTableName = "bar";
-//    this.generateFKTriggers(sTableName);
     document.querySelector('treechildren::-moz-tree-cell(nullvalue selected)');
   },
 

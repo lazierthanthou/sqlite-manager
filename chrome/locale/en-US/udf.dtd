@@ -13,4 +13,6 @@
 <!ENTITY udf.simpleFunctions    "Simple Functions">
 <!ENTITY udf.aggFunctions    "Aggregate Functions">
 <!ENTITY udf.funcName    "Function Name"><!ENTITY udf.funcArgLength    "Number of arguments"><!ENTITY udf.funcBody    "Function body: ">
+<!ENTITY udf.funcOnStepBody    "Function body (for onStep): ">
+<!ENTITY udf.funcOnFinalBody    "Function body (for onFinal): ">
 

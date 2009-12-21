@@ -13,7 +13,7 @@
     <label id="udfStatusLabel" style="background-color: #ffff66;padding-top:2px;"/>
     <button label="Cancel Operation" oncommand="SmUdf.handleImportCompletion(0);"/>
   </hbox>
-  <vbox flex="1" style="overflow:auto">
+  <vbox flex="100">
     <!-- hbox for udf db dir selection-->
     <hbox>
       <textbox id="udfDbDirPath" flex="1" readonly="true"/>
@@ -26,21 +26,22 @@
         <tab id="udfTabFunc" class="exportTabs"  linkedpanel="udfPanelFunc" label="&udf.simpleFunctions;" persist="selected"/>
         <tab id="udfTabAggFunc" class="exportTabs"  linkedpanel="udfPanelAggFunc" label="&udf.aggFunctions;" persist="selected"/>
       </tabs>
-      <tabpanels>
-        <tabpanel id="udfPanelFunc">
-          <vbox>
-          <hbox>
-            <label style="padding-top:3px" control="udfFuncMenuList" value="Function Names :"/>
-            <menulist id="udfFuncMenuList" oncommand="SmUdf.onSelectFuncName()"/>
-            <button label="&udf.viewFunction;" oncommand="SmUdf.viewFunction()"/>
-            <button label="&udf.editFunction;" oncommand="SmUdf.editFunction()"/>
-            <button label="&udf.deleteFunction;" oncommand="SmUdf.deleteFunction()"/>
-            <button label="&udf.addFunction;" oncommand="SmUdf.addFunction()"/>
-          </hbox>
-          <vbox id="udfVbFuncView">
+      <tabpanels flex="100">
+        <tabpanel id="udfPanelFunc" flex="1">
+          <vbox flex="1">
+          <deck id="udf-d-simple">
+          <vbox id="udfVbFuncView" flex="1">
+            <hbox>
+              <label style="padding-top:3px" control="udfFuncMenuList" value="Function Names :"/>
+              <menulist id="udfFuncMenuList" oncommand="SmUdf.onSelectFuncName(false)"/>
+              <button id="udfBtnFuncEdit" label="&udf.editFunction;" oncommand="SmUdf.editFunction()" disabled="true"/>
+              <button id="udfBtnFuncDelete" label="&udf.deleteFunction;" oncommand="SmUdf.deleteFunction()" disabled="true"/>
+              <button label="&udf.addFunction;" oncommand="SmUdf.addFunction()"/>
+            </hbox>
             <description id="udfViewFuncHead" style="white-space: pre-wrap;" />
             <description id="udfViewFuncBody" style="white-space: pre-wrap;padding-left:10px;" />
             <description id="udfViewFuncTail" style="white-space: pre-wrap;" />
+            <description flex="100" />
           </vbox>
           <vbox id="udfVbFuncEdit" hidden="true" flex="1">
             <hbox>
@@ -59,26 +60,29 @@
               <textbox id="udfNewFuncBody" multiline="true" rows="10" flex="1"/>
             </hbox>
             <hbox>
-            <button label="&udf.saveFunction;" oncommand="SmUdf.saveFunction();"/>
+              <button label="Cancel" oncommand="SmUdf.cancelEditSimple();"/>
+              <button label="&udf.saveFunction;" oncommand="SmUdf.saveFunction();"/>
             </hbox>
           </vbox>
+          </deck>
           </vbox>
         </tabpanel>
 
-        <tabpanel id="udfPanelAggFunc">
-          <vbox>
-          <hbox>
-            <label style="padding-top:3px" control="udfAggFuncMenuList" value="Function Names :"/>
-            <menulist id="udfAggFuncMenuList" oncommand="SmUdf.onSelectFuncName()"/>
-            <button label="&udf.viewFunction;" oncommand="SmUdf.viewAggFunction()"/>
-            <button label="&udf.editFunction;" oncommand="SmUdf.editAggFunction()"/>
-            <button label="&udf.deleteFunction;" oncommand="SmUdf.deleteAggFunction()"/>
-            <button label="&udf.addFunction;" oncommand="SmUdf.addAggFunction()"/>
-          </hbox>
-          <vbox id="udfVbAggFuncView">
-            <description id="udfViewFuncHead" style="white-space: pre-wrap;" />
-            <description id="udfViewFuncBody" style="white-space: pre-wrap;padding-left:10px;" />
-            <description id="udfViewFuncTail" style="white-space: pre-wrap;" />
+        <tabpanel id="udfPanelAggFunc" flex="1">
+          <vbox flex="1">
+          <deck id="udf-d-aggregate">
+          <vbox id="udfVbAggFuncView" flex="1">
+            <hbox>
+              <label style="padding-top:3px" control="udfAggFuncMenuList" value="Function Names :"/>
+              <menulist id="udfAggFuncMenuList" oncommand="SmUdf.onSelectFuncName(true)"/>
+
+              <button id="udfBtnAggFuncEdit" label="&udf.editFunction;" oncommand="SmUdf.editAggFunction()" disabled="true"/>
+              <button id="udfBtnAggFuncDelete" label="&udf.deleteFunction;" oncommand="SmUdf.deleteAggFunction()" disabled="true"/>
+              <button label="&udf.addFunction;" oncommand="SmUdf.addAggFunction()"/>
+            </hbox>
+            <description id="udfViewAggFuncHead" style="white-space: pre-wrap;" />
+            <description id="udfViewAggFuncBody" style="white-space: pre-wrap;padding-left:10px;" />
+            <description id="udfViewAggFuncTail" style="white-space: pre-wrap;" />
           </vbox>
           <vbox id="udfVbAggFuncEdit" hidden="true" flex="1">
             <hbox>
@@ -90,19 +94,25 @@
               <checkbox id="udfNewAggFuncEnabled" label="Enabled"/>
             </hbox>
             <hbox>
-              <label class="forControl" value="&udf.funcBody;"/>
-              <toolbarbutton class="tbb_questionmark" oncommand="SmUdf.showHelp('newFunctionBody')"/>
+              <label class="forControl" value="&udf.funcOnStepBody;"/>
+              <toolbarbutton class="tbb_questionmark" oncommand="SmUdf.showHelp('newFunctionOnStepBody')"/>
             </hbox>
             <hbox>
               <textbox id="udfNewAggFuncOnStepBody" multiline="true" rows="6" flex="1"/>
             </hbox>
             <hbox>
+              <label class="forControl" value="&udf.funcOnFinalBody;"/>
+              <toolbarbutton class="tbb_questionmark" oncommand="SmUdf.showHelp('newFunctionOnFinalBody')"/>
+            </hbox>
+            <hbox>
               <textbox id="udfNewAggFuncOnFinalBody" multiline="true" rows="6" flex="1"/>
             </hbox>
             <hbox>
-            <button label="&udf.saveFunction;" oncommand="SmUdf.saveAggFunction();"/>
+              <button label="Cancel" oncommand="SmUdf.cancelEditAggregate();"/>
+              <button label="&udf.saveFunction;" oncommand="SmUdf.saveAggFunction();"/>
             </hbox>
           </vbox>
+          </deck>
           </vbox>
         </tabpanel>
 

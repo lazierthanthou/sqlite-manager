@@ -139,22 +139,32 @@ var SmUdf = {
 
     var ml = $$(sMlId);
     ml.removeAllItems();
-    var mi;
-    if (records.length > 0) {
-      mi = ml.appendItem('--Select Function--', '--');
-    }
+    var mi = ml.appendItem('--Select Function--', '---');
     mi.setAttribute("disabled", "true");
 
     for (var i in records) {
       ml.appendItem(records[i][0], records[i][0]);
     }
-    if (records.length > 0) {
-      mi = ml.appendItem('--------------------------', '--');
-      mi.setAttribute("disabled", "true");
-    }
-    mi = ml.appendItem('--Add New Function--', '--');
     ml.selectedIndex = 0;
     return true;
+  },
+
+  onSelectFuncName: function(bAggregate) {
+    var sMlId = "udfFuncMenuList";
+    if (bAggregate) {
+      sMlId = "udfAggFuncMenuList";
+    }
+
+    var sVal = $$(sMlId).value;
+    switch (sVal) {
+      case '---':
+        break;
+      default:
+        if (bAggregate)
+          this.viewAggFunction();
+        else
+          this.viewFunction();
+    }
   },
 
   saveFunction: function() {
@@ -163,9 +173,12 @@ var SmUdf = {
     var iEnabled = $$("udfNewFuncEnabled").checked?1:0;
     var sBody = $$("udfNewFuncBody").value;
 
+    var sOldName = $$("udfNewFuncName").getAttribute("oldName");
+
     try {
-      var sQuery = "INSERT INTO functions (name, body, argLength, enabled) VALUES (" + SQLiteFn.quote(sName) + "," + SQLiteFn.quote(sBody) + "," + iArg + "," + iEnabled + ")";
-      this.dbFunc.executeSimpleSQLs([sQuery]);
+      var sQDelete = "DELETE FROM functions WHERE name = " + SQLiteFn.quote(sOldName);
+      var sQInsert = "INSERT INTO functions (name, body, argLength, enabled) VALUES (" + SQLiteFn.quote(sName) + "," + SQLiteFn.quote(sBody) + "," + iArg + "," + iEnabled + ")";
+      this.dbFunc.executeSimpleSQLs([sQDelete, sQInsert]);
     } catch (e) {
       sm_log(e.message);
       return false;
@@ -174,6 +187,7 @@ var SmUdf = {
     this.populateFuncMenuList(false);
     //notify the user
     sm_notify('udfNotifyBox', 'New function added: ' + sName + '. Press "Reload Functions" button to access this function in SQL statements.', 'info', 4);
+    this.viewFunction();
     return true;
   },
 
@@ -184,9 +198,12 @@ var SmUdf = {
     var sOnStepBody = $$("udfNewAggFuncOnStepBody").value;
     var sOnFinalBody = $$("udfNewAggFuncOnFinalBody").value;
 
+    var sOldName = $$("udfNewAggFuncName").getAttribute("oldName");
+
     try {
-      var sQuery = "INSERT INTO aggregateFunctions (name, argLength, onStepBody, onFinalBody, enabled) VALUES (" + SQLiteFn.quote(sName) + "," + iArg + "," + SQLiteFn.quote(sOnStepBody) + "," + SQLiteFn.quote(sOnFinalBody) + "," + iEnabled + ")";
-      this.dbFunc.executeSimpleSQLs([sQuery]);
+      var sQDelete = "DELETE FROM aggregateFunctions WHERE name = " + SQLiteFn.quote(sOldName);
+      var sQInsert = "INSERT INTO aggregateFunctions (name, argLength, onStepBody, onFinalBody, enabled) VALUES (" + SQLiteFn.quote(sName) + "," + iArg + "," + SQLiteFn.quote(sOnStepBody) + "," + SQLiteFn.quote(sOnFinalBody) + "," + iEnabled + ")";
+      this.dbFunc.executeSimpleSQLs([sQDelete, sQInsert]);
     } catch (e) {
       sm_log(e.message);
       return false;
@@ -195,6 +212,7 @@ var SmUdf = {
     this.populateFuncMenuList(true);
     //notify the user
     sm_notify('udfNotifyBox', 'New aggregate function added: ' + sName + '. Press "Reload Functions" button to access this function in SQL statements.', 'info', 4);
+    this.viewAggFunction();
     return true;
   },
 
@@ -208,6 +226,26 @@ var SmUdf = {
 
     $$("udfVbFuncEdit").hidden = false;
     $$("udfVbFuncView").hidden = true;
+
+    $$("udfNewFuncName").setAttribute("oldName", "");
+  },
+
+  addAggFunction: function() {
+    if (this.dbFunc == null)
+      return;
+
+    $$("udfVbAggFuncEdit").hidden = false;
+    $$("udfVbAggFuncView").hidden = true;
+
+    $$("udfNewAggFuncName").setAttribute("oldName", "");
+  },
+
+  cancelEditSimple: function() {
+    this.viewFunction();
+  },
+
+  cancelEditAggregate: function() {
+    this.viewAggFunction();
   },
 
   viewFunction: function() {
@@ -217,11 +255,14 @@ var SmUdf = {
     $$("udfVbFuncEdit").hidden = true;
     $$("udfVbFuncView").hidden = false;
 
+    $$("udfBtnFuncEdit").setAttribute('disabled', true);
+    $$("udfBtnFuncDelete").setAttribute('disabled', true);
+
     $$("udfViewFuncHead").textContent = '';
     $$("udfViewFuncBody").textContent = '';
     $$("udfViewFuncTail").textContent = '';
     var sFuncName = $$("udfFuncMenuList").value;
-    if (sFuncName == '--')
+    if (sFuncName == '---' || sFuncName == '@@@')
       return false;
 
     var records = [];
@@ -244,6 +285,179 @@ var SmUdf = {
     $$("udfViewFuncHead").textContent = sTxt.join('\n');
     $$("udfViewFuncBody").textContent = sBody;
     $$("udfViewFuncTail").textContent = '}';
+
+    $$("udfBtnFuncEdit").removeAttribute('disabled');
+    $$("udfBtnFuncDelete").removeAttribute('disabled');
+
+    return true;
+  },
+
+  viewAggFunction: function() {
+    if (this.dbFunc == null)
+      return;
+
+    $$("udfVbAggFuncEdit").hidden = true;
+    $$("udfVbAggFuncView").hidden = false;
+
+    $$("udfBtnAggFuncEdit").setAttribute('disabled', true);
+    $$("udfBtnAggFuncDelete").setAttribute('disabled', true);
+
+    $$("udfViewAggFuncHead").textContent = '';
+    $$("udfViewAggFuncBody").textContent = '';
+    $$("udfViewAggFuncTail").textContent = '';
+    var sFuncName = $$("udfAggFuncMenuList").value;
+    if (sFuncName == '---' || sFuncName == '@@@')
+      return false;
+
+    var records = [];
+    try {
+      this.dbFunc.selectQuery("SELECT name, onStepBody, onFinalBody, argLength, enabled FROM aggregateFunctions WHERE name = '" + sFuncName + "' ORDER BY name");
+      records = this.dbFunc.getRecords();
+    } catch (e) {
+      sm_log(e.message);
+      return false;
+    }
+
+    var sTxt = [], sBody = [];
+    for (var i in records) {
+      sTxt.push('// name      = ' + records[i][0]);
+      sTxt.push('// argLength = ' + records[i][3]);
+      sTxt.push('// enabled   = ' + records[i][4]);
+
+      sBody.push('var objectForAggregateFunction = {');
+      sBody.push('_store: [], //for storing values which can be used in onFinal()');
+      sBody.push('onStep: function (aValues) {//called for each row');
+      sBody.push(records[i][1]);
+      sBody.push('},');
+      sBody.push('onFinal: function () {//called at the end');
+      sBody.push(records[i][2]);
+      sBody.push('}');
+      sBody.push('}');
+    }
+    $$("udfViewAggFuncHead").textContent = sTxt.join('\n');
+    $$("udfViewAggFuncBody").textContent = sBody.join('\n');
+    $$("udfViewAggFuncTail").textContent = '';
+
+    $$("udfBtnAggFuncEdit").removeAttribute('disabled');
+    $$("udfBtnAggFuncDelete").removeAttribute('disabled');
+
+    return true;
+  },
+
+  deleteFunction: function() {
+    if (this.dbFunc == null)
+      return false;
+
+    var sFuncName = $$("udfFuncMenuList").value;
+    if (sFuncName == '---' || sFuncName == '@@@')
+      return false;
+
+    var bAsk = sm_confirm("Confirm function deletion", "Do you really want to delete the function: " + sFuncName + "?");
+    if (!bAsk)
+      return false;
+
+    try {
+      var sQuery = "DELETE FROM functions WHERE name = '" + sFuncName + "'";
+      this.dbFunc.executeSimpleSQLs([sQuery]);
+    } catch (e) {
+      sm_log(e.message);
+      return false;
+    }
+
+    //populate menulist with all function names
+    this.populateFuncMenuList(false);
+    //notify the user
+    sm_notify('udfNotifyBox', 'Function deleted: ' + sFuncName + '. Press "Reload Functions" button.', 'info', 4);
+    this.viewFunction();
+    return true;
+  },
+
+  deleteAggFunction: function() {
+    if (this.dbFunc == null)
+      return false;
+
+    var sFuncName = $$("udfAggFuncMenuList").value;
+    if (sFuncName == '---' || sFuncName == '@@@')
+      return false;
+
+    var bAsk = sm_confirm("Confirm function deletion", "Do you really want to delete the function: " + sFuncName + "?");
+    if (!bAsk)
+      return false;
+
+    try {
+      var sQuery = "DELETE FROM aggregateFunctions WHERE name = '" + sFuncName + "'";
+      this.dbFunc.executeSimpleSQLs([sQuery]);
+    } catch (e) {
+      sm_log(e.message);
+      return false;
+    }
+
+    //populate menulist with all function names
+    this.populateFuncMenuList(true);
+    //notify the user
+    sm_notify('udfNotifyBox', 'Function deleted: ' + sFuncName + '. Press "Reload Functions" button.', 'info', 4);
+    this.viewAggFunction();
+    return true;
+  },
+
+  editFunction: function() {
+    if (this.dbFunc == null)
+      return false;
+
+    var sFuncName = $$("udfFuncMenuList").value;
+    if (sFuncName == '---' || sFuncName == '@@@')
+      return false;
+
+    $$("udfVbFuncEdit").hidden = false;
+    $$("udfVbFuncView").hidden = true;
+
+    var records = [];
+    try {
+      this.dbFunc.selectQuery("SELECT name, body, argLength, enabled FROM functions WHERE name = '" + sFuncName + "' ORDER BY name");
+      records = this.dbFunc.getRecords();
+    } catch (e) {
+      sm_log(e.message);
+      return false;
+    }
+
+    //fill in the correct entries in the controls
+    $$("udfNewFuncName").setAttribute("oldName", records[0][0]);
+    $$("udfNewFuncName").value = records[0][0];
+    $$("udfNewFuncArgLength").value = records[0][2];
+    $$("udfNewFuncEnabled").checked = records[0][3]?true:false;
+    $$("udfNewFuncBody").value = records[0][1];
+    
+    return true;
+  },
+
+  editAggFunction: function() {
+    if (this.dbFunc == null)
+      return false;
+
+    var sFuncName = $$("udfAggFuncMenuList").value;
+    if (sFuncName == '---' || sFuncName == '@@@')
+      return false;
+
+    $$("udfVbAggFuncEdit").hidden = false;
+    $$("udfVbAggFuncView").hidden = true;
+
+    var records = [];
+    try {
+      this.dbFunc.selectQuery("SELECT name, onStepBody, onFinalBody, argLength, enabled FROM aggregateFunctions WHERE name = '" + sFuncName + "' ORDER BY name");
+      records = this.dbFunc.getRecords();
+    } catch (e) {
+      sm_log(e.message);
+      return false;
+    }
+
+    //fill in the correct entries in the controls
+    $$("udfNewAggFuncName").setAttribute("oldName", records[0][0]);
+    $$("udfNewAggFuncName").value = records[0][0];
+    $$("udfNewAggFuncArgLength").value = records[0][3];
+    $$("udfNewAggFuncEnabled").checked = records[0][4]?true:false;
+    $$("udfNewAggFuncOnStepBody").value = records[0][1];
+    $$("udfNewAggFuncOnFinalBody").value = records[0][2];
+    
     return true;
   },
 
@@ -300,7 +514,13 @@ var SmUdf = {
         smPrompt.alert(null, sm_getLStr("extName"), 'The number of arguments that the function will accept should be an integer.\n-1 means unlimited number of arguments.');
         break;
       case 'newFunctionBody':
-        smPrompt.alert(null, sm_getLStr("extName"), 'Write the function body without braces.\nThe argument to the function is "aValues" which can be used within the function body as in the example functions which you can see under the Available Functions tab.');
+        smPrompt.alert(null, sm_getLStr("extName"), 'Write the function body without braces.\nThe argument to the function is "aValues" which can be used within the function body as in the example functions which you can see under the Simple Functions tab.');
+        break;
+      case 'newFunctionOnStepBody':
+        smPrompt.alert(null, sm_getLStr("extName"), 'Write the function body without braces.\nThe argument to the function is "aValues" which can be used within the function body as in the example functions which you can see under the Aggregate Functions tab.\nAny values you need to store for use in onFinal() can be stored in this._store which is initialized as an empty array');
+        break;
+      case 'newFunctionOnFinalBody':
+        smPrompt.alert(null, sm_getLStr("extName"), 'Write the function body without braces.\nThis function takes no arguments. See an example under the Aggregate Functions tab.\nYou can use this._store for computation in this function after you have stored values in it in the onStep() function.');
         break;
     }
   },

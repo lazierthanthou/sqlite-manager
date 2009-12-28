@@ -1,5 +1,5 @@
 //TODO: some documentation for this file
-//TODO: some simplification, allow creation of aggregate functions
+//TODO: some simplification
 //as of now, depends on mFuncConfirm (a function), mBlobPrefs (from prefs) & setStrForNull (in sqlitefn); but the latter 2 have default values and even if the first one is not set, there will be no confirmation before executing. So, this file is pretty independent now.
 
 let EXPORTED_SYMBOLS = ["SQLiteTypes", "SQLiteHandler", "SQLiteFn"];

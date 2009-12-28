@@ -1292,9 +1292,12 @@ var SQLiteManager = {
   },
 
   runSqlStatement: function(sType) {
+    if(this.getSelectedTabId() != "tab-execute")
+      return false;
+
     if(this.sCurrentDatabase == null)  {
       alert(sm_getLStr("firstOpenADb"));
-      return;
+      return false;
     }
 
     //get the query string from an xul page
@@ -1303,7 +1306,7 @@ var SQLiteManager = {
     var queries = sql_tokenizer(sQuery);
     if (queries.length == 0) {
       alert(sm_getLStr("writeSomeSql"));
-      return;
+      return false;
     }
     var aData, aColumns, aTypes;
     var timeElapsed = 0;

@@ -87,6 +87,7 @@
     <key id="refresh-key" modifiers="shift" keycode="VK_F5" command="smc-refresh"/>
     <key id="key-selectAllRecords" modifiers="accel shift" key="A" command="smc-selectAllRecords"/>
     <key id="key-runQuery" modifiers="accel" key=";" command="smc-runQuery"/>
+    <key modifiers="control" keycode="VK_F12" command="smc-runQuery"/>
   </keyset>
 
   <!-- hidden because it occupies some space in Songbird -->

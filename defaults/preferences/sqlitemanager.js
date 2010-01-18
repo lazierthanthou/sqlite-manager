@@ -53,6 +53,8 @@ pref("extensions.sqlitemanager.textForBlob", "BLOB");
 pref("extensions.sqlitemanager.showBlobSize", true);
 //max size of blob to display as string (convert to string)
 pref("extensions.sqlitemanager.maxSizeToShowBlobData", 50);
+//how to show data: 0=hex, 1=string
+pref("extensions.sqlitemanager.blob.howToShowData", 0);
 
 //unsafe alter table operations (delete/alter column) are disabled by default
 //pref("extensions.sqlitemanager.allowUnsafeTableAlteration", false);

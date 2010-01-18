@@ -442,7 +442,6 @@ var SQLiteManager = {
         this.maFileExt = sExt.split(",");
         for (var iC = 0; iC < this.maFileExt.length; iC++) {
           this.maFileExt[iC] = this.maFileExt[iC].trim();
-          //replace(/^\s+/g, '').replace(/\s+$/g, '');
         }
         // Load profile folder's sqlite db files list into dropdown 
         this.populateDBList("profile");   
@@ -466,10 +465,14 @@ var SQLiteManager = {
       case "textForBlob":
       case "showBlobSize":
       case "maxSizeToShowBlobData":
-        var sStrForBlob = sm_prefsBranch.getCharPref("textForBlob");
-        var bShowBlobSize = sm_prefsBranch.getBoolPref("showBlobSize");
-        var iMaxSizeToShowBlobData = sm_prefsBranch.getIntPref("maxSizeToShowBlobData");
-        Database.setBlobPrefs(sStrForBlob, bShowBlobSize, iMaxSizeToShowBlobData);
+      case "blob.howToShowData":
+        var obj = {};
+        obj.sStrForBlob = sm_prefsBranch.getCharPref("textForBlob");
+        obj.bShowSize = sm_prefsBranch.getBoolPref("showBlobSize");
+        obj.iMaxSizeToShowData = sm_prefsBranch.getIntPref("maxSizeToShowBlobData");
+        obj.iHowToShowData = sm_prefsBranch.getIntPref("blob.howToShowData");
+
+        Database.setBlobPrefs(obj);
         break;
       case "handleADS": //for ADS on Windows/NTFS
         $$("mi-connect-ads-win").hidden = true;

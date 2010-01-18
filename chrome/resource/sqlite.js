@@ -67,7 +67,7 @@ SQLiteHandler.prototype = {
   miTime: 0, //time elapsed during queries
 
   mFuncConfirm: null,
-  mBlobPrefs: {sStrForBlob: 'BLOB', bShowSize: true, iMaxSizeToShowData: 100},
+  mBlobPrefs: {sStrForBlob: 'BLOB', bShowSize: true, iMaxSizeToShowData: 100, iHowToShowData: 0},
 
   //array to hold names of added functions; will be used in removing functions
   maAddedFunctions: [],
@@ -227,10 +227,8 @@ SQLiteHandler.prototype = {
     this.mLogicalDbName = sDbName;
   },
 
-  setBlobPrefs: function(sStrForBlob, bShowBlobSize, iMaxSizeToShowBlobData) {
-    this.mBlobPrefs.sStrForBlob = sStrForBlob;
-    this.mBlobPrefs.bShowSize = bShowBlobSize;
-    this.mBlobPrefs.iMaxSizeToShowData = iMaxSizeToShowBlobData;
+  setBlobPrefs: function(objBlobPrefs) {
+    this.mBlobPrefs = objBlobPrefs;
   },
 
   setFuncConfirm: function(oFunc) {
@@ -380,7 +378,7 @@ SQLiteHandler.prototype = {
     iValue = this.aTableData[0][0];
     return iValue;
   },
-  
+
   //for count of indexes/triggers of a table
   getObjectCount: function(sTable, sDb) {
     var sMaster = this.getPrefixedMasterName(sDb);
@@ -517,7 +515,10 @@ SQLiteHandler.prototype = {
                   stmt.getBlob(i, iDataSize, aData);
                   cell += " (Size: " + iDataSize.value + ")";
                   if (iDataSize.value <= this.mBlobPrefs.iMaxSizeToShowData || this.mBlobPrefs.iMaxSizeToShowData < 0) {
-                    cell = this.convertBlobToStr(aData.value);
+                    if (this.mBlobPrefs.iHowToShowData == 1)
+                      cell = this.convertBlobToStr(aData.value);
+                    if (this.mBlobPrefs.iHowToShowData == 0)
+                      cell = SQLiteFn.blob2hex(aData.value);
                   }
                 }
               }

@@ -13,7 +13,7 @@
   <script type="application/x-javascript" src="globals.js"/>  
   <script type="application/x-javascript">
   <![CDATA[
-    window.addEventListener("load", sm_setDataTreeStyleControls, false);
+    window.addEventListener("load", sm_setCurrentSettings, false);
   ]]>
   </script>
 
@@ -115,6 +115,7 @@
           <preference id="pref-textForBlob" name="extensions.sqlitemanager.textForBlob" type="string"/>
           <preference id="pref-showBlobSize" name="extensions.sqlitemanager.showBlobSize" type="bool"/>
           <preference id="pref-maxSizeToShowBlobData" name="extensions.sqlitemanager.maxSizeToShowBlobData" type="int"/>
+          <preference id="pref-blob.howToShowData" name="extensions.sqlitemanager.blob.howToShowData" type="int"/>
 
           <preference id="pref-whenInsertingShow" name="extensions.sqlitemanager.whenInsertingShow" type="string"/>
         </preferences>
@@ -162,6 +163,13 @@
         <spacer flex="1"/>
         <textbox id="tb-maxSizeToShowBlobData" type="number" min="-1" preference="pref-maxSizeToShowBlobData"/>
         </hbox>
+        <label value="&pref-displayDataAs.label;"/>
+          <radiogroup value="0" preference="pref-blob.howToShowData">
+            <hbox>
+              <radio label="&pref-displayDataAs-hex;" value="0" selected="true"/>
+              <radio label="&pref-displayDataAs-string;" value="1"/>
+            </hbox>
+          </radiogroup>
         </groupbox>
       </prefpane>
 

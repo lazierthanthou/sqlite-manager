@@ -21,7 +21,7 @@ var SmGlobals = {
   },
 
   //these are the preferences which are being observed and which need to be initially read.
-  observedPrefs: ["jsonDataTreeStyle", "hideMainToolbar", "showMainToolbarDatabase", "showMainToolbarTable", "showMainToolbarIndex", "showMainToolbarDebug", "sqliteFileExtensions", "displayNumRecords", "textForBlob", "showBlobSize", "maxSizeToShowBlobData", "jsonMruData",
+  observedPrefs: ["jsonDataTreeStyle", "hideMainToolbar", "showMainToolbarDatabase", "showMainToolbarTable", "showMainToolbarIndex", "showMainToolbarDebug", "sqliteFileExtensions", "displayNumRecords", "textForBlob", "jsonMruData",
         "posInTargetApp" /* this one for firefox only*/,
         "handleADS" /* this one for Windows only*/ ],
 
@@ -321,6 +321,12 @@ SmGlobals.confirmBeforeExecuting = function(aQ, sMessage, confirmPrefName) {
 };
 
 ////////////////////////////////////////////////
+//called on load of preferences.xul
+function sm_setCurrentSettings() {
+  sm_setDataTreeStyleControls();
+}
+
+///////////////////////////////////////////////
 function sm_setDataTreeStyle(sType) {
   if (sType == "none") {
     var sPref = sm_prefsBranch.getCharPref("jsonDataTreeStyle");

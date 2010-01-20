@@ -6,7 +6,7 @@ function TreeDataTable(sTreeId) {
 
 TreeDataTable.prototype = {
   // Last row/col that was clicked on (may be inaccurate if scrolling happened)
-  lastRow: null,
+  lastRow: -1,
   lastCol: null,
 
   // Initialize: Set up the treeview which will display the table contents
@@ -31,7 +31,8 @@ TreeDataTable.prototype = {
 
   // UserCopyCell: copy the cell contents
   UserCopyCell: function() {
-    if (this.lastRow && this.lastCol) {
+    //Issue #392: lastRow = -1, if a row is not clicked over; 0 means first row.
+    if (this.lastRow != -1  && this.lastCol) {
       var sCell= this.treeTable.view.getCellText(this.lastRow, this.lastCol);
       if (sCell)
         SQLiteManager.copyText(sCell);
@@ -109,7 +110,22 @@ TreeDataTable.prototype = {
   UserTreeClick: function(ev) {
   // This event happens AFTER the window has scrolled (if necessary). This means that if the user clicked on an element that is partially off screen, and the screen scrolls to fully display it, then the mouse may no longer be over the correct element.
   //if (ev.button == 2) // Right-click
-      this.StoreClickLocation(ev);
+  //store the row/column that the click occurred on; used when copying cell text
+    if (ev && this.treeTable && ev.type == "click") {
+      var row = {}, col = {}, obj = {};
+      this.treeTable.treeBoxObject.getCellAt(ev.clientX, ev.clientY, row, col, obj);
+      //Issue #392: if the click is not over a row, row.value = -1
+      if (row && row.value != -1 && col && col.value) {
+//alert(row.value + "=" + obj.value);
+        // clicked on a cell
+        this.lastRow = row.value;
+        this.lastCol = col.value;
+      }
+      else {
+        this.lastRow = null;
+        this.lastCol = null;
+      }
+    }
   },
 
   AddTreecol: function(treecols, sId, col, sColType, iWidth, bLast, bExtraRowId, sClickFn, sBgColor) {
@@ -123,6 +139,7 @@ TreeDataTable.prototype = {
     treecol.setAttribute("id", sId);
     treecol.setAttribute("width", iWidth);
     treecol.setAttribute("minwidth", 60);
+    //Issue #378
     //treecol.setAttribute("context", 'mp-data-treecol');
     if (sClickFn != null)
       treecol.setAttribute("onclick", sClickFn);
@@ -147,24 +164,6 @@ TreeDataTable.prototype = {
     splitter.setAttribute("resizeafter", "grow");
     splitter.setAttribute("oncommand", "SQLiteManager.saveBrowseTreeColState(this)");
     treecols.appendChild(splitter); 
-  },
-
-  // StoreClickLocation: store the row/column that the click occurred on; used later when copying cell text
-  StoreClickLocation: function(ev) {
-    // http://www.xulplanet.com/references/elemref/ref_tree.html
-    if (ev && this.treeTable && ev.type == "click") {
-      var row = {}, col = {}, obj = {};
-      this.treeTable.treeBoxObject.getCellAt(ev.clientX, ev.clientY, row, col, obj);            
-      if (row && row.value && col && col.value != null) {
-        // clicked on a cell
-        this.lastRow = row.value;
-        this.lastCol = col.value;
-      }
-      else {
-        this.lastRow = null;
-        this.lastCol = null;
-      }
-    }
   },
 
   // iExtraColForRowId: indicates column number for the column which is a rowid

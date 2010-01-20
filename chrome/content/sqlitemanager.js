@@ -936,9 +936,11 @@ var SQLiteManager = {
     }
     return true;
   },
-
-  copyColumnName: function() {
-    //treeBrowse
+  //Issue #378
+  copyColumnName: function(ctrl) {
+    alert(ctrl.tagName);
+    alert(ctrl.parentNode.tagName);
+    alert(ctrl.parentNode.parentNode.tagName);
   },
 
   onBrowseNavigate: function(sType) {

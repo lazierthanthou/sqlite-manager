@@ -289,9 +289,6 @@ var RowOperations = {
       ctrltb.setAttribute("fieldtype","4");
       ctrltb.setAttribute("disabled","true");
 
-//      var imgSave = $$("img-saveBlob-" + sField);
-//      imgSave.setAttribute("hidden","false");
-
       var imgRemove = $$("img-removeBlob-" + iIndex);
       imgRemove.setAttribute("hidden","false");
     }
@@ -349,7 +346,7 @@ var RowOperations = {
     vb.appendChild(img);
     hb.appendChild(vb);
 
-    if (sOperation == "update" || sOperation == "insert") {
+    if (sOperation == "update" || sOperation == "insert" || sOperation == "duplicate") {
       var vb1 = document.createElement('vbox');
       var img1 = document.createElement('image');
       img1.setAttribute('id', 'img-addBlob-' + iIndex);
@@ -439,8 +436,11 @@ var RowOperations = {
     for(var i = 0; i < this.aColumns.length; i++) {
       var inptb = $$("ctrl-tb-" + i);
       //use col_default_val attr to handle not-so-simple default values like 20-3, etc.
-      inptb.value = SQLiteFn.defaultValToInsertValue(this.aColumns[i].dflt_value);
-      inptb.setAttribute('col_default_val', inptb.value);
+      var sVal = SQLiteFn.defaultValToInsertValue(this.aColumns[i].dflt_value);
+      //Issue #391: using ".value =" here followed by setAttribute("value",val) fails to display val 
+      //inptb.value = sVal;
+      inptb.setAttribute('value', sVal);
+      inptb.setAttribute('col_default_val', sVal);
     }
   },
 

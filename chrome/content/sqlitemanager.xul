@@ -103,7 +103,7 @@
 
     <!-- context menu for tree columns in treeDataTable -->
     <menupopup id="mp-data-treecol">
-      <menuitem label="&menu.copyColName;" accesskey="&menu.copyColName.ak;" oncommand="SQLiteManager.copyColumnName()"/>
+      <menuitem label="&menu.copyColName;" accesskey="&menu.copyColName.ak;" oncommand="SQLiteManager.copyColumnName(this)"/>
     </menupopup>
 
     <!-- context menu for tree in execute tab -->

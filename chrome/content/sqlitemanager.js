@@ -462,6 +462,10 @@ var SQLiteManager = {
         if (this.miLimit == 0) this.miLimit = -1;
         this.miOffset = 0;
         break;
+      case "identifierQuoteChar":
+        var sQuoteChar = sm_prefsBranch.getCharPref("identifierQuoteChar");
+        SQLiteFn.setQuoteChar(sQuoteChar);
+        break;
       case "textForBlob":
       case "showBlobSize":
       case "maxSizeToShowBlobData":

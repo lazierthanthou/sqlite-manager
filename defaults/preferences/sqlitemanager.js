@@ -62,6 +62,9 @@ pref("extensions.sqlitemanager.blob.howToShowData", 0);
 //handle ADS
 pref("extensions.sqlitemanager.handleADS", 0);
 
+//handle ADS
+pref("extensions.sqlitemanager.identifierQuoteChar", '""');
+
 //not frozen
 //allowed values: previous/default
 pref("extensions.sqlitemanager.whenInsertingShow", "previous");

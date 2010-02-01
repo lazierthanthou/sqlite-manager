@@ -33,6 +33,7 @@
         name="extensions.sqlitemanager.sqliteFileExtensions" type="string"/>
       <preference id="pref-tableForExtensionManagement" 
         name="extensions.sqlitemanager.tableForExtensionManagement" type="string"/>
+      <preference id="pref-identifierQuoteChar" name="extensions.sqlitemanager.identifierQuoteChar" type="string"/>
     </preferences>
     <groupbox>
       <caption label="&pref-openMode.label;"/>
@@ -87,6 +88,17 @@
        </hbox>
       </radiogroup>
       </groupbox>
+      <hbox>
+        <label value="&pref-identifierQuoteChar.label;" style="padding-top:5px"/>
+        <spacer flex="1"/>
+        <menulist id="ml-identifierQuoteChar" style="width: 20ex" sizetopopup="always" preference="pref-identifierQuoteChar">
+          <menupopup>
+            <menuitem label="&pref-identifierQuoteChar-doublequotes;" value='""'/>
+            <menuitem label="&pref-identifierQuoteChar-squarebrackets;" value="[]"/>
+            <menuitem label="&pref-identifierQuoteChar-graveaccents;" value="``"/>
+          </menupopup>
+        </menulist>
+      </hbox>
       </prefpane>
       <prefpane id="confirm-options" label="&panePrompts.title;">
         <preferences>
@@ -163,13 +175,16 @@
         <spacer flex="1"/>
         <textbox id="tb-maxSizeToShowBlobData" type="number" min="-1" preference="pref-maxSizeToShowBlobData"/>
         </hbox>
-        <label value="&pref-displayDataAs.label;"/>
-          <radiogroup value="0" preference="pref-blob.howToShowData">
-            <hbox>
-              <radio label="&pref-displayDataAs-hex;" value="0" selected="true"/>
-              <radio label="&pref-displayDataAs-string;" value="1"/>
-            </hbox>
-          </radiogroup>
+        <hbox>
+          <label value="&pref-displayDataAs.label;" style="padding-top:5px"/>
+          <spacer flex="1"/>
+          <menulist id="ml-blob.howToShowData" style="width: 20ex" sizetopopup="always" preference="pref-blob.howToShowData">
+            <menupopup>
+              <menuitem label="&pref-displayDataAs-hex;" value="0"/>
+              <menuitem label="&pref-displayDataAs-string;" value="1"/>
+            </menupopup>
+          </menulist>
+        </hbox>
         </groupbox>
       </prefpane>
 

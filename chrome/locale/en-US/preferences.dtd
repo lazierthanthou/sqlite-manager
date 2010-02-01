@@ -30,7 +30,6 @@
 
 <!ENTITY  confirmBeforeExecute		"Confirm before executing the following">
 <!ENTITY  pref-confirm.records.label	"Before adding/editing a record">
-<!ENTITY  pref-confirm.records.label	"Before adding/editing a record">
 <!ENTITY  pref-confirm.create.label		"Before creating a table/index/view/trigger">
 <!ENTITY  pref-confirm.otherSql.label	"Any other operations on the table">
 
@@ -56,9 +55,14 @@
 <!ENTITY  pref-showBlobSize.label	"Display size of blob data">
 <!ENTITY  pref-maxSizeToShowBlobData.label	"Size (in bytes) below which blob should be displayed as string">
 <!ENTITY  pref-maxSizeToShowBlobData.ak	"z">
-<!ENTITY  pref-displayDataAs.label	"Display data as:">
+<!ENTITY  pref-displayDataAs.label	"Display blob data as:">
 <!ENTITY  pref-displayDataAs-hex	"Hex value (e.g. X`31323334`)">
 <!ENTITY  pref-displayDataAs-string	"String">
 
 <!ENTITY  pref-whenInsertingShow.label	"When adding new record, show previously added values, or default values">
 <!ENTITY  pref-whenInsertingShow.ak	"W">
+<!ENTITY  pref-identifierQuoteChar.label	"Characters to enclose the identifiers with">
+<!ENTITY  pref-identifierQuoteChar-doublequotes	"Double quotes">
+<!ENTITY  pref-identifierQuoteChar-squarebrackets	"Square brackets []">
+<!ENTITY  pref-identifierQuoteChar-graveaccents	"Grave accents ``">
+

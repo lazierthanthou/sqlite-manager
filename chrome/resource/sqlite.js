@@ -1034,17 +1034,22 @@ SQLiteHandler.prototype = {
 
 var SQLiteFn = {
   msStrForNull: 'NULL',
+  msQuoteChar: '""',
 
   getStrForNull: function() { return this.msStrForNull; },
   setStrForNull: function(sStrForNull) {
     this.msStrForNull = sStrForNull.toUpperCase();
   },
 
+  setQuoteChar: function(sQuoteChar) {
+    this.msQuoteChar = sQuoteChar;
+  },
+
   quoteIdentifier: function(str) {
   //http://sqlite.org/lang_keywords.html
   //"keyword" A keyword in double-quotes is an identifier
   //assume there is no " within the identifier's name
-    return '"' + str + '"';
+    return this.msQuoteChar[0] + str + this.msQuoteChar[1];
   },
 
   quote: function(str) {

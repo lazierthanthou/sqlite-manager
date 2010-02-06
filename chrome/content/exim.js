@@ -607,9 +607,9 @@ var SmExim = {
           return -1;
         if (aRet.query != "") {
           aQueries.push(aRet.query);
-          xmlTables.push(sTabName);
-          actualTables.push(aRet.tableName);
         }
+        xmlTables.push(sTabName);
+        actualTables.push(aRet.tableName);
       }
       iFound = xmlTables.indexOf(sTabName);
       if (iFound >= 0) {
@@ -618,7 +618,7 @@ var SmExim = {
       sQuery = "INSERT INTO " + sTabNameInInsert + " (" + sCols + ") VALUES (" + sVals + ")";
       aQueries.push(sQuery);
     }
-    
+
     var answer = smPrompt.confirm(null, sm_getLStr("exim.confirm.irows.title"), sm_getLStr("exim.confirm.irows.msg") + iRows);
     if(answer) {
       var bReturn = Database.executeTransaction(aQueries);

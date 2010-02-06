@@ -21,7 +21,7 @@ var SmGlobals = {
   },
 
   //these are the preferences which are being observed and which need to be initially read.
-  observedPrefs: ["jsonDataTreeStyle", "hideMainToolbar", "showMainToolbarDatabase", "showMainToolbarTable", "showMainToolbarIndex", "showMainToolbarDebug", "sqliteFileExtensions", "displayNumRecords", "textForBlob", "identifierQuoteChar", "jsonMruData",
+  observedPrefs: ["jsonDataTreeStyle", "hideMainToolbar", "showMainToolbarDatabase", "showMainToolbarTable", "showMainToolbarIndex", "showMainToolbarDebug", "sqliteFileExtensions", "displayNumRecords", "textForBlob", "identifierQuoteChar", "jsonMruData", "notificationDuration",
         "posInTargetApp" /* this one for firefox only*/,
         "handleADS" /* this one for Windows only*/ ],
 
@@ -52,6 +52,11 @@ var SmGlobals = {
       this.extCreator = "Mrinal Kant";
       this.extLocation = Cc["@mozilla.org/extensions/manager;1"].getService(Ci.nsIExtensionManager).getInstallLocation(extId).getItemFile(extId, '').path;
     }
+  },
+
+  //notification duration
+  getNotificationDuration: function() {
+    return sm_prefsBranch.getIntPref("notificationDuration") * 1000;
   },
 
   // Remove all child elements 
@@ -192,11 +197,9 @@ function AddDropdownItem(sLabel, dropdown, bSelect) {
   return menuitem;
 }
 
-function sm_notify(sBoxId, sMessage, sType, iTime) {
-  if (iTime == undefined)
-    iTime = 3;
+function sm_notify(sBoxId, sMessage, sType, oExtra) {
+  var iTime = SmGlobals.getNotificationDuration();
 
-  iTime = iTime * 1000;
   var notifyBox = $$(sBoxId);
   var notification = notifyBox.appendNotification(sMessage);
   notification.type = sType;

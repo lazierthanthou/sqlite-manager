@@ -121,6 +121,7 @@
           <preference id="pref-showMainToolbarIndex" name="extensions.sqlitemanager.showMainToolbarIndex" type="bool"/>
           <preference id="pref-showMainToolbarDebug" name="extensions.sqlitemanager.showMainToolbarDebug" type="bool"/>
 
+          <preference id="pref-notificationDuration" name="extensions.sqlitemanager.notificationDuration" type="int"/>
           <preference id="pref-displayNumRecords" name="extensions.sqlitemanager.displayNumRecords" type="int"/>
           <preference id="pref-maxColumnsInTable" name="extensions.sqlitemanager.maxColumnsInTable" type="int"/>
 
@@ -139,11 +140,19 @@
           <checkbox id="cb-showMainToolbarIndex" label="&pref-showMainToolbarIndex.label;" style="padding-left:20px" preference="pref-showMainToolbarIndex" checked="true"/>
           <checkbox id="cb-showMainToolbarDebug" label="&pref-showMainToolbarDebug.label;" style="padding-left:20px" preference="pref-showMainToolbarDebug"/>
         </groupbox>
+
+        <hbox>
+        <label value="&pref-notificationDuration.label;" style="padding-top:5px" accesskey="&pref-notificationDuration.ak;" control="tb-notificationDuration"/>
+        <spacer flex="1"/>
+        <textbox id="tb-notificationDuration" type="number" min="0" max="20" preference="pref-notificationDuration"/>
+        </hbox>
+
         <hbox>
         <label value="&pref-displayNumRecords.label;" style="padding-top:5px" accesskey="&pref-displayNumRecords.ak;" control="tb-displayNumRecords"/>
         <spacer flex="1"/>
         <textbox id="tb-displayNumRecords" type="number" min="0" preference="pref-displayNumRecords"/>
         </hbox>
+
         <hbox>
         <label value="&pref-maxColumnsInTable.label;" style="padding-top:5px" accesskey="&pref-maxColumnsInTable.ak;" control="tb-maxColumnsInTable"/>
         <spacer flex="1"/>

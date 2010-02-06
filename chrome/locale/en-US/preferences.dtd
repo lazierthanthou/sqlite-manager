@@ -42,6 +42,9 @@
 <!ENTITY  pref-showMainToolbarTable.label	"Show the Table toolbar">
 <!ENTITY  pref-showMainToolbarDebug.label	"Show the Debug toolbar">
 
+<!ENTITY  pref-notificationDuration.label	"Duration (in seconds) of notification messages">
+<!ENTITY  pref-notificationDuration.ak		"D">
+
 <!ENTITY  pref-displayNumRecords.label	"Number of records to display (Browse &amp; Search tab)">
 <!ENTITY  pref-displayNumRecords.ak		"N">
 <!ENTITY  pref-sqlTextboxRows.label	"Number of Rows in textbox to enter sql (Execute SQL tab)">

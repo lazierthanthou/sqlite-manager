@@ -577,11 +577,7 @@ var RowOperations = {
   },
 
   notify: function(sMessage, sType) {
-    var notifyBox = $$("boxNotify");
-    var notification = notifyBox.appendNotification(sMessage);
-    notification.type = sType;
-    //notification.priority = notifyBox.PRIORITY_INFO_HIGH;
-    setTimeout('$$("boxNotify").removeAllNotifications(false);', 3000);
+    sm_notify("boxNotify", sMessage, sType);
   },
 
   doOKUpdate: function() {

@@ -353,7 +353,7 @@ var SQLiteManager = {
     node.value = newVal;
 
     var sMessage = sm_getLFStr("pragma.changed", [sSetting, newVal]);
-    sm_notify("boxNotifyDbInfo", sMessage, "info", 4);
+    sm_notify("boxNotifyDbInfo", sMessage, "info");
   },
 
   setTreeStructureContextMenu: function() {

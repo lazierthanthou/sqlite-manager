@@ -182,7 +182,7 @@ var SmExim = {
 
     var sMessage = sm_getLFStr("exim.exportNum", [iExportNum, fp.file.path], 2);
     var sType = "info";
-    sm_notify("boxNotifyExim", sMessage, sType, 4);
+    sm_notify("boxNotifyExim", sMessage, sType);
 
     return false;
   },
@@ -363,7 +363,7 @@ var SmExim = {
     if (this.mFileToImport == null) {
       var sMessage = sm_getLStr("exim.alertNull.msg");
       var sType = "critical";
-      sm_notify("boxNotifyExim", sMessage, sType, 4);
+      sm_notify("boxNotifyExim", sMessage, sType);
       return false;
     }
 
@@ -405,7 +405,7 @@ var SmExim = {
       else
         sMessage += " " + sm_getLFStr("exim.importNum.records", [iImportNum], 1);
       var sType = "info";
-      sm_notify("boxNotifyExim", sMessage, sType, 4);
+      sm_notify("boxNotifyExim", sMessage, sType);
 
       SQLiteManager.refreshDbStructure();
       SQLiteManager.loadTabBrowse();
@@ -413,12 +413,12 @@ var SmExim = {
     else if (iImportNum == 0) {
       var sMessage = sm_getLStr("exim.importCancelled");
       var sType = "info";
-      sm_notify("boxNotifyExim", sMessage, sType, 4);
+      sm_notify("boxNotifyExim", sMessage, sType);
     }
     else {
       var sMessage = sm_getLStr("exim.importFailed");
       var sType = "critical";
-      sm_notify("boxNotifyExim", sMessage, sType, 4);
+      sm_notify("boxNotifyExim", sMessage, sType);
     }
     $$("eximStatus").hidden = true;
   },
@@ -431,7 +431,7 @@ var SmExim = {
     if (sTabName.length == 0) {
       var sMessage = sm_getLStr("exim.import.invalidTablename");
       var sType = "critical";
-      sm_notify("boxNotifyExim", sMessage, sType, 4);
+      sm_notify("boxNotifyExim", sMessage, sType);
       this.reportImportResult(-1);
       return;
     }

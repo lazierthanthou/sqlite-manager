@@ -72,6 +72,9 @@ pref("extensions.sqlitemanager.whenInsertingShow", "previous");
 //This db stores user-defined functions (udf).
 pref("extensions.sqlitemanager.udfDbDirPath", "");
 
+//duration (in seconds) of display of notification messages
+pref("extensions.sqlitemanager.notificationDuration", 4);
+
 //stores JSON object for MRU
 pref("extensions.sqlitemanager.jsonMruData", '{"meta":{"version":"1"},"size":10,"list":[]}');
 

@@ -186,7 +186,7 @@ var SmUdf = {
     //populate menulist with all function names
     this.populateFuncMenuList(false);
     //notify the user
-    sm_notify('udfNotifyBox', 'New function added: ' + sName + '. Press "Reload Functions" button to access this function in SQL statements.', 'info', 4);
+    sm_notify('udfNotifyBox', 'New function added: ' + sName + '. Press "Reload Functions" button to access this function in SQL statements.', 'info');
     this.viewFunction();
     return true;
   },
@@ -211,7 +211,7 @@ var SmUdf = {
     //populate menulist with all function names
     this.populateFuncMenuList(true);
     //notify the user
-    sm_notify('udfNotifyBox', 'New aggregate function added: ' + sName + '. Press "Reload Functions" button to access this function in SQL statements.', 'info', 4);
+    sm_notify('udfNotifyBox', 'New aggregate function added: ' + sName + '. Press "Reload Functions" button to access this function in SQL statements.', 'info');
     this.viewAggFunction();
     return true;
   },
@@ -367,7 +367,7 @@ var SmUdf = {
     //populate menulist with all function names
     this.populateFuncMenuList(false);
     //notify the user
-    sm_notify('udfNotifyBox', 'Function deleted: ' + sFuncName + '. Press "Reload Functions" button.', 'info', 4);
+    sm_notify('udfNotifyBox', 'Function deleted: ' + sFuncName + '. Press "Reload Functions" button.', 'info');
     this.viewFunction();
     return true;
   },
@@ -395,7 +395,7 @@ var SmUdf = {
     //populate menulist with all function names
     this.populateFuncMenuList(true);
     //notify the user
-    sm_notify('udfNotifyBox', 'Function deleted: ' + sFuncName + '. Press "Reload Functions" button.', 'info', 4);
+    sm_notify('udfNotifyBox', 'Function deleted: ' + sFuncName + '. Press "Reload Functions" button.', 'info');
     this.viewAggFunction();
     return true;
   },

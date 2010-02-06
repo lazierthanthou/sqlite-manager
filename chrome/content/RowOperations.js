@@ -707,6 +707,12 @@ var RowOperations = {
     var bRet = Database.executeWithoutConfirm(this.maQueries, this.maParamData);
     if (bRet) {
       this.notify(this.mNotifyMessages[0], "info");
+
+      //do the following to trigger SQLiteManager.loadTabBrowse();
+      sm_setUnicodePref("searchCriteria", "nocriteria");
+      //the value of searchToggler should toggle for loadTabBrowse() to be called.
+      var bTemp = sm_prefsBranch.getBoolPref("searchToggler");
+      sm_prefsBranch.setBoolPref("searchToggler", !bTemp);
     }
     else {
       this.notify(this.mNotifyMessages[1], "warning");
@@ -717,7 +723,7 @@ var RowOperations = {
       $$("ctrl-tb-0").focus();
     }
     if (this.mAcceptAction == "doOKUpdate") {
-      //reset values so that no further change means no more update
+      //TODO: reset values so that no further change means no more update
     }
     return false;
   },

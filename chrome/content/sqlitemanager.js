@@ -449,9 +449,11 @@ var SQLiteManager = {
       case "searchToggler":
         //Issue #285: get unicode string
         var sPrefVal = sm_prefsBranch.getComplexValue("searchCriteria", Ci.nsISupportsString).data;
-        this.msBrowseCondition = sPrefVal;
-        //because search criteria has changed, set offset for navigating to zero
-        this.miOffset = 0;
+        if (sPrefVal != "nocriteria") {
+          this.msBrowseCondition = sPrefVal;
+          //because search criteria has changed, set offset for navigating to zero
+          this.miOffset = 0;
+        }
         //empty the criteria after use for security
         sm_prefsBranch.setCharPref("searchCriteria", "");
         this.loadTabBrowse();

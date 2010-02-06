@@ -9,7 +9,7 @@ var SmExim = {
   sObjectName: null,
   sObjectType: null,
   msDbName: "main",
-  
+
   mFileToImport: null,
   msLeafName: null,
 

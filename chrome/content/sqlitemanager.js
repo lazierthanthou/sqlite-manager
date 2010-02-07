@@ -257,6 +257,28 @@ var SQLiteManager = {
         }
       }
     }
+///////////////////////////////////////////////////////////////
+    if(SmGlobals.appInfo.name == 'Firefox') {
+      if (window.arguments && window.arguments.length) {
+        if (typeof window.arguments[0] == "string") {
+          var sPath = window.arguments[0];
+          bOpenLastDb = false;
+          var file = FileIO.getFile(sPath);
+          //if the file is not found, bail out
+          if(!file.exists()) {
+            smPrompt.alert(null, sm_getLStr("extName"), sm_getLFStr("dbDoesNotExist",[sPath]));
+          }
+          else {
+            this.sCurrentDatabase = file;
+            this.setDatabase(this.sCurrentDatabase);
+            if (this.sCurrentDatabase == null)
+              alert('Failed to connect to ' + file.path);
+          }
+        }
+      }
+    }
+
+///////////////////////////////////////////////////////////////
 
     //try opening the last db
     if (bOpenLastDb)

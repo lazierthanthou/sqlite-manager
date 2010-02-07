@@ -1,3 +1,5 @@
+//https://developer.mozilla.org/en/Chrome/Command_Line
+
 const nsISupports           = Components.interfaces.nsISupports;
 const nsICategoryManager    = Components.interfaces.nsICategoryManager;
 const nsIComponentRegistrar = Components.interfaces.nsIComponentRegistrar;
@@ -8,11 +10,9 @@ const nsIModule             = Components.interfaces.nsIModule;
 const nsIWindowWatcher      = Components.interfaces.nsIWindowWatcher;
 
 const CHROME_URI = "chrome://sqlitemanager/content/";
+const clh_contractID = "@mrinalkant/commandlinehandler/general-startup;1?type=sqlitemanager";
 
-// CHANGEME: change the contract id, CID, and category to be unique
-// to your application.
-const clh_contractID = "@sqlite-manager.googlecode.com/commandlinehandler/general-startup;1?type=sqlitemanager";
-
+// use uuidgen to generate a unique ID
 const clh_CID = Components.ID("{f15ff0f9-9699-496e-a13c-a651365abe2a}");
 
 // category names are sorted alphabetically. Typical command-line handlers use a
@@ -57,22 +57,27 @@ const myAppHandler = {
 
   handle : function clh_handle(cmdLine)
   {
+    var args = Components.classes["@mozilla.org/supports-string;1"]
+                         .createInstance(Components.interfaces.nsISupportsString);
     try {
-      var uristr = cmdLine.handleFlagWithParam("dbfile", false);
-      if (uristr) {
+      // command line flag that takes an argument
+      var uristr = cmdLine.handleFlagWithParam("sqlitemanager", false);
+      if (uristr != null) {
         // convert uristr to an nsIURI
-        var uri = cmdLine.resolveURI(uristr);
-        openWindow(CHROME_URI, uri);
+        args.data = cmdLine.resolveURI(uristr).path;
+        openWindow(CHROME_URI, args);
         cmdLine.preventDefault = true;
       }
     }
     catch (e) {
-      Components.utils.reportError("incorrect parameter passed to -dbfile on the command line.");
+      Components.utils.reportError("incorrect parameter passed to -sqlitemanager on the command line." + e.name + uristr);
+      openWindow(CHROME_URI, null);
+      cmdLine.preventDefault = true;
     }
 
-    // CHANGEME: change "myapp" to your command line flag (no argument)
-    if (cmdLine.handleFlag("myapp", false)) {
-      openWindow(CHROME_URI, null);
+    // command line flag (no argument)
+    if (cmdLine.handleFlag("anotherflag", false)) {
+      //TODO: whatever you want
       cmdLine.preventDefault = true;
     }
   },
@@ -83,8 +88,8 @@ const myAppHandler = {
   // character 24, and lines should be wrapped at
   // 72 characters with embedded newlines,
   // and finally, the string should end with a newline
-  helpInfo : "  -myapp               Open My Application\n" +
-             "  -dbfile <file>       Open the file in sqlite-manager\n",
+  helpInfo : "  -sqlitemanager       Open SQLite Manager\n" +
+             "  -sqlitemanager <uri> Open the URI in SQLite Manager\n",
 
   /* nsIFactory */
 

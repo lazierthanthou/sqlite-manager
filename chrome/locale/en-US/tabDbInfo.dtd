@@ -34,6 +34,7 @@
 <!ENTITY legacy_file_format "Legacy File Format">
 <!ENTITY locking_mode "Locking Mode">
 <!ENTITY read_uncommitted "Read Uncommitted">
+<!ENTITY reverse_unordered_selects "Reverse Unordered Selects">
 <!ENTITY short_column_names "Short Column Names">
 <!ENTITY synchronous "Synchronous">
 

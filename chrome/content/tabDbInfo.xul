@@ -11,7 +11,6 @@
 
 <!--
 Omitted: case_sensitive_like, incremental_vacuum(N)
-Do not work: locking_mode
 -->
   <vbox id="vb-dbInfoTab" flex="1" style="overflow:auto">
    <groupbox>
@@ -203,6 +202,17 @@ Do not work: locking_mode
         </menupopup>
       </menulist>
       <button label="&change;" oncommand="SQLiteManager.changeDbSetting('read_uncommitted');"/>
+    </hbox>
+
+    <hbox>
+      <label value="&reverse_unordered_selects;" class="dbinfo"/>
+      <menulist id="pr-reverse_unordered_selects">
+        <menupopup>
+          <menuitem label="&On;" value="1"/>
+          <menuitem label="&Off;" value="0"/>
+        </menupopup>
+      </menulist>
+      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('reverse_unordered_selects');"/>
     </hbox>
 
     <hbox>

@@ -30,10 +30,12 @@
 <!ENTITY UTF16le "UTF-16le">
 <!ENTITY UTF16be "UTF-16be">
 <!ENTITY full_column_names "Full Column Names">
+<!ENTITY foreign_keys "Foreign Keys">
 <!ENTITY fullfsync "Fullfsync flag">
 <!ENTITY legacy_file_format "Legacy File Format">
 <!ENTITY locking_mode "Locking Mode">
 <!ENTITY read_uncommitted "Read Uncommitted">
+<!ENTITY recursive_triggers "Recursive Triggers">
 <!ENTITY reverse_unordered_selects "Reverse Unordered Selects">
 <!ENTITY short_column_names "Short Column Names">
 <!ENTITY synchronous "Synchronous">

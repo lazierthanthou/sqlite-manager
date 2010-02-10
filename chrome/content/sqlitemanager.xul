@@ -364,7 +364,7 @@
             <button label="&reindex;" command="smc-reindexTable"/>
             <button label="&copy;" command="smc-copyTable"/>
             <button label="&export;" command="smc-exportTable"/>
-            <button label="FK" oncommand="SQLiteManager.generateFKTriggers()"/>
+            <button label="FK" id="btn-foreign-key" oncommand="SQLiteManager.generateFKTriggers()"/>
           </hbox>
           <hbox id="gb-master-ops-view">
             <button label="&drop;" command="smc-dropView"/>

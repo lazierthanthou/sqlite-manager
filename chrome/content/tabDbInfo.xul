@@ -160,6 +160,17 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
       <button label="&change;" oncommand="SQLiteManager.changeDbSetting('encoding');"/>
     </hbox>
 
+    <hbox id="hb-pr-foreign_keys" hidden="true">
+      <label value="&foreign_keys;" class="dbinfo"/>
+      <menulist id="pr-foreign_keys">
+        <menupopup>
+          <menuitem label="&On;" value="1"/>
+          <menuitem label="&Off;" value="0"/>
+        </menupopup>
+      </menulist>
+      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('foreign_keys');"/>
+    </hbox>
+
     <hbox>
       <label value="&fullfsync;" class="dbinfo"/>
       <menulist id="pr-fullfsync">
@@ -202,6 +213,17 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
         </menupopup>
       </menulist>
       <button label="&change;" oncommand="SQLiteManager.changeDbSetting('read_uncommitted');"/>
+    </hbox>
+
+    <hbox id="hb-pr-recursive_triggers" hidden="true">
+      <label value="&recursive_triggers;" class="dbinfo"/>
+      <menulist id="pr-recursive_triggers">
+        <menupopup>
+          <menuitem label="&On;" value="1"/>
+          <menuitem label="&Off;" value="0"/>
+        </menupopup>
+      </menulist>
+      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('recursive_triggers');"/>
     </hbox>
 
     <hbox>

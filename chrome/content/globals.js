@@ -38,7 +38,10 @@ var SmGlobals = {
   setAppInfo: function() {
     var extId = "SQLiteManager@mrinalkant.blogspot.com";
     this.appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+
     this.gecko_1914pre = (Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator).compare(this.appInfo.platformVersion, "1.9.1.4pre") >= 0);
+    this.gecko_193a1 = (Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator).compare(this.appInfo.platformVersion, "1.9.3a1") >= 0);
+
     if (this.appInfo.ID == extId) {
       this.extVersion = this.appInfo.version;
       this.extCreator = this.appInfo.vendor;

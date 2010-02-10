@@ -180,6 +180,10 @@ var SQLiteManager = {
   Startup: function() {
     $$("experiment").hidden = true;
 
+    if (SmGlobals.gecko_193a1) {
+      $$("btn-foreign-key").hidden = true;
+    }
+
     this.msQuerySelectInstruction = sm_getLStr("sqlm.selectQuery");
 
     SmUdf.init();
@@ -1053,6 +1057,15 @@ var SQLiteManager = {
       return false;
 
     var aSettings = ["schema_version", "user_version", "auto_vacuum", "cache_size", /*"case_sensitive_like",*/ "count_changes", "default_cache_size", "empty_result_callbacks", "encoding", "full_column_names", "fullfsync", "journal_mode", "journal_size_limit", "legacy_file_format", "locking_mode", "page_size", "max_page_count", "page_count", "freelist_count", "read_uncommitted", "reverse_unordered_selects", "short_column_names", "synchronous", "temp_store", "temp_store_directory"];
+
+    if (SmGlobals.gecko_193a1) {
+      aSettings.push("foreign_keys");
+      aSettings.push("recursive_triggers");
+
+      $$("hb-pr-foreign_keys").hidden = false;
+      $$("hb-pr-recursive_triggers").hidden = false;
+    }
+
     for(var i = 0; i < aSettings.length; i++)  {
       var sSetting = aSettings[i];
       var node = $$("pr-" + sSetting);

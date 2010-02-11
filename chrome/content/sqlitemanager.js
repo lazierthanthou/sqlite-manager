@@ -541,11 +541,20 @@ var SQLiteManager = {
   },
   //Issue #108
   reconnect: function() {
-    var nsFile = this.sCurrentDatabase;
-    this.closeDatabase(false);
+    //check whether the file still exists
+    if(!this.sCurrentDatabase.exists()) {
+      alert(sm_getLStr("sqlm.alert.fileNotFound") + this.sCurrentDatabase.path);
+      this.closeDatabase(false);
+      SmGlobals.mru.remove(sPath);
+      this.sCurrentDatabase = null;
+      this.setDatabase(this.sCurrentDatabase);
+      return true;
+    }
 
-    this.sCurrentDatabase = nsFile;
-    this.setDatabase(this.sCurrentDatabase);  
+    var sPath = this.sCurrentDatabase.path;
+    //Issue #149: must connect in exclusive mode to connect to the actual file rather than the cached file; correspondingly, make exclusive mode the default one.
+    $$("menu-general-sharedPagerCache").removeAttribute("checked");
+    this.openDatabaseWithPath(sPath);
   },
 
   //refreshDbStructure: populates the schematree based on selected database

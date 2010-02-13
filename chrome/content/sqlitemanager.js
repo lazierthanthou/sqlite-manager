@@ -169,7 +169,11 @@ var SQLiteManager = {
   },
 
   experiment: function() {
-    document.querySelector('treechildren::-moz-tree-cell(nullvalue selected)');
+    //document.querySelector('treechildren::-moz-tree-cell(nullvalue selected)');
+  },
+
+  isSqliteHigherThan: function (sVersion) {
+    return (Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator).compare(Database.sqliteVersion, sVersion) >= 0);
   },
 
   copyText: function (sText) {
@@ -179,10 +183,6 @@ var SQLiteManager = {
   // Startup: called ONCE during the browser window "load" event
   Startup: function() {
     $$("experiment").hidden = true;
-
-    if (SmGlobals.gecko_193a1) {
-      $$("btn-foreign-key").hidden = true;
-    }
 
     this.msQuerySelectInstruction = sm_getLStr("sqlm.selectQuery");
 
@@ -696,6 +696,10 @@ var SQLiteManager = {
     if (this.sCurrentDatabase == null)
       return false;
 
+    if (this.isSqliteHigherThan("3.6.19")) {
+      $$("btn-foreign-key").hidden = true;
+    }
+
     //there is a database object at level 1 only
     if(this.mostCurrObjName == null) {
       return false;
@@ -1067,7 +1071,7 @@ var SQLiteManager = {
 
     var aSettings = ["schema_version", "user_version", "auto_vacuum", "cache_size", /*"case_sensitive_like",*/ "count_changes", "default_cache_size", "empty_result_callbacks", "encoding", "full_column_names", "fullfsync", "journal_mode", "journal_size_limit", "legacy_file_format", "locking_mode", "page_size", "max_page_count", "page_count", "freelist_count", "read_uncommitted", "reverse_unordered_selects", "short_column_names", "synchronous", "temp_store", "temp_store_directory"];
 
-    if (SmGlobals.gecko_193a1) {
+    if (this.isSqliteHigherThan("3.6.19")) {
       aSettings.push("foreign_keys");
       aSettings.push("recursive_triggers");
 

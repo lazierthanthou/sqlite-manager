@@ -15,12 +15,6 @@
   <script type="application/x-javascript" src="globals.js"/>  
   <script type="application/x-javascript" src="RowOperations.js"/>  
 
-  <keyset>
-    <key id="const-1" modifiers="control" key="1" oncommand="RowOperations.typeConstant('CURRENT_DATE')"/>
-    <key id="const-2" modifiers="control" key="2" oncommand="RowOperations.typeConstant('CURRENT_TIME')"/>
-    <key id="const-3" modifiers="control" key="3" oncommand="RowOperations.typeConstant('CURRENT_TIMESTAMP')"/>
-  </keyset>
-
 <notificationbox id="boxNotify" flex="1">
 
 <deck id="deck-rowedit" selectedIndex="0" flex="1">

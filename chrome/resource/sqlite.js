@@ -443,7 +443,7 @@ SQLiteHandler.prototype = {
   selectQuery: function(sQuery, bBlobAsHex) {
     this.aTableData = new Array();
     this.aTableType = new Array();
-// if aColumns is not null, there is a problem in tree display
+    // if aColumns is not null, there is a problem in tree display
     this.aColumns = null;        
     var bResult = false;
  
@@ -753,8 +753,9 @@ SQLiteHandler.prototype = {
     return true;
   },  
 
- // executeWithParams : execute a query with parameter binding
+  // executeWithParams : execute a query with parameter binding
   executeWithParams: function(sQuery, aParamData) {
+    //create the statement
     try {
       var stmt = this.dbConn.createStatement(sQuery);
     } catch (e) {
@@ -762,21 +763,34 @@ SQLiteHandler.prototype = {
       this.setErrorString();
       return false;
     }
-
-    for (var i = 0; i < aParamData.length; i++) {
-      var aData = aParamData[i];
-      switch (aData[2]) {
-        case "blob":
-          try {
+    //bind the parameters
+    try {
+      for (var i = 0; i < aParamData.length; i++) {
+        var aData = aParamData[i];
+        switch (aData[2]) {
+          case SQLiteTypes.NULL:
+            stmt.bindNullParameter(aData[0]);
+            break;
+          case SQLiteTypes.INTEGER:
+            stmt.bindInt64Parameter(aData[0], aData[1]);
+            break;
+          case SQLiteTypes.FLOAT:
+            stmt.bindDoubleParameter(aData[0], aData[1]);
+            break;
+          case SQLiteTypes.TEXT:
+            stmt.bindStringParameter(aData[0], aData[1]);
+            break;
+          case SQLiteTypes.BLOB:
             stmt.bindBlobParameter(aData[0], aData[1], aData[1].length);
-          } catch (e) {
-            this.onSqlError(e, "Binding failed for parameter: " + aData[0], this.dbConn.lastErrorString);
-            this.setErrorString();
-            return false;
-          }
-          break;
+            break;
+        }
       }
+    } catch (e) {
+      this.onSqlError(e, "Binding failed for parameter: " + aData[0], this.dbConn.lastErrorString);
+      this.setErrorString();
+      return false;
     }
+    //now execute the statement
     try {
       stmt.execute();
     } catch (e) {
@@ -1029,6 +1043,56 @@ SQLiteHandler.prototype = {
       stmt.reset();
     }
     return aRows;
+  },
+//////////////////////////////////////////////////////////////////
+  determineType: function(str) {
+    var sTypeof = "text";
+    var sQuery = "SELECT typeof(" + str + ") AS ttt";
+    try {
+      var stmt = this.dbConn.createStatement(sQuery);
+      while (stmt.executeStep()) {
+        sTypeof = stmt.row.ttt;
+      }
+    } catch (e) {
+      sTypeof = "text";
+      //this.onSqlError(e, "makeSqlValue11: ", this.dbConn.lastErrorString);
+      //this.setErrorString();
+    }
+
+    if (sTypeof == "blob")
+      return {type: SQLiteTypes.BLOB, value: str};
+
+    if (sTypeof == "null")
+      return {type: SQLiteTypes.NULL, value: str};
+
+    if (sTypeof == "integer" || sTypeof == "real") {
+      //if str can become a number, do not do so in the following 2 conditions:
+      //1. if it begins with "0" but not with "0."
+      if (str.indexOf('0') == 0) {
+        if (str.indexOf('.') == 1)
+          return {type: SQLiteTypes.FLOAT, value: Number(str)};
+        else
+          return {type: SQLiteTypes.TEXT, value: SQLiteFn.quote(str)};
+      }
+      //2. if it has space
+      if (str.indexOf(' ') != -1)
+        return {type: SQLiteTypes.TEXT, value: SQLiteFn.quote(str)};
+      //otherwise, return a number
+      return {type: SQLiteTypes.FLOAT, value: Number(str)};
+    }
+
+    //Cu.reportError("value: " + str + "\ntypeof: " + sTypeof);
+    //for all str (typeof str == "string") seems true
+    //so how do we tell numbers from strings?
+    if (sTypeof == "text") {
+      var sUp = str.toUpperCase();
+      if (sUp == "CURRENT_DATE" || sUp == "CURRENT_TIME" || sUp == "CURRENT_TIMESTAMP")
+        return {type: SQLiteTypes.TEXT, value: str.toUpperCase(), isConstant: true};
+
+      return {type: SQLiteTypes.TEXT, value: SQLiteFn.quote(str)};
+    }
+
+    return {type: SQLiteTypes.TEXT, value: str};
   }
 }
 

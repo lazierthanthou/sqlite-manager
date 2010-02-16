@@ -12,13 +12,9 @@ var RowOperations = {
   mIntervalID: null,
 
   //arrays with information for each field
-  aColumns: null,
-  aFieldValues: null,
-  aFieldTypes: null,
-  aDataTypes: null,
-  oldBlobs: null,
-  newBlobs: null,
+  maFieldInfo: null, //contains objects
 
+  aColumns: null,
   mRowId: null, //for update, delete and duplicate
   sCurrentTable: null,
   sObject: null,
@@ -132,19 +128,12 @@ var RowOperations = {
     var cols = Database.getTableInfo(sTableName, "");
 
     this.aColumns = cols;
-    this.aFieldValues = [];
-    this.aFieldTypes = [];
-    this.aDataTypes = [];
-    this.oldBlobs = [];
-    this.newBlobs = [];
+
+    this.maFieldInfo = [];
 
     for(var i = 0; i < cols.length; i++) {
-      this.aFieldValues.push("");
-      this.aDataTypes.push(SQLiteTypes.TEXT);
-      this.aFieldTypes.push(cols[i].type);
-
-      this.oldBlobs.push(null);
-      this.newBlobs.push(null);
+      var oInfo = {oldValue: "", oldType: SQLiteTypes.TEXT, newType: SQLiteTypes.TEXT, colType: cols[i].type, oldBlob: null, newBlob: null};
+      this.maFieldInfo.push(oInfo);
     }
 
     if(this.sOperation == "update" || this.sOperation == "delete" || this.sOperation == "duplicate") {
@@ -156,14 +145,15 @@ var RowOperations = {
       for (var j = 0; j < this.aColumns.length; j++) {
         for (var k = 0; k < cols.length; k++) {
           if (cols[k][0] == this.aColumns[j].name) {
-            this.aDataTypes[j] = rowTypes[k];
-            this.aFieldValues[j] = row[k];
+            this.maFieldInfo[j].oldValue = row[k];
+            this.maFieldInfo[j].oldType = rowTypes[k];
+            this.maFieldInfo[j].newType = rowTypes[k];
           }
         }
         //for blobs, do the following
-        if (this.aDataTypes[j] == SQLiteTypes.BLOB) {
+        if (this.maFieldInfo[j].oldType == SQLiteTypes.BLOB) {
           var data = Database.selectBlob(this.sCurrentTable, this.aColumns[j].name, this.mRowId);
-          this.oldBlobs[j] = data;
+          this.maFieldInfo[j].oldBlob = data;
         }
       }
     }
@@ -181,8 +171,8 @@ var RowOperations = {
 
       var lbl = document.createElement("label");
       var lblVal = (i+1) + ". " + this.aColumns[i].name;
-      if(this.aFieldTypes[i].length > 0)
-        lblVal += " ( " + this.aFieldTypes[i] + " )";
+      if(this.maFieldInfo[i].colType.length > 0)
+        lblVal += " ( " + this.maFieldInfo[i].colType + " )";
       lbl.setAttribute("value", lblVal);
       lbl.setAttribute("style", "padding-top:5px;width:25ex");
       if (i < 9)
@@ -225,7 +215,7 @@ var RowOperations = {
 
     var rv = fp.show();
     if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
-      var data = this.oldBlobs[iIndex];
+      var data = this.maFieldInfo[iIndex].oldBlob;
 
       if(data.length == 0) //nothing to write
         return false;
@@ -278,7 +268,7 @@ var RowOperations = {
       bininput.close();
       fistream.close();
 
-      this.newBlobs[iIndex] = fileContents;
+      this.maFieldInfo[iIndex].newBlob = fileContents;
 
       var ctrltb = $$("ctrl-tb-" + iIndex);
       var val = sm_prefsBranch.getCharPref("textForBlob");
@@ -286,8 +276,7 @@ var RowOperations = {
         val += sm_getLFStr("rowOp.addBlob.showBlobSize", [fileCounts],1);
 
       ctrltb.value = val;
-      ctrltb.setAttribute("fieldtype", SQLiteTypes.BLOB);
-      ctrltb.setAttribute("fieldtypecurrent", SQLiteTypes.BLOB);
+      this.maFieldInfo[iIndex].newType = SQLiteTypes.BLOB;
       ctrltb.setAttribute("readonly", "true");
 
       this.onInputValue(ctrltb, false);
@@ -300,8 +289,8 @@ var RowOperations = {
   removeBlob: function(iIndex) {
     var ctrltb = $$("ctrl-tb-" + iIndex);
     ctrltb.value = "";
-    ctrltb.setAttribute("fieldtype", SQLiteTypes.TEXT);
-    ctrltb.setAttribute("fieldtypecurrent", SQLiteTypes.TEXT);
+
+    this.maFieldInfo[iIndex].newType = SQLiteTypes.TEXT;
     ctrltb.removeAttribute("readonly");
 
     this.onInputValue(ctrltb, false);
@@ -337,9 +326,7 @@ var RowOperations = {
   },
 
   getInputToggleImage: function(iIndex, sOperation) {
-    var iType = SQLiteTypes.TEXT;
-    if (this.aDataTypes != null)
-      iType = this.aDataTypes[iIndex];
+    var iType = this.maFieldInfo[iIndex].oldType;
 
     var hb = document.createElement("hbox");
     var vb = document.createElement("vbox");
@@ -403,12 +390,20 @@ var RowOperations = {
   },
 
   onInputValue: function(elt, bAnalyzeValue) {
+    var iIndex = elt.getAttribute("fieldindex");
+
     if (bAnalyzeValue) {
       var valInfo = Database.determineType(elt.value);
-      elt.setAttribute("fieldtypecurrent", valInfo.type);
+      this.maFieldInfo[iIndex].newType = valInfo.type;
+      this.maFieldInfo[iIndex].newBlob = null;
+      if (valInfo.type == SQLiteTypes.BLOB)
+        this.maFieldInfo[iIndex].newBlob = valInfo.value;
+
+      if (valInfo.type == SQLiteTypes.TEXT && valInfo.isConstant)
+        this.maFieldInfo[iIndex].sqlValue = elt.value;
     }
 
-    var iType = Number(elt.getAttribute("fieldtypecurrent"));
+    var iType = this.maFieldInfo[iIndex].newType;
     elt.setAttribute("emptytext", "Empty string");
     switch (iType) {
       case SQLiteTypes.NULL:
@@ -433,14 +428,15 @@ var RowOperations = {
   onKeyPressValue: function(evt) {
     if (evt.ctrlKey) {
       var elt = evt.target;
-      var iType = Number(elt.getAttribute("fieldtypecurrent"));
+      var iIndex = elt.getAttribute("fieldindex");
+      var iType = this.maFieldInfo[iIndex].newType;
       switch (String.fromCharCode(evt.charCode)) {
         case '0':
           elt.value = "";
           if (iType != SQLiteTypes.NULL)
-            elt.setAttribute("fieldtypecurrent", SQLiteTypes.NULL);
+            this.maFieldInfo[iIndex].newType = SQLiteTypes.NULL;
           else
-            elt.setAttribute("fieldtypecurrent", SQLiteTypes.TEXT);
+            this.maFieldInfo[iIndex].newType = SQLiteTypes.TEXT;
           this.onInputValue(elt, false);
           return;
           break;
@@ -453,8 +449,15 @@ var RowOperations = {
         case '3':
           elt.value = "CURRENT_TIMESTAMP";
           break;
-        case '9': //treat the value as text
-          elt.setAttribute("fieldtypecurrent", SQLiteTypes.TEXT);
+        case 't': //treat the value as text
+          this.maFieldInfo[iIndex].newType = SQLiteTypes.TEXT;
+          this.onInputValue(elt, false);
+          return;
+          break;
+        case 'b': //treat the value as blob
+          this.maFieldInfo[iIndex].newType = SQLiteTypes.BLOB;
+          var aBlob = Database.textToBlob(elt.value);
+          this.maFieldInfo[iIndex].newBlob = aBlob;
           this.onInputValue(elt, false);
           return;
           break;
@@ -466,10 +469,10 @@ var RowOperations = {
   getInputField: function(iIndex) {
     var sField = this.aColumns[iIndex].name;
     var sValue = "", iType = SQLiteTypes.TEXT;
-    if (this.aFieldValues != null)
-      sValue = this.aFieldValues[iIndex];
-    if (this.aDataTypes != null)
-      iType = this.aDataTypes[iIndex];
+    if (this.maFieldInfo != null) {
+      sValue = this.maFieldInfo[iIndex].oldValue;
+      iType = this.maFieldInfo[iIndex].oldType;
+    }
 
     var inp1 = document.createElement("textbox");
     inp1.setAttribute("id", "ctrl-tb-" + iIndex);
@@ -482,13 +485,12 @@ var RowOperations = {
     inp1.setAttribute("rows", "1");
     inp1.setAttribute("oninput", "RowOperations.onInputValue(this, true);");
     inp1.setAttribute("onkeypress", "RowOperations.onKeyPressValue(event);");
-    if (iType == SQLiteTypes.BLOB)
-      inp1.setAttribute("disabled", "true");
+//    if (iType == SQLiteTypes.BLOB)
+//      inp1.setAttribute("disabled", "true");
 
     //following attributes are not in xul
-    inp1.setAttribute("originalvalue", sValue);
-    inp1.setAttribute("fieldtype", iType);
-    inp1.setAttribute("fieldtypecurrent", iType);
+    inp1.setAttribute("fieldindex", iIndex);
+    this.maFieldInfo[iIndex].newType = iType;
 
     this.onInputValue(inp1, false);
 
@@ -615,8 +617,8 @@ var RowOperations = {
       if (inpval.length == 0 && this.aColumns[i].notnull == 0)
         continue;
 
-      var iType = ctrltb.getAttribute("fieldtype");
-      if (iType == SQLiteTypes.BLOB && this.newBlobs[i] == null)
+      var iType = this.maFieldInfo[i].oldType;
+      if (iType == SQLiteTypes.BLOB && this.maFieldInfo[i].newBlob == null)
         continue;
 
       inpval = SQLiteFn.makeSqlValue(inpval);
@@ -624,7 +626,7 @@ var RowOperations = {
 
       if (iType == SQLiteTypes.BLOB) {
         inpval = "?" + iParamCounter;
-        aParamData.push([(iParamCounter-1), this.newBlobs[i], SQLiteTypes.BLOB]);
+        aParamData.push([(iParamCounter-1), this.maFieldInfo[i].newBlob, SQLiteTypes.BLOB]);
         iParamCounter++;
       }
 
@@ -648,42 +650,53 @@ var RowOperations = {
   },
 
   doOKUpdate: function() {
-    var inpval, fld, inpOriginalVal, iType;
-    var cols = "", vals = "";
+    var inpval, inpOriginalVal;
+    var iTypeOld, iTypeNew;
+    var cols = "", vals = "", fld;
     var aParamData = [];
     var iParamCounter = 1;
     for(var i = 0; i < this.aColumns.length; i++) {
       var ctrltb = $$("ctrl-tb-" + i);
       inpval = ctrltb.value;
-      inpOriginalVal = ctrltb.getAttribute("originalvalue");
+      inpOriginalVal = this.maFieldInfo[i].oldValue;
+
+      iTypeOld = this.maFieldInfo[i].oldType;
+      iTypeNew = this.maFieldInfo[i].newType;
 
       //ignore column if it did not change
-      if (inpOriginalVal == inpval && ctrltb.getAttribute("fieldtype") == ctrltb.getAttribute("fieldtypecurrent"))
-        continue;
+      if (iTypeOld == iTypeNew) {
+        //1. if null, displayed values, etc. do not matter
+        if (iTypeOld == SQLiteTypes.NULL)
+          continue;
 
-      inpval = SQLiteFn.makeSqlValue(inpval);
-      inpOriginalVal = SQLiteFn.makeSqlValue(inpOriginalVal);
+        //2. for other types, values should match to be ignored
+        if (inpOriginalVal == inpval)
+          continue;
+      }
 
-      iType = ctrltb.getAttribute("fieldtype");
-      if (iType == SQLiteTypes.BLOB && this.newBlobs[i] == null)
-        continue;
-
-      if (inpOriginalVal == inpval)
-        continue;
-
-      if (iType == SQLiteTypes.BLOB) {
+      if (iTypeNew == SQLiteTypes.BLOB) {
         inpval = "?" + iParamCounter;
-        aParamData.push([(iParamCounter-1), this.newBlobs[i], SQLiteTypes.BLOB]);
+          aParamData.push([(iParamCounter-1), this.maFieldInfo[i].newBlob, iTypeNew]);
         iParamCounter++;
       }
-      if (iType == SQLiteTypes.TEXT) {
+      if (iTypeNew == SQLiteTypes.TEXT) {
         inpval = "?" + iParamCounter;
-        aParamData.push([(iParamCounter-1), ctrltb.value, SQLiteTypes.TEXT]);
+        aParamData.push([(iParamCounter-1), ctrltb.value, iTypeNew]);
         iParamCounter++;
       }
-      if (iType == SQLiteTypes.NULL) {
+      if (iTypeNew == SQLiteTypes.NULL) {
         inpval = "?" + iParamCounter;
-        aParamData.push([(iParamCounter-1), "", SQLiteTypes.NULL]);
+        aParamData.push([(iParamCounter-1), ctrltb.value, iTypeNew]);
+        iParamCounter++;
+      }
+      if (iTypeNew == SQLiteTypes.INTEGER) {
+        inpval = "?" + iParamCounter;
+        aParamData.push([(iParamCounter-1), ctrltb.value, iTypeNew]);
+        iParamCounter++;
+      }
+      if (iTypeNew == SQLiteTypes.FLOAT) {
+        inpval = "?" + iParamCounter;
+        aParamData.push([(iParamCounter-1), ctrltb.value, iTypeNew]);
         iParamCounter++;
       }
 

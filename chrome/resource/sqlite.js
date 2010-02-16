@@ -99,7 +99,7 @@ SQLiteHandler.prototype = {
           this.dbConn = this.openSpecialProfileDatabase(nsIFile);
         }
         catch (e) {
-          this.onSqlError(e, "Error in opening file " + nsIFile.leafName + " - perhaps this is not an sqlite db file", null);
+          this.onSqlError(e, "Error in opening file " + nsIFile.leafName + " - perhaps this is not an sqlite db file", null, true);
           return false;
         }
       }
@@ -135,7 +135,7 @@ SQLiteHandler.prototype = {
       this.dbConn = this.storageService.openSpecialDatabase(sSpecialName);
     }
     catch (e) {
-      this.onSqlError(e, "Error in opening in memory database", null);
+      this.onSqlError(e, "Error in opening in memory database", null, true);
       return false;
     }
 
@@ -169,7 +169,7 @@ SQLiteHandler.prototype = {
     try {
       this.dbConn.createFunction(fnName, argLength, fnObject);
     } catch (e) {
-      this.onSqlError(e, "Failed to create storage function: " + fnName);
+      this.onSqlError(e, "Failed to create storage function: " + fnName, null, true);
       return false;
     }
     this.maAddedFunctions.push(fnName);
@@ -184,7 +184,7 @@ SQLiteHandler.prototype = {
     try {
       this.dbConn.createAggregateFunction(fnName, argLength, fnObject);
     } catch (e) {
-      this.onSqlError(e, "Failed to create storage function: " + fnName);
+      this.onSqlError(e, "Failed to create storage function: " + fnName, null, true);
       return false;
     }
     this.maAddedFunctions.push(fnName);
@@ -204,7 +204,7 @@ SQLiteHandler.prototype = {
         this.maAddedFunctions.splice(i, 1);
       } catch (e) {
         i++;
-        this.onSqlError(e, "removeAllFunctions: Failed while attempting to remove storage function: " + fnName + '\nstep: ' + step);
+        this.onSqlError(e, "removeAllFunctions: Failed while attempting to remove storage function: " + fnName + '\nstep: ' + step, null, true);
       }
     }
   },
@@ -453,7 +453,7 @@ SQLiteHandler.prototype = {
     }
     catch (e) {
       // statement will be undefined because it throws error);
-      this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString);
+      this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
       this.setErrorString();
       return false;
     }
@@ -471,7 +471,7 @@ SQLiteHandler.prototype = {
         this.aColumns.push(aTemp);  
       }
     } catch (e) { 
-      this.onSqlError(e, "Error while fetching column name: " + colName, null);
+      this.onSqlError(e, "Error while fetching column name: " + colName, null, true);
       this.setErrorString();
       return false;
     }
@@ -534,7 +534,7 @@ SQLiteHandler.prototype = {
       }
       this.miTime = Date.now() - timeStart;
     } catch (e) { 
-      this.onSqlError(e, "Query: " + sQuery + " - executeStep failed", null);
+      this.onSqlError(e, "Query: " + sQuery + " - executeStep failed", null, true);
       this.setErrorString();
       return false;
     } finally {
@@ -563,14 +563,6 @@ SQLiteHandler.prototype = {
     return str;
   },
 
-  convertBlobToHex: function(aData) {
-    var hex_tab = '0123456789ABCDEF';
-    var str = '';
-    for (var i = 0; i < aData.length; i++) {
-      str += hex_tab.charAt(aData[i] >> 4 & 0xF) + hex_tab.charAt(aData[i] & 0xF);
-    }
-    return "X'" + str + "'";
-  },
   // selectBlob : execute a select query to return blob
   selectBlob: function(sTable, sField, sWhere) {
     var sQuery = ["SELECT", SQLiteFn.quoteIdentifier(sField), "FROM", this.getPrefixedName(sTable, ""), "WHERE", sWhere].join(' ');
@@ -579,7 +571,7 @@ SQLiteHandler.prototype = {
     }
     catch (e) {
       // statement will be undefined because it throws error);
-      this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString);
+      this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
       this.setErrorString();
       return false;
     }
@@ -600,7 +592,7 @@ SQLiteHandler.prototype = {
       //return [iDataSize.value, aData.value];
       return aData.value;
     } catch (e) { 
-      this.onSqlError(e, "Query: " + sQuery + " - executeStep failed", null);
+      this.onSqlError(e, "Query: " + sQuery + " - executeStep failed", null, true);
       this.setErrorString();
       return false;
     } finally {
@@ -703,7 +695,7 @@ SQLiteHandler.prototype = {
       }
       catch (e) {
         this.setErrorString();
-        this.onSqlError(e, "Error in createStatement: " + aQueries[i], this.dbConn.lastErrorString);
+        this.onSqlError(e, "Error in createStatement: " + aQueries[i], this.dbConn.lastErrorString, true);
         return false;
       }
     }
@@ -734,7 +726,7 @@ SQLiteHandler.prototype = {
       catch (e) {
         this.setErrorString();
         // statement will be undefined because it throws error);
-        this.onSqlError(e, "Likely SQL syntax error: " + aQueries[i], this.dbConn.lastErrorString);
+        this.onSqlError(e, "Likely SQL syntax error: " + aQueries[i], this.dbConn.lastErrorString, true);
         this.setErrorString();
         if (this.dbConn.transactionInProgress) {
           this.dbConn.rollbackTransaction();
@@ -759,7 +751,7 @@ SQLiteHandler.prototype = {
     try {
       var stmt = this.dbConn.createStatement(sQuery);
     } catch (e) {
-      this.onSqlError(e, "Create statement failed: " + sQuery, this.dbConn.lastErrorString);
+      this.onSqlError(e, "Create statement failed: " + sQuery, this.dbConn.lastErrorString, true);
       this.setErrorString();
       return false;
     }
@@ -781,12 +773,14 @@ SQLiteHandler.prototype = {
             stmt.bindStringParameter(aData[0], aData[1]);
             break;
           case SQLiteTypes.BLOB:
+            if (typeof aData[1] == "string")
+              aData[1] = this.textToBlob(aData[1]);
             stmt.bindBlobParameter(aData[0], aData[1], aData[1].length);
             break;
         }
       }
     } catch (e) {
-      this.onSqlError(e, "Binding failed for parameter: " + aData[0], this.dbConn.lastErrorString);
+      this.onSqlError(e, "Binding failed for parameter: " + aData[0], this.dbConn.lastErrorString, true);
       this.setErrorString();
       return false;
     }
@@ -794,7 +788,7 @@ SQLiteHandler.prototype = {
     try {
       stmt.execute();
     } catch (e) {
-      this.onSqlError(e, "Execute failed: " + sQuery, this.dbConn.lastErrorString);
+      this.onSqlError(e, "Execute failed: " + sQuery, this.dbConn.lastErrorString, true);
       this.setErrorString();
       return false;
     }
@@ -803,11 +797,43 @@ SQLiteHandler.prototype = {
       stmt.reset();
       stmt.finalize();
     } catch (e) {
-        this.onSqlError(e, "Failed to reset/finalize", this.dbConn.lastErrorString);
+        this.onSqlError(e, "Failed to reset/finalize", this.dbConn.lastErrorString, true);
         this.setErrorString();
         return false;
     }
     return true;
+  },
+
+  blob2hex: function(aData) {
+    var sQuery = "SELECT quote(" + aData + ") AS outstr";
+    var stmt = this.dbConn.createStatement(sQuery);
+    try {
+      while (stmt.executeStep()) {
+        return stmt.row.outstr;
+      }
+    } catch (e) {
+      this.onSqlError(e, "", null, false);
+    }
+  },
+
+  textToBlob: function(sData) {
+    var sHex;
+    var sQuery = "SELECT hex(" + sData + ") AS outhex";
+    try {
+      var stmt = this.dbConn.createStatement(sQuery);
+      while (stmt.executeStep()) {
+        sHex = stmt.row.outhex;
+      }
+    } catch (e) {
+      this.onSqlError(e, "", null, false);
+      //if failed, sData must be passed as a string
+      return this.textToBlob(SQLiteFn.quote(sData));
+    }
+    var aRet = [];
+    for (var i = 0; i < sHex.length; i = i + 2) {
+      aRet.push(Number("0x" + sHex.substr(i,2)));
+    }
+    return aRet;
   },
 
   confirmAndExecute: function(aQueries, sMessage, confirmPrefName, aParamData) {
@@ -846,7 +872,7 @@ SQLiteHandler.prototype = {
     return this.selectQuery(sQuery);  
   },
 
-  onSqlError: function(ex, msg, SQLmsg) {
+  onSqlError: function(ex, msg, SQLmsg, bAlert) {
     msg = "SQLiteManager: " + msg;
     if (SQLmsg != null)
       msg += " [ " + SQLmsg + " ]";
@@ -854,7 +880,9 @@ SQLiteHandler.prototype = {
     msg += "\n";
     msg += "Exception Name: " + ex.name + "\n" +
           "Exception Message: " + ex.message;
-    this.alert(msg);
+    
+    if (bAlert)
+      this.alert(msg);
     Cu.reportError(msg);
     return true;
   },
@@ -1055,30 +1083,32 @@ SQLiteHandler.prototype = {
       }
     } catch (e) {
       sTypeof = "text";
-      //this.onSqlError(e, "makeSqlValue11: ", this.dbConn.lastErrorString);
-      //this.setErrorString();
     }
 
     if (sTypeof == "blob")
-      return {type: SQLiteTypes.BLOB, value: str};
+      return {type: SQLiteTypes.BLOB, value: this.textToBlob(str)};
 
     if (sTypeof == "null")
       return {type: SQLiteTypes.NULL, value: str};
 
     if (sTypeof == "integer" || sTypeof == "real") {
+      var iType = SQLiteTypes.INTEGER;
+      if (sTypeof == "real")
+        iType = SQLiteTypes.FLOAT;
       //if str can become a number, do not do so in the following 2 conditions:
       //1. if it begins with "0" but not with "0."
       if (str.indexOf('0') == 0) {
         if (str.indexOf('.') == 1)
-          return {type: SQLiteTypes.FLOAT, value: Number(str)};
+          return {type: iType, value: Number(str)};
         else
           return {type: SQLiteTypes.TEXT, value: SQLiteFn.quote(str)};
       }
       //2. if it has space
       if (str.indexOf(' ') != -1)
         return {type: SQLiteTypes.TEXT, value: SQLiteFn.quote(str)};
+      //TODO: what about strings like 34+22, etc.?
       //otherwise, return a number
-      return {type: SQLiteTypes.FLOAT, value: Number(str)};
+      return {type: iType, value: Number(str)};
     }
 
     //Cu.reportError("value: " + str + "\ntypeof: " + sTypeof);
@@ -1101,9 +1131,6 @@ var SQLiteFn = {
   msQuoteChar: '""',
 
   getStrForNull: function() { return this.msStrForNull; },
-  setStrForNull: function(sStrForNull) {
-    this.msStrForNull = sStrForNull.toUpperCase();
-  },
 
   setQuoteChar: function(sQuoteChar) {
     this.msQuoteChar = sQuoteChar;
@@ -1186,6 +1213,15 @@ var SQLiteFn = {
   },
 
   blob2hex: function(aData) {
+    var hex_tab = '0123456789ABCDEF';
+    var str = '';
+    for (var i = 0; i < aData.length; i++) {
+      str += hex_tab.charAt(aData[i] >> 4 & 0xF) + hex_tab.charAt(aData[i] & 0xF);
+    }
+    return "X'" + str + "'";
+  },
+
+  hex2blob: function(aData) {
     var hex_tab = '0123456789ABCDEF';
     var str = '';
     for (var i = 0; i < aData.length; i++) {

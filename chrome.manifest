@@ -11,6 +11,9 @@ style   chrome://global/content/customizeToolbar.xul chrome://sqlitemanager/skin
 overlay chrome://messenger/content/mailWindowOverlay.xul	chrome://sqlitemanager/content/overlays/thunderbird.xul		application={3550f703-e582-4d05-9a08-453d09bdfdc6}
 overlay chrome://messenger/content/messengercompose/messengercompose.xul	chrome://sqlitemanager/content/overlays/thunderbird-composer.xul	application={3550f703-e582-4d05-9a08-453d09bdfdc6}
 
+#Sunbird
+overlay chrome://sunbird/content/calendar.xul chrome://sqlitemanager/content/overlays/sunbird.xul application={718e30fb-e89b-41dd-9da7-e25a45638b28}
+
 #Songbird
 overlay chrome://songbird/content/xul/menuOverlay.xul chrome://sqlitemanager/content/overlays/songbird.xul
 

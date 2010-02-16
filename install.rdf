@@ -34,6 +34,15 @@
       </Description>
     </em:targetApplication>
 
+    <!-- Sunbird -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{718e30fb-e89b-41dd-9da7-e25a45638b28}</em:id>
+        <em:minVersion>1.0b1</em:minVersion>
+        <em:maxVersion>1.0pre</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
     <!-- SeaMonkey -->
     <em:targetApplication>
       <Description>

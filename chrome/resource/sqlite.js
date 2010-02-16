@@ -1099,7 +1099,6 @@ SQLiteHandler.prototype = {
       var re = new RegExp("^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$");
       if (re.test(str))
         return {type: iType, value: Number(str)};
-       Components.utils.reportError(x[0] + ":" + x.length);
       else
         return {type: SQLiteTypes.TEXT, value: SQLiteFn.quote(str)};
     }

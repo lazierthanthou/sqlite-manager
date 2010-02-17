@@ -1074,6 +1074,8 @@ SQLiteHandler.prototype = {
   },
 //////////////////////////////////////////////////////////////////
   determineType: function(str) {
+    //depending on typeof is a safe bet for screening, but it is possible that regular expressions may be enough; especially because expressions like typeof(3+4), etc. will be integer but in sql they are strings. Also, literals like current_date, etc. are not to be treated as text while forming the sql statement
+/*
     var sTypeof = "text";
     var sQuery = "SELECT typeof(" + str + ") AS ttt";
     try {
@@ -1084,34 +1086,30 @@ SQLiteHandler.prototype = {
     } catch (e) {
       sTypeof = "text";
     }
+*/
 
-    if (sTypeof == "blob")
+    //any space makes the str as text. If this is not desiarable, first do the following:
+    //str = str.trim();
+    var reInt = new RegExp("^[-+]?[0-9]+$");
+    if (reInt.test(str))
+      return {type: SQLiteTypes.INTEGER, value: Number(str)};
+
+    var reReal = new RegExp("^[-+]?[0-9]*[\.]?[0-9]+([eE][-+]?[0-9]+)?$");
+    if (reReal.test(str))
+      return {type: SQLiteTypes.FLOAT, value: Number(str)};
+
+    var reBlob = new RegExp("^[xX]\'([0-9a-fA-F][0-9a-fA-F])*\'$");
+    if (reBlob.test(str))
       return {type: SQLiteTypes.BLOB, value: this.textToBlob(str)};
 
-    if (sTypeof == "null")
+    var reNull = new RegExp("^[nN][uU][lL][lL]$");
+    if (reNull.test(str))
       return {type: SQLiteTypes.NULL, value: str};
 
-    if (sTypeof == "integer" || sTypeof == "real") {
-      var iType = SQLiteTypes.INTEGER;
-      if (sTypeof == "real")
-        iType = SQLiteTypes.FLOAT;
-      //typeof is insufficient because it allows spaces, expressions like 3 + 4, etc.
-      var re = new RegExp("^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$");
-      if (re.test(str))
-        return {type: iType, value: Number(str)};
-      else
-        return {type: SQLiteTypes.TEXT, value: SQLiteFn.quote(str)};
-    }
+    if (SQLiteFn.isSpecialLiteral(str))
+      return {type: SQLiteTypes.TEXT, value: str, isConstant: true};
 
-    if (sTypeof == "text") {
-      var sUp = str.toUpperCase();
-      if (sUp == "CURRENT_DATE" || sUp == "CURRENT_TIME" || sUp == "CURRENT_TIMESTAMP")
-        return {type: SQLiteTypes.TEXT, value: str.toUpperCase(), isConstant: true};
-
-      return {type: SQLiteTypes.TEXT, value: SQLiteFn.quote(str)};
-    }
-
-    return {type: SQLiteTypes.TEXT, value: str};
+    return {type: SQLiteTypes.TEXT, value: SQLiteFn.quote(str)};
   }
 }
 
@@ -1136,6 +1134,14 @@ var SQLiteFn = {
     if (typeof str == "string")
       str = str.replace("'", "''", "g");
     return "'" + str + "'";
+  },
+
+  isSpecialLiteral: function(str) {
+    var sUp = str.toUpperCase();
+    if (sUp == "CURRENT_DATE" || sUp == "CURRENT_TIME" || sUp == "CURRENT_TIMESTAMP")
+      return true;
+
+    return false;
   },
 
   //convert the argument into a format suitable for use in DEFAULT clause in column definition.

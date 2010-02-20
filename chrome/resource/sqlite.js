@@ -1161,14 +1161,14 @@ var SQLiteFn = {
     if (reNull.test(str))
       return "NULL";
 
-    var reReal = new RegExp("^[-+]?[0-9]*[\.]?[0-9]+([eE][-+]?[0-9]+)?$");
+    var reReal = new RegExp(SQLiteRegex.mReal);
     if (reReal.test(str))
       return Number(str);
 
     if (SQLiteFn.isSpecialLiteral(str))
       return str.toUpperCase();
 
-    if (sUp.length == 0)
+    if (str.length == 0)
       return "NULL";
 
     return this.quote(str);
@@ -1179,19 +1179,19 @@ var SQLiteFn = {
     if (str == null)
       return null;
 
-    var reNull = new RegExp("^[nN][uU][lL][lL]$");
+    var reNull = new RegExp(SQLiteRegex.mNull);
     if (reNull.test(str))
       return {type: SQLiteTypes.NULL, value: str, displayValue: "NULL"};
 
-    var reBlob = new RegExp("^[xX]\'([0-9a-fA-F][0-9a-fA-F])*\'$");
+    var reBlob = new RegExp(SQLiteRegex.mBlob);
     if (reBlob.test(str))
       return {type: SQLiteTypes.BLOB, value: this.textToBlob(str), displayValue: str};
 
-    var reInt = new RegExp("^[-+]?[0-9]+$");
+    var reInt = new RegExp(SQLiteRegex.mInteger);
     if (reInt.test(str))
       return {type: SQLiteTypes.INTEGER, value: Number(str), displayValue: Number(str)};
 
-    var reReal = new RegExp("^[-+]?[0-9]*[\.]?[0-9]+([eE][-+]?[0-9]+)?$");
+    var reReal = new RegExp(SQLiteRegex.mReal);
     if (reReal.test(str))
       return {type: SQLiteTypes.REAL, value: Number(str), displayValue: Number(str)};
 

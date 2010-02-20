@@ -449,7 +449,7 @@ var RowOperations = {
         elt.setAttribute("style", "-moz-appearance: none;background-color:#ccffcc;");
         break;
       case SQLiteTypes.REAL:
-        elt.setAttribute("style", "-moz-appearance: none;background-color:#ccffcc;");
+        elt.setAttribute("style", "-moz-appearance: none;background-color:#66ff66;");
         break;
       case SQLiteTypes.TEXT:
         if (this.maFieldInfo[iIndex].isConstant)

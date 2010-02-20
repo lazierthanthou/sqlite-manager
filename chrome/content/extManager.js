@@ -67,7 +67,7 @@ SMExtensionManager.prototype = {
     if (!this.m_bUseConfig)
       return false;
 
-    this.m_db.executeTransaction(["insert into " + this.m_tbl + "(type, value) values('QueryHistory', " + SQLiteFn.makeSqlValue(sQuery) + ")"]);
+    this.m_db.executeTransaction(["insert into " + this.m_tbl + "(type, value) values('QueryHistory', " + SQLiteFn.quote(sQuery) + ")"]);
     return true;
   },
 
@@ -133,7 +133,7 @@ SMExtensionManager.prototype = {
       return false;
     }
 
-    this.m_db.executeTransaction(['INSERT INTO ' + this.m_tbl + '("type", "value") VALUES(' + SQLiteFn.makeSqlValue('NamedQuery:' + qName) + ', ' + SQLiteFn.makeSqlValue(sQuery) + ')']);
+    this.m_db.executeTransaction(['INSERT INTO ' + this.m_tbl + '("type", "value") VALUES(' + SQLiteFn.quote('NamedQuery:' + qName) + ', ' + SQLiteFn.quote(sQuery) + ')']);
     return true;
   },
 

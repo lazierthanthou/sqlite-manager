@@ -1117,6 +1117,8 @@ var SQLiteFn = {
   msStrForNull: 'NULL',
   msQuoteChar: '""',
 
+  maTypes: ["null", "integer", "real", "text", "blob"],
+
   getStrForNull: function() { return this.msStrForNull; },
 
   setQuoteChar: function(sQuoteChar) {
@@ -1153,36 +1155,21 @@ var SQLiteFn = {
   },
 
   makeSqlValue: function(str) { 
-    //for all str (typeof str == "string") seems true
-    //so how do we tell numbers from strings?
-    if (typeof str == "string") {
-      var sUp = str.toUpperCase();
-      if (sUp == this.getStrForNull() || sUp.length == 0)
-        return this.getStrForNull();
-      if (sUp == "CURRENT_DATE" || sUp == "CURRENT_TIME" || sUp == "CURRENT_TIMESTAMP")
-        return str.toUpperCase();
+    var reNull = new RegExp("^[nN][uU][lL][lL]$");
+    if (reNull.test(str))
+      return "NULL";
 
-      //TODO: use regexp for patterns that should be treated as numbers.
-      if(!isNaN(str)) {
-        //if str can become a number, do not do so in the following 2 conditions:
-        //1. if it begins with "0" but not with "0."
-        if (str.indexOf('0') == 0) {
-          if (str.indexOf('.') == 1)
-            return Number(str);
-          else
-            return this.quote(str);
-        }
-        //2. if it has space
-        if (str.indexOf(' ') != -1)
-          return this.quote(str);
-        //otherwise, return a number
-        return Number(str);
-      }
+    var reReal = new RegExp("^[-+]?[0-9]*[\.]?[0-9]+([eE][-+]?[0-9]+)?$");
+    if (reReal.test(str))
+      return Number(str);
 
-      return this.quote(str);
-    }
-    else
-      return str;
+    if (SQLiteFn.isSpecialLiteral(str))
+      return str.toUpperCase();
+
+    if (sUp.length == 0)
+      return this.getStrForNull();
+
+    return this.quote(str);
   },
 
   defaultValToInsertValue: function(str) {
@@ -1205,6 +1192,10 @@ var SQLiteFn = {
       newStr += str[i];
     }
     return newStr;
+  },
+
+  getTypeDescription: function(iType) {
+    return this.maTypes[iType];
   },
 
   blob2hex: function(aData) {

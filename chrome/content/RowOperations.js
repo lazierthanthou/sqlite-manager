@@ -647,8 +647,6 @@ var RowOperations = {
       if (inpval.length == 0 && this.aColumns[i].notnull == 0)
         continue;
 
-
-      //inpval = SQLiteFn.makeSqlValue(inpval);
       fld = SQLiteFn.quoteIdentifier(this.maFieldInfo[i].colName);
 
       if (iTypeNew == SQLiteTypes.BLOB) {
@@ -880,6 +878,16 @@ var RowOperations = {
   seekConfirmation: function() {
     var ask = sm_getLStr("rowOp.confirmation");
     var txt = ask + "\n\n" + this.maQueries.join("\n");
+    if (this.maQueries.length == 1 && this.maParamData.length > 0) {
+      txt += "\nParameters:\n";
+      for (var i = 0; i < this.maParamData.length; i++) {
+        var sType = SQLiteFn.getTypeDescription(this.maParamData[i][2]);
+        var sVal = this.maParamData[i][1];
+        if (sType == "null") sVal = "NULL";
+        if (sType == "blob") sVal = SQLiteFn.blob2hex(this.maParamData[i][1]);
+        txt += "param " + (i + 1) + " (" + sType + "): " + sVal + "\n";
+      }
+    }
 //    $$("tbMessage").value = txt;
     $$("tbMessage").textContent = txt;
     this.changeState(1);

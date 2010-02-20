@@ -126,10 +126,10 @@ var RowOperations = {
 
     for(var i = 0; i < iCols; i++) {
       var oInfo = {colName: "", colType: "",
-                   oldValue: "",
+                   oldValue: "", dflt_value: null, notnull: 0,
                    oldType: SQLiteTypes.TEXT, newType: SQLiteTypes.TEXT,
                    oldBlob: null, newBlob: null,
-                   isConstant: false};
+                   isConstant: false, isDefault: false, hasChanged: false};
       this.maFieldInfo.push(oInfo);
     }
   },
@@ -180,6 +180,8 @@ var RowOperations = {
     for(var i = 0; i < cols.length; i++) {
       this.maFieldInfo[i].colName = cols[i].name;
       this.maFieldInfo[i].colType = cols[i].type;
+      this.maFieldInfo[i].dflt_value = cols[i].dflt_value;
+      this.maFieldInfo[i].notnull = cols[i].notnull;
     }
 
     var grbox = $$("columnEntryFields");
@@ -411,13 +413,19 @@ var RowOperations = {
     if (bAnalyzeValue) {
       var valInfo = Database.determineType(elt.value);
       this.maFieldInfo[iIndex].newType = valInfo.type;
+
+      //if the value is a blob
       this.maFieldInfo[iIndex].newBlob = null;
       if (valInfo.type == SQLiteTypes.BLOB)
         this.maFieldInfo[iIndex].newBlob = valInfo.value;
 
+      //if the value is one of the case independent keywords for date/time
       this.maFieldInfo[iIndex].isConstant = false;
       if (valInfo.type == SQLiteTypes.TEXT && valInfo.isConstant)
         this.maFieldInfo[iIndex].isConstant = true;
+
+      //if we have re-analyzed the input, we consider it has changed (for insert stmt)
+      this.maFieldInfo[iIndex].hasChanged = true;
     }
 
     //make ui adjustments dependent on new data type
@@ -436,9 +444,11 @@ var RowOperations = {
         elt.setAttribute("style", "-moz-appearance: none;background-color:#ffcccc;");
         break;
       case SQLiteTypes.INTEGER:
+        //if (this.maFieldInfo[iIndex].colName == colPK)
+        elt.setAttribute("emptytext", "Primary key");
         elt.setAttribute("style", "-moz-appearance: none;background-color:#ccffcc;");
         break;
-      case SQLiteTypes.FLOAT:
+      case SQLiteTypes.REAL:
         elt.setAttribute("style", "-moz-appearance: none;background-color:#ccffcc;");
         break;
       case SQLiteTypes.TEXT:
@@ -448,6 +458,7 @@ var RowOperations = {
           elt.setAttribute("style", "-moz-appearance: none;background-color:#ccffff;");
         break;
       case SQLiteTypes.BLOB:
+        elt.setAttribute("emptytext", "Empty blob");
         if (imgSave)
           imgSave.setAttribute("hidden", "false");
         if (imgRemove)
@@ -472,6 +483,20 @@ var RowOperations = {
           }
           this.maFieldInfo[iIndex].isConstant = false;
           this.onInputValue(elt, false);
+          return;
+          break;
+
+        case 'd': //for the default value, if any
+          if (this.sOperation == "update") //TODO: implement for update too
+            return;
+
+          if (this.populateWithDefault(iIndex)) {
+            elt.value = this.maFieldInfo[iIndex].oldValue;
+            this.onInputValue(elt, false);
+          }
+          else {
+            sm_alert(sm_getLStr("defaultval.title"), sm_getLStr("defaultval.message"));
+          }
           return;
           break;
 
@@ -528,6 +553,36 @@ var RowOperations = {
     return inp1;
   },
 
+  populateWithDefault: function(iIndex) {
+    //dflt_value == null => there is no default value.
+    //In such cases, the function below will return null too
+    var sDefaultValue = this.maFieldInfo[iIndex].dflt_value;
+
+    //if the column has a default value, analyze it, display it, etc.
+    if (sDefaultValue != null) {
+      var oRet = SQLiteFn.analyzeDefaultValue(sDefaultValue);
+      this.maFieldInfo[iIndex].oldValue = oRet.displayValue;
+      this.maFieldInfo[iIndex].oldType = oRet.type;
+      this.maFieldInfo[iIndex].newType = oRet.type;
+      this.maFieldInfo[iIndex].oldBlob = null;
+      this.maFieldInfo[iIndex].newBlob = null;
+      this.maFieldInfo[iIndex].isDefault = true;
+
+      if (this.sOperation == "duplicate" || this.sOperation == "insert") {
+        this.maFieldInfo[iIndex].hasChanged = false;
+      }
+
+      //for blobs, do the following
+      if (this.maFieldInfo[iIndex].oldType == SQLiteTypes.BLOB) {
+        this.maFieldInfo[iIndex].oldBlob = oRet.value;
+        this.maFieldInfo[iIndex].newBlob = oRet.value;
+      }
+      return true;
+    }
+    //to allow callers to check that there is no default value
+    return false;
+  },
+
   setInsertValues: function(bForceDefault) {
     //Issue #169
     if (!bForceDefault) {
@@ -536,14 +591,43 @@ var RowOperations = {
         return false;
     }
 
-    for(var i = 0; i < this.aColumns.length; i++) {
-      var inptb = $$("ctrl-tb-" + i);
-      //use col_default_val attr to handle not-so-simple default values like 20-3, etc.
-      var sVal = SQLiteFn.defaultValToInsertValue(this.aColumns[i].dflt_value);
-      //Issue #391: using ".value =" here followed by setAttribute("value",val) fails to display val 
-      //inptb.value = sVal;
-      inptb.setAttribute('value', sVal);
-      inptb.setAttribute('col_default_val', sVal);
+    var colPK = null;
+    var rowidcol = Database.getTableRowidCol(this.sCurrentTable);
+    if (rowidcol["name"] != "rowid")
+      colPK = rowidcol["name"];
+
+    for(var i = 0; i < this.maFieldInfo.length; i++) {
+      if (!this.populateWithDefault(i)) {
+        //in here means the column does not have a default value
+        this.maFieldInfo[i].oldValue = "";
+        this.maFieldInfo[i].oldBlob = null;
+        this.maFieldInfo[i].newBlob = null;
+        this.maFieldInfo[i].isDefault = false;
+
+        //let the value be null until changed by user
+        this.maFieldInfo[i].oldType = SQLiteTypes.NULL;
+        this.maFieldInfo[i].newType = SQLiteTypes.NULL;
+        this.maFieldInfo[i].hasChanged = false;
+
+        //however, if null is not allowed, make it empty text
+        if (this.maFieldInfo[i].notnull == 1) {
+          this.maFieldInfo[i].oldType = SQLiteTypes.TEXT;
+          this.maFieldInfo[i].newType = SQLiteTypes.TEXT;
+          this.maFieldInfo[i].hasChanged = true;
+        }
+
+        //also, if this is an integer primary key
+        if (this.maFieldInfo[i].colName == colPK) {
+          this.maFieldInfo[i].oldType = SQLiteTypes.INTEGER;
+          this.maFieldInfo[i].newType = SQLiteTypes.INTEGER;
+        }
+      }
+    }
+    //now, manage the textbox
+    for (var i = 0; i < this.maFieldInfo.length; i++) {
+      var txtBox = $$("ctrl-tb-" + i);
+      txtBox.value = this.maFieldInfo[i].oldValue;
+      this.onInputValue(txtBox, false);
     }
   },
 
@@ -637,22 +721,24 @@ var RowOperations = {
 
       var iTypeNew = this.maFieldInfo[i].newType;
 
-      //this is to allow autoincrement of primary key columns and accept default values where available
-      //also, use col_default_val attr to correctly interpret the not-so-simple default values (e.g. 20 - 3)
-      if (this.aColumns[i].dflt_value != null || colPK == this.maFieldInfo[i].colName)
-        if(inpval.toUpperCase() == SQLiteFn.getStrForNull() || inpval.length == 0 || inpval == ctrltb.getAttribute('col_default_val'))
-          continue;
-
-      //when no input, omit column from insert unless null not allowed
-      if (inpval.length == 0 && this.aColumns[i].notnull == 0)
+      //if the column has not changed, ignore it
+      // this allows autoincrement of primary key columns, accepts default values where available, null if null is allowed and empty string if null is not allowed.
+      if (!this.maFieldInfo[i].hasChanged)
         continue;
 
       fld = SQLiteFn.quoteIdentifier(this.maFieldInfo[i].colName);
 
       if (iTypeNew == SQLiteTypes.BLOB) {
-        inpval = "?" + iParamCounter;
+        //if we try to update a field to x'' or empty blob, the field gets updated to null
+        //so, until a proper solution can be found, do the following if ... else ...
+        if (this.maFieldInfo[i].newBlob.length == 0) {
+          inpval = "X''";
+        }
+        else {
+          inpval = "?" + iParamCounter;
           aParamData.push([(iParamCounter-1), this.maFieldInfo[i].newBlob, iTypeNew]);
-        iParamCounter++;
+          iParamCounter++;
+        }
       }
       if (iTypeNew == SQLiteTypes.TEXT) {
         if (this.maFieldInfo[i].isConstant) {
@@ -664,7 +750,7 @@ var RowOperations = {
           iParamCounter++;
         }
       }
-      if (iTypeNew == SQLiteTypes.NULL || iTypeNew == SQLiteTypes.INTEGER || iTypeNew == SQLiteTypes.FLOAT) {
+      if (iTypeNew == SQLiteTypes.NULL || iTypeNew == SQLiteTypes.INTEGER || iTypeNew == SQLiteTypes.REAL) {
         inpval = "?" + iParamCounter;
         aParamData.push([(iParamCounter-1), ctrltb.value, iTypeNew]);
         iParamCounter++;
@@ -672,12 +758,17 @@ var RowOperations = {
 
       aCols.push(fld);
       aVals.push(inpval);
-    } 
-    var cols = "(" + aCols.toString() + ")";
-    var vals = "(" + aVals.toString() + ")";
+    }
+    if (aCols.length == 0) {
+      this.maQueries = ["INSERT INTO " + Database.getPrefixedName(this.sCurrentTable, "") + " DEFAULT VALUES"];
+    }
+    else {
+      var cols = "(" + aCols.toString() + ")";
+      var vals = "(" + aVals.toString() + ")";
 
-    this.maQueries = ["INSERT INTO " + Database.getPrefixedName(this.sCurrentTable, "") + " " + cols + " VALUES " + vals];
-    this.maParamData = aParamData
+      this.maQueries = ["INSERT INTO " + Database.getPrefixedName(this.sCurrentTable, "") + " " + cols + " VALUES " + vals];
+      this.maParamData = aParamData;
+    }
     if (this.mbConfirmationNeeded)
       this.seekConfirmation();
     else
@@ -715,9 +806,16 @@ var RowOperations = {
       }
 
       if (iTypeNew == SQLiteTypes.BLOB) {
-        inpval = "?" + iParamCounter;
+        //if we try to update a field to x'' or empty blob, the field gets updated to null
+        //so, until a proper solution can be found, do the following if ... else ...
+        if (this.maFieldInfo[i].newBlob.length == 0) {
+          inpval = "X''";
+        }
+        else {
+          inpval = "?" + iParamCounter;
           aParamData.push([(iParamCounter-1), this.maFieldInfo[i].newBlob, iTypeNew]);
-        iParamCounter++;
+          iParamCounter++;
+        }
       }
       if (iTypeNew == SQLiteTypes.TEXT) {
         if (this.maFieldInfo[i].isConstant) {
@@ -729,7 +827,7 @@ var RowOperations = {
           iParamCounter++;
         }
       }
-      if (iTypeNew == SQLiteTypes.NULL || iTypeNew == SQLiteTypes.INTEGER || iTypeNew == SQLiteTypes.FLOAT) {
+      if (iTypeNew == SQLiteTypes.NULL || iTypeNew == SQLiteTypes.INTEGER || iTypeNew == SQLiteTypes.REAL) {
         inpval = "?" + iParamCounter;
         aParamData.push([(iParamCounter-1), ctrltb.value, iTypeNew]);
         iParamCounter++;
@@ -884,7 +982,7 @@ var RowOperations = {
         var sType = SQLiteFn.getTypeDescription(this.maParamData[i][2]);
         var sVal = this.maParamData[i][1];
         if (sType == "null") sVal = "NULL";
-        if (sType == "blob") sVal = SQLiteFn.blob2hex(this.maParamData[i][1]);
+        if (sType == "blob") sVal = SQLiteFn.blobToHex(this.maParamData[i][1]);
         txt += "param " + (i + 1) + " (" + sType + "): " + sVal + "\n";
       }
     }

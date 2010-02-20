@@ -2045,7 +2045,6 @@ var SQLiteManager = {
       newCol["type"] = $$("tb-addcol-type").value;
       newCol["notnull"] = $$("tb-addcol-notnull").checked;
       newCol["dflt_value"] = $$("tb-addcol-default").value;
-      newCol["dflt_value"] = SQLiteFn.makeDefaultValue(newCol["dflt_value"]);
 
       var bReturn = Database.addColumn(sCurrTable, newCol);
       if(bReturn) {

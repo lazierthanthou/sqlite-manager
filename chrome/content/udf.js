@@ -41,7 +41,7 @@ var SmUdf = {
     aSql.push('CREATE TABLE "functions" ("name" TEXT PRIMARY KEY  NOT NULL, "body" TEXT NOT NULL, "argLength" INTEGER, "aggregate" INTEGER NOT NULL  DEFAULT 0, "enabled" INTEGER NOT NULL  DEFAULT 1, "extraInfo" TEXT);');
     aSql.push('INSERT INTO "functions" VALUES("regexp",\'var regExp = new RegExp(aValues.getString(0));\nvar strVal = new String(aValues.getString(1));\n\nif (strVal.match(regExp)) return 1;\nelse return 0;\',2,0,1,NULL);');
     aSql.push('INSERT INTO "functions" VALUES("addAll","var sum = 0;\nfor (var j = 0; j < aValues.numEntries; j++) {\n  sum += aValues.getInt32(j);\n}\nreturn sum;",-1,0,1,NULL);');
-    aSql.push('INSERT INTO "functions" VALUES("joinValues","var valArr = [];\n\nfor (var j = 0; j < aValues.numEntries; j++) {\n  switch (aValues.getTypeOfIndex(j)) {\n    case 0: //NULL\n      valArr.push(null);\n      break;\n    case 1: //INTEGER\n      valArr.push(aValues.getInt64(j));\n      break;\n    case 2: //FLOAT\n      valArr.push(aValues.getDouble(j));\n      break;\n    case 3: //TEXT\n      default:\n      valArr.push(aValues.getString(j));\n  }\n}\nreturn valArr.join(\',\');",-1,0,1,NULL);');
+    aSql.push('INSERT INTO "functions" VALUES("joinValues","var valArr = [];\n\nfor (var j = 0; j < aValues.numEntries; j++) {\n  switch (aValues.getTypeOfIndex(j)) {\n    case 0: //NULL\n      valArr.push(null);\n      break;\n    case 1: //INTEGER\n      valArr.push(aValues.getInt64(j));\n      break;\n    case 2: //REAL\n      valArr.push(aValues.getDouble(j));\n      break;\n    case 3: //TEXT\n      default:\n      valArr.push(aValues.getString(j));\n  }\n}\nreturn valArr.join(\',\');",-1,0,1,NULL);');
     return aSql;
   },
 

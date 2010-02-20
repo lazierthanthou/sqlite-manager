@@ -446,8 +446,8 @@ var CreateManager = {
       if(aCols[i]["check"] != "")
         sColDef += " " + aCols[i]["check"] + " ";
         
-      var sDefValue = SQLiteFn.makeDefaultValue(aCols[i]["defValue"]);
-      if (sDefValue != null)
+      var sDefValue = aCols[i]["defValue"];
+      if (sDefValue != "")
         sColDef += " DEFAULT " + sDefValue;
 
       aColDefs.push(sColDef);

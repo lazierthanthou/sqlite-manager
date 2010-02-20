@@ -8,7 +8,7 @@ let EXPORTED_SYMBOLS = ["SQLiteTypes", "SQLiteHandler", "SQLiteFn"];
 const SQLiteTypes = {
   NULL   : 0,
   INTEGER: 1,
-  FLOAT  : 2,
+  REAL  : 2,
   TEXT   : 3,
   BLOB   : 4
 };
@@ -431,7 +431,7 @@ SQLiteHandler.prototype = {
     var coldef = SQLiteFn.quoteIdentifier(aColumn["name"]) + " " + aColumn["type"];
     if (aColumn["notnull"])
       coldef += " NOT NULL ";
-    if (aColumn["dflt_value"] != null) {
+    if (aColumn["dflt_value"] != "") {
       coldef += " DEFAULT " + aColumn["dflt_value"];
     }
     var sTab = this.getPrefixedName(sTable, "");
@@ -489,7 +489,7 @@ SQLiteHandler.prototype = {
           }
           switch (iType) {
             case stmt.VALUE_TYPE_NULL: 
-              cell = null;//SQLiteFn.getStrForNull();
+              cell = null;
               break;
             case stmt.VALUE_TYPE_INTEGER:
               cell = stmt.getInt64(i);
@@ -505,7 +505,7 @@ SQLiteHandler.prototype = {
                   var iDataSize = {value:0};
                   var aData = {value:null};
                   stmt.getBlob(i, iDataSize, aData);
-                  cell = SQLiteFn.blob2hex(aData.value);
+                  cell = SQLiteFn.blobToHex(aData.value);
               }
               else {
                 cell = this.mBlobPrefs.sStrForBlob;
@@ -518,7 +518,7 @@ SQLiteHandler.prototype = {
                     if (this.mBlobPrefs.iHowToShowData == 1)
                       cell = this.convertBlobToStr(aData.value);
                     if (this.mBlobPrefs.iHowToShowData == 0)
-                      cell = SQLiteFn.blob2hex(aData.value);
+                      cell = SQLiteFn.blobToHex(aData.value);
                   }
                 }
               }
@@ -751,7 +751,7 @@ SQLiteHandler.prototype = {
     try {
       var stmt = this.dbConn.createStatement(sQuery);
     } catch (e) {
-      this.onSqlError(e, "Create statement failed: " + sQuery, this.dbConn.lastErrorString, true);
+      this.onSqlError(e, "Create statement failed (executeWithParams): " + sQuery, this.dbConn.lastErrorString, true);
       this.setErrorString();
       return false;
     }
@@ -766,7 +766,7 @@ SQLiteHandler.prototype = {
           case SQLiteTypes.INTEGER:
             stmt.bindInt64Parameter(aData[0], aData[1]);
             break;
-          case SQLiteTypes.FLOAT:
+          case SQLiteTypes.REAL:
             stmt.bindDoubleParameter(aData[0], aData[1]);
             break;
           case SQLiteTypes.TEXT:
@@ -780,7 +780,8 @@ SQLiteHandler.prototype = {
         }
       }
     } catch (e) {
-      this.onSqlError(e, "Binding failed for parameter: " + aData[0], this.dbConn.lastErrorString, true);
+      Cu.reportError("Binding failed for parameter: " + aData[0] + ". data length = " + aData[1].length);
+      this.onSqlError(e, "Binding failed for parameter: " + aData[0] + ". data length = " + aData[1].length, this.dbConn.lastErrorString, true);
       this.setErrorString();
       return false;
     }
@@ -804,7 +805,7 @@ SQLiteHandler.prototype = {
     return true;
   },
 
-  blob2hex: function(aData) {
+  blobToHex: function(aData) {
     var sQuery = "SELECT quote(" + aData + ") AS outstr";
     var stmt = this.dbConn.createStatement(sQuery);
     try {
@@ -817,23 +818,24 @@ SQLiteHandler.prototype = {
   },
 
   textToBlob: function(sData) {
-    var sHex;
-    var sQuery = "SELECT hex(" + sData + ") AS outhex";
-    try {
-      var stmt = this.dbConn.createStatement(sQuery);
-      while (stmt.executeStep()) {
-        sHex = stmt.row.outhex;
+    var sHex = "";
+    if (sData != null && sData != "") {
+      var sQuery = "SELECT hex(" + sData + ") AS outhex";
+      try {
+        var stmt = this.dbConn.createStatement(sQuery);
+        while (stmt.executeStep()) {
+          sHex = stmt.row.outhex;
+        }
+      } catch (e) {
+        this.onSqlError(e, "textToBlob: " + sQuery, null, false);
+        //if failed, sData must be passed as a string
+        return this.textToBlob(SQLiteFn.quote(sData));
       }
-    } catch (e) {
-      this.onSqlError(e, "", null, false);
-      //if failed, sData must be passed as a string
-      return this.textToBlob(SQLiteFn.quote(sData));
     }
-    var aRet = [];
-    for (var i = 0; i < sHex.length; i = i + 2) {
-      aRet.push(Number("0x" + sHex.substr(i,2)));
-    }
-    return aRet;
+
+    //now we have a hexadecimal string of even length
+    //convert it into blob
+    return SQLiteFn.hexToBlob(sHex);
   },
 
   confirmAndExecute: function(aQueries, sMessage, confirmPrefName, aParamData) {
@@ -1090,19 +1092,19 @@ SQLiteHandler.prototype = {
 
     //any space makes the str as text. If this is not desiarable, first do the following:
     //str = str.trim();
-    var reInt = new RegExp("^[-+]?[0-9]+$");
+    var reInt = new RegExp(SQLiteRegex.mInteger);
     if (reInt.test(str))
       return {type: SQLiteTypes.INTEGER, value: Number(str)};
 
-    var reReal = new RegExp("^[-+]?[0-9]*[\.]?[0-9]+([eE][-+]?[0-9]+)?$");
+    var reReal = new RegExp(SQLiteRegex.mReal);
     if (reReal.test(str))
-      return {type: SQLiteTypes.FLOAT, value: Number(str)};
+      return {type: SQLiteTypes.REAL, value: Number(str)};
 
-    var reBlob = new RegExp("^[xX]\'([0-9a-fA-F][0-9a-fA-F])*\'$");
+    var reBlob = new RegExp(SQLiteRegex.mBlob);
     if (reBlob.test(str))
       return {type: SQLiteTypes.BLOB, value: this.textToBlob(str)};
 
-    var reNull = new RegExp("^[nN][uU][lL][lL]$");
+    var reNull = new RegExp(SQLiteRegex.mNull);
     if (reNull.test(str))
       return {type: SQLiteTypes.NULL, value: str};
 
@@ -1111,15 +1113,23 @@ SQLiteHandler.prototype = {
 
     return {type: SQLiteTypes.TEXT, value: SQLiteFn.quote(str)};
   }
-}
+};
+
+var SQLiteRegex = {
+  mNull: "^[nN][uU][lL][lL]$",
+  mInteger: "^[-+]?[0-9]+$",
+  mReal: "^[-+]?[0-9]*[\.]?[0-9]+([eE][-+]?[0-9]+)?$",
+  mBlob: "^[xX]\'([0-9a-fA-F][0-9a-fA-F])*\'$"
+};
 
 var SQLiteFn = {
-  msStrForNull: 'NULL',
-  msQuoteChar: '""',
+  msQuoteChar: '""',//this allows for alternates like '[]', etc.
 
   maTypes: ["null", "integer", "real", "text", "blob"],
 
-  getStrForNull: function() { return this.msStrForNull; },
+  getTypeDescription: function(iType) {
+    return this.maTypes[iType];
+  },
 
   setQuoteChar: function(sQuoteChar) {
     this.msQuoteChar = sQuoteChar;
@@ -1128,7 +1138,7 @@ var SQLiteFn = {
   quoteIdentifier: function(str) {
   //http://sqlite.org/lang_keywords.html
   //"keyword" A keyword in double-quotes is an identifier
-  //assume there is no " within the identifier's name
+  //assume str does not need any escaping, etc. Simply, enclose it.
     return this.msQuoteChar[0] + str + this.msQuoteChar[1];
   },
 
@@ -1146,16 +1156,8 @@ var SQLiteFn = {
     return false;
   },
 
-  //convert the argument into a format suitable for use in DEFAULT clause in column definition.
-  makeDefaultValue: function(str) {
-    if (str.length == 0)
-      return null;
-    else
-      return str;
-  },
-
   makeSqlValue: function(str) { 
-    var reNull = new RegExp("^[nN][uU][lL][lL]$");
+    var reNull = new RegExp(SQLiteRegex.mNull);
     if (reNull.test(str))
       return "NULL";
 
@@ -1167,38 +1169,61 @@ var SQLiteFn = {
       return str.toUpperCase();
 
     if (sUp.length == 0)
-      return this.getStrForNull();
+      return "NULL";
 
     return this.quote(str);
   },
 
-  defaultValToInsertValue: function(str) {
-    if (typeof str != "string")
-      return str;
-    if (str.length == 0)
-      return "";
-    if (str.toUpperCase() == this.getStrForNull())
-      return "";
+  analyzeDefaultValue: function(str) {
+    //if str corresponds to there being no default value, return null.
+    if (str == null)
+      return null;
+
+    var reNull = new RegExp("^[nN][uU][lL][lL]$");
+    if (reNull.test(str))
+      return {type: SQLiteTypes.NULL, value: str, displayValue: "NULL"};
+
+    var reBlob = new RegExp("^[xX]\'([0-9a-fA-F][0-9a-fA-F])*\'$");
+    if (reBlob.test(str))
+      return {type: SQLiteTypes.BLOB, value: this.textToBlob(str), displayValue: str};
+
+    var reInt = new RegExp("^[-+]?[0-9]+$");
+    if (reInt.test(str))
+      return {type: SQLiteTypes.INTEGER, value: Number(str), displayValue: Number(str)};
+
+    var reReal = new RegExp("^[-+]?[0-9]*[\.]?[0-9]+([eE][-+]?[0-9]+)?$");
+    if (reReal.test(str))
+      return {type: SQLiteTypes.REAL, value: Number(str), displayValue: Number(str)};
+
+    if (SQLiteFn.isSpecialLiteral(str))
+      return {type: SQLiteTypes.TEXT, value: str, displayValue: str, isConstant: true};
+
+    //if the first character is ' or ", then it is definitely text
     var ch = str[0];
-    if (ch != "'" && ch != '"')
-      return str;
+    if (ch == "'" || ch == '"') {
+      var newStr = "";
+      for (var i = 1; i < str.length - 1; i++) {//TODO: use replace
+        if (i >= 2)
+          if (str[i] == ch && str[i-1] == ch)
+            continue;
 
-    var newStr = "";
-    for (var i = 1; i < str.length - 1; i++) {
-      if (i >= 2)
-        if (str[i] == ch && str[i-1] == ch)
-          continue;
-
-      newStr += str[i];
+        newStr += str[i];
+      }
+      return {type: SQLiteTypes.TEXT, value: newStr, displayValue: newStr};
     }
-    return newStr;
+
+    //this should be checked after integer because it includes integers too.
+    var reUnquotedText = new RegExp("^[0-9a-zA-Z_]+$");
+    if (reUnquotedText.test(str))
+      return {type: SQLiteTypes.TEXT, value: str, displayValue: str};
+
+    //otherwise hope that we have a number, but doing Number(str) may give NaN,
+    //e.g., for str = "11 + 22/2", etc.
+    //avoid eval because of warning while loading at AMO
+    return {type: SQLiteTypes.REAL, value: str, displayValue: str};
   },
 
-  getTypeDescription: function(iType) {
-    return this.maTypes[iType];
-  },
-
-  blob2hex: function(aData) {
+  blobToHex: function(aData) {
     var hex_tab = '0123456789ABCDEF';
     var str = '';
     for (var i = 0; i < aData.length; i++) {
@@ -1207,13 +1232,12 @@ var SQLiteFn = {
     return "X'" + str + "'";
   },
 
-  hex2blob: function(aData) {
-    var hex_tab = '0123456789ABCDEF';
-    var str = '';
-    for (var i = 0; i < aData.length; i++) {
-      str += hex_tab.charAt(aData[i] >> 4 & 0xF) + hex_tab.charAt(aData[i] & 0xF);
+  hexToBlob: function(sHex) {
+    var aRet = [];
+    for (var i = 0; i < sHex.length; i = i + 2) {
+      aRet.push(Number("0x" + sHex.substr(i,2)));
     }
-    return "X'" + str + "'";
+    return aRet;
   }
 };
 
@@ -1250,7 +1274,7 @@ function getCsvRowFromArray(arrRow, arrTypes, oCsv) {
   for (var i = 0; i < arrRow.length; i++) {
     switch (arrTypes[i]) {
       case SQLiteTypes.INTEGER:
-      case SQLiteTypes.FLOAT:
+      case SQLiteTypes.REAL:
       case SQLiteTypes.BLOB:
         break;
       case SQLiteTypes.NULL: 

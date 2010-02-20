@@ -259,7 +259,7 @@ var SmExim = {
     }
 
     var sQuery = "SELECT * FROM " + Database.getPrefixedName(sTable, sDbName);
-    Database.selectQuery(sQuery, true);
+    Database.selectQuery(sQuery, true); //true to return blob as hex with x'' around it
     var allRecords = Database.getRecords();
     var columns = Database.getColumns();
     var types = Database.getRecordTypes();
@@ -271,10 +271,15 @@ var SmExim = {
         for (var iCol = 0; iCol < row.length; iCol++) {
           if (iCol > 0) data += ",";
           switch (types[i][iCol]) {
-            case 0:  data += SQLiteFn.getStrForNull(); break;
-            case 3:  data += SQLiteFn.quote(row[iCol]); break;
-            case 4:  data += row[iCol].toString(); break;
-            default: data += row[iCol]; break;
+            case SQLiteTypes.NULL:
+              data += "NULL";
+              break;
+            case SQLiteTypes.TEXT:
+              data += SQLiteFn.quote(row[iCol]);
+              break;
+            default:
+              data += row[iCol];
+              break;
           }
         }
         data += ");\n"

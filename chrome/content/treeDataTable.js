@@ -267,7 +267,7 @@ TreeDataTable.prototype = {
           var atom = atomService.getAtom("integervalue");
           properties.AppendElement(atom);
           break;
-        case SQLiteTypes.FLOAT:
+        case SQLiteTypes.REAL:
           var atom = atomService.getAtom("floatvalue");
           properties.AppendElement(atom);
           break;

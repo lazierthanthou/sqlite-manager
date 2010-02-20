@@ -501,6 +501,9 @@ var RowOperations = {
           break;
 
         case 'n': //treat the value as null
+          if (this.maFieldInfo[iIndex].newType != SQLiteTypes.NULL)
+            this.maFieldInfo[iIndex].hasChanged = true;
+
           elt.value = "";
           this.maFieldInfo[iIndex].newType = SQLiteTypes.NULL;
           this.onInputValue(elt, false);
@@ -508,12 +511,18 @@ var RowOperations = {
           break;
 
         case 't': //treat the value as text
+          if (this.maFieldInfo[iIndex].newType != SQLiteTypes.TEXT)
+            this.maFieldInfo[iIndex].hasChanged = true;
+
           this.maFieldInfo[iIndex].newType = SQLiteTypes.TEXT;
           this.onInputValue(elt, false);
           return;
           break;
 
         case 'b': //treat the value as blob
+          if (this.maFieldInfo[iIndex].newType != SQLiteTypes.BLOB)
+            this.maFieldInfo[iIndex].hasChanged = true;
+
           this.maFieldInfo[iIndex].newType = SQLiteTypes.BLOB;
           var aBlob = Database.textToBlob(elt.value);
           this.maFieldInfo[iIndex].newBlob = aBlob;
@@ -723,8 +732,10 @@ var RowOperations = {
 
       //if the column has not changed, ignore it
       // this allows autoincrement of primary key columns, accepts default values where available, null if null is allowed and empty string if null is not allowed.
-      if (!this.maFieldInfo[i].hasChanged)
-        continue;
+      if (this.sOperation == "insert") {
+        if (!this.maFieldInfo[i].hasChanged)
+          continue;
+      }
 
       fld = SQLiteFn.quoteIdentifier(this.maFieldInfo[i].colName);
 

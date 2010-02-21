@@ -9,6 +9,9 @@ releaseDir=$rootDir/release
 outDir=$rootDir/out
 workDir=$rootDir/sqlite-manager
 
+mkdir -p $releaseDir
+mkdir -p $outDir
+
 verFile=$outDir/version.txt
 tmpFile=$outDir/temp.txt
 logFile=$outDir/log.txt

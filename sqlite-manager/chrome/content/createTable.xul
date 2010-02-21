@@ -10,8 +10,8 @@
         ondialogcancel="return CreateManager.doCancel();"
         onload="CreateManager.loadCreateTableDialog();">
 
-  <script type="application/x-javascript" src="createManager.js"/>  
-  <script type="application/x-javascript" src="globals.js"/>  
+  <script type="application/x-javascript" src="createManager.js"/>
+  <script type="application/x-javascript" src="globals.js"/>
 
   <hbox flex="1" style="margin:5px 0 5px 0;">
     <spacer flex="1"/>

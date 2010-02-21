@@ -1,0 +1,18 @@
+ru-RU|Russian|PiVV
+xxx
+
+#xxx marks the end of list for which langpacks should be created
+cs-CZ|Czech|DannyB.
+da-DK|Danish|team
+de|German|team
+de-DE|German|Dryopteris,Team-erweiterungen.de
+en-US|English|team
+fr|French|team
+fr-FR|French|team
+hi-IN|Hindi|team
+ja-JP|Japanese|drry
+pl-PL|Polish|WacławJacek
+pt-BR|Portuguese(Brazil)|AlbertoEidh
+tr-TR|Turk|Celikbas
+zh-CN|Chinese|Cye3s
+zh-TW|Chinese|Greener

@@ -21,6 +21,7 @@
 <!ENTITY  pref-autoBackup.ak		"B">
 <!ENTITY  pref-autoBackup.on		"on">
 <!ENTITY  pref-autoBackup.off		"off">
+<!ENTITY  pref-autoBackup.prompt		"prompt">
 <!ENTITY  pref-sqliteFileExtensions.label	"Default file extension for SQLite files">
 <!ENTITY  pref-sqliteFileExtensions.ak		"S">
 <!ENTITY  pref-tableForExtensionManagement.label	"Name of the table to store extension management data">
@@ -64,8 +65,31 @@
 
 <!ENTITY  pref-whenInsertingShow.label	"When adding new record, show previously added values, or default values">
 <!ENTITY  pref-whenInsertingShow.ak	"W">
+<!ENTITY  pref-whenInsertingShow-previous	"Previous">
+<!ENTITY  pref-whenInsertingShow-default	"Default">
+
 <!ENTITY  pref-identifierQuoteChar.label	"Characters to enclose the identifiers with">
 <!ENTITY  pref-identifierQuoteChar-doublequotes	"Double quotes">
 <!ENTITY  pref-identifierQuoteChar-squarebrackets	"Square brackets []">
 <!ENTITY  pref-identifierQuoteChar-graveaccents	"Grave accents ``">
+
+<!ENTITY  paneDatatree.title "Data Tree Style">
+
+<!ENTITY  paneDatatree.datatype "Data type">
+<!ENTITY  paneDatatree.property "Property">
+<!ENTITY  paneDatatree.unselected "Unselected">
+<!ENTITY  paneDatatree.selected "Selected">
+
+<!ENTITY  paneDatatree.typeNull "Null">
+<!ENTITY  paneDatatree.typeInteger "Integer">
+<!ENTITY  paneDatatree.typeReal "Real">
+<!ENTITY  paneDatatree.typeText "Text">
+<!ENTITY  paneDatatree.typeBlob "Blob">
+
+<!ENTITY  paneDatatree.textColor "text color">
+<!ENTITY  paneDatatree.backgroundColor "background color">
+
+<!ENTITY  paneDatatree.btnSetDefault "Set Default">
+<!ENTITY  paneDatatree.btnApply "Apply">
+<!ENTITY  paneDatatree.btnNone "None">
 

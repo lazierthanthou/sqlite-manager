@@ -16,6 +16,7 @@ tmpFile=$dirMain/temp
 dirBz=$rootDir/SQLite_Manager_all_locales_replaced
 
 installTxt=$buildDir/langpack-install.rdf
+installTargets=$buildDir/install-targets.txt
 fileTranslators=$buildDir/translators.txt
 
 verFile=$outDir/versionLangPack.txt
@@ -54,15 +55,17 @@ makeLangPack () {
   cp -r  $dirBzLocale $dirLocale
   echo "locale sqlitemanager "$locale" jar:chrome/sqlitemanager.jar!/locale/"$locale"/">$fileChrome
 
+  targets=`cat $installTargets`
   cat $installTxt > $installRdf
-  sed s/XXXversionXXX/$version/g $installRdf > $tmpFile
-  mv $tmpFile $installRdf
-  sed s/XXXlocaleXXX/$locale/g $installRdf > $tmpFile
-  mv $tmpFile $installRdf
-  sed s/XXXtranslatorXXX/$translator/g $installRdf > $tmpFile
-  mv $tmpFile $installRdf
-  sed s/XXXlanguageXXX/$language/g $installRdf > $tmpFile
-  mv $tmpFile $installRdf
+  sed -i -e "s/XXXversionXXX/$version/g" $installRdf
+  sed -i -e "s/XXXlocaleXXX/$locale/g" $installRdf
+  sed -i -e "s/XXXtranslatorXXX/$translator/g" $installRdf
+  sed -i -e "s/XXXlanguageXXX/$language/g" $installRdf
+
+  #since thru sed I am not able to replace pattern with contents of file
+  #use grep -n "XXXtargetsXXX" $installRdf to get lineno, and try
+  #sed -e "s/XXXtargetsXXX/$targets/g" $installRdf > $tmpFile
+  #mv $tmpFile $installRdf
 
   #create the jar
   cd $dirMain/chrome/
@@ -81,13 +84,13 @@ makeLangPack () {
 ####################################################
 initialize
 
-while IFS='|' read loc lang tra; do
-  if [ $loc = "xxx" ]; then
+while IFS='|' read locale language translator; do
+  if [ $locale = "xxx" ]; then
     break
   fi
 
-  translator=$tra"(Babelzilla)"
-  makeLangPack $loc "$translator" "$lang"
-  echo $loc" == "$translator >> $logFile
+  #use quotes because some variables may have spaces
+  makeLangPack $locale "$translator" "$language"
+  echo $locale" == "$translator >> $logFile
 done < $fileTranslators
 

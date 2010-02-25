@@ -1,0 +1,35 @@
+    <!-- Firefox --> 
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>3.5</em:minVersion>
+        <em:maxVersion>3.7a2pre</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <!-- Thunderbird -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{3550f703-e582-4d05-9a08-453d09bdfdc6}</em:id>
+        <em:minVersion>3.0</em:minVersion>
+        <em:maxVersion>3.2a1pre</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+    <!-- SeaMonkey -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
+        <em:minVersion>2.0</em:minVersion>
+        <em:maxVersion>2.1a1pre</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+   <em:targetApplication>
+    <Description>
+      <em:id>toolkit@mozilla.org</em:id>
+      <em:minVersion>1.9.1</em:minVersion>
+      <em:maxVersion>1.9.3</em:maxVersion>
+    </Description>
+   </em:targetApplication>
+

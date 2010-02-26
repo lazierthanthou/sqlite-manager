@@ -1,0 +1,6 @@
+syntax: glob
+tempLangpack/**
+release/**
+out/**
+SQLite_Manager_all_locales_replaced/**
+SQLite_Manager_all_locales_replaced.tar.gz

@@ -17,11 +17,8 @@
     <em:requires>
       <Description>
         <em:id>SQLiteManager@mrinalkant.blogspot.com</em:id>
-        <em:minVersion>0.5.11</em:minVersion>
-        <em:maxVersion>0.5.11</em:maxVersion>
+        <em:minVersion>XXXsmversionXXX</em:minVersion>
+        <em:maxVersion>XXXsmversionXXX</em:maxVersion>
       </Description>
     </em:requires>
-
-XXXtargetsXXX
-  </Description>      
-</RDF>
+<!-- target apps will be appended by langpacks.sh -->

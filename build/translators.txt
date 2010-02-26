@@ -1,5 +1,5 @@
 ru|Russian|Пирятинский Виталий
-xxx
+finished
 
 #xxx marks the end of list for which langpacks should be created
 #following list in order of locale usage

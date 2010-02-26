@@ -6,13 +6,15 @@ rootDir="/home/user/sqlite-manager"
 
 buildDir=$rootDir/build
 releaseDir=$rootDir/release
+sourceDir=$rootDir/sqlite-manager
 outDir=$rootDir/out
-workDir=$rootDir/sqlite-manager
+workDir=$outDir/workhere
 
 mkdir -p $releaseDir
 mkdir -p $outDir
 
 verFile=$outDir/version.txt
+buildIdFile=$outDir/buildId.txt
 tmpFile=$outDir/temp.txt
 logFile=$outDir/log.txt
 
@@ -21,17 +23,28 @@ zipExclude=$buildDir/zipExclude.lst
 xpiInclude=$buildDir/xpiInclude.lst
 xpiExclude=$buildDir/xpiExclude.lst
 
-appIni=$workDir/application.ini
-installRdf=$workDir/install.rdf
-
 version="xxx"
+buildId="xxx"
 
-populateVersion () {
+#initialize log file
+echo "Logging..." > $logFile
+
+readVersion () {
   while read ver; do
     version=$ver
     break
   done < $verFile
+  echo "Working with version: "$version
+}
 
+readBuildId () {
+  while read buildId; do
+    break
+  done < $buildIdFile
+  echo "Working with buildId: "$buildId
+}
+
+getNewVersion () {
   read -p "Specify version: ("$version")" -r version1
   if [ ! $version1 = "" ]; then
     version=$version1
@@ -39,49 +52,59 @@ populateVersion () {
   fi
 }
 
-populateVersion
+getNewBuildId () {
+  buildID=`date +%Y%m%d%H%M`
+  echo $buildID > $buildIdFile
+}
+
+readVersion
 
 xrFile="sqlitemanager-xr-"$version".zip"
 xpiFile="sqlitemanager-"$version".xpi"
 
-cd $workDir
-
-modifyAppIni () {
-  echo "Modifying application.ini ..."
-  buildID=`date +%Y%m%d%H%M`
-  sed s/^BuildID=[^\n\r]*/BuildID=$buildID/g $appIni > $tmpFile
-  mv $tmpFile $appIni
-  sed s/^Version=[^\n\r]*/Version=$version/g $appIni > $tmpFile
-  mv $tmpFile $appIni
-  echo "application.ini modified."
-}
-modifyInstallRdf () {
-  echo "Modifying install.rdf ..."
-  sed s/\<em:version\>[0-9a-zA-Z\.]*/\<em:version\>$version/g $installRdf > $tmpFile
-  mv $tmpFile $installRdf
-  echo "install.rdf modified."
-}
-
-initialize () {
-  echo "Logging..." > $logFile
-}
-
 createXRFile () {
-  echo "Set correct permissions on all the files"
+  echo "Copying source to workdir..."
+  mkdir -p $workDir
+  cp -r $sourceDir/* $workDir
   cd $workDir
+
+  echo "Modifying application.ini..."
+  readVersion
+  sed -i -e "s/XXXversionXXX/$version/g" $workDir/application.ini
+  readBuildId
+  sed -i -e "s/XXXbuildIdXXX/$buildID/g" $workDir/application.ini
+  echo "application.ini modified."
+
+  echo "Set correct permissions on all the files"
   chmod -R 744 ./
 
   echo "Creating zip file: "$xrFile
   zip -r $xrFile ./  -i@$zipInclude -x@$zipExclude >> $logFile
   echo "Moving zip file "$xrFile" to release/"
   mv $xrFile $releaseDir/$xrFile
+
+  cd $rootDir
+  rm -r $workDir
 }
 
 createXpiFile () {
+  echo "Copying source to workdir..."
+  mkdir -p $workDir
+  cp -r $sourceDir/* $workDir
+  cd $workDir
+
+  echo "Modifying install.rdf ..."
+  readVersion
+  sed -i -e "s/XXXversionXXX/$version/g" $workDir/install.rdf
+  echo "install.rdf modified."
+
   echo "Creating xpi file: "$xpiFile
   zip -r $xpiFile ./  -i@$xpiInclude -x@$xpiExclude >> $logFile
   echo "Moving zip file "$xpiFile" to release/"
   mv $xpiFile $releaseDir/$xpiFile
+
+  cd $rootDir
+  rm -r $workDir
 }
 
 ####################################################
@@ -102,22 +125,19 @@ installExt () {
   unzip -o $releaseDir/$xpiFile
 }
 
-buildWithVersion () {
-  initialize
-  modifyAppIni
-  modifyInstallRdf
-
+buildSimple () {
   createXpiFile
-  createXRFile
-
   installExt
 }
 
-buildSimple () {
-  initialize
+buildWithVersion () {
+  getNewVersion
+  getNewBuildId
 
   createXpiFile
   installExt
+
+  createXRFile
 }
 
 userOption="z"

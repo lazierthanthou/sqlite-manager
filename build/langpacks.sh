@@ -1,12 +1,14 @@
 #!/bin/bash
 
+smversion=0.5.12
+
 rootDir="/home/user/sqlite-manager"
 
 buildDir=$rootDir/build
 releaseDir=$rootDir/release
 outDir=$rootDir/out
 
-dirMain=$rootDir/tempLangpack
+dirMain=$outDir/tempLangpack
 
 dirLocale=$dirMain/chrome/locale
 fileChrome=$dirMain/chrome.manifest
@@ -16,7 +18,6 @@ tmpFile=$dirMain/temp
 dirBz=$rootDir/SQLite_Manager_all_locales_replaced
 
 installTxt=$buildDir/langpack-install.rdf
-installTargets=$buildDir/install-targets.txt
 fileTranslators=$buildDir/translators.txt
 
 verFile=$outDir/versionLangPack.txt
@@ -30,10 +31,17 @@ populateVersion () {
     break
   done < $verFile
 
-  read -p "Specify version: ("$version")" -r version1
+  read -p "Specify language pack version: ("$version")" -r version1
   if [ ! $version1 = "" ]; then
     version=$version1
     echo $version > $verFile
+  fi
+
+  smversion=$version
+  read -p "Which version of sqlite-manager is the pack for? ($smversion)" -r smversion1
+  if [ ! $smversion1 = "" ]; then
+    smversion=$smversion1
+    echo $smversion > $smversion
   fi
 }
 
@@ -55,17 +63,14 @@ makeLangPack () {
   cp -r  $dirBzLocale $dirLocale
   echo "locale sqlitemanager "$locale" jar:chrome/sqlitemanager.jar!/locale/"$locale"/">$fileChrome
 
-  targets=`cat $installTargets`
   cat $installTxt > $installRdf
+  sed -n '/<!-- TARGETMARKER -->/,$p' $rootDir/sqlite-manager/install.rdf >> $installRdf
+
   sed -i -e "s/XXXversionXXX/$version/g" $installRdf
   sed -i -e "s/XXXlocaleXXX/$locale/g" $installRdf
   sed -i -e "s/XXXtranslatorXXX/$translator/g" $installRdf
   sed -i -e "s/XXXlanguageXXX/$language/g" $installRdf
-
-  #since thru sed I am not able to replace pattern with contents of file
-  #use grep -n "XXXtargetsXXX" $installRdf to get lineno, and try
-  #sed -e "s/XXXtargetsXXX/$targets/g" $installRdf > $tmpFile
-  #mv $tmpFile $installRdf
+  sed -i -e "s/XXXsmversionXXX/$smversion/g" $installRdf
 
   #create the jar
   cd $dirMain/chrome/
@@ -79,13 +84,16 @@ makeLangPack () {
   zip -r $xpiFile ./ >> $logFile
   rm $releaseDir/$xpiFile
   mv $xpiFile $releaseDir
+
+  cd $rootDir
+  rm -r $dirMain
 }
 
 ####################################################
 initialize
 
 while IFS='|' read locale language translator; do
-  if [ $locale = "xxx" ]; then
+  if [ $locale = "finished" ]; then
     break
   fi
 

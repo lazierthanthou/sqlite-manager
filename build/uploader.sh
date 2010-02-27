@@ -37,6 +37,7 @@ getUserAndPass
 verFile=$outDir/version.txt
 
 version="xxx"
+locale=""
 
 populateVersion () {
   while read ver; do
@@ -47,27 +48,45 @@ populateVersion () {
   read -p "Specify version: ("$version")" -r version1
   if [ ! $version1 = "" ]; then
     version=$version1
-#    echo $version > $verFile
+  fi
+}
+
+getLocale () {
+  read -p "Specify version: ("$locale")" -r locale1
+  if [ ! $locale1 = "" ]; then
+    locale=$locale1
   fi
 }
 
 populateVersion
+getLocale
 
-xrFile="sqlitemanager-xr-"$version".zip"
-xpiFile="sqlitemanager-"$version".xpi"
+fileNameSuffix=$version
+labels="Featured,Type-Extension-xpi,OpSys-All"
+summaryXpi="SQLite Manager "$version
+summaryXr="SQLiteManager "$version" as XULRunner App"
+if [ ! $locale = "" ]; then
+  fileNameSuffix=$version"-"$locale
+  labels="Type-Extension-xpi,OpSys-All"
+  summaryXpi="$summaryXpi (for $locale locale)"
+  summaryXr="$summaryXr (for $locale locale)"
+fi
+
+xrFile="sqlitemanager-xr-"$fileNameSuffix".zip"
+xpiFile="sqlitemanager-"$fileNameSuffix".xpi"
 
 cd $buildDir
 
 read -p "Upload extension "$xpiFile" (y/n): " -r choice
-summary="SQLite Manager "$version
+summary=$summaryXpi
 if [ $choice = "y" ]; then
-  ./googlecode_upload.py -s "$summary" -p $project -u $guser -w $gpass -l Featured,Type-Extension-xpi,OpSys-All $releaseDir/$xpiFile
+  ./googlecode_upload.py -s "$summary" -p $project -u $guser -w $gpass -l $labels $releaseDir/$xpiFile
 fi
 
 read -p "Upload xulrunner app "$xrFile" (y/n): " -r choice
-summary="SQLiteManager "$version" as XULRunner App"
+summary=$summaryXr
 if [ $choice = "y" ]; then
-  ./googlecode_upload.py -s "$summary" -p $project -u $guser -w $gpass -l Featured,Type-XULRunner-app,OpSys-All $releaseDir/$xrFile
+  ./googlecode_upload.py -s "$summary" -p $project -u $guser -w $gpass -l $labels $releaseDir/$xrFile
 fi
 
 echo "Press any key to exit..."

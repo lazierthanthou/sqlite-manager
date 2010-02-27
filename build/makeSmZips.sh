@@ -9,6 +9,7 @@ releaseDir=$rootDir/release
 sourceDir=$rootDir/sqlite-manager
 outDir=$rootDir/out
 workDir=$outDir/workhere
+babelDir=$rootDir/SQLite_Manager_all_locales_replaced
 
 mkdir -p $releaseDir
 mkdir -p $outDir
@@ -22,6 +23,7 @@ zipInclude=$buildDir/zipInclude.lst
 zipExclude=$buildDir/zipExclude.lst
 xpiInclude=$buildDir/xpiInclude.lst
 xpiExclude=$buildDir/xpiExclude.lst
+fileTranslators=$buildDir/translators.txt
 
 version="xxx"
 buildId="xxx"
@@ -81,7 +83,7 @@ createXRFile () {
   echo "Creating zip file: "$xrFile
   zip -r $xrFile ./  -i@$zipInclude -x@$zipExclude >> $logFile
   echo "Moving zip file "$xrFile" to release/"
-  mv $xrFile $releaseDir/$xrFile
+  mv $xrFile $releaseDir/
 
   cd $rootDir
   rm -r $workDir
@@ -101,7 +103,7 @@ createXpiFile () {
   echo "Creating xpi file: "$xpiFile
   zip -r $xpiFile ./  -i@$xpiInclude -x@$xpiExclude >> $logFile
   echo "Moving zip file "$xpiFile" to release/"
-  mv $xpiFile $releaseDir/$xpiFile
+  mv $xpiFile $releaseDir/
 
   cd $rootDir
   rm -r $workDir
@@ -119,6 +121,70 @@ installXR () {
   sudo ln -s $smappini ~/sm_app.ini
 }
 
+createLangXpiFile () {
+  locale=$1
+  translator=$2
+  language=$3
+
+  cd $rootDir
+  rm -r $workDir
+  mkdir -p $workDir
+  cd $workDir
+
+  echo "Extracting the en-US only version: "$xpiFile
+  unzip -o $releaseDir/$xpiFile
+
+  echo "Copying the locale dir: "$babelDir/$locale
+  cp -r $babelDir/$locale $workDir/chrome/locale/
+
+  echo "Adding locale entry in chrome.manifest..."
+  chrome=$workDir/chrome.manifest
+  echo "locale sqlitemanager $locale chrome/locale/$locale/" >> $chrome
+
+  #modify install.rdf
+  transEntry="<em:translator>$translator ($language)</em:translator>"
+  sed -i "/em:creator/a $transEntry" $workDir/install.rdf
+
+  echo "Creating file: "$xpiLangFile
+  zip -r $xpiLangFile ./ >> $logFile
+  echo "Moving file $xpiLangFile to $releaseDir/"
+  mv $xpiLangFile $releaseDir/
+
+  cd $rootDir
+  rm -r $workDir
+}
+
+createLangXRFile () {
+  locale=$1
+  translator=$2
+  language=$3
+
+  cd $rootDir
+  rm -r $workDir
+  mkdir -p $workDir
+  cd $workDir
+
+  echo "Extracting the en-US only version: "$xrFile
+  unzip -o $releaseDir/$xrFile
+
+  echo "Copying the locale dir: "$babelDir/$locale
+  cp -r $babelDir/$locale $workDir/chrome/locale/
+
+  echo "Adding locale entry in chrome.manifest..."
+  chrome=$workDir/chrome/chrome.manifest
+  echo "locale sqlitemanager $locale file:locale/$locale/" >> $chrome
+
+  #how to have an entry for the translator somewhere
+
+  echo "Creating file: "$xrLangFile
+  zip -r $xrLangFile ./ >> $logFile
+  echo "Moving file $xrLangFile to $releaseDir/"
+  mv $xrLangFile $releaseDir/
+
+  cd $rootDir
+  rm -r $workDir
+}
+
 installExt () {
   echo "Unzipping the xpi file..."
   cd /home/user/mrinal/extensions/SQLiteManager@mrinalkant.blogspot.com
@@ -134,10 +200,30 @@ buildWithVersion () {
   getNewVersion
   getNewBuildId
 
-  createXpiFile
-  installExt
+  xrFile="sqlitemanager-xr-"$version".zip"
+  xpiFile="sqlitemanager-"$version".xpi"
 
+  createXpiFile
   createXRFile
+}
+
+buildWithLanguage () {
+  getNewVersion
+  getNewBuildId
+
+  xrFile="sqlitemanager-xr-"$version".zip"
+  xpiFile="sqlitemanager-"$version".xpi"
+
+  while IFS='|' read locale language translator; do
+    if [ $locale = "finished" ]; then
+      break
+    fi
+    xrLangFile="sqlitemanager-xr-"$version"-"$locale".zip"
+    xpiLangFile="sqlitemanager-"$version"-"$locale".xpi"
+    #use quotes because some variables may have spaces
+    createLangXpiFile $locale "$translator" "$language"
+    createLangXRFile $locale "$translator" "$language"
+  done < $fileTranslators
 }
 
 userOption="z"
@@ -147,6 +233,7 @@ while [ ! $userOption = "x" ]; do
     echo "----"
     echo "a : build simple (version and build info don't change)"
     echo "b : build & install extension"
+    echo "c : build with language"
     echo "i : install xulrunner app"
     echo "u : upload to code.google.com"
     echo "----"
@@ -162,6 +249,10 @@ while [ ! $userOption = "x" ]; do
 
     if [ $userOption = "b" ]; then
       buildWithVersion
+    fi
+
+    if [ $userOption = "c" ]; then
+      buildWithLanguage
     fi
 
     if [ $userOption = "i" ]; then

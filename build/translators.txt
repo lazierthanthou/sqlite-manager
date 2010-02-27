@@ -1,12 +1,11 @@
 ru|Russian|Пирятинский Виталий
+de|German|Dryopteris,Team erweiterungen.de,Tobbi
+ja|Japanese|drry
+fr|French|Danny B.,Goofy,myahoo
 finished
 
 #xxx marks the end of list for which langpacks should be created
 #following list in order of locale usage
-
-de|German|Dryopteris,Team erweiterungen.de,Tobbi
-ja|Japanese|drry <http://drry.jp/>
-fr|French|team
 
 cs-CZ|Czech|DannyB.
 da-DK|Danish|team

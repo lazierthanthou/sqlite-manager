@@ -121,65 +121,52 @@ installXR () {
   sudo ln -s $smappini ~/sm_app.ini
 }
 
-createLangXpiFile () {
+createLangFile () {
   locale=$1
   translator=$2
   language=$3
+  filetype=$4
 
   cd $rootDir
   rm -r $workDir
   mkdir -p $workDir
   cd $workDir
 
-  echo "Extracting the en-US only version: "$xpiFile
-  unzip -o $releaseDir/$xpiFile
+  workFile=""
+  newFile=""
+  if [ $filetype = "xpi" ]; then
+    workFile=$xpiFile
+    newFile=$xpiLangFile
+  fi
+  if [ $filetype = "xr" ]; then
+    workFile=$xrFile
+    newFile=$xrLangFile
+  fi
+  
+  echo "Extracting the en-US only version: "$workFile
+  unzip -o $releaseDir/$workFile
 
   echo "Copying the locale dir: "$babelDir/$locale
   cp -r $babelDir/$locale $workDir/chrome/locale/
 
   echo "Adding locale entry in chrome.manifest..."
-  chrome=$workDir/chrome.manifest
-  echo "locale sqlitemanager $locale chrome/locale/$locale/" >> $chrome
+  if [ $filetype = "xpi" ]; then
+    chrome=$workDir/chrome.manifest
+    echo "locale sqlitemanager $locale chrome/locale/$locale/" >> $chrome
 
-  #modify install.rdf
-  transEntry="<em:translator>$translator ($language)</em:translator>"
-  sed -i "/em:creator/a $transEntry" $workDir/install.rdf
+    #modify install.rdf
+    transEntry="<em:translator>$translator ($language)</em:translator>"
+    sed -i "/em:creator/a $transEntry" $workDir/install.rdf
+  fi
+  if [ $filetype = "xr" ]; then
+    chrome=$workDir/chrome/chrome.manifest
+    echo "locale sqlitemanager $locale file:locale/$locale/" >> $chrome
+  fi
 
-  echo "Creating file: "$xpiLangFile
-  zip -r $xpiLangFile ./ >> $logFile
-  echo "Moving file $xpiLangFile to $releaseDir/"
-  mv $xpiLangFile $releaseDir/
-
-  cd $rootDir
-  rm -r $workDir
-}
-
-createLangXRFile () {
-  locale=$1
-  translator=$2
-  language=$3
-
-  cd $rootDir
-  rm -r $workDir
-  mkdir -p $workDir
-  cd $workDir
-
-  echo "Extracting the en-US only version: "$xrFile
-  unzip -o $releaseDir/$xrFile
-
-  echo "Copying the locale dir: "$babelDir/$locale
-  cp -r $babelDir/$locale $workDir/chrome/locale/
-
-  echo "Adding locale entry in chrome.manifest..."
-  chrome=$workDir/chrome/chrome.manifest
-  echo "locale sqlitemanager $locale file:locale/$locale/" >> $chrome
-
-  #how to have an entry for the translator somewhere
-
-  echo "Creating file: "$xrLangFile
-  zip -r $xrLangFile ./ >> $logFile
-  echo "Moving file $xrLangFile to $releaseDir/"
-  mv $xrLangFile $releaseDir/
+  echo "Creating file: "$newFile
+  zip -r $newFile ./ >> $logFile
+  echo "Moving file $newFile to $releaseDir/"
+  mv $newFile $releaseDir/
 
   cd $rootDir
   rm -r $workDir
@@ -189,11 +176,6 @@ installExt () {
   echo "Unzipping the xpi file..."
   cd /home/user/mrinal/extensions/SQLiteManager@mrinalkant.blogspot.com
   unzip -o $releaseDir/$xpiFile
-}
-
-buildSimple () {
-  createXpiFile
-  installExt
 }
 
 buildWithVersion () {
@@ -223,8 +205,8 @@ buildWithLanguage () {
     xrLangFile="sqlitemanager-xr-"$version"-"$locale".zip"
     xpiLangFile="sqlitemanager-"$version"-"$locale".xpi"
     #use quotes because some variables may have spaces
-    createLangXpiFile $locale "$translator" "$language"
-    createLangXRFile $locale "$translator" "$language"
+    createLangFile $locale "$translator" "$language" "xpi"
+    createLangFile $locale "$translator" "$language" "xr"
   done < $fileTranslators
 }
 
@@ -233,7 +215,6 @@ userOption="z"
 while [ ! $userOption = "x" ]; do
     echo "Please choose one of these options:"
     echo "----"
-    echo "a : build simple (version and build info don't change)"
     echo "b : build & install extension"
     echo "c : build with language"
     echo "i : install xulrunner app"
@@ -245,10 +226,6 @@ while [ ! $userOption = "x" ]; do
     read -p "Type your option: " -r userOption
 
 ###########################################
-    if [ $userOption = "a" ]; then
-      buildSimple
-    fi
-
     if [ $userOption = "b" ]; then
       buildWithVersion
     fi

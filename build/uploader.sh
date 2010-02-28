@@ -52,7 +52,7 @@ populateVersion () {
 }
 
 getLocale () {
-  read -p "Specify version: ("$locale")" -r locale1
+  read -p "Specify locale: ("$locale")" -r locale1
   if [ ! $locale1 = "" ]; then
     locale=$locale1
   fi
@@ -77,15 +77,12 @@ xpiFile="sqlitemanager-"$fileNameSuffix".xpi"
 
 cd $buildDir
 
-read -p "Upload extension "$xpiFile" (y/n): " -r choice
-summary=$summaryXpi
+read -p "Upload files $xpiFile and $xrFile (y/n): " -r choice
 if [ $choice = "y" ]; then
+  summary=$summaryXpi
   ./googlecode_upload.py -s "$summary" -p $project -u $guser -w $gpass -l $labels $releaseDir/$xpiFile
-fi
 
-read -p "Upload xulrunner app "$xrFile" (y/n): " -r choice
-summary=$summaryXr
-if [ $choice = "y" ]; then
+  summary=$summaryXr
   ./googlecode_upload.py -s "$summary" -p $project -u $guser -w $gpass -l $labels $releaseDir/$xrFile
 fi
 

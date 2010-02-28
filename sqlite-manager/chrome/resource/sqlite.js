@@ -69,6 +69,10 @@ SQLiteHandler.prototype = {
   mFuncConfirm: null,
   mBlobPrefs: {sStrForBlob: 'BLOB', bShowSize: true, iMaxSizeToShowData: 100, iHowToShowData: 0},
 
+  //issue #413: we should not attempt to close the places.sqlite
+  //the following variable tells us that we are connected to places.sqlite
+  mbPlacesDb: false, //true, if places.sqlite in profile dir is open
+
   //array to hold names of added functions; will be used in removing functions
   maAddedFunctions: [],
 
@@ -118,6 +122,7 @@ SQLiteHandler.prototype = {
       switch (nsIFile.leafName.toLowerCase()) {
         case "places.sqlite":
           if ('nsPIPlacesDatabase' in Ci) {
+            this.mbPlacesDb = true;
             return Cc["@mozilla.org/browser/nav-history-service;1"].getService(Ci.nsINavHistoryService).QueryInterface(Ci.nsPIPlacesDatabase).DBConnection;
           }
           break;
@@ -146,6 +151,11 @@ SQLiteHandler.prototype = {
   },
 
   closeConnection: function() {
+    if (this.mbPlacesDb) {
+      this.dbConn = null;
+      this.mbPlacesDb = false;
+    }
+
     if (this.dbConn != null) {
       try {
         this.dbConn.close();

@@ -204,6 +204,8 @@ buildWithVersion () {
   xpiFile="sqlitemanager-"$version".xpi"
 
   createXpiFile
+  installExt
+
   createXRFile
 }
 

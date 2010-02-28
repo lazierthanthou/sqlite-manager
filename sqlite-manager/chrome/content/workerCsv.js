@@ -170,6 +170,10 @@ function CsvToArray(input, separator) {
         if (firstChar == '"' || firstChar == "'") {
           if (token[token.length - 1] == firstChar) {
             token = token.substring(1, token.length - 1);
+            if (firstChar == '"')
+              token = token.replace(new RegExp("\"\"", "g" ), "\"");
+            if (firstChar == "'")
+              token = token.replace(new RegExp("\'\'", "g" ), "\'");
           }
         }
       }

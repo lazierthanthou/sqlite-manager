@@ -2468,20 +2468,21 @@ var SQLiteManager = {
     //get all functions that need to be created for this db
     var udf = SmUdf.getFunctions();
 
-    for (var fn in udf) {      if (SmGlobals.gecko_1914pre) //for gecko >= 1.9.1.4pre
-        Database.createFunction(udf[fn].fName, udf[fn].fLength, udf[fn].onFunctionCall);
+    for (var fn in udf) {
+      var bAdded = false;      if (SmGlobals.gecko_1914pre) //for gecko >= 1.9.1.4pre
+        bAdded = Database.createFunction(udf[fn].fName, udf[fn].fLength, udf[fn].onFunctionCall);
       else   //for older gecko
-        Database.createFunction(udf[fn].fName, udf[fn].fLength, udf[fn]);
+        bAdded = Database.createFunction(udf[fn].fName, udf[fn].fLength, udf[fn]);
 
-      sm_log("Loaded user-defined function: " + udf[fn].fName + ", args.length = " + udf[fn].fLength);
+      if (bAdded)
+        sm_log("Loaded user-defined function: " + udf[fn].fName + ", args.length = " + udf[fn].fLength);
     }
 
     //get all functions that need to be created for this db
     var udf = SmUdf.getAggregateFunctions();
 
-    for (var fn in udf) {      Database.createAggregateFunction(udf[fn].fName, udf[fn].fLength, udf[fn].objFunc);
-
-      sm_log("Loaded user-defined aggregate function: " + udf[fn].fName + ", args.length = " + udf[fn].fLength);
+    for (var fn in udf) {      if (Database.createAggregateFunction(udf[fn].fName, udf[fn].fLength, udf[fn].objFunc))
+        sm_log("Loaded user-defined aggregate function: " + udf[fn].fName + ", args.length = " + udf[fn].fLength);
     }
   },
 

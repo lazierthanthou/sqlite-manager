@@ -151,6 +151,13 @@ SQLiteHandler.prototype = {
   },
 
   closeConnection: function() {
+    if (this.dbConn != null) {
+      //remove all functions added by us otherwise db which remain open after our connection to it closes (e.g., places.sqlite) will continue to have these functions
+      this.removeAllFunctions();
+      this.maAddedFunctions = [];
+    }
+
+    //for places.sqlite, do not attempt to close the connection
     if (this.mbPlacesDb) {
       this.dbConn = null;
       this.mbPlacesDb = false;
@@ -168,7 +175,6 @@ SQLiteHandler.prototype = {
     this.aTableType = null;
     this.aColumns = null;
     this.mOpenStatus = "";
-    this.maAddedFunctions = [];
   },
 
   createFunction: function(fnName, argLength, fnObject) {
@@ -179,7 +185,8 @@ SQLiteHandler.prototype = {
     try {
       this.dbConn.createFunction(fnName, argLength, fnObject);
     } catch (e) {
-      this.onSqlError(e, "Failed to create storage function: " + fnName, null, true);
+      var msg = "Failed to create storage function: " + fnName + "\nA function by this name may already have been created.";
+      this.onSqlError(e, msg, null, false);
       return false;
     }
     this.maAddedFunctions.push(fnName);
@@ -194,7 +201,8 @@ SQLiteHandler.prototype = {
     try {
       this.dbConn.createAggregateFunction(fnName, argLength, fnObject);
     } catch (e) {
-      this.onSqlError(e, "Failed to create storage function: " + fnName, null, true);
+      var msg = "Failed to create storage function: " + fnName + "\nA function by this name may already have been created.";
+      this.onSqlError(e, msg, null, false);
       return false;
     }
     this.maAddedFunctions.push(fnName);

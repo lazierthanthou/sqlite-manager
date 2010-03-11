@@ -170,6 +170,91 @@ var SQLiteManager = {
 
   experiment: function() {
     //document.querySelector('treechildren::-moz-tree-cell(nullvalue selected)');
+    var input = $$("txtSqlStatement").value;
+    var separator = ",";
+  var re_linebreak = /[\n\r]+/
+
+  var re_token = /[\"]([^\"]|(\"\"))*[\"]|[,]|[\n\r]|[^,\n\r]*|./g
+  if (separator == ";")
+    re_token = /[\"]([^\"]|(\"\"))*[\"]|[;]|[\n\r]|[^;\n\r]*|./g
+  if (separator == "|")
+    re_token = /[\"]([^\"]|(\"\"))*[\"]|[|]|[\n\r]|[^|\n\r]*|./g
+  if (separator == "\t")
+    re_token = /[\"]([^\"]|(\"\"))*[\"]|[\t]|[\n\r]|[^\t\n\r]*|./g
+
+  //TODO: try using exec in a loop
+  var a = input.match(re_token);
+  var re_token1 = /[\"]([^\"]|(\"\"))*[\"]|[,]|[\n\r]|[^,\n\r\"][^,\n\r]*|./
+  var pl = 0, cl = input.length;
+  while (input.length > 0) {
+    var cl = input.length;
+    if (pl == cl) {
+      alert(cl + "break");
+      break;
+    }
+    pl = cl;
+
+    var b = re_token1.exec(input);
+    alert(b.index + ":" + b[0]);
+    input = input.substring(b[0].length);
+  }
+
+  var token;
+  var line = [], allLines = [];
+  var tkSEPARATOR = 0, tkNEWLINE = 1, tkNORMAL = 2;
+  var tk = tkNEWLINE, tkp = tkNEWLINE;
+
+  for (var i = 0; i < a.length; i++) {
+    tkp = tk;
+
+    token = a[i];
+    
+    if (token == separator) {
+      tk = tkSEPARATOR;
+      //this separator is the first char in line or follows another separator
+      if (line.length == 0 || tkp == tkSEPARATOR) {
+        line.push(null);
+      }
+    }
+    else if (token == "\n" || token == "\r") {
+      tk = tkNEWLINE;
+      var ignoreTrailingDelimiter = true;
+      if (!ignoreTrailingDelimiter && tkp == tkSEPARATOR) {
+        line.push(null);
+      }
+      if (line.length > 0) {
+        allLines.push(line);
+//        postMessage('Parsing csv data: ' + allLines.length + ' records');
+        line = [];
+      }
+    }
+    else { //field value
+      tk = tkNORMAL;
+      if (tkp != tkSEPARATOR) {
+        if (line.length > 0) {
+          allLines.push(line);
+//          postMessage('Parsing csv data: ' + allLines.length + ' records');
+          line = [];
+        }
+      }
+      //remove quotes from both ends
+      if (token.length >= 2) {
+        var firstChar = token[0];
+        if (firstChar == '"' || firstChar == "'") {
+          if (token[token.length - 1] == firstChar) {
+            token = token.substring(1, token.length - 1);
+            if (firstChar == '"')
+              token = token.replace(new RegExp("\"\"", "g" ), "\"");
+            if (firstChar == "'")
+              token = token.replace(new RegExp("\'\'", "g" ), "\'");
+          }
+        }
+      }
+      line.push(token);
+    }
+  }
+
+  alert(allLines);
   },
 
   isSqliteHigherThan: function (sVersion) {
@@ -182,7 +267,7 @@ var SQLiteManager = {
 
   // Startup: called ONCE during the browser window "load" event
   Startup: function() {
-    $$("experiment").hidden = true;
+    //$$("experiment").hidden = true;
 
     this.msQuerySelectInstruction = sm_getLStr("sqlm.selectQuery");
 

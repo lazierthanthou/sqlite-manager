@@ -1,5 +1,33 @@
 var gStage = 0;
 
+var gFile = {
+  contents: null,
+  packetSize: 10000,
+  currPosition: 0,
+
+  init: function() {
+    this.contents = null;
+    this.currPosition = 0;
+  },
+
+  read: function(file, charset) {
+    var req = new XMLHttpRequest();
+    req.open('GET', file, false);
+    req.overrideMimeType('text/plain; charset='+charset);
+    req.send(null);
+    if(req.status == 0)
+      this.contents = req.responseText;
+  }
+
+  getMoreData: function() {
+    var str = this.contents.substr(this.currPosition, this.packetSize);
+    this.currPosition += this.packetSize;
+
+    //return the string and boolean indicating that there is no more data
+    return [str, this.currPosition >= this.contents.length];
+  }
+};
+
 var tempStore = {
   csvParams: null,
   csvRecords: null,
@@ -13,24 +41,29 @@ onmessage = function(event) {
     gStage = params.stage;
     postMessage('Processing csv import stage ' + gStage);
     switch (gStage) {
-    case 1:
-      var obj = readCsvContent(params);
-      postMessage(obj);
-      break;
-    case 2:
-      var obj = createAllQueries(params);
-      postMessage(obj);
-      break;
+      case 1:
+        tempStore.csvParams = params;
+        gFile.read(params.file, params.charset);
+        postMessage('Read csv file: ' + gFile.contents.length + ' bytes');
+        var obj = processCsvData(2); //1 for original, 2 for new reader
+        postMessage(obj);
+        break;
+
+      case 2:
+        var obj = createAllQueries(params);
+        postMessage(obj);
+        break;
     }
   }
 };
 
-function readCsvContent(csvParams) {
-  tempStore.csvParams = csvParams;
+function processCsvData(whichReader) {
+  if (whichReader == 1)
+    CsvToArray(tempStore.csvParams.separator);
+  if (whichReader == 2)
+    CsvToArrayMM(tempStore.csvParams.separator);
 
-  var sData = readFile(csvParams.file, csvParams.charset);
-  postMessage('Read csv file: ' + sData.length + ' bytes');
-  tempStore.csvRecords = CsvToArray(sData, csvParams.separator);
+  gFile.init();
 
   var iRows = tempStore.csvRecords.length;
   postMessage('Parsed csv data: ' + iRows + ' records');
@@ -59,7 +92,7 @@ function createAllQueries(params) {
   var iOtherQueries = 0;
   if (params.createTableQuery != "") {
     aQueries.push(params.createTableQuery);
-     iOtherQueries = 1;
+    iOtherQueries = 1;
   }
 
   var iRows = tempStore.csvRecords.length;
@@ -103,17 +136,8 @@ function createAllQueries(params) {
   var obj = {stage: gStage, success: 1, description: '', numRecords: num, queries: aQueries, badLines: aBadLines};
   return obj;}
 
-function readFile(file, charset) {
-  var req = new XMLHttpRequest();
-  req.open('GET', file, false);
-  req.overrideMimeType('text/plain; charset='+charset);
-  req.send(null);
-  if(req.status == 0)
-    return req.responseText;
-}
-
 //When there are 2 consecutive separators (,,) or a separator at the start of a line (^,) we treat them as having a null field in between. If separator is followed by newline (,\n) the treatment depends upon user option whether to ignore trailing commas. If not ignored, a null field is assumed after the trailing delimiter. However, lines which have no character in them (^\n) are ignored instead of the possible alternative of treating them as representative of a single null field. See Issue #324 too.
-function CsvToArray(input, separator) {
+function CsvToArrayMM(separator) {
   var re_linebreak = /[\n\r]+/
 
   var re_token = /[\"]([^\"]|(\"\"))*[\"]|[,]|[\n\r]|[^,\n\r]*|./g
@@ -124,11 +148,179 @@ function CsvToArray(input, separator) {
   if (separator == "\t")
     re_token = /[\"]([^\"]|(\"\"))*[\"]|[\t]|[\n\r]|[^\t\n\r]*|./g
 
+  //check tab handling here
+  var reDelimiters = new RegExp("[\n\r" + separator + "]");
+/*
+  1. if we have no data to process, getMoreData else goto 2.
+  2. match with regex
+  3. accept all matches except the last match
+  4. does the last match begin with quotes
+  5. if answer to 4 is yes, getMoreData and join to last match until we have the corresponding quote closed. It may happen that quote closed found at the end is not the right one owing to next character being the same quote (i.e. the quote is escaped) which we can know only when we getMoreData
+  6. continue 5 until eof or closing quote is found
+  7. after the closing quote is found, take the remaining string and goto 1.
+  8. if answer to 4 is no, getMoreData and join to last match until we have the separator or \n or \r
+*/
+  tempStore.csvRecords = [];
+  var token, sData, lastMatch = null, bEOF = false, noOfQuotesAtEnd = 0;
+  var line = [];
+  var aMoreData = [];
+  var tkSEPARATOR = 0, tkNEWLINE = 1, tkNORMAL = 2;
+  var tk = tkNEWLINE, tkp = tkNEWLINE;
+  var input = "", sMoreData = null;
+  while (true) {
+    //time to get more data
+    if (!bEOF) {
+      aMoreData = gFile.getMoreData();
+      bEOF = aMoreData[1];
+      sData = aMoreData[0];
+    }
+    else
+      return;
+
+      input = sData;
+      //handle any remnant string from the last cycle of match
+      if (lastMatch != null) {
+        //lastMatch += sData;
+        var firstChar = lastMatch[0];
+        if (firstChar == '"' || firstChar == "'") {
+          sData += noOfQuotesAtEnd
+          var prefix = "";
+          for (var i = 0; i < noOfQuotesAtEnd; i++) {
+            prefix += firstChar;
+          }
+          sData = prefix + sData;
+          var bQuoteEnd = false;
+          for (var i = 0; i < sData.length; i++) {
+            if (sData[i] != firstChar && bQuoteEnd) {//found the end
+              lastMatch += sData.substring(0, i);
+              line.push(lastMatch);
+              //then, process the remaining substring
+              input = sData.substring(i);
+              break;   
+            }
+            if (sData[i] == firstChar)
+              bQuoteEnd = !bQuoteEnd;
+            else
+              bQuoteEnd = false;
+          }
+          //we reach here if end not found
+          if (bQuoteEnd) {//ending is a quote
+            noOfQuotesAtEnd = 1;
+            lastMatch += sData
+          }
+          lastMatch += sData;
+          if (!bEOF) {//check this condition; it is wrong
+            line.push(lastMatch);
+            continue;
+          }
+        }
+        else {
+          //find the first separator, \n, \r
+          var arr = reDelimiters.exec(sData);
+          var iPos = sData.length;
+          if (arr != null) {
+            //if found, append the substring until it to lastMatch
+            iPos = arr.index;
+            lastMatch += sData.substring(0, iPos);
+            line.push(lastMatch);
+            //then, process the remaining substring
+            input = sData.substring(iPos);
+          }
+          else {
+            lastMatch += sData;
+            if (!bEOF) {//check this condition; it is wrong
+              line.push(lastMatch);
+              continue;
+            }
+          }
+        } 
+      }
+
+    var a = input.match(re_token);
+
+    for (var i = 0; i < a.length; i++) {
+      lastMatch = null;
+      tkp = tk;
+
+      token = a[i];
+
+      if (token == separator) {
+        tk = tkSEPARATOR;
+        //this separator is the first char in line or follows another separator
+        if (line.length == 0 || tkp == tkSEPARATOR) {          line.push(null);
+        }
+      }
+      else if (token == "\n" || token == "\r") {
+        tk = tkNEWLINE;
+        if (!tempStore.csvParams.ignoreTrailingDelimiter && tkp == tkSEPARATOR) {
+          line.push(null);
+        }
+        if (line.length > 0) {
+          tempStore.csvRecords.push(line);
+          postMessage('Parsing csv data: ' + tempStore.csvRecords.length + ' records');
+          line = [];
+        }
+      }
+      else { //field value
+        tk = tkNORMAL;
+        if (tkp != tkSEPARATOR) {
+          if (line.length > 0) {
+            tempStore.csvRecords.push(line);
+            postMessage('Parsing csv data: ' + tempStore.csvRecords.length + ' records');
+            line = [];
+          }
+        }
+        noOfQuotesAtEnd = 0;
+        //add this token to line only if it is not the last match
+        if ((a.length != i + 1) || bEOF) {
+          //remove quotes from both ends
+          if (token.length >= 2) {
+            var firstChar = token[0];
+            if (firstChar == '"' || firstChar == "'") {
+              if (token[token.length - 1] == firstChar) {
+                token = token.substring(1, token.length - 1);
+                if (firstChar == '"')
+                  token = token.replace(new RegExp("\"\"", "g" ), "\"");
+                if (firstChar == "'")
+                  token = token.replace(new RegExp("\'\'", "g" ), "\'");
+              }
+            }
+          }
+          line.push(token);
+        }
+        else {
+          var firstChar = token[0];
+          if (firstChar == '"' || firstChar == "'") {
+            for (var iEnd = token.length - 1; iEnd >= 0; iEnd--)
+              if (token[iEnd] == firstChar)
+                noOfQuotesAtEnd++;
+          }
+          lastMatch = token.substring(0, token.length - iEnd);
+        }
+      }
+    }
+  }
+}
+
+//When there are 2 consecutive separators (,,) or a separator at the start of a line (^,) we treat them as having a null field in between. If separator is followed by newline (,\n) the treatment depends upon user option whether to ignore trailing commas. If not ignored, a null field is assumed after the trailing delimiter. However, lines which have no character in them (^\n) are ignored instead of the possible alternative of treating them as representative of a single null field. See Issue #324 too.
+function CsvToArray(separator) {
+  var re_linebreak = /[\n\r]+/
+
+  var re_token = /[\"]([^\"]|(\"\"))*[\"]|[,]|[\n\r]|[^,\n\r]*|./g
+  if (separator == ";")
+    re_token = /[\"]([^\"]|(\"\"))*[\"]|[;]|[\n\r]|[^;\n\r]*|./g
+  if (separator == "|")
+    re_token = /[\"]([^\"]|(\"\"))*[\"]|[|]|[\n\r]|[^|\n\r]*|./g
+  if (separator == "\t")
+    re_token = /[\"]([^\"]|(\"\"))*[\"]|[\t]|[\n\r]|[^\t\n\r]*|./g
+
+  var input = gFile.contents;
   //TODO: try using exec in a loop
   var a = input.match(re_token);
 
   var token;
-  var line = [], allLines = [];
+  var line = [];
+  tempStore.csvRecords = [];
   var tkSEPARATOR = 0, tkNEWLINE = 1, tkNORMAL = 2;
   var tk = tkNEWLINE, tkp = tkNEWLINE;
 
@@ -150,8 +342,8 @@ function CsvToArray(input, separator) {
         line.push(null);
       }
       if (line.length > 0) {
-        allLines.push(line);
-        postMessage('Parsing csv data: ' + allLines.length + ' records');
+        tempStore.csvRecords.push(line);
+        postMessage('Parsing csv data: ' + tempStore.csvRecords.length + ' records');
         line = [];
       }
     }
@@ -159,8 +351,8 @@ function CsvToArray(input, separator) {
       tk = tkNORMAL;
       if (tkp != tkSEPARATOR) {
         if (line.length > 0) {
-          allLines.push(line);
-          postMessage('Parsing csv data: ' + allLines.length + ' records');
+          tempStore.csvRecords.push(line);
+          postMessage('Parsing csv data: ' + tempStore.csvRecords.length + ' records');
           line = [];
         }
       }
@@ -180,8 +372,6 @@ function CsvToArray(input, separator) {
       line.push(token);
     }
   }
-
-  return allLines;
 }
 
 //http://www.bennadel.com/blog/1504-Ask-Ben-Parsing-CSV-Strings-With-Javascript-Exec-Regular-Expression-Command.htm

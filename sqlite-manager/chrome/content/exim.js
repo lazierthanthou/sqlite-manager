@@ -500,7 +500,6 @@ var SmExim = {
           params.tableName = aRet.tableName;
           SmExim.importWorker.postMessage(params);
           break;
-
         case 2: //queries created; execution to be done
           var answer = smPrompt.confirm(null, sm_getLStr("exim.confirm.rows.title"), sm_getLStr("exim.confirm.rows.msg") + obj.numRecords);
           if(answer) {

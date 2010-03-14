@@ -474,8 +474,8 @@ var SmExim = {
       var obj = event.data;
 
       if (typeof obj == 'string') {
+//        sm_log("Importing: " + event.data);
         SmExim.showImportStatus("Importing: " + event.data);
-        //sm_log("Importing: " + event.data);
         return;  
       }
 

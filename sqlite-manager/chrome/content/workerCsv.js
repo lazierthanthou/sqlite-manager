@@ -78,8 +78,15 @@ function processCsvData(whichReader) {
   tempStore.columns = [];
   var aVals = tempStore.csvRecords[0];
   if (tempStore.csvParams.bColNames) {
-    for (var c = 0; c < aVals.length; c++) {
-      tempStore.columns.push(aVals[c]);
+    //first row contains column names
+    tempStore.columns = aVals;
+    //if col names are enclosed in quotes, remove them from both ends
+    for (var c = 0; c < tempStore.columns.length; c++) {
+      if (tempStore.columns[c][0] == "'" ||
+        tempStore.columns[c][0] == '"') {
+        var len = tempStore.columns[c].length;
+        tempStore.columns[c] = tempStore.columns[c].substring(1, len - 1);
+      }
     }
   }
   else {
@@ -104,20 +111,21 @@ function createAllQueries(params) {
   var bColNames = tempStore.csvParams.bColNames;
 
   var sQuery = "";
+  var aBadLines = [];
+  var sNoValue = "''";
 
   for (var i = bColNames?1:0; i < iRows; i++) {
     var aVals = tempStore.csvRecords[i];
 
-    var iCol = 0;
     var aInp = [];
-    var aBadLines = [];
-    var sNoValue = "''";
     for (var c = 0; c < aVals.length; c++) {
       if (aVals[c] == null)
         aVals[c] = "null";
 
-      if (!(aVals[c].length > 0 && (aVals[c][0] == "'" || aVals[c][0] == '"')))
-        aVals[c] = quote(aVals[c]);
+      //quote, if not already within quotes
+      if (!(aVals[c].length > 0 && (aVals[c][0] == "'" || aVals[c][0] == '"'))) {
+        aVals[c] = "'" + aVals[c] + "'";
+      }
 
       aInp.push(aVals[c]);
     }
@@ -141,14 +149,9 @@ function createAllQueries(params) {
   var obj = {stage: gStage, success: 1, description: '', numRecords: num, queries: aQueries, badLines: aBadLines};
   return obj;}
 
-//When there are 2 consecutive separators (,,) or a separator at the start of a line (^,) we treat them as having a null field in between. If separator is followed by newline (,\n) the treatment depends upon user option whether to ignore trailing commas. If not ignored, a null field is assumed after the trailing delimiter. However, lines which have no character in them (^\n) are ignored instead of the possible alternative of treating them as representative of a single null field. See Issue #324 too.
+//If separator is followed by newline (,\n) the treatment depends upon user option whether to ignore trailing commas. If not ignored, a null field is assumed after the trailing delimiter. However, lines which have no character in them (^\n) are ignored instead of the possible alternative of treating them as representative of a single null field. See Issue #324 too.
 function CsvToArrayMM(separator) {
-  if (separator == ";")
-    re_token = /[\"]([^\"]|(\"\"))*[\"]|[;]|[\n\r]|[^;\n\r]*|./g
-  if (separator == "|")
-    re_token = /[\"]([^\"]|(\"\"))*[\"]|[|]|[\n\r]|[^|\n\r]*|./g
-  if (separator == "\t")
-    re_token = /[\"]([^\"]|(\"\"))*[\"]|[\t]|[\n\r]|[^\t\n\r]*|./g
+  //check whether tab is handled correctly as a separator
 
   tempStore.csvRecords = [];
   var token;
@@ -165,14 +168,14 @@ function CsvToArrayMM(separator) {
         tempStore.csvRecords.push(line);
         postMessage('Parsing csv data: ' + tempStore.csvRecords.length + ' records');
         line = [];
-        break; //exit the while loop
       }
+      break; //exit the while loop
     }
 
     switch (gFile.contents[i]) {
     case separator:
       tk = tkSEPARATOR;
-      //this separator is the first char in line or follows another separator
+      //this separator is the first char in line or follows another separator. When there are 2 consecutive separators (,,) or a separator at the start of a line (^,) we assume a null field there.
       if (line.length == 0 || tkp == tkSEPARATOR) {        line.push(null);
       }
       break;
@@ -314,10 +317,13 @@ function CsvToArray(separator) {
   }
 }
 
+//called only
 function quote(str) {
-  if (typeof str == "string")
-    if (str.length < 30000)
-        str = str.replace("'", "''", "g");
+  if (typeof str == "string") {
+    for (var i = 0; i < str.length; i++) {
+      str = str.replace("'", "''", "g");
+    }
+  }
   return "'" + str + "'";
 }
 

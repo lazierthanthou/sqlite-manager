@@ -1002,7 +1002,9 @@ var SQLiteManager = {
         this.miOffset = this.miOffset + this.miLimit;
         break;
       case "last":
-        this.miOffset = this.miCount - (this.miCount % this.miLimit);
+        //change to correctly handle navigation to last screen if miLimit divides miCount
+        var iRem = this.miCount % this.miLimit;
+        this.miOffset = this.miCount - ((iRem==0)?this.miLimit:iRem);
         break;
     }
     this.loadTabBrowse();
@@ -1045,7 +1047,8 @@ var SQLiteManager = {
       btnFirst.disabled = false;
       btnPrevious.disabled = false;
     }
-    if (this.miOffset + this.miLimit > this.miCount) {
+    //change condition so that we do not have next/last enabled when we reach the end
+    if (this.miOffset + this.miLimit >= this.miCount) {
       btnNext.disabled = true;
       btnLast.disabled = true;
     }

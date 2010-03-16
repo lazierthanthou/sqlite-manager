@@ -407,6 +407,7 @@ var CreateManager = {
       col["autoinc"] = $$("autoincrement-" + i).checked;
       col["defValue"] = $$("defaultvalue-" + i).value;
       col["allowNull"] = $$("allownull-" + i).checked;
+      col["unique"] = $$("cb-unique-" + i).checked;
       aCols.push(col);
     }
 
@@ -442,6 +443,9 @@ var CreateManager = {
 
       if(!aCols[i]["allowNull"])
         sColDef += " NOT NULL ";
+        
+      if(aCols[i]["unique"])
+        sColDef += " UNIQUE ";
         
       if(aCols[i]["check"] != "")
         sColDef += " " + aCols[i]["check"] + " ";

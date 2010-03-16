@@ -45,10 +45,8 @@
           <label control="primarykey" value="&createTable.primarykey;"/>
           <label control="autoincrement" value="&createTable.autoincrement;"/>
           <label control="allownull" value="&createTable.allownull;"/>
-          <label control="" value="&createTable.default;"/>
-<!--
           <label control="" value="&createTable.unique;"/>
--->
+          <label control="" value="&createTable.default;"/>
         </row>
         <row id="row-template" style="display:none">
           <textbox id="colname"  width="10"/>
@@ -83,6 +81,7 @@
             onclick=""/>
           <checkbox id="allownull" 
             label="&createTable.allownull.yes;"  checked="true"/>
+          <checkbox id="cb-unique" label="&createTable.allownull.yes;" />
           <menulist id="defaultvalue"   style="width:150px"
             sizetopopup="always" editable="true">
             <menupopup>
@@ -92,17 +91,6 @@
               <menuitem label="CURRENT_TIMESTAMP" />
             </menupopup>
           </menulist>
-<!--
-          <menulist id="unique"
-                sizetopopup="always"
-                oncommand="">
-                <menupopup>
-                  <menuitem label="" selected="true"/>
-                  <menuitem label="&createTable.unique.column;" />
-                  <menuitem label="&createTable.unique.columnlist;" />
-                </menupopup>
-          </menulist>
--->
         </row>
       </rows>
     </grid>  

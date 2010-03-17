@@ -129,7 +129,8 @@ var RowOperations = {
                    oldValue: "", dflt_value: null, notnull: 0,
                    oldType: SQLiteTypes.TEXT, newType: SQLiteTypes.TEXT,
                    oldBlob: null, newBlob: null,
-                   isConstant: false, isDefault: false, hasChanged: false};
+                   isConstant: false, isDefault: false, hasChanged: false,
+                   isColPk: false};
       this.maFieldInfo.push(oInfo);
     }
   },
@@ -175,6 +176,11 @@ var RowOperations = {
     var cols = Database.getTableInfo(sTableName, "");
     this.aColumns = cols;
 
+    var colPK = null;
+    var rowidcol = Database.getTableRowidCol(this.sCurrentTable);
+    if (rowidcol["name"] != "rowid")
+      colPK = rowidcol["name"];
+
     this.initFieldData(cols.length);
 
     for(var i = 0; i < cols.length; i++) {
@@ -182,6 +188,8 @@ var RowOperations = {
       this.maFieldInfo[i].colType = cols[i].type;
       this.maFieldInfo[i].dflt_value = cols[i].dflt_value;
       this.maFieldInfo[i].notnull = cols[i].notnull;
+      if (this.maFieldInfo[i].colName == colPK)
+        this.maFieldInfo[i].isColPk = true;
     }
 
     var grbox = $$("columnEntryFields");
@@ -410,6 +418,17 @@ var RowOperations = {
   onInputValue: function(elt, bAnalyzeValue) {
     var iIndex = elt.getAttribute("fieldindex");
 
+    //issue #428: for integer primary key column, do the following and return
+    if (this.maFieldInfo[iIndex].isColPk) {
+      elt.setAttribute("emptytext", "Primary key (will autoincrement)");
+      elt.setAttribute("style", "-moz-appearance: none;background-color:#ffff99;");
+      this.maFieldInfo[iIndex].newType = SQLiteTypes.INTEGER;
+      this.maFieldInfo[iIndex].hasChanged = true;
+      if (elt.value == "")
+        this.maFieldInfo[iIndex].hasChanged = false;
+      return;
+    }
+
     if (bAnalyzeValue) {
       var valInfo = Database.determineType(elt.value);
       this.maFieldInfo[iIndex].newType = valInfo.type;
@@ -444,8 +463,6 @@ var RowOperations = {
         elt.setAttribute("style", "-moz-appearance: none;background-color:#ffcccc;");
         break;
       case SQLiteTypes.INTEGER:
-        //if (this.maFieldInfo[iIndex].colName == colPK)
-        elt.setAttribute("emptytext", "Primary key");
         elt.setAttribute("style", "-moz-appearance: none;background-color:#ccffcc;");
         break;
       case SQLiteTypes.REAL:
@@ -600,11 +617,6 @@ var RowOperations = {
         return false;
     }
 
-    var colPK = null;
-    var rowidcol = Database.getTableRowidCol(this.sCurrentTable);
-    if (rowidcol["name"] != "rowid")
-      colPK = rowidcol["name"];
-
     for(var i = 0; i < this.maFieldInfo.length; i++) {
       if (!this.populateWithDefault(i)) {
         //in here means the column does not have a default value
@@ -624,14 +636,9 @@ var RowOperations = {
           this.maFieldInfo[i].newType = SQLiteTypes.TEXT;
           this.maFieldInfo[i].hasChanged = true;
         }
-
-        //also, if this is an integer primary key
-        if (this.maFieldInfo[i].colName == colPK) {
-          this.maFieldInfo[i].oldType = SQLiteTypes.INTEGER;
-          this.maFieldInfo[i].newType = SQLiteTypes.INTEGER;
-        }
       }
     }
+
     //now, manage the textbox
     for (var i = 0; i < this.maFieldInfo.length; i++) {
       var txtBox = $$("ctrl-tb-" + i);
@@ -713,11 +720,6 @@ var RowOperations = {
   },
 
   doOKInsert: function() {
-    var colPK = null;
-    var rowidcol = Database.getTableRowidCol(this.sCurrentTable);
-    if (rowidcol["name"] != "rowid")
-      colPK = rowidcol["name"];
-
     var inpval, fld;
     var aCols = [];
     var aVals = [];

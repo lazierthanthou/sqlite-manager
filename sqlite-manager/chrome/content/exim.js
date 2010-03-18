@@ -507,10 +507,26 @@ var SmExim = {
               alert(err);
             }
             SmExim.showImportStatus("Importing: inserting " + obj.numRecords + " records in the database...");
-            //TODO: async might help
+            obj.queries.unshift(obj.createTableQuery);
             var bReturn = Database.executeTransaction(obj.queries);
-            //to use async, create query must be executed separately from insert queries (because, executeAsync expects array of statements, not strings; and createStatement fails if the table has not already been created.
-            // var bReturn = Database.executeAsync(obj.queries);
+
+            //BEGIN async use
+            //did not really help
+            //firstly, to use async, create query must be executed separately from insert queries (because, executeAsync expects array of statements, not strings; and createStatement fails if the table has not already been created.
+            //secondly, executeAsync runs out of memory for queries which run ok with executeTransaction above
+            /*
+            var bReturn = true;
+            if (obj.createTableQuery != "") {
+              bReturn = Database.executeTransaction([obj.createTableQuery]);
+            }
+
+            if (bReturn)
+              bReturn = Database.executeAsync(obj.queries);
+            */
+            //END async use
+
+            //TODO: we should also try returning queries from the worker through postmessage so that they can be executed as they are received. Of course, this will require giving up the execution of all the queries in a single transaction
+            //provide an option for this in the import tab so that the user can decide whether they want a transaction or not
             if (bReturn) {
               SmExim.handleImportCompletion(obj.numRecords);
               return;

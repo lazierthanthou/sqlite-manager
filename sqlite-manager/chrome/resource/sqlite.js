@@ -21,8 +21,7 @@ const Cu = Components.utils;
 var stmtCallback = {
   handleResult: function(aResultSet) {
     for (let row = aResultSet.getNextRow(); row; row = aResultSet.getNextRow()) {
-
-      this.logMessage("handleResult\n" + 11);
+//      Cc["@mozilla.org/consoleservice;1"].getService(Ci.nsIConsoleService).logStringMessage("handleResult\n" + 11);
 //       let value = row.getResultByName("column_name");
     }
   },
@@ -32,12 +31,14 @@ var stmtCallback = {
   },
 
   handleCompletion: function(aReason) {
-    if (aReason != Ci.mozIStorageStatementCallback.REASON_FINISHED) {
-      alert("Query canceled or aborted!");
-      return false;
+    switch (aReason) {
+      case Ci.mozIStorageStatementCallback.REASON_FINISHED:
+        return true;
+      case Ci.mozIStorageStatementCallback.REASON_CANCELED:
+      case Ci.mozIStorageStatementCallback.REASON_ERROR:
+        alert("Query canceled or aborted!");
+        return false;
     }
-    else
-      return true;
   }
 };
 
@@ -570,7 +571,7 @@ SQLiteHandler.prototype = {
     var arrTypes = this.getRecordTypes();
 
     if (oFormat.name == "csv")
-      return getCsvFromArray(arrData, arrTypes, arrColumns, oFormat);  
+      return getCsvFromArray(arrData, arrTypes, arrColumns, oFormat);
   },
 
   convertBlobToStr: function(aData) {
@@ -700,7 +701,7 @@ SQLiteHandler.prototype = {
     }
         return dataset;
   },
-  
+
   executeAsync: function(aQueries) {
     var timeStart = Date.now();
 
@@ -880,7 +881,7 @@ SQLiteHandler.prototype = {
 
   executeSimpleSQLs: function(aQueries) {
     for (var i=0; i < aQueries.length; i++) {
-      this.dbConn.executeSimpleSQL(aQueries[i]);    
+      this.dbConn.executeSimpleSQL(aQueries[i]);
     }
   },
 
@@ -889,7 +890,7 @@ SQLiteHandler.prototype = {
       return false;
 
     var sQuery = "ATTACH DATABASE " + SQLiteFn.quote(sPath) + " AS " + SQLiteFn.quoteIdentifier(sName);
-    return this.selectQuery(sQuery);  
+    return this.selectQuery(sQuery);
   },
 
   onSqlError: function(ex, msg, SQLmsg, bAlert) {
@@ -900,7 +901,7 @@ SQLiteHandler.prototype = {
     msg += "\n";
     msg += "Exception Name: " + ex.name + "\n" +
           "Exception Message: " + ex.message;
-    
+
     if (bAlert)
       this.alert(msg);
     Cu.reportError(msg);
@@ -1004,7 +1005,7 @@ SQLiteHandler.prototype = {
         oRow.match = stmt.row.match;
 
         aRows.push(oRow);
-      }  
+      }
     } finally {
       stmt.reset();
     }
@@ -1027,7 +1028,7 @@ SQLiteHandler.prototype = {
         oRow.pk = stmt.row.pk;
 
         aRows.push(oRow);
-      }  
+      }
     } finally {
       stmt.reset();
     }
@@ -1047,7 +1048,7 @@ SQLiteHandler.prototype = {
         oRow.unique = stmt.row.unique;
 
         aRows.push(oRow);
-      }  
+      }
     } finally {
       stmt.reset();
     }
@@ -1067,7 +1068,7 @@ SQLiteHandler.prototype = {
         oRow.name = stmt.row.name;
 
         aRows.push(oRow);
-      }  
+      }
     } finally {
       stmt.reset();
     }
@@ -1086,7 +1087,7 @@ SQLiteHandler.prototype = {
         oRow.name = stmt.row.name;
 
         aRows.push(oRow);
-      }  
+      }
     } finally {
       stmt.reset();
     }
@@ -1174,7 +1175,7 @@ var SQLiteFn = {
     return false;
   },
 
-  makeSqlValue: function(str) { 
+  makeSqlValue: function(str) {
     var reNull = new RegExp(SQLiteRegex.mNull);
     if (reNull.test(str))
       return "NULL";

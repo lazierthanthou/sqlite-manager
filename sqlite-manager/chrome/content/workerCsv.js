@@ -101,10 +101,7 @@ function processCsvData(whichReader) {
 function createAllQueries(params) {
   var aQueries = [];
   var iOtherQueries = 0;
-  if (params.createTableQuery != "") {
-    aQueries.push(params.createTableQuery);
-    iOtherQueries = 1;
-  }
+  var sCreateTableQuery = params.createTableQuery;
 
   var iRows = tempStore.csvRecords.length;
   var iCols = tempStore.columns.length;
@@ -144,9 +141,16 @@ function createAllQueries(params) {
     sQuery = "INSERT INTO " + params.tableName + sVals;
     aQueries.push(sQuery);
     postMessage('Creating SQL statements: ' + aQueries.length + ' created');
+    /*
+    //for transferring queries to master to give the master an opportunity to work with them while creation of queries is on.
+    if (aQueries.length >= 10) {
+      postMessage(stage: 2.5, aQueries: aQueries);
+      aQueries = [];
+    }
+    */
   }
-  var num = aQueries.length - iOtherQueries;
-  var obj = {stage: gStage, success: 1, description: '', numRecords: num, queries: aQueries, badLines: aBadLines};
+
+  var obj = {stage: gStage, success: 1, description: '', numRecords: aQueries.length, queries: aQueries, badLines: aBadLines, createTableQuery: sCreateTableQuery};
   return obj;}
 
 //If separator is followed by newline (,\n) the treatment depends upon user option whether to ignore trailing commas. If not ignored, a null field is assumed after the trailing delimiter. However, lines which have no character in them (^\n) are ignored instead of the possible alternative of treating them as representative of a single null field. See Issue #324 too.

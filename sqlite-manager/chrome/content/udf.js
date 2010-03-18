@@ -426,7 +426,7 @@ var SmUdf = {
     $$("udfNewFuncArgLength").value = records[0][2];
     $$("udfNewFuncEnabled").checked = records[0][3]?true:false;
     $$("udfNewFuncBody").value = records[0][1];
-    
+
     return true;
   },
 
@@ -457,7 +457,7 @@ var SmUdf = {
     $$("udfNewAggFuncEnabled").checked = records[0][4]?true:false;
     $$("udfNewAggFuncOnStepBody").value = records[0][1];
     $$("udfNewAggFuncOnFinalBody").value = records[0][2];
-    
+
     return true;
   },
 
@@ -525,4 +525,3 @@ var SmUdf = {
     }
   },
 };
-

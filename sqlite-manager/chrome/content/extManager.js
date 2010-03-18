@@ -11,7 +11,6 @@ SMExtensionManager.prototype = {
   //boolean value: true if m_tbl exists, or is explicitly set to true
   m_bUseConfig: false,
 
-  
   m_oColStates: {},
 
   _init: function(dbPath) {

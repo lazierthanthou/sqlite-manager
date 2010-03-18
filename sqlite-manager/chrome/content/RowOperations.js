@@ -848,7 +848,7 @@ var RowOperations = {
 
       fld = SQLiteFn.quoteIdentifier(this.aColumns[i].name);
       cols.push(fld + " = " + inpval);
-    } 
+    }
 
     if (cols.length == 0) {
       alert(sm_getLStr("rowOp.noChanges"));
@@ -977,12 +977,12 @@ var RowOperations = {
   changeState: function(iNewState) {
     $$("deck-rowedit").selectedIndex = iNewState;
     if (iNewState == 0) {
-      this.setAcceptAction(this.mAcceptAction);  
-      this.setCancelAction("doCancel");  
+      this.setAcceptAction(this.mAcceptAction);
+      this.setCancelAction("doCancel");
     }
     if (iNewState == 1) {
-      this.setAcceptAction("doOKConfirm");  
-      this.setCancelAction("doCancelConfirm");  
+      this.setAcceptAction("doOKConfirm");
+      this.setCancelAction("doCancelConfirm");
     }
   },
 

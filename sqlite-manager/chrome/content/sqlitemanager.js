@@ -85,8 +85,8 @@ var SQLiteManager = {
         aFkeys.push(aTemp);
         aTemp = [fk];
       }
-      
     }
+
     if (i > 0)
       aFkeys.push(aTemp);
 
@@ -120,7 +120,7 @@ var SQLiteManager = {
         for (var k = 0; k < aFromCols.length; k++) {
 //        alert(k + " : " + oneRow.from + " : " + aFromCols[k].name + " : " + aFromCols[k].notnull);
           if (oneRow.from == aFromCols[k].name && aFromCols[k].notnull == 0) {
-            sNullCols += ' NEW."' + oneRow.from + '" IS NOT NULL AND '; 
+            sNullCols += ' NEW."' + oneRow.from + '" IS NOT NULL AND ';
           }
         }
       }
@@ -163,7 +163,7 @@ var SQLiteManager = {
     }
 
     if (sm_confirm(sm_getLStr("sqlm.confirm.title"), sm_getLStr("sqlm.confirm.msg") + aQ.join('\n\n'))) {
-      Database.executeSimpleSQLs(aQ);    
+      Database.executeSimpleSQLs(aQ);
       this.refreshDbStructure();
     }
   },
@@ -312,7 +312,7 @@ var SQLiteManager = {
       return;
 
     var sPath = SmGlobals.mru.getLatest();
-    if(sPath == null) 
+    if(sPath == null)
       return;
 
     //Last used DB found, open this DB
@@ -2519,7 +2519,7 @@ var SQLiteManager = {
   openDomIWindow: function(aElt) {
     // Load the Window DataSource so that browser windows opened subsequent to DOM Inspector show up in the DOM Inspector's window list.
     var windowDS = Cc["@mozilla.org/rdf/datasource;1?name=window-mediator"].getService(Ci.nsIWindowDataSource);
-    var tmpNameSpace = {};                         
+    var tmpNameSpace = {};
     var sl = Cc["@mozilla.org/moz/jssubscript-loader;1"].createInstance(Ci.mozIJSSubScriptLoader);
     sl.loadSubScript("chrome://inspector/content/hooks.js", tmpNameSpace);
     tmpNameSpace.inspectDOMDocument(document);
@@ -2679,7 +2679,7 @@ SmGlobals.stylerDataTree = {
 
     while (this.mStyleSheet.cssRules.length > 0) {
       this.mStyleSheet.deleteRule(0);
-    }    
+    }
   }
 };
 
@@ -2725,7 +2725,7 @@ SmGlobals.mru = {
     }
     //add in the beginning
     this.mList.splice(0, 0, sPath);
-    
+
     if (this.mList.length > this.mSize) {
       //remove the extra entries
       this.mList.splice(this.mSize, this.mList.length  - this.mSize);

@@ -58,13 +58,12 @@ var SmExim = {
 
       this.loadDbNames("eximDbName", Database.logicalDbName);
       this.loadObjectNames("eximObjectNames", this.sObjectName, sObjectType);
-  
+
       $$("eximLblObjectType").value = sm_getLStr("eximLblObjectType") + sObjectType;
       return;
     }
-
   },
-  
+
   loadObjectNames: function(sListBoxId, sTableName, sObjectType) {
     var dbName = $$("eximDbName").value;
     var listbox = $$(sListBoxId);
@@ -77,7 +76,7 @@ var SmExim = {
     }
     else
        aObjectNames = Database.getObjectList(sObjectType, dbName);
-    
+
     PopulateDropDownItems(aObjectNames, listbox, sTableName);
     this.onSelectObject();
   },
@@ -218,7 +217,7 @@ var SmExim = {
         }
         if (cEncloser == "din") {
           if (typeof row[iCol] == "string") {
-            row[iCol] = row[iCol].replace("\"", "\"\"", "g");        
+            row[iCol] = row[iCol].replace("\"", "\"\"", "g");
             row[iCol] = '"' + row[iCol] + '"';
           }
            data.push(row[iCol]);
@@ -226,7 +225,7 @@ var SmExim = {
         }
         if (cEncloser == '"') {
           if (typeof row[iCol] == "string") {
-            row[iCol] = row[iCol].replace("\"", "\"\"", "g");        
+            row[iCol] = row[iCol].replace("\"", "\"\"", "g");
           }
           row[iCol] = '"' + row[iCol] + '"';
            data.push(row[iCol]);
@@ -469,14 +468,14 @@ var SmExim = {
     // URL is a nsIURI; to get "file://...", use URL.spec
     csvParams.file = URL.spec;
 
-    this.importWorker = new Worker('workerCsv.js');  
+    this.importWorker = new Worker('workerCsv.js');
     this.importWorker.onmessage = function(event) {
       var obj = event.data;
 
       if (typeof obj == 'string') {
 //        sm_log("Importing: " + event.data);
         SmExim.showImportStatus("Importing: " + event.data);
-        return;  
+        return;
       }
 
       //if the worker failed, terminate it
@@ -524,14 +523,14 @@ var SmExim = {
     };
 
     this.importWorker.onerror = function(error) {
-      alert(["CSV Worker error!", error.message, 'File name: ' + error.filename, 'Line number: ' + error.lineno].join('\n'));  
+      alert(["CSV Worker error!", error.message, 'File name: ' + error.filename, 'Line number: ' + error.lineno].join('\n'));
       SmExim.handleImportCompletion(-1);
     };
 
     csvParams.stage = 1;
     this.importWorker.postMessage(csvParams);
   },
-  
+
   readSqlContent: function(file, charset) {
     var sData = FileIO.read(file, charset);
     var aQueries = sql_tokenizer(sData);
@@ -551,7 +550,7 @@ var SmExim = {
     }
     return -1;
   },
-  
+
   readXmlContent: function(file, charset) {
     var bType = $$("eximXml_type-attribute").checked;
 

@@ -129,7 +129,7 @@ function createAllQueries(params) {
 
       aInp.push(aVals[c]);
     }
-    
+
     //if aInp has fewer values than expected, 
     //complete the aInp array with empty strings.
     while (aInp.length < iCols)
@@ -223,7 +223,6 @@ function CsvToArrayMM(separator) {
 //    case "x":
 //    case "X":
 //      var iStart = i, iEnd = i;
-//      
 //      break;
 
     default:
@@ -271,7 +270,7 @@ function CsvToArray(separator) {
     tkp = tk;
 
     token = a[i];
-    
+
     if (token == separator) {
       tk = tkSEPARATOR;
       //this separator is the first char in line or follows another separator
@@ -326,4 +325,3 @@ function quote(str) {
   }
   return "'" + str + "'";
 }
-

@@ -507,7 +507,9 @@ var SmExim = {
               alert(err);
             }
             SmExim.showImportStatus("Importing: inserting " + obj.numRecords + " records in the database...");
-            obj.queries.unshift(obj.createTableQuery);
+            if (obj.createTableQuery != "") {
+              obj.queries.unshift(obj.createTableQuery);
+            }
             var bReturn = Database.executeTransaction(obj.queries);
 
             //BEGIN async use

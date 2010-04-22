@@ -112,7 +112,7 @@ createXpiFile () {
 ####################################################
 installXR () {
   echo "Installing xulrunner app"
-  sudo xulrunner-1.9.1 --install-app $releaseDir/$xrFile
+  sudo xulrunner --install-app $releaseDir/$xrFile
   executable=/usr/lib/mrinalkant/sqlite-manager/sqlite-manager
   smappini=/usr/lib/mrinalkant/sqlite-manager/application.ini
   echo "Creating shortcut for executable in /usr/bin/"

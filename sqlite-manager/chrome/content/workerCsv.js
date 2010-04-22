@@ -49,7 +49,7 @@ onmessage = function(event) {
         tempStore.csvParams = params;
         gFile.read(params.file, params.charset);
         postMessage('Read csv file: ' + gFile.contents.length + ' bytes');
-        var obj = processCsvData(2); //1 for original, 2 for new reader
+        var obj = processCsvData();
         postMessage(obj);
         break;
 
@@ -62,10 +62,7 @@ onmessage = function(event) {
 };
 
 function processCsvData(whichReader) {
-  if (whichReader == 1)
-    CsvToArray(tempStore.csvParams.separator);
-  if (whichReader == 2)
-    CsvToArrayMM(tempStore.csvParams.separator);
+  csvToArray(tempStore.csvParams.separator);
 
   gFile.init();
 
@@ -73,7 +70,9 @@ function processCsvData(whichReader) {
   postMessage('Parsed csv data: ' + iRows + ' records');
 
   if (iRows <= 0) {
-    var obj = {stage: gStage, success: 0, description: 'no rows found'};    return obj;  }
+    var obj = {stage: gStage, success: 0, description: 'no rows found'};
+    return obj;
+  }
 
   tempStore.columns = [];
   var aVals = tempStore.csvRecords[0];
@@ -138,7 +137,21 @@ function createAllQueries(params) {
       continue;
     }
     sVals = " VALUES (" + aInp.join(",") + ")";
-    sQuery = "INSERT INTO " + params.tableName + sVals;
+
+    var sCols = "";
+    //Issue #255: use column names when importing into an existing table
+    //we are importing into an existing table if sCreateTableQuery == ""
+    //column names are in first row if tempStore.csvParams.bColNames == true
+    //in that case, columns are listed in tempStore.columns
+    if (sCreateTableQuery == "" && tempStore.csvParams.bColNames) {
+      var aUsedCols = [];
+      for (var c = 0; c < tempStore.columns.length; c++) {
+        aUsedCols.push('"' + tempStore.columns[c] + '"');
+      }
+      sCols = " (" + aUsedCols.join(",") + ") ";
+    }
+
+    sQuery = "INSERT INTO " + params.tableName + sCols + sVals;
     aQueries.push(sQuery);
     postMessage('Creating SQL statements: ' + aQueries.length + ' created');
     /*
@@ -151,10 +164,11 @@ function createAllQueries(params) {
   }
 
   var obj = {stage: gStage, success: 1, description: '', numRecords: aQueries.length, queries: aQueries, badLines: aBadLines, createTableQuery: sCreateTableQuery};
-  return obj;}
+  return obj;
+}
 
 //If separator is followed by newline (,\n) the treatment depends upon user option whether to ignore trailing commas. If not ignored, a null field is assumed after the trailing delimiter. However, lines which have no character in them (^\n) are ignored instead of the possible alternative of treating them as representative of a single null field. See Issue #324 too.
-function CsvToArrayMM(separator) {
+function csvToArray(separator) {
   //check whether tab is handled correctly as a separator
 
   tempStore.csvRecords = [];
@@ -180,7 +194,8 @@ function CsvToArrayMM(separator) {
     case separator:
       tk = tkSEPARATOR;
       //this separator is the first char in line or follows another separator. When there are 2 consecutive separators (,,) or a separator at the start of a line (^,) we assume a null field there.
-      if (line.length == 0 || tkp == tkSEPARATOR) {        line.push(null);
+      if (line.length == 0 || tkp == tkSEPARATOR) {
+        line.push(null);
       }
       break;
 
@@ -246,86 +261,4 @@ function CsvToArrayMM(separator) {
       break;
     }
   }
-}
-
-//When there are 2 consecutive separators (,,) or a separator at the start of a line (^,) we treat them as having a null field in between. If separator is followed by newline (,\n) the treatment depends upon user option whether to ignore trailing commas. If not ignored, a null field is assumed after the trailing delimiter. However, lines which have no character in them (^\n) are ignored instead of the possible alternative of treating them as representative of a single null field. See Issue #324 too.
-function CsvToArray(separator) {
-  var re_linebreak = /[\n\r]+/
-
-  var re_token = /[\"]([^\"]|(\"\"))*[\"]|[,]|[\n\r]|[^,\n\r]*|./g
-  if (separator == ";")
-    re_token = /[\"]([^\"]|(\"\"))*[\"]|[;]|[\n\r]|[^;\n\r]*|./g
-  if (separator == "|")
-    re_token = /[\"]([^\"]|(\"\"))*[\"]|[|]|[\n\r]|[^|\n\r]*|./g
-  if (separator == "\t")
-    re_token = /[\"]([^\"]|(\"\"))*[\"]|[\t]|[\n\r]|[^\t\n\r]*|./g
-
-  var input = gFile.contents;
-  //TODO: try using exec in a loop
-  var a = input.match(re_token);
-
-  var token;
-  var line = [];
-  tempStore.csvRecords = [];
-  var tkSEPARATOR = 0, tkNEWLINE = 1, tkNORMAL = 2;
-  var tk = tkNEWLINE, tkp = tkNEWLINE;
-
-  for (var i = 0; i < a.length; i++) {
-    tkp = tk;
-
-    token = a[i];
-
-    if (token == separator) {
-      tk = tkSEPARATOR;
-      //this separator is the first char in line or follows another separator
-      if (line.length == 0 || tkp == tkSEPARATOR) {
-        line.push(null);
-      }
-    }
-    else if (token == "\n" || token == "\r") {
-      tk = tkNEWLINE;
-      if (!tempStore.csvParams.ignoreTrailingDelimiter && tkp == tkSEPARATOR) {
-        line.push(null);
-      }
-      if (line.length > 0) {
-        tempStore.csvRecords.push(line);
-        postMessage('Parsing csv data: ' + tempStore.csvRecords.length + ' records');
-        line = [];
-      }
-    }
-    else { //field value
-      tk = tkNORMAL;
-      if (tkp != tkSEPARATOR) {
-        if (line.length > 0) {
-          tempStore.csvRecords.push(line);
-          postMessage('Parsing csv data: ' + tempStore.csvRecords.length + ' records');
-          line = [];
-        }
-      }
-      //remove quotes from both ends
-      if (token.length >= 2) {
-        var firstChar = token[0];
-        if (firstChar == '"' || firstChar == "'") {
-          if (token[token.length - 1] == firstChar) {
-            token = token.substring(1, token.length - 1);
-            if (firstChar == '"')
-              token = token.replace(new RegExp("\"\"", "g" ), "\"");
-            if (firstChar == "'")
-              token = token.replace(new RegExp("\'\'", "g" ), "\'");
-          }
-        }
-      }
-      line.push(token);
-    }
-  }
-}
-
-//called only
-function quote(str) {
-  if (typeof str == "string") {
-    for (var i = 0; i < str.length; i++) {
-      str = str.replace("'", "''", "g");
-    }
-  }
-  return "'" + str + "'";
 }

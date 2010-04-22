@@ -182,7 +182,7 @@ var SQLiteManager = {
 
   // Startup: called ONCE during the browser window "load" event
   Startup: function() {
-    //$$("experiment").hidden = true;
+    $$("experiment").hidden = true;
 
     this.msQuerySelectInstruction = sm_getLStr("sqlm.selectQuery");
 

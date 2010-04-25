@@ -115,12 +115,14 @@ function createAllQueries(params) {
 
     var aInp = [];
     for (var c = 0; c < aVals.length; c++) {
-      if (aVals[c] == null)
+      if (aVals[c] == null) {
         aVals[c] = "null";
-
-      //quote, if not already within quotes
-      if (!(aVals[c].length > 0 && (aVals[c][0] == "'" || aVals[c][0] == '"'))) {
-        aVals[c] = "'" + aVals[c] + "'";
+      }
+      else {
+        //quote, if not already within quotes
+        if (!(aVals[c].length > 0 && (aVals[c][0] == "'" || aVals[c][0] == '"'))) {
+          aVals[c] = "'" + aVals[c] + "'";
+        }
       }
 
       aInp.push(aVals[c]);
@@ -180,6 +182,7 @@ function csvToArray(separator) {
   var iStart = 0, iEnd = 0;
   var i = -1;
   while (true) {
+    tkp = tk;
     i++;
     if (i >= gFile.size) {
       if (line.length > 0) {

@@ -1,0 +1,280 @@
+<!ENTITY window.title "Менеджер SQLite">
+<!ENTITY menu.tools "Инструменты">
+<!ENTITY menu.tools.ak "м">
+<!ENTITY sqliteVersion "Версия SQLite">
+<!ENTITY sqliteVersion.ak "В">
+<!ENTITY mi.options "Настройки">
+<!ENTITY mi.options.ak "с">
+<!ENTITY mi.sharedPagerCache "Разделяемый кэш программы постраничного вывода">
+<!ENTITY mi.sharedPagerCache.ak "Р">
+<!ENTITY mi.extensionTable "Использовать таблицу для расширения данных">
+<!ENTITY mi.extensionTable.ak "п">
+<!ENTITY mi.console "Консоль ошибок">
+<!ENTITY mi.console.ak "К">
+<!ENTITY mi.aboutconfig "about:config">
+<!ENTITY mi.aboutconfig.ak "b">
+<!ENTITY menu.db "База данных">
+<!ENTITY menu.db.ak "Б">
+<!ENTITY menu.db.new "Новая база данных">
+<!ENTITY menu.db.new.ak "Н">
+<!ENTITY menu.db.newMemory "Новая база данных в памяти">
+<!ENTITY menu.db.newMemory.ak "м">
+<!ENTITY menu.db.connect "Подключить базу данных">
+<!ENTITY menu.db.connect.ak "П">
+<!ENTITY menu.db.connectADS "Подключить базу данных ADS">
+<!ENTITY menu.db.attach "Присоединить базу данных">
+<!ENTITY menu.db.attach.ak "д">
+<!ENTITY menu.db.detach "Отсоединить базу данных">
+<!ENTITY menu.db.detach.ak "т">
+<!ENTITY menu.db.close "Закрыть базу данных">
+<!ENTITY menu.db.close.ak "З">
+<!ENTITY menu.db.mru "Часто используемые">
+<!ENTITY menu.db.mru.ak "Ч">
+<!ENTITY menu.db.copy "Копировать базу данных">
+<!ENTITY menu.db.copy.ak "К">
+<!ENTITY menu.db.compact "Сжать базу данных">
+<!ENTITY menu.db.compact.ak "ж">
+<!ENTITY menu.db.analyze "Анализировать базу данных">
+<!ENTITY menu.db.analyze.ak "л">
+<!ENTITY menu.db.check "Проверить целостность">
+<!ENTITY menu.db.check.ak "ц">
+<!ENTITY exportAll "Экспортировать все таблицы">
+<!ENTITY exportAll.ak "в">
+<!ENTITY exportDb "Экспортировать базу данных">
+<!ENTITY exportDb.ak "б">
+<!ENTITY exportDbStr "Экспортировать структуру базы данных">
+<!ENTITY exportDbStr.ak "с">
+<!ENTITY import "Импортировать">
+<!ENTITY import.ak "р">
+<!ENTITY refresh "Обновить">
+<!ENTITY refresh.ak "в">
+<!ENTITY reconnect "Подключиться повторно">
+<!ENTITY reconnect.ak "д">
+<!ENTITY refreshDirection "Для обновления нажмите Shift+F5">
+<!ENTITY exit "Выход">
+<!ENTITY exit.ak "х">
+<!ENTITY createTable "Создать таблицу">
+<!ENTITY dropTable "Удалить таблицу">
+<!ENTITY modifyTable "Изменить таблицу">
+<!ENTITY emptyTable "Очистить таблицу">
+<!ENTITY reindexTable "Переиндексировать таблицу">
+<!ENTITY renameTable "Переименовать таблицу">
+<!ENTITY copyTable "Копировать таблицу">
+<!ENTITY exportTable "Экспортировать таблицу">
+<!ENTITY createIndex "Создать индекс">
+<!ENTITY dropIndex "Удалить индекс">
+<!ENTITY reindexIndex "Переиндексировать индекс">
+<!ENTITY createView "Создать производную таблицу">
+<!ENTITY dropView "Удалить производную таблицу">
+<!ENTITY renameView "Переименовать производную таблицу">
+<!ENTITY modifyView "Изменить производную таблицу">
+<!ENTITY exportView "Экспортировать производную таблицу">
+<!ENTITY createTrigger "Создать триггер">
+<!ENTITY dropTrigger "Удалить триггер">
+<!ENTITY renameTrigger "Переименовать триггер">
+<!ENTITY menu.table "Таблица">
+<!ENTITY menu.table.ak "Т">
+<!ENTITY menu.index "Индекс">
+<!ENTITY menu.index.ak "н">
+<!ENTITY menu.view "Производная таблица">
+<!ENTITY menu.view.ak "П">
+<!ENTITY menu.trigger "Триггер">
+<!ENTITY menu.trigger.ak "р">
+<!ENTITY create "Создать">
+<!ENTITY create.ak "С">
+<!ENTITY drop "Удалить">
+<!ENTITY drop.ak "д">
+<!ENTITY export "Экспортировать">
+<!ENTITY export.ak "к">
+<!ENTITY empty "Очистить">
+<!ENTITY empty.ak "ч">
+<!ENTITY rename "Переименовать">
+<!ENTITY rename.ak "П">
+<!ENTITY modify "Изменить">
+<!ENTITY modify.ak "з">
+<!ENTITY copy "Копировать">
+<!ENTITY copy.ak "р">
+<!ENTITY reindex "Переиндексировать">
+<!ENTITY reindex.ak "в">
+<!ENTITY analyze "Анализировать">
+<!ENTITY analyze.ak "в">
+<!ENTITY menu.help "Справка">
+<!ENTITY menu.help.ak "С">
+<!ENTITY menu.help.reportProblem "Сообщить об ошибке">
+<!ENTITY menu.help.reportProblem.ak "б">
+<!ENTITY menu.help.faq "Часто задаваемые вопросы">
+<!ENTITY menu.help.faq.ak "Ч">
+<!ENTITY menu.help.sqlitehome "Домашняя страница SQLite">
+<!ENTITY menu.help.sqlitehome.ak "Д">
+<!ENTITY menu.help.sqlitesyntax "Синтаксис SQLite">
+<!ENTITY menu.help.sqlitesyntax.ak "н">
+<!ENTITY menu.help.extensionhome "Домашняя страница расширения">
+<!ENTITY menu.help.extensionhome.ak "м">
+<!ENTITY menu.help.aboutextension "О SQLite Manager">
+<!ENTITY menu.help.aboutextension.ak "S">
+<!ENTITY profile.dblist.select "(Выберите профиль базы данных)">
+<!ENTITY profile.dblist.buttonlabel "Открыть">
+<!ENTITY string.enterSql "Введите запрос">
+<!ENTITY string.enterSql.ak "з">
+<!ENTITY tab.structure "Структура">
+<!ENTITY tab.browse "Просмотр и Поиск">
+<!ENTITY tab.execute "Выполнить запрос">
+<!ENTITY tab.dbinfo "Настройки БД">
+<!ENTITY tab.udf "Определённые пользователем функции">
+<!ENTITY btn.search "Поиск">
+<!ENTITY btn.search.ak "к">
+<!ENTITY btn.showAll "Показать всё">
+<!ENTITY btn.showAll.ak "в">
+<!ENTITY btn.exporttable "Экспортировать">
+<!ENTITY btn.exporttable.ak "р">
+<!ENTITY btn.addcol "Добавить столбец">
+<!ENTITY btn.addrecord "Добавить">
+<!ENTITY btn.addrecord.ak "б">
+<!ENTITY menu.editSelected "Изменить">
+<!ENTITY menu.editSelected.ak "з">
+<!ENTITY menu.deleteSelected "Удалить">
+<!ENTITY menu.deleteSelected.ak "д">
+<!ENTITY menu.duplicateRecord "Дублировать">
+<!ENTITY menu.duplicateRecord.ak "л">
+<!ENTITY menu.copyColName "Копировать имя столбца">
+<!ENTITY menu.copyColName.ak "К">
+<!ENTITY menu.copyCell "Копировать ячейку">
+<!ENTITY menu.copyCell.ak "К">
+<!ENTITY menu.copyRows "Копировать строку(и) в CSV">
+<!ENTITY menu.copyRows.ak "С">
+<!ENTITY menu.copyRowsForExcel "Копировать строку(и) в CSV (совместимо с MSExcel)">
+<!ENTITY menu.copyRowsAsSql "Копировать строку(и) в SQL">
+<!ENTITY menu.copyRowsAsSql.ak "Q">
+<!ENTITY menu.editColumn "Править столбец">
+<!ENTITY menu.editColumn.ak "П">
+<!ENTITY menu.dropColumn "Удалить столбец">
+<!ENTITY menu.dropColumn.ak "д">
+<!ENTITY btn.runsql "Выполнить запрос">
+<!ENTITY btn.runsql.ak "В">
+<!ENTITY btn.runsql.tooltiptext "Для выполнения запроса используйте «Ctrl+;»">
+<!ENTITY buttonRun "Выполнить SQL-оператор (с результатами)">
+<!ENTITY buttonRun.ak "В">
+<!ENTITY buttonExecute "Выполнить оператор (без результатов)">
+<!ENTITY buttonExecute.ak "п">
+<!ENTITY label.sqlLastError "Последняя ошибка">
+<!ENTITY label.resultOfQuery "Результаты запроса">
+<!ENTITY label.resultOfQuery.ak "Р">
+<!ENTITY btn.prevSql "Предыдущий запрос">
+<!ENTITY btn.nextSql "Следующий запрос">
+<!ENTITY btn.saveQuery "Сохранить запрос под именем">
+<!ENTITY btn.clearHistory "Очистить историю запросов">
+<!ENTITY sbp.db "БД">
+<!ENTITY masterinfo.tbl_name "Связано с таблицей">
+<!ENTITY masterinfo.rootpage "Первая страница">
+<!ENTITY masterinfo.sql "SQL-оператор создавший этот объект">
+<!ENTITY table "Таблица">
+<!ENTITY index "Индекс">
+<!ENTITY view "Производная таблица">
+<!ENTITY trigger "Триггер">
+<!ENTITY first "Первая">
+<!ENTITY previous "Предыдущая">
+<!ENTITY next "Следующая">
+<!ENTITY last "Последняя">
+<!ENTITY to "—">
+<!ENTITY of "из">
+<!ENTITY about "О">
+<!ENTITY version "Версия">
+<!ENTITY author "Автор">
+<!ENTITY license "Лицензия">
+<!ENTITY license.mpl "Mozilla Public License версия 1.1">
+<!ENTITY dir "Каталог">
+<!ENTITY profileDir "Каталог профиля">
+<!ENTITY userDir "Каталог пользователя по умолчанию">
+<!ENTITY selectUserDir "Выбрать каталог по умолчанию">
+<!ENTITY infoFromMaster "Информация из основной таблицы">
+<!ENTITY moreInfo "Дополнительно">
+<!ENTITY numColumns "Кол. столбцов">
+<!ENTITY numIndexes "Кол. индексов">
+<!ENTITY numTriggers "Кол. триггеров">
+<!ENTITY numRecords "Кол. записей">
+<!ENTITY Columns "Столбцы">
+<!ENTITY name "Имя">
+<!ENTITY type "Тип">
+<!ENTITY pKey "П.ключ">
+<!ENTITY notNull "Не пустой указатель">
+<!ENTITY default "Значение по умолчанию">
+<!ENTITY indexProp "Свойства индекса">
+<!ENTITY indexedTable "Индексированная таблица">
+<!ENTITY indexedFields "Индексированные поля">
+<!ENTITY indexDuplicate "Сдублированные значения">
+<!ENTITY selectAllRecords "Выбрать все записи">
+<!ENTITY selectAllRecords.ak "б">
+<!-- copyTable.xul -->
+<!ENTITY From "Из">
+<!ENTITY To "В">
+<!ENTITY Database "База данных">
+<!ENTITY Database.ak "Б">
+<!ENTITY Table "Таблица">
+<!ENTITY onlyStructure "Только структура (данные не будут скопированы)">
+<!ENTITY enterNewTable "Введите имя новой таблицы">
+<!ENTITY enterNewTable.ak "В">
+<!-- create dialogs -->
+<!ENTITY Name.ak "м">
+<!ENTITY ViewName "Имя производной таблицы">
+<!ENTITY Temporary "Временный">
+<!ENTITY Temporary.ak "В">
+<!ENTITY ifNotExists "Если не существует">
+<!ENTITY ifNotExists.ak "с">
+<!ENTITY SelectStatement "Выберите оператор">
+<!ENTITY SelectStatement.ak "В">
+<!ENTITY createIndex.dbName "База данных:">
+<!ENTITY createIndex.indexname "Имя индекса:">
+<!ENTITY createIndex.indexproperties "Определить свойства индекса">
+<!ENTITY createIndex.tabletoindex "Таблица для индексирования:">
+<!ENTITY createIndex.loading "(загрузка)">
+<!ENTITY createIndex.duplicatevalues "Сдублированные значения:">
+<!ENTITY createIndex.allowed "разрешены">
+<!ENTITY createIndex.notallowed "не разрешены">
+<!ENTITY createIndex.indexcolumns "Определить индексные столбцы">
+<!ENTITY createTable.dbName "База данных:">
+<!ENTITY createTable.tablename "Имя таблицы:">
+<!ENTITY createTable.temptable "Временная таблица">
+<!ENTITY createTable.temptable.ak "В">
+<!ENTITY createTable.ifnotexists "Если не существует">
+<!ENTITY createTable.ifnotexists.ak "с">
+<!ENTITY createTable.tablecolumns "Определить столбцы">
+<!ENTITY createTable.colname "Имя столбца">
+<!ENTITY createTable.datatype "Тип данных">
+<!ENTITY createTable.primarykey "Первичный ключ">
+<!ENTITY createTable.autoincrement "Автоинкремент">
+<!ENTITY createTable.allownull "Разрешить пустые указатели">
+<!ENTITY createTable.default "Значение по умолчанию">
+<!ENTITY createTable.unique "Уникальный">
+<!ENTITY createTable.primarykey.yes "Да">
+<!ENTITY createTable.autoincrement.yes "Да">
+<!ENTITY createTable.autoincrement.tooltip "Автоматическое увеличение счётчика разрешено только для целочисленного первичного ключа">
+<!ENTITY createTable.allownull.yes "Да">
+<!ENTITY createTable.unique.column "Уникальный столбец">
+<!ENTITY createTable.unique.columnlist "Уникальный столбец-список">
+<!ENTITY createTrigger.dbName "База данных:">
+<!ENTITY createTrigger.triggername "Имя триггера:">
+<!ENTITY createTrigger.tabletoindex "в таблице:">
+<!ENTITY createTrigger.loading "(загрузка)">
+<!ENTITY createTrigger.tempObject "Временный">
+<!ENTITY createTrigger.tempObject.ak "В">
+<!ENTITY createTrigger.ifnotexists "Если не существует">
+<!ENTITY createTrigger.ifnotexists.ak "с">
+<!ENTITY createTrigger.databaseevent "Событие базы данных">
+<!ENTITY createTrigger.triggerTime "До/после:">
+<!ENTITY createTrigger.triggerTime.ak "Д">
+<!ENTITY createTrigger.dbEvent "Событие:">
+<!ENTITY createTrigger.dbEvent.ak "С">
+<!ENTITY createTrigger.triggeraction "Действие триггера">
+<!ENTITY createTrigger.foreachrow "Для каждой строки">
+<!ENTITY createTrigger.foreachrow.ak "Д">
+<!ENTITY createTrigger.txtWhenExpression "WHEN выражение (введите только выражение без «WHEN»):">
+<!ENTITY createTrigger.txtWhenExpression.ak "W">
+<!ENTITY createTrigger.txtTriggerSteps "Этапы триггера (разделяйте точкой с запятой):">
+<!ENTITY createTrigger.txtTriggerSteps.ak "т">
+<!-- confirm dialog -->
+<!ENTITY confirm.button.accept "Да">
+<!ENTITY confirm.button.cancel "Нет">
+<!-- RowOperations.xul -->
+<!ENTITY rowOperations.tablenames "Имя таблицы:">
+<!ENTITY rowOperations.tablenames.ak "м">
+<!ENTITY rowOperations.loading "(загрузка)">

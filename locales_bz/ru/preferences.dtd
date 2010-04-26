@@ -1,0 +1,75 @@
+<!ENTITY prefwinTitle "SQLite Manager — Настройки">
+<!ENTITY paneMain.title "Основные">
+<!ENTITY pref-openMode.label "Запускать SQLite Manager">
+<!ENTITY pref-openMode-win "в новом окне">
+<!ENTITY pref-openMode-win.ak "к">
+<!ENTITY pref-openMode-tab "в новой вкладке">
+<!ENTITY pref-openADS.label "Открыть ADS (Windows/только NTFS)">
+<!ENTITY disable "Отключить">
+<!ENTITY enable "Включить">
+<!ENTITY whenSMStarts "При запуске SQLite Manager">
+<!ENTITY pref-openWithLastDb.label "Открывать последнюю использовавшуюся базу данных">
+<!ENTITY pref-openWithLastDb.ak "т">
+<!ENTITY pref-promptForLastDb.label "Всегда запрашивать подтверждение при открытии последней использовавшейся базы данных">
+<!ENTITY pref-promptForLastDb.ak "В">
+<!ENTITY pref-autoBackup.label "Перед открытием базы данных создавать резервную копию с меткой времени">
+<!ENTITY pref-autoBackup.ak "П">
+<!ENTITY pref-autoBackup.on "да">
+<!ENTITY pref-autoBackup.off "нет">
+<!ENTITY pref-autoBackup.prompt "спросить">
+<!ENTITY pref-sqliteFileExtensions.label "Расширение по умолчанию для файлов SQLite">
+<!ENTITY pref-sqliteFileExtensions.ak "Р">
+<!ENTITY pref-tableForExtensionManagement.label "Имя таблицы, хранящей дополнительные управляющие данные">
+<!ENTITY pref-tableForExtensionManagement.ak "м">
+<!ENTITY panePrompts.title "Командная строка">
+<!ENTITY confirmBeforeExecute "Требовать подтверждения перед выполнением следующих действий">
+<!ENTITY pref-confirm.records.label "Добавление/изменение записи">
+<!ENTITY pref-confirm.create.label "Создание таблицы/индекса/производной таблицы/триггера">
+<!ENTITY pref-confirm.otherSql.label "Любых других действий над таблицами">
+<!ENTITY paneInterface.title "Пользовательский интерфейс">
+<!ENTITY toolbar.caption "Настройки панелей инструментов">
+<!ENTITY pref-hideMainToolbar.label "Скрыть все панели инструментов">
+<!ENTITY pref-showMainToolbarDatabase.label "Показывать панель инструментов «База данных»">
+<!ENTITY pref-showMainToolbarIndex.label "Показывать панель инструментов «Индекс»">
+<!ENTITY pref-showMainToolbarTable.label "Показывать панель инструментов «Таблица»">
+<!ENTITY pref-showMainToolbarDebug.label "Показывать панель инструментов «Отладчик»">
+<!ENTITY pref-notificationDuration.label "Длительность показа уведомляющих сообщений (в секундах)">
+<!ENTITY pref-notificationDuration.ak "Д">
+<!ENTITY pref-displayNumRecords.label "Число отображаемых записей (вкладка «Просмотр и Поиск»)">
+<!ENTITY pref-displayNumRecords.ak "Ч">
+<!ENTITY pref-sqlTextboxRows.label "Число строк в текстовом поле для ввода запросов (вкладка «Выполнить запрос»)">
+<!ENTITY pref-sqlTextboxRows.ak "с">
+<!ENTITY pref-maxColumnsInTable.label "Максимальное число столбцов в диалоге создания таблицы">
+<!ENTITY pref-maxColumnsInTable.ak "М">
+<!ENTITY blobDisplay.caption "Как отображать данные BLOB?">
+<!ENTITY pref-textForBlob.label "Текст для отображения значений BLOB">
+<!ENTITY pref-textForBlob.ak "Т">
+<!ENTITY pref-showBlobSize.label "Отображать размер данных BLOB">
+<!ENTITY pref-maxSizeToShowBlobData.label "Отображать BLOB как строку, если его размер в байтах менее">
+<!ENTITY pref-maxSizeToShowBlobData.ak "б">
+<!ENTITY pref-displayDataAs.label "Отображать данные как:">
+<!ENTITY pref-displayDataAs-hex "шестнадцатеричное значение (например, X'31323334')">
+<!ENTITY pref-displayDataAs-string "строку">
+<!ENTITY pref-whenInsertingShow.label "При добавлении новой записи показывать">
+<!ENTITY pref-whenInsertingShow.ak "П">
+<!ENTITY pref-whenInsertingShow-previous "предыдущее добавленное значение">
+<!ENTITY pref-whenInsertingShow-default "значение по умолчанию">
+<!ENTITY pref-identifierQuoteChar.label "Заключать идентификаторы в">
+<!ENTITY pref-identifierQuoteChar-doublequotes "двойные кавычки">
+<!ENTITY pref-identifierQuoteChar-squarebrackets "квадратные скобки">
+<!ENTITY pref-identifierQuoteChar-graveaccents "апострофы">
+<!ENTITY paneDatatree.title "Стиль дерева данных">
+<!ENTITY paneDatatree.datatype "Тип данных">
+<!ENTITY paneDatatree.property "Свойство">
+<!ENTITY paneDatatree.unselected "Не выбрано">
+<!ENTITY paneDatatree.selected "Выбрано">
+<!ENTITY paneDatatree.typeNull "Пустое значение">
+<!ENTITY paneDatatree.typeInteger "Целое число">
+<!ENTITY paneDatatree.typeReal "Действительное число">
+<!ENTITY paneDatatree.typeText "Текст">
+<!ENTITY paneDatatree.typeBlob "BLOB">
+<!ENTITY paneDatatree.textColor "цвет текста">
+<!ENTITY paneDatatree.backgroundColor "цвет фона">
+<!ENTITY paneDatatree.btnSetDefault "Установить значения по умолчанию">
+<!ENTITY paneDatatree.btnApply "Применить">
+<!ENTITY paneDatatree.btnNone "Никаких стилей">

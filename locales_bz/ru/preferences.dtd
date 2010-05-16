@@ -70,6 +70,9 @@
 <!ENTITY paneDatatree.typeBlob "BLOB">
 <!ENTITY paneDatatree.textColor "цвет текста">
 <!ENTITY paneDatatree.backgroundColor "цвет фона">
+<!ENTITY paneDatatree.fontSize "Размер шрифта (в &#37;)">
+<!ENTITY paneDatatree.fontFamily "Шрифт">
+<!ENTITY paneDatatree.rowHeight "Высота строки (в пикселях; 0 означает значение по умолчанию)">
 <!ENTITY paneDatatree.btnSetDefault "Установить значения по умолчанию">
 <!ENTITY paneDatatree.btnApply "Применить">
 <!ENTITY paneDatatree.btnNone "Никаких стилей">

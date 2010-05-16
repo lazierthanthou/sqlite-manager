@@ -9,7 +9,7 @@ releaseDir=$rootDir/release
 sourceDir=$rootDir/sqlite-manager
 outDir=$rootDir/out
 workDir=$outDir/workhere
-babelDir=$rootDir/SQLite_Manager_all_locales_replaced
+babelDir=$rootDir/locales_bz
 
 mkdir -p $releaseDir
 mkdir -p $outDir

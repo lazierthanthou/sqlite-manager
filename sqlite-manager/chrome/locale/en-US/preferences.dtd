@@ -89,6 +89,10 @@
 <!ENTITY  paneDatatree.textColor "text color">
 <!ENTITY  paneDatatree.backgroundColor "background color">
 
+<!ENTITY  paneDatatree.fontSize "Font Size (in percent)">
+<!ENTITY  paneDatatree.fontFamily "Font Family">
+<!ENTITY  paneDatatree.rowHeight "Row Height (in pixels; 0 means default height)">
+
 <!ENTITY  paneDatatree.btnSetDefault "Set Default">
 <!ENTITY  paneDatatree.btnApply "Apply">
 <!ENTITY  paneDatatree.btnNone "None">

@@ -284,6 +284,18 @@
             </row>
           </rows>
         </grid>
+        <hbox>
+          <label value="&paneDatatree.fontSize;"/>
+          <textbox type="number" min="25" max="500" value="100" mktpref="dataTreeStyle.textFont.unselected.font-size"/>
+        </hbox>
+        <hbox>
+          <label value="&paneDatatree.fontFamily;"/>
+          <textbox value="" mktpref="dataTreeStyle.textFont.unselected.font-family"/>
+        </hbox>
+        <hbox>
+          <label value="&paneDatatree.rowHeight;"/>
+          <textbox type="number" min="0" max="300" value="0" mktpref="dataTreeStyle.rowHeight"/>
+        </hbox>
         <hbox style="text-align:right;">
           <button id="btnTreeStyleDefault" label="&paneDatatree.btnSetDefault;" oncommand="sm_setDataTreeStyle('default')" />
           <button id="btnTreeStyleNone" label="&paneDatatree.btnNone;" oncommand="sm_setDataTreeStyle('none')" />

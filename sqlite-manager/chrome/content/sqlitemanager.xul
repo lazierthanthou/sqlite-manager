@@ -134,7 +134,8 @@
       <menuitem label="&menu.copyRowsForExcel;" oncommand="treeBrowse.UserCopyRows('csv-excel')"/>
       <menuitem label="&menu.copyRowsAsSql;" accesskey="&menu.copyRowsAsSql.ak;" oncommand="treeBrowse.UserCopyRows('sql')"/>
       <menuseparator/>
-      <menuitem label="&menu.copyCell;" accesskey="&menu.copyCell.ak;" oncommand="treeBrowse.UserCopyCell()"/>    </menupopup>
+      <menuitem label="&menu.copyCell;" accesskey="&menu.copyCell.ak;" oncommand="treeBrowse.UserCopyCell()"/>
+    </menupopup>
 
     <menupopup id="mp-create-table">
       <menuitem label="&createTable;" accesskey="&create.ak;" command="smc-createTable"/>
@@ -359,6 +360,11 @@
             <button label="&export;" command="smc-exportTable"/>
           </hbox>
           <hbox id="gb-master-ops-table">
+            <!-- TODO: replace xul buttons with html buttons as below
+              but note that the observes attribute will not work -->
+            <!--
+            <html:input type="button" value="&drop;" tooltiptext="&dropTable;" observes="bc-dbOpen" onclick="SQLiteManager.operateOnTable('drop')"/>
+            -->
             <button label="&drop;" command="smc-dropTable"/>
             <button label="&empty;" command="smc-emptyTable"/>
             <button label="&rename;" command="smc-renameTable"/>
@@ -610,7 +616,7 @@
             <hbox flex="1">
               <tree align="stretch" id="treeSqlOutput" style="min-height:10em" enableColumnDrag="true" seltype="multiple" flex="1">
                 <treecols hidden="true"/>
-                <treechildren hidden="true" flex="1" onclick="treeExecute.UserTreeClick(event)" context="mp-copy"/>  
+                <treechildren id="sqloutput-treechildren" hidden="true" flex="1" onclick="treeExecute.UserTreeClick(event)" context="mp-copy"/>  
               </tree>
             </hbox>
           </vbox>

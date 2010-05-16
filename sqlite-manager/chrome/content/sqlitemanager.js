@@ -2472,7 +2472,8 @@ var SQLiteManager = {
     var udf = SmUdf.getFunctions();
 
     for (var fn in udf) {
-      var bAdded = false;      if (SmGlobals.gecko_1914pre) //for gecko >= 1.9.1.4pre
+      var bAdded = false;
+      if (SmGlobals.gecko_1914pre) //for gecko >= 1.9.1.4pre
         bAdded = Database.createFunction(udf[fn].fName, udf[fn].fLength, udf[fn].onFunctionCall);
       else   //for older gecko
         bAdded = Database.createFunction(udf[fn].fName, udf[fn].fLength, udf[fn]);
@@ -2484,7 +2485,8 @@ var SQLiteManager = {
     //get all functions that need to be created for this db
     var udf = SmUdf.getAggregateFunctions();
 
-    for (var fn in udf) {      if (Database.createAggregateFunction(udf[fn].fName, udf[fn].fLength, udf[fn].objFunc))
+    for (var fn in udf) {
+      if (Database.createAggregateFunction(udf[fn].fName, udf[fn].fLength, udf[fn].objFunc))
         sm_log("Loaded user-defined aggregate function: " + udf[fn].fName + ", args.length = " + udf[fn].fLength);
     }
   },
@@ -2571,55 +2573,29 @@ SmGlobals.stylerDataTree = {
   },
 
   convert: function() {
-    //if styleDataTree preference is still there and it has a value set by the user, then conversion needed
+    //we are handling conversion from pref jsonDataTreeStyle version 1 to version 2 only
+    //users coming from pref styleDataTree will lose their color settings (very few users)
+    //users having older versions will not be affected 
     try {
-      if (!sm_prefsBranch.prefHasUserValue("styleDataTree")) {
-        sm_prefsBranch.clearUserPref("styleDataTree");
+      var obj = SmGlobals.getJsonPref("jsonDataTreeStyle");
+      //if jsonDataTreeStyle preference exists and has version 2, then no conversion needed
+      if(obj.meta.version == "2") //do nothing
         return true;
-      }
     } catch (e) {
       return false;
     }
 
-    var oOldStyle = sm_prefsBranch.getCharPref("styleDataTree");
-    sm_prefsBranch.clearUserPref("styleDataTree");
-
-    //TODO:should get the default value here
-    var oNewStyle = sm_prefsBranch.getCharPref("jsonDataTreeStyle");
-    var objNew = JSON.parse(oNewStyle);
-
-    if (oOldStyle == 'none') {
-      objNew.setting = 'none';
-      var newPref = JSON.stringify(objNew);
-      sm_prefsBranch.setCharPref("jsonDataTreeStyle", newPref);
-      return;
+    //we are here means obj.meta.version < 2
+    switch (obj.meta.version) {
+      case "1":
+        //obj.textFont has been added in version 2
+        obj.meta.version = "2";
+        obj.textFont = {"unselected":{"font-size":100,"font-family":""}};
+        obj.rowHeight = 0;
+        break;
     }
 
-    objNew.setting = 'user';
-    try {
-      var objOld = JSON.parse(oOldStyle);
-    } catch (e) {
-      sm_log(e.message + '\nFailed to convert old treeStyle preference "styleDataTree" into new preference "jsonDataTreeStyle"');
-      sm_prefsBranch.clearUserPref("jsonDataTreeStyle");
-      return;
-    }
-
-    for (var j in objOld) {
-      try {
-        objNew[j]['unselected']['background-color'] = objOld[j][0][1];
-      } catch (e) {}
-      try {
-        objNew[j]['selected']['background-color'] = objOld[j][0][2];
-      } catch (e) {}
-      try {
-        objNew[j]['unselected']['color'] = objOld[j][1][1];
-      } catch (e) {}
-      try {
-        objNew[j]['selected']['color'] = objOld[j][1][2];
-      } catch (e) {}
-    }
-
-    var newPref = JSON.stringify(objNew);
+    var newPref = JSON.stringify(obj);
     sm_prefsBranch.setCharPref("jsonDataTreeStyle", newPref);
     return true;
   },
@@ -2632,8 +2608,7 @@ SmGlobals.stylerDataTree = {
     this.getStyleSheet();
     this.deleteAllRules();
 
-    var oStyle = sm_prefsBranch.getCharPref("jsonDataTreeStyle");
-    var obj = JSON.parse(oStyle);
+    var obj = SmGlobals.getJsonPref("jsonDataTreeStyle");
     if (obj.setting == 'none') {
       return true;
     }
@@ -2670,6 +2645,15 @@ SmGlobals.stylerDataTree = {
       this.mStyleSheet.insertRule(ruleSelText, 0);
       this.mStyleSheet.insertRule(ruleText, 0);
     }
+
+    //to insert rules for user selected font preferences
+    var ruleMore = "treechildren#browse-treechildren::-moz-tree-cell-text, treechildren#sqloutput-treechildren::-moz-tree-cell-text {font-size:" + obj.textFont.unselected['font-size'] + "%;font-family:" + obj.textFont.unselected['font-family'] + "}";
+    this.mStyleSheet.insertRule(ruleMore, 0);
+    if (obj.rowHeight > 0) {
+      ruleMore = "treechildren#browse-treechildren::-moz-tree-row, treechildren#sqloutput-treechildren::-moz-tree-row {height:" + obj.rowHeight + "px;}";
+      this.mStyleSheet.insertRule(ruleMore, 0);
+    }
+
     return true;
   },
 

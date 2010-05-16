@@ -326,6 +326,11 @@ SmGlobals.confirmBeforeExecuting = function(aQ, sMessage, confirmPrefName) {
   return answer;
 };
 
+SmGlobals.getJsonPref = function(sName) {
+  var sValue = sm_prefsBranch.getCharPref(sName);
+  return JSON.parse(sValue);
+};
+
 ////////////////////////////////////////////////
 //called on load of preferences.xul
 function sm_setCurrentSettings() {
@@ -335,8 +340,7 @@ function sm_setCurrentSettings() {
 ///////////////////////////////////////////////
 function sm_setDataTreeStyle(sType) {
   if (sType == "none") {
-    var sPref = sm_prefsBranch.getCharPref("jsonDataTreeStyle");
-    var obj = JSON.parse(sPref);
+    var obj = SmGlobals.getJsonPref("jsonDataTreeStyle");
     obj.setting = 'none';
     sPref = JSON.stringify(obj);
     sm_prefsBranch.setCharPref("jsonDataTreeStyle", sPref);
@@ -355,8 +359,7 @@ function sm_setDataTreeStyle(sType) {
 }
 
 function sm_setDataTreeStyleControls() {
-  var oStyle = sm_prefsBranch.getCharPref("jsonDataTreeStyle");
-  var obj = JSON.parse(oStyle);
+  var obj = SmGlobals.getJsonPref("jsonDataTreeStyle");
   if (obj.setting == 'none') {
     $$('btnTreeStyleApply').setAttribute('disabled', true);
   }

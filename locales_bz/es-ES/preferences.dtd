@@ -70,6 +70,9 @@
 <!ENTITY paneDatatree.typeBlob "Blob">
 <!ENTITY paneDatatree.textColor "color de texto">
 <!ENTITY paneDatatree.backgroundColor "color de fondo">
+<!ENTITY paneDatatree.fontSize "Font Size (in percent)">
+<!ENTITY paneDatatree.fontFamily "Font Family">
+<!ENTITY paneDatatree.rowHeight "Row Height (in pixels; 0 means default height)">
 <!ENTITY paneDatatree.btnSetDefault "Establecer Por Defecto">
 <!ENTITY paneDatatree.btnApply "Aplicar">
 <!ENTITY paneDatatree.btnNone "Ninguno">

@@ -9,8 +9,8 @@
 <!ENTITY mi.sharedPagerCache.ak "S">
 <!ENTITY mi.extensionTable "Tabelle für Erweiterungsdaten benutzen">
 <!ENTITY mi.extensionTable.ak "T">
-<!ENTITY mi.console "Error Console">
-<!ENTITY mi.console.ak "C">
+<!ENTITY mi.console "Fehlerkonsole">
+<!ENTITY mi.console.ak "k">
 <!ENTITY mi.aboutconfig "about:config">
 <!ENTITY mi.aboutconfig.ak "b">
 <!ENTITY menu.db "Datenbank">
@@ -25,7 +25,7 @@
 <!ENTITY menu.db.attach "Datenbank anhängen">
 <!ENTITY menu.db.attach.ak "h">
 <!ENTITY menu.db.detach "Datenbank abtrennen">
-<!ENTITY menu.db.detach.ak "">
+<!ENTITY menu.db.detach.ak "a">
 <!ENTITY menu.db.close "Datenbank schließen">
 <!ENTITY menu.db.close.ak "s">
 <!ENTITY menu.db.mru "Kürzlich verwendet">
@@ -55,7 +55,7 @@
 <!ENTITY exit.ak "B">
 <!ENTITY createTable "Tabelle erstellen">
 <!ENTITY dropTable "Tabelle löschen">
-<!ENTITY modifyTable "Modify Table">
+<!ENTITY modifyTable "Tabelle bearbeiten">
 <!ENTITY emptyTable "Tabelle leeren">
 <!ENTITY reindexTable "Tabelle neu indexieren">
 <!ENTITY renameTable "Tabelle umbenennen">
@@ -112,7 +112,7 @@
 <!ENTITY menu.help.extensionhome.ak "E">
 <!ENTITY menu.help.aboutextension "Über SQLite Manager">
 <!ENTITY menu.help.aboutextension.ak "b">
-<!ENTITY profile.dblist.select "(Select Profile Database)">
+<!ENTITY profile.dblist.select "(Profildatenbank wählen)">
 <!ENTITY profile.dblist.buttonlabel "Los">
 <!ENTITY string.enterSql "SQL eingeben">
 <!ENTITY string.enterSql.ak "S">
@@ -120,14 +120,14 @@
 <!ENTITY tab.browse "Durchsuchen">
 <!ENTITY tab.execute "SQL ausführen">
 <!ENTITY tab.dbinfo "DB-Einstellungen">
-<!ENTITY tab.udf "User-defined Functions">
+<!ENTITY tab.udf "Benutzerdefinierte Funktionen">
 <!ENTITY btn.search "Suchen">
 <!ENTITY btn.search.ak "h">
 <!ENTITY btn.showAll "Alle einblenden">
-<!ENTITY btn.showAll.ak "">
+<!ENTITY btn.showAll.ak "A">
 <!ENTITY btn.exporttable "Exportieren">
-<!ENTITY btn.exporttable.ak "">
-<!ENTITY btn.addcol "Add Column">
+<!ENTITY btn.exporttable.ak "x">
+<!ENTITY btn.addcol "Spalte hinzufügen">
 <!ENTITY btn.addrecord "Datensatz hinzufügen">
 <!ENTITY btn.addrecord.ak "A">
 <!ENTITY menu.editSelected "Ausgewählte bearbeiten">
@@ -136,26 +136,26 @@
 <!ENTITY menu.deleteSelected.ak "s">
 <!ENTITY menu.duplicateRecord "Datensatz duplizieren">
 <!ENTITY menu.duplicateRecord.ak "p">
-<!ENTITY menu.copyColName "Copy Column Name">
-<!ENTITY menu.copyColName.ak "C">
+<!ENTITY menu.copyColName "Spaltennamen kopieren">
+<!ENTITY menu.copyColName.ak "S">
 <!ENTITY menu.copyCell "Zelle kopieren">
 <!ENTITY menu.copyCell.ak "Z">
 <!ENTITY menu.copyRows "Zeile(n) als CSV kopieren">
 <!ENTITY menu.copyRows.ak "i">
-<!ENTITY menu.copyRowsForExcel "Copy Row(s) as CSV (MSExcel compatible)">
+<!ENTITY menu.copyRowsForExcel "Reihe(n) als CSV kopieren (kompatibel mit MSExcel)">
 <!ENTITY menu.copyRowsAsSql "Zeile(n) als SQL kopieren">
 <!ENTITY menu.copyRowsAsSql.ak "q">
-<!ENTITY menu.editColumn "Edit Column">
-<!ENTITY menu.editColumn.ak "E">
-<!ENTITY menu.dropColumn "Drop Column">
-<!ENTITY menu.dropColumn.ak "D">
+<!ENTITY menu.editColumn "Spalte bearbeiten">
+<!ENTITY menu.editColumn.ak "e">
+<!ENTITY menu.dropColumn "Spalte fallenlassen">
+<!ENTITY menu.dropColumn.ak "f">
 <!ENTITY btn.runsql "SQL ausführen">
 <!ENTITY btn.runsql.ak "a">
-<!ENTITY btn.runsql.tooltiptext "Use 'control + ;' to execute the query.">
-<!ENTITY buttonRun "Run SQL Statement (with results)">
-<!ENTITY buttonRun.ak "R">
-<!ENTITY buttonExecute "Execute Statement (no results)">
-<!ENTITY buttonExecute.ak "E">
+<!ENTITY btn.runsql.tooltiptext "Benutzen Sie 'Strg + ;', um diese Abfrage auszuführen">
+<!ENTITY buttonRun "SQL-Statement ausführen (mit Ergebnissen)">
+<!ENTITY buttonRun.ak "r">
+<!ENTITY buttonExecute "Statement ausführen (keine Ergebnisse)">
+<!ENTITY buttonExecute.ak "e">
 <!ENTITY label.sqlLastError "Letzter Fehler">
 <!ENTITY label.resultOfQuery "Ergebnis der Abfrage">
 <!ENTITY label.resultOfQuery.ak "b">
@@ -180,7 +180,7 @@
 <!ENTITY about "Über">
 <!ENTITY version "Version">
 <!ENTITY author "Autor">
-<!ENTITY license "License">
+<!ENTITY license "Lizenz">
 <!ENTITY license.mpl "Mozilla Public License Version 1.1">
 <!ENTITY dir "Verzeichnis">
 <!ENTITY profileDir "Profil-Verzeichnis">
@@ -190,7 +190,7 @@
 <!ENTITY moreInfo "Weitere Informationen">
 <!ENTITY numColumns "Anzahl Spalten">
 <!ENTITY numIndexes "Anzahl Indizes">
-<!ENTITY numTriggers "No. of Triggers">
+<!ENTITY numTriggers "Anzahl von Triggern">
 <!ENTITY numRecords "Anzahl Datensätze">
 <!ENTITY Columns "Spalten">
 <!ENTITY name "Name">
@@ -203,7 +203,7 @@
 <!ENTITY indexedFields "Indexierte Felder">
 <!ENTITY indexDuplicate "Doppelte Werte">
 <!ENTITY selectAllRecords "Alle Datensätze auswählen">
-<!ENTITY selectAllRecords.ak "">
+<!ENTITY selectAllRecords.ak "R">
 <!-- copyTable.xul -->
 <!ENTITY From "From">
 <!ENTITY To "To">
@@ -222,59 +222,59 @@
 <!ENTITY ifNotExists.ak "F">
 <!ENTITY SelectStatement "Befehl auswählen">
 <!ENTITY SelectStatement.ak "B">
-<!ENTITY createIndex.dbName "Database:">
-<!ENTITY createIndex.indexname "Index Name:">
-<!ENTITY createIndex.indexproperties "Define Index Properties">
-<!ENTITY createIndex.tabletoindex "Table to Index:">
-<!ENTITY createIndex.loading "(loading)">
-<!ENTITY createIndex.duplicatevalues "Duplicate Values:">
-<!ENTITY createIndex.allowed "Allowed">
-<!ENTITY createIndex.notallowed "Not Allowed">
-<!ENTITY createIndex.indexcolumns "Define Index Columns">
-<!ENTITY createTable.dbName "Database:">
-<!ENTITY createTable.tablename "Table Name:">
-<!ENTITY createTable.temptable "Temporary table">
+<!ENTITY createIndex.dbName "Datenbank:">
+<!ENTITY createIndex.indexname "Indexname:">
+<!ENTITY createIndex.indexproperties "Indexeigenschaften festlegen">
+<!ENTITY createIndex.tabletoindex "Tabelle zu Index">
+<!ENTITY createIndex.loading "(laden)">
+<!ENTITY createIndex.duplicatevalues "Doppelte Werte:">
+<!ENTITY createIndex.allowed "Erlaubt">
+<!ENTITY createIndex.notallowed "Nicht erlaubt">
+<!ENTITY createIndex.indexcolumns "Indexspalten festlegen">
+<!ENTITY createTable.dbName "Datenbank">
+<!ENTITY createTable.tablename "Tabellenname:">
+<!ENTITY createTable.temptable "Temporäre Tabelle">
 <!ENTITY createTable.temptable.ak "T">
-<!ENTITY createTable.ifnotexists "If Not Exists">
-<!ENTITY createTable.ifnotexists.ak "I">
-<!ENTITY createTable.tablecolumns "Define Columns">
-<!ENTITY createTable.colname "Column Name">
-<!ENTITY createTable.datatype "Data Type">
-<!ENTITY createTable.primarykey "Primary Key?">
-<!ENTITY createTable.autoincrement "Autoinc?">
-<!ENTITY createTable.allownull "Allow Null?">
-<!ENTITY createTable.default "Default Value">
+<!ENTITY createTable.ifnotexists "Falls nicht vorhanden:">
+<!ENTITY createTable.ifnotexists.ak "i">
+<!ENTITY createTable.tablecolumns "Spalten festlegen">
+<!ENTITY createTable.colname "Spaltenname">
+<!ENTITY createTable.datatype "Datentyp">
+<!ENTITY createTable.primarykey "Primärer Schlüssel">
+<!ENTITY createTable.autoincrement "Autoinkrement?">
+<!ENTITY createTable.allownull "Null erlauben?">
+<!ENTITY createTable.default "Standardwert">
 <!ENTITY createTable.unique "Unique?">
-<!ENTITY createTable.primarykey.yes "Yes">
-<!ENTITY createTable.autoincrement.yes "Yes">
-<!ENTITY createTable.autoincrement.tooltip "AUTOINCREMENT is only allowed on an INTEGER PRIMARY KEY">
-<!ENTITY createTable.allownull.yes "Yes">
-<!ENTITY createTable.unique.column "Unique Column">
-<!ENTITY createTable.unique.columnlist "Unique Column-list">
-<!ENTITY createTrigger.dbName "Database:">
-<!ENTITY createTrigger.triggername "Trigger Name:">
-<!ENTITY createTrigger.tabletoindex "on Table:">
-<!ENTITY createTrigger.loading "(loading)">
-<!ENTITY createTrigger.tempObject "Temporary">
+<!ENTITY createTable.primarykey.yes "Ja">
+<!ENTITY createTable.autoincrement.yes "Ja">
+<!ENTITY createTable.autoincrement.tooltip "AUTOINCREMENT ist only nur erlaubt bei einem INTEGER PRIMARY KEY">
+<!ENTITY createTable.allownull.yes "Ja">
+<!ENTITY createTable.unique.column "Eindeutige Spalte">
+<!ENTITY createTable.unique.columnlist "Liste eindeutiger Spalten">
+<!ENTITY createTrigger.dbName "Datenbank:">
+<!ENTITY createTrigger.triggername "Triggername:">
+<!ENTITY createTrigger.tabletoindex "in Tabelle:">
+<!ENTITY createTrigger.loading "(laden)">
+<!ENTITY createTrigger.tempObject "Temporär">
 <!ENTITY createTrigger.tempObject.ak "T">
-<!ENTITY createTrigger.ifnotexists "If Not Exists">
-<!ENTITY createTrigger.ifnotexists.ak "I">
-<!ENTITY createTrigger.databaseevent "Database Event">
-<!ENTITY createTrigger.triggerTime "Before/After:">
-<!ENTITY createTrigger.triggerTime.ak "B">
-<!ENTITY createTrigger.dbEvent "Event:">
-<!ENTITY createTrigger.dbEvent.ak "v">
-<!ENTITY createTrigger.triggeraction "Trigger Action">
-<!ENTITY createTrigger.foreachrow "For Each Row">
+<!ENTITY createTrigger.ifnotexists "Falls nicht vorhanden">
+<!ENTITY createTrigger.ifnotexists.ak "i">
+<!ENTITY createTrigger.databaseevent "Datenbank-Ereignis">
+<!ENTITY createTrigger.triggerTime "Vorher/Nachher:">
+<!ENTITY createTrigger.triggerTime.ak "V">
+<!ENTITY createTrigger.dbEvent "Ereignis">
+<!ENTITY createTrigger.dbEvent.ak "g">
+<!ENTITY createTrigger.triggeraction "Aktion auslösen">
+<!ENTITY createTrigger.foreachrow "Für jede Reihe">
 <!ENTITY createTrigger.foreachrow.ak "F">
-<!ENTITY createTrigger.txtWhenExpression "WHEN expression (type expression without 'WHEN'):">
+<!ENTITY createTrigger.txtWhenExpression "WHEN-Ausdruck (Ausdruck ohne 'WHEN' eingeben):">
 <!ENTITY createTrigger.txtWhenExpression.ak "W">
-<!ENTITY createTrigger.txtTriggerSteps "Trigger Steps (semicolon terminated):">
+<!ENTITY createTrigger.txtTriggerSteps "Trigger-Schritte (getrennt durch Semikolon)">
 <!ENTITY createTrigger.txtTriggerSteps.ak "S">
 <!-- confirm dialog -->
-<!ENTITY confirm.button.accept "Yes">
-<!ENTITY confirm.button.cancel "No">
+<!ENTITY confirm.button.accept "Ja">
+<!ENTITY confirm.button.cancel "Nein">
 <!-- RowOperations.xul -->
-<!ENTITY rowOperations.tablenames "Table Name:">
-<!ENTITY rowOperations.tablenames.ak "N">
-<!ENTITY rowOperations.loading "(loading)">
+<!ENTITY rowOperations.tablenames "Tabellenname">
+<!ENTITY rowOperations.tablenames.ak "n">
+<!ENTITY rowOperations.loading "(laden)">

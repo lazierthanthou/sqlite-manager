@@ -1,16 +1,16 @@
-<!ENTITY udf.selectDir "Select UDF DB Directory">
-<!ENTITY udf.selectDir.ak "S">
-<!ENTITY udf.reloadFunctions "Reload Functions">
-<!ENTITY udf.viewFunction "View">
-<!ENTITY udf.editFunction "Edit">
-<!ENTITY udf.deleteFunction "Delete">
-<!ENTITY udf.addFunction "New">
-<!ENTITY udf.saveFunction "Save">
-<!ENTITY udf.closeTab "Close Tab">
-<!ENTITY udf.simpleFunctions "Simple Functions">
-<!ENTITY udf.aggFunctions "Aggregate Functions">
-<!ENTITY udf.funcName "Function Name">
-<!ENTITY udf.funcArgLength "Number of arguments">
-<!ENTITY udf.funcBody "Function body: ">
-<!ENTITY udf.funcOnStepBody "Function body (for onStep): ">
-<!ENTITY udf.funcOnFinalBody "Function body (for onFinal): ">
+<!ENTITY udf.selectDir "UDF DB-Verzeichnis auswählen">
+<!ENTITY udf.selectDir.ak "s">
+<!ENTITY udf.reloadFunctions "Funktionen neu laden">
+<!ENTITY udf.viewFunction "Ansicht">
+<!ENTITY udf.editFunction "Bearbeiten">
+<!ENTITY udf.deleteFunction "Löschen">
+<!ENTITY udf.addFunction "Neu">
+<!ENTITY udf.saveFunction "Speichern">
+<!ENTITY udf.closeTab "Tab schließen">
+<!ENTITY udf.simpleFunctions "Einfache Funktionen">
+<!ENTITY udf.aggFunctions "Gesamtfunktionen">
+<!ENTITY udf.funcName "Funktionsname">
+<!ENTITY udf.funcArgLength "Anzahl an Argumenten">
+<!ENTITY udf.funcBody "Funktionsrumpf">
+<!ENTITY udf.funcOnStepBody "Funktionsrumpf (für onStep):">
+<!ENTITY udf.funcOnFinalBody "Funktionsrumpf (für onFinal):">

@@ -14,9 +14,9 @@
 <!ENTITY pref-promptForLastDb.ak "I">
 <!ENTITY pref-autoBackup.label "Vor dem Öffnen einer Datenbank eine Sicherungskopie mit Zeitstempel anlegen">
 <!ENTITY pref-autoBackup.ak "V">
-<!ENTITY pref-autoBackup.on "on">
-<!ENTITY pref-autoBackup.off "off">
-<!ENTITY pref-autoBackup.prompt "prompt">
+<!ENTITY pref-autoBackup.on "an">
+<!ENTITY pref-autoBackup.off "aus">
+<!ENTITY pref-autoBackup.prompt "fragen">
 <!ENTITY pref-sqliteFileExtensions.label "Standardmäßige Dateiendung für SQLite-Dateien">
 <!ENTITY pref-sqliteFileExtensions.ak "S">
 <!ENTITY pref-tableForExtensionManagement.label "Name der Tabelle, in der Verwaltungsdaten der Erweiterung gespeichert werden">
@@ -32,44 +32,47 @@
 <!ENTITY pref-showMainToolbarDatabase.label "Datenbank-Symbolleiste anzeigen">
 <!ENTITY pref-showMainToolbarIndex.label "Index-Symbolleiste anzeigen">
 <!ENTITY pref-showMainToolbarTable.label "Tabellen-Symbolleiste anzeigen">
-<!ENTITY pref-showMainToolbarDebug.label "Show the Debug toolbar">
-<!ENTITY pref-notificationDuration.label "Duration (in seconds) of notification messages">
-<!ENTITY pref-notificationDuration.ak "D">
+<!ENTITY pref-showMainToolbarDebug.label "Debug-Symbolleiste anzeigen">
+<!ENTITY pref-notificationDuration.label "Anzeigedauer (in Sekunden) von Mitteilungen">
+<!ENTITY pref-notificationDuration.ak "d">
 <!ENTITY pref-displayNumRecords.label "Anzahl angezeigter Datensätze (&quot;Durchsuchen&quot;-Tab)">
 <!ENTITY pref-displayNumRecords.ak "A">
 <!ENTITY pref-sqlTextboxRows.label "Anzahl angezeigter Zeilen im Eingabefeld für SQL-Befehle (&quot;SQL-Befehl ausführen&quot;-Tab)">
 <!ENTITY pref-sqlTextboxRows.ak "R">
 <!ENTITY pref-maxColumnsInTable.label "Maximale Anzahl an Zeilen im &quot;Tabelle erstellen&quot;-Dialog">
 <!ENTITY pref-maxColumnsInTable.ak "M">
-<!ENTITY blobDisplay.caption "How to display BLOB data?">
+<!ENTITY blobDisplay.caption "Wie sollen BLOB-Daten angezeigt werden?">
 <!ENTITY pref-textForBlob.label "Für BLOB-Wert anzuzeigender Text">
 <!ENTITY pref-textForBlob.ak "B">
 <!ENTITY pref-showBlobSize.label "Größe von BLOB-Daten anzeigen">
-<!ENTITY pref-maxSizeToShowBlobData.label "Size (in bytes) below which blob should be displayed as string">
+<!ENTITY pref-maxSizeToShowBlobData.label "Größe (in Bytes) unter der blob als String angezeigt werden soll">
 <!ENTITY pref-maxSizeToShowBlobData.ak "z">
-<!ENTITY pref-displayDataAs.label "Display blob data as:">
-<!ENTITY pref-displayDataAs-hex "Hex value (e.g. X`31323334`)">
+<!ENTITY pref-displayDataAs.label "blob-Daten anzeigen als:">
+<!ENTITY pref-displayDataAs-hex "Hexadezimalwert (z.B. X`31323334`)">
 <!ENTITY pref-displayDataAs-string "String">
 <!ENTITY pref-whenInsertingShow.label "Beim Hinzufügen eines neuen Datensatzes zuvor verwendete Werte oder Standardwerte anzeigen">
 <!ENTITY pref-whenInsertingShow.ak "H">
-<!ENTITY pref-whenInsertingShow-previous "Previous">
-<!ENTITY pref-whenInsertingShow-default "Default">
-<!ENTITY pref-identifierQuoteChar.label "Characters to enclose the identifiers with">
-<!ENTITY pref-identifierQuoteChar-doublequotes "Double quotes">
-<!ENTITY pref-identifierQuoteChar-squarebrackets "Square brackets []">
-<!ENTITY pref-identifierQuoteChar-graveaccents "Grave accents ``">
-<!ENTITY paneDatatree.title "Data Tree Style">
-<!ENTITY paneDatatree.datatype "Data type">
-<!ENTITY paneDatatree.property "Property">
-<!ENTITY paneDatatree.unselected "Unselected">
-<!ENTITY paneDatatree.selected "Selected">
+<!ENTITY pref-whenInsertingShow-previous "Zurück">
+<!ENTITY pref-whenInsertingShow-default "Standard">
+<!ENTITY pref-identifierQuoteChar.label "Zeichen, mit denen die Bezeichner umschlossen werden sollen">
+<!ENTITY pref-identifierQuoteChar-doublequotes "Doppelte Anführungszeichen">
+<!ENTITY pref-identifierQuoteChar-squarebrackets "Eckige Klammern []">
+<!ENTITY pref-identifierQuoteChar-graveaccents "Gravisakzente">
+<!ENTITY paneDatatree.title "Datenbaum-Stil">
+<!ENTITY paneDatatree.datatype "Datentyp">
+<!ENTITY paneDatatree.property "Eigenschaft">
+<!ENTITY paneDatatree.unselected "Nicht ausgewählt">
+<!ENTITY paneDatatree.selected "Ausgewählt">
 <!ENTITY paneDatatree.typeNull "Null">
 <!ENTITY paneDatatree.typeInteger "Integer">
 <!ENTITY paneDatatree.typeReal "Real">
 <!ENTITY paneDatatree.typeText "Text">
 <!ENTITY paneDatatree.typeBlob "Blob">
-<!ENTITY paneDatatree.textColor "text color">
-<!ENTITY paneDatatree.backgroundColor "background color">
-<!ENTITY paneDatatree.btnSetDefault "Set Default">
-<!ENTITY paneDatatree.btnApply "Apply">
-<!ENTITY paneDatatree.btnNone "None">
+<!ENTITY paneDatatree.textColor "Textfarbe">
+<!ENTITY paneDatatree.backgroundColor "Hintergrundfarbe">
+<!ENTITY paneDatatree.fontSize "Schriftgröße (in Prozent)">
+<!ENTITY paneDatatree.fontFamily "Schriftart">
+<!ENTITY paneDatatree.rowHeight "Zeilenhöhe (in Pixeln; 0 bedeutet Standardhöhe)">
+<!ENTITY paneDatatree.btnSetDefault "Standard einstellen">
+<!ENTITY paneDatatree.btnApply "Anwenden">
+<!ENTITY paneDatatree.btnNone "Keine">

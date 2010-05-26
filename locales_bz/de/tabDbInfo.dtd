@@ -6,17 +6,17 @@
 <!ENTITY user_version "Benutzer-Version">
 <!ENTITY cache_size "Größe Cache (Anzahl Seiten)">
 <!ENTITY default_cache_size "Standardgröße Cache (Anzahl Seiten)">
-<!ENTITY pages "Pages">
+<!ENTITY pages "Seiten">
 <!ENTITY page_size "Seitengröße (Bytes)">
 <!ENTITY max_page_count "Maximale Seitenanzahl">
 <!ENTITY page_count "Seitenanzahl">
 <!ENTITY freelist_count "Seitenanzahl Freelist">
-<!ENTITY journals "Journals">
-<!ENTITY journal_mode "Journal Mode">
-<!ENTITY journal_size_limit "Journal Size Limit">
-<!ENTITY others "Others">
+<!ENTITY journals "Journale">
+<!ENTITY journal_mode "Journal-Modus">
+<!ENTITY journal_size_limit "Journal-Größenbeschränkung">
+<!ENTITY others "Andere">
 <!ENTITY auto_vacuum "Auto-Vakuum">
-<!ENTITY case_sensitive_like "Case-sensitive Like">
+<!ENTITY case_sensitive_like "schreibungsabhängig wie">
 <!ENTITY count_changes "Änderungen zählen">
 <!ENTITY empty_result_callbacks "Ergebnis-Callbacks leeren">
 <!ENTITY encoding "Zeichenkodierung">
@@ -25,13 +25,13 @@
 <!ENTITY UTF16le "UTF-16le">
 <!ENTITY UTF16be "UTF-16be">
 <!ENTITY full_column_names "Vollständige Spalten-Namen">
-<!ENTITY foreign_keys "Foreign Keys">
+<!ENTITY foreign_keys "Fremdschlüssel">
 <!ENTITY fullfsync "Fullfsync-Flag">
 <!ENTITY legacy_file_format "Altes Dateiformat">
 <!ENTITY locking_mode "Lock-Modus">
 <!ENTITY read_uncommitted "Unbestätigte lesen">
-<!ENTITY recursive_triggers "Recursive Triggers">
-<!ENTITY reverse_unordered_selects "Reverse Unordered Selects">
+<!ENTITY recursive_triggers "Rekursive Trigger">
+<!ENTITY reverse_unordered_selects "Ungeordnete Selects umkehren">
 <!ENTITY short_column_names "Kurze Spalten-Namen">
 <!ENTITY synchronous "Synchron">
 <!ENTITY temp_store "Temporärer Speicher">

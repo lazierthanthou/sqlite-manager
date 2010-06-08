@@ -764,9 +764,15 @@ var RowOperations = {
         }
       }
       if (iTypeNew == SQLiteTypes.NULL || iTypeNew == SQLiteTypes.INTEGER || iTypeNew == SQLiteTypes.REAL) {
-        inpval = "?" + iParamCounter;
-        aParamData.push([(iParamCounter-1), ctrltb.value, iTypeNew]);
-        iParamCounter++;
+        //Issue 464: if primary key, avoid binding with integer; directly use value in sql statement. We handle it here because for colPK, type will be INTEGER
+        if (this.maFieldInfo[i].isColPk) {
+          inpval = ctrltb.value;
+        }
+        else {
+          inpval = "?" + iParamCounter;
+          aParamData.push([(iParamCounter-1), ctrltb.value, iTypeNew]);
+          iParamCounter++;
+        }
       }
 
       aCols.push(fld);

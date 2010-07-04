@@ -1,5 +1,5 @@
 function SMExtensionManager(objDb) {
-  this.m_db = Database;
+  this.m_db = SQLiteManager.mDb;//Database;
   this.m_tbl = sm_prefsBranch.getCharPref("tableForExtensionManagement");
 };
 

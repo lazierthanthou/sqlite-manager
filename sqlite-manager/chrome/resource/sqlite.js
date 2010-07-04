@@ -172,6 +172,7 @@ SQLiteHandler.prototype = {
       }
     }
 
+    this.dbConn = null;
     this.aTableData = null;
     this.aTableType = null;
     this.aColumns = null;

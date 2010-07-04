@@ -402,53 +402,42 @@
 
           <hbox>
             <label class="forControl" value="&numRecords;:"/>
-            <textbox id="numRecords" style="width: 8ex" readonly="true"/>
+            <html:input id="numRecords" type="text" size="8" readonly="true"/>
             <label class="forControl" value="&numIndexes;:"/>
-            <textbox id="numIndexes" style="width: 8ex" readonly="true"/>
+            <html:input id="numIndexes" type="text" size="8" readonly="true"/>
             <label class="forControl" value="&numTriggers;:"/>
-            <textbox id="numTriggers" style="width: 8ex" readonly="true"/>
+            <html:input id="numTriggers" type="text" size="8" readonly="true"/>
           </hbox>
           </groupbox>
           <groupbox id="gb-editColumn" hidden="true">
           <caption label="&menu.editColumn;"/>
-            <grid>
-              <columns>
-                <column style="padding: 1px 5px; width: 100px;"/>
-                <column style="padding: 1px 5px; width: 200px;"/>
-                <column style="padding: 1px 5px; width: 200px;"/>
-                <column style="padding: 1px 5px; width: 200px;"/>
-              </columns>
-              <rows>
-                <row align="center">
-                  <text value=""/>
-                  <text value="Column Name"/>
-                  <text value="Column Type"/>
-                  <text value="Default Value"/>
-                </row>
-                <row align="center">
-                  <text value="Old values"/>
-                  <textbox id="tb-ec-oldName" readonly="true"/>
-                  <textbox id="tb-ec-oldType" readonly="true"/>
-                  <textbox id="tb-ec-oldDefault" readonly="true"/>
-                </row>
-                <row align="center">
-                  <text value="New values"/>
-                  <textbox id="tb-ec-newName"/>
-                  <textbox id="tb-ec-newType"/>
-                  <textbox id="tb-ec-newDefault"/>
-                </row>
-                <row align="center">
-                  <text value=""/>
-                  <text value=""/>
-                  <hbox>
-                  <text id="tb-ec-table" hidden="true"/>
-                  <button label="Cancel" oncommand="SQLiteManager.cancelEditColumn()"/>
-                  <button label="Change" oncommand="SQLiteManager.alterColumn()"/>
-                  </hbox>
-                  <text value=""/>
-                </row>
-              </rows>
-            </grid>
+            <html:table>
+              <html:tbody>
+                <html:tr>
+                  <html:td></html:td>
+                  <html:td>Column Name</html:td>
+                  <html:td>Column Type</html:td>
+                  <html:td>Default Value</html:td>
+                </html:tr>
+                <html:tr>
+                  <html:td>Old Values</html:td>
+                  <html:td><html:input id="tb-ec-oldName" type="text" size="20" readonly="true" /></html:td>
+                  <html:td><html:input id="tb-ec-oldType" type="text" size="20" readonly="true" /></html:td>
+                  <html:td><html:input id="tb-ec-oldDefault" type="text" size="20" readonly="true" /></html:td>
+                 </html:tr>
+                <html:tr>
+                  <html:td>Old Values</html:td>
+                  <html:td><html:input id="tb-ec-newName" type="text" size="20" /></html:td>
+                  <html:td><html:input id="tb-ec-newType" type="text" size="20" /></html:td>
+                  <html:td><html:input id="tb-ec-newDefault" type="text" size="20" /></html:td>
+                 </html:tr>
+              </html:tbody>
+            </html:table>
+            <text id="tb-ec-table" hidden="true"/>
+            <hbox>
+              <button label="Cancel" oncommand="SQLiteManager.cancelEditColumn()"/>
+              <button label="Change" oncommand="SQLiteManager.alterColumn()"/>
+            </hbox>
           </groupbox>
           <groupbox>
           <caption id="capColumns" labelPrefix="&Columns;"/>
@@ -477,7 +466,7 @@
             <label style="width:10ex;" value="&default;"/>
           </hbox>
           <hbox>
-          <textbox id="tb-addcol-name" style="width:24ex"/>
+          <html:input id="tb-addcol-name" type="text" size="20" />
           <menulist id="tb-addcol-type" style="width:15ex" editable="true"  sizetopopup="none">
             <menupopup>
               <menuitem label="" selected="true"/>
@@ -495,7 +484,7 @@
             </menupopup>
           </menulist>
         <checkbox id="tb-addcol-notnull" style="width:7ex"  value=""/>
-          <textbox id="tb-addcol-default" style="width:10ex"/>
+          <html:input id="tb-addcol-default" type="text" size="10" />
           <button id="btn-addcol" label="&btn.addcol;" oncommand="SQLiteManager.operateOnTable('addColumn')"/>
           </hbox>
           </vbox>
@@ -508,9 +497,9 @@
           
             <hbox>
               <label class="forControl" value="&indexedTable;:"/>
-              <textbox id="tabletoindex" style="width: 25ex" readonly="true"/>
+              <html:input id="tabletoindex" type="text" size="25" readonly="true"/>
               <label class="forControl" value="&indexDuplicate;:"/>
-              <textbox id="duplicatevalues" style="width: 25ex" readonly="true"/>
+              <html:input id="duplicatevalues" type="text" size="25" readonly="true"/>
             </hbox>
             </groupbox>
           <groupbox>
@@ -537,7 +526,7 @@
           <vbox id="vb-browseTab" flex="1">
             <hbox align="center" id="optionbar" style="min-height: 1.4em">
               <label id="browse-type" accesskey="" value="" persist="value"/>
-              <textbox id="browse-name" value="" persist="value" readonly="true" width="80"/>
+              <html:input id="browse-name" type="text" persist="value" readonly="true" size="15"/>
               <button id="btnSearch" command="smc-search"/>
               <button id="btnShowAll"  command="smc-showAll"/>
               <spacer flex="1"/>
@@ -559,17 +548,17 @@
               <button id="btn-nav-previous" label="&lt;" tooltiptext="&previous;" oncommand="SQLiteManager.onBrowseNavigate('previous')"/>
               <label id="nav-start-val" style="padding-top:5px;font-weight:bold;"/>
 <!--
-              <textbox id="nav-start-val" style="width:50px"/>
+              <html:input type="text" id="nav-start-val" style="width:50px"/>
 -->
               <label value="&to;" style="padding-top:5px"/>
               <label id="nav-end-val" style="padding-top:5px;font-weight:bold;"/>
 <!--
-              <textbox id="nav-end-val" style="width:50px"/>
+              <html:input type="text" id="nav-end-val" style="width:50px"/>
 -->
               <label value="&of;" style="padding-top:5px"/>
               <label id="nav-total-val" style="padding-top:5px;font-weight:bold;"/>
 <!--
-              <textbox id="nav-total-val" readonly="true" style="width:50px"/>
+              <html:input type="text" id="nav-total-val" readonly="true" style="width:50px"/>
 -->
               <button id="btn-nav-next" label="&gt;" tooltiptext="&next;" oncommand="SQLiteManager.onBrowseNavigate('next')"/>
               <button id="btn-nav-last" label="&gt;&gt;" tooltiptext="&last;" oncommand="SQLiteManager.onBrowseNavigate('last')"/>

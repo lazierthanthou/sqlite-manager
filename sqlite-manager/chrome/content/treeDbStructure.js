@@ -150,8 +150,7 @@ TreeDbStructure.prototype = {
       }
 
       if(thisLevel == 1 && (this.getSmType(idx) == "table" || this.getSmType(idx) == "master")) {
-        var info = Database.getTableInfo(this.getCellText(idx), "");
-//        var cols = info[0];
+        var info = SQLiteManager.getTableInfo(this.getCellText(idx), "");
         for(var i = 0; i < info.length; i++) {
           this.visibleData.splice(idx + i + 1, 0, [[info[i].name], false,false,"someColumn",thisLevel + 1]);
         }

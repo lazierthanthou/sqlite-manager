@@ -34,8 +34,9 @@ var RowOperations = {
       ["IS NOT NULL", "", ""]
     ],
 
+  mDb: null,
   loadDialog: function () {
-    Database = window.arguments[0];
+    this.mDb = window.arguments[0];
     this.sCurrentTable = window.arguments[1];
     this.sOperation = window.arguments[2];
     this.mRowId = window.arguments[3];
@@ -94,7 +95,7 @@ var RowOperations = {
     this.sObject = "TABLE";
     var listbox = $$("tablenames");
 
-    var aNormTableNames = Database.getObjectList("table", "");
+    var aNormTableNames = this.mDb.getObjectList("table", "");
     var aTempTableNames = [];
     var aTableNames = aNormTableNames.concat(aTempTableNames);
     PopulateDropDownItems(aTableNames, listbox, this.sCurrentTable);
@@ -136,11 +137,11 @@ var RowOperations = {
   },
 
   populateFieldData: function(sTableName, sRowCriteria) {
-    var sql = "SELECT * FROM " + Database.getPrefixedName(sTableName, "") + " WHERE " + sRowCriteria;
-    Database.selectQuery(sql);
-    var row = Database.getRecords()[0];
-    var cols = Database.getColumns();
-    var rowTypes = Database.getRecordTypes()[0];
+    var sql = "SELECT * FROM " + this.mDb.getPrefixedName(sTableName, "") + " WHERE " + sRowCriteria;
+    this.mDb.selectQuery(sql);
+    var row = this.mDb.getRecords()[0];
+    var cols = this.mDb.getColumns();
+    var rowTypes = this.mDb.getRecordTypes()[0];
     for (var j = 0; j < this.maFieldInfo.length; j++) {
       for (var k = 0; k < cols.length; k++) {
         if (cols[k][0] == this.maFieldInfo[j].colName) {
@@ -154,7 +155,7 @@ var RowOperations = {
       }
       //for blobs, do the following
       if (this.maFieldInfo[j].oldType == SQLiteTypes.BLOB) {
-        var data = Database.selectBlob(sTableName, this.maFieldInfo[j].colName, sRowCriteria);
+        var data = this.mDb.selectBlob(sTableName, this.maFieldInfo[j].colName, sRowCriteria);
         this.maFieldInfo[j].oldBlob = data;
         if (this.sOperation == "duplicate") {
           this.maFieldInfo[j].newBlob = data;
@@ -173,11 +174,11 @@ var RowOperations = {
     $$("tablenames").setAttribute("disabled", true);
     var sTableName = this.sCurrentTable;
 
-    var cols = Database.getTableInfo(sTableName, "");
+    var cols = this.mDb.getTableInfo(sTableName, "");
     this.aColumns = cols;
 
     var colPK = null;
-    var rowidcol = Database.getTableRowidCol(this.sCurrentTable);
+    var rowidcol = this.mDb.getTableRowidCol(this.sCurrentTable);
     if (rowidcol["name"] != "rowid")
       colPK = rowidcol["name"];
 
@@ -430,7 +431,7 @@ var RowOperations = {
     }
 
     if (bAnalyzeValue) {
-      var valInfo = Database.determineType(elt.value);
+      var valInfo = this.mDb.determineType(elt.value);
       this.maFieldInfo[iIndex].newType = valInfo.type;
 
       //if the value is a blob
@@ -541,7 +542,7 @@ var RowOperations = {
             this.maFieldInfo[iIndex].hasChanged = true;
 
           this.maFieldInfo[iIndex].newType = SQLiteTypes.BLOB;
-          var aBlob = Database.textToBlob(elt.value);
+          var aBlob = this.mDb.textToBlob(elt.value);
           this.maFieldInfo[iIndex].newBlob = aBlob;
           this.onInputValue(elt, false);
           return;
@@ -779,13 +780,13 @@ var RowOperations = {
       aVals.push(inpval);
     }
     if (aCols.length == 0) {
-      this.maQueries = ["INSERT INTO " + Database.getPrefixedName(this.sCurrentTable, "") + " DEFAULT VALUES"];
+      this.maQueries = ["INSERT INTO " + this.mDb.getPrefixedName(this.sCurrentTable, "") + " DEFAULT VALUES"];
     }
     else {
       var cols = "(" + aCols.toString() + ")";
       var vals = "(" + aVals.toString() + ")";
 
-      this.maQueries = ["INSERT INTO " + Database.getPrefixedName(this.sCurrentTable, "") + " " + cols + " VALUES " + vals];
+      this.maQueries = ["INSERT INTO " + this.mDb.getPrefixedName(this.sCurrentTable, "") + " " + cols + " VALUES " + vals];
       this.maParamData = aParamData;
     }
     if (this.mbConfirmationNeeded)
@@ -861,7 +862,7 @@ var RowOperations = {
       return false;
     }
 
-    this.maQueries = ["UPDATE " + Database.getPrefixedName(this.sCurrentTable, "") + " SET " + cols.join(", ") + " WHERE " + this.mRowId];
+    this.maQueries = ["UPDATE " + this.mDb.getPrefixedName(this.sCurrentTable, "") + " SET " + cols.join(", ") + " WHERE " + this.mRowId];
     this.maParamData = aParamData
 
     if (this.mbConfirmationNeeded)
@@ -875,7 +876,7 @@ var RowOperations = {
 //required in case delete option is added to the edit record dialog
   doOKDelete: function() {
     this.maQueries = ["DELETE FROM " +
-          Database.getPrefixedName(this.sCurrentTable, "")+ " WHERE " + this.mRowId];
+          this.mDb.getPrefixedName(this.sCurrentTable, "")+ " WHERE " + this.mRowId];
     this.maParamData = null;
     if (this.mbConfirmationNeeded)
       this.seekConfirmation();
@@ -922,7 +923,7 @@ var RowOperations = {
     }
     var extracol = "";
     if (this.sOperation == "search") {  //do this for table, not for view
-      var rowidcol = Database.getTableRowidCol(this.sCurrentTable);
+      var rowidcol = this.mDb.getTableRowidCol(this.sCurrentTable);
       if (rowidcol["name"] == "rowid")
         extracol = " rowid, ";
     }
@@ -949,7 +950,7 @@ var RowOperations = {
 
   doOKConfirm: function() {
     this.changeState(0);
-    var bRet = Database.executeWithoutConfirm(this.maQueries, this.maParamData);
+    var bRet = this.mDb.executeWithoutConfirm(this.maQueries, this.maParamData);
     if (bRet) {
       this.notify(this.mNotifyMessages[0], "info");
 

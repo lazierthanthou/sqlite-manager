@@ -1,6 +1,5 @@
 Components.utils.import("resource://sqlitemanager/fileIO.js");
 
-//var Database;
 var SmUdf = {
   dbFunc: null,
 

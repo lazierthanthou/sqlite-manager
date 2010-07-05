@@ -1739,12 +1739,14 @@ var SQLiteManager = {
     // This assumes that fos is the nsIOutputStream you want to write to
     os.init(foStream, "UTF-8", 0, 0x0000);
 
+    //Issue #463: exclude objects beginning with "sqlite_"
     if (sWhat == "tables" || sWhat == "db") {
       var bCreate = true, bTransact = false;
       var iExportNum = 0;
       var aTableNames = this.mDb.getObjectList("table", sDbName);
       for (var i = 0; i < aTableNames.length; i++) {
-        iExportNum = SmExim.writeSqlContent(os, sDbName, aTableNames[i], bCreate, bTransact);
+        if (aTableNames[i].indexOf("sqlite_") != 0)
+          iExportNum = SmExim.writeSqlContent(os, sDbName, aTableNames[i], bCreate, bTransact);
       }
     }
     var aObjNames = [];
@@ -1761,7 +1763,7 @@ var SQLiteManager = {
       aObjNames = aObjNames.concat(aIndexNames);
       for (var i = 0; i < aObjNames.length; i++) {
         var sSql = this.mDb.getMasterInfo(aObjNames[i], sDbName);
-        if (sSql.sql != null)
+        if (sSql.sql != null && aObjNames[i].indexOf("sqlite_") != 0)
           os.writeString(sSql.sql + ";\n");
       }
     }

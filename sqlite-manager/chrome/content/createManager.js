@@ -63,14 +63,16 @@ var CreateManager = {
       node.appendChild(clone);
     }
   },
-    
+
+  mDb: null,
+
   loadCreateTableDialog: function () {
-    Database = window.arguments[0];
+    this.mDb = window.arguments[0];
     var aRetVals = window.arguments[1];
 
     this.sObject = "TABLE";
     
-    this.loadDbNames("dbName", Database.logicalDbName);
+    this.loadDbNames("dbName", this.mDb.logicalDbName);
 
     if (typeof aRetVals.tableName == "undefined")
       this.loadEmptyColumns();
@@ -124,12 +126,12 @@ var CreateManager = {
   },
 
   loadCreateIndexDialog: function () {
-    Database = window.arguments[0];
+    this.mDb = window.arguments[0];
     this.sCurrentTable = window.arguments[1];
 
     this.sObject = "INDEX";
 
-    this.loadDbNames("dbName", Database.logicalDbName);
+    this.loadDbNames("dbName", this.mDb.logicalDbName);
     this.loadTableNames("tabletoindex", this.sCurrentTable, false);
 
     this.loadFieldNames(this.sCurrentTable);
@@ -138,7 +140,7 @@ var CreateManager = {
   loadFieldNames: function(sTableName) {
     document.title = sm_getLFStr("createMngr.index.title", [sTableName], 1);
      var dbName = $$("dbName").value;
-    var cols = Database.getTableInfo(sTableName, dbName);
+    var cols = this.mDb.getTableInfo(sTableName, dbName);
     this.aFieldNames = [], aTypes = [];
     for(var i = 0; i < cols.length; i++) {
       this.aFieldNames.push(cols[i].name);
@@ -197,7 +199,7 @@ var CreateManager = {
     }
 
     var dbName = $$("dbName").value;
-     name = Database.getPrefixedName(name, dbName);
+     name = this.mDb.getPrefixedName(name, dbName);
 
     var tbl = $$("tabletoindex").value;
     var dup = $$("duplicatevalues").selectedItem.value;
@@ -220,16 +222,16 @@ var CreateManager = {
     }
     
     var sQuery = "CREATE " + dup + " INDEX " + name + " ON " + SQLiteFn.quoteIdentifier(tbl) +  " (" + cols + ")";
-    return Database.confirmAndExecute([sQuery], sm_getLFStr("createMngr.index.confirm", [name], 1), "confirm.create");
+    return this.mDb.confirmAndExecute([sQuery], sm_getLFStr("createMngr.index.confirm", [name], 1), "confirm.create");
   },
 
   loadCreateTriggerDialog: function () {
-    Database = window.arguments[0];
+    this.mDb = window.arguments[0];
     this.sCurrentTable = window.arguments[1];
 
     this.sObject = "trigger";
 
-    this.loadDbNames("dbName", Database.logicalDbName);
+    this.loadDbNames("dbName", this.mDb.logicalDbName);
     this.loadTableNames("tabletoindex", this.sCurrentTable, false);
   },
 
@@ -240,8 +242,8 @@ var CreateManager = {
 
     var aMastTableNames = [];
     if (bMaster)
-      aMastTableNames = Database.getObjectList("master", dbName);
-    var aNormTableNames = Database.getObjectList("table", dbName);
+      aMastTableNames = this.mDb.getObjectList("master", dbName);
+    var aNormTableNames = this.mDb.getObjectList("table", dbName);
     var aObjectNames = aMastTableNames.concat(aNormTableNames);
     PopulateDropDownItems(aObjectNames, listbox, sTableName);
 
@@ -251,7 +253,7 @@ var CreateManager = {
 
   loadDbNames: function(sListBoxId, sDbName) {
     var listbox = $$(sListBoxId);
-    var aObjectNames = Database.getDatabaseList();
+    var aObjectNames = this.mDb.getDatabaseList();
     PopulateDropDownItems(aObjectNames, listbox, sDbName);
   },
 
@@ -260,7 +262,7 @@ var CreateManager = {
     
   modifyTable: function(sOperation, sTable, sColumn) {
     //get the columns
-    var cols = Database.getTableInfo(sTable, "");
+    var cols = this.mDb.getTableInfo(sTable, "");
     if (sOperation == "alterColumn") {
       //correct the cols array
       for(var i = 0; i < cols.length; i++) {
@@ -327,8 +329,8 @@ var CreateManager = {
     coldef += constraintPK;
 
 ////////////////////////////
-    var sTab = Database.getPrefixedName(sTable, "");
-    var sTempTable = Database.getPrefixedName(SmGlobals.tempNamePrefix + sTable, "");
+    var sTab = this.mDb.getPrefixedName(sTable, "");
+    var sTempTable = this.mDb.getPrefixedName(SmGlobals.tempNamePrefix + sTable, "");
     var sTempTableName = SQLiteFn.quoteIdentifier(SmGlobals.tempNamePrefix + sTable);
     
     var aQueries = [];
@@ -346,7 +348,7 @@ var CreateManager = {
     if (sOperation == "alterColumn")
       sMsg = sm_getLFStr("createMngr.alterColumn", [sColumn[0], sTab], 2);
 
-    var bReturn = Database.confirmAndExecute(aQueries, sMsg, "confirm.otherSql");
+    var bReturn = this.mDb.confirmAndExecute(aQueries, sMsg, "confirm.otherSql");
     return bReturn;
   },
 
@@ -368,7 +370,7 @@ var CreateManager = {
     //temp object will be created in temp db only
     if (txtTemp == "") {
       var dbName = $$("dbName").value;
-       name = Database.getPrefixedName(name, dbName);
+       name = this.mDb.getPrefixedName(name, dbName);
      }
      else
        name = SQLiteFn.quoteIdentifier(name);
@@ -473,7 +475,7 @@ var CreateManager = {
   },
 
   loadCreateViewDialog: function () {
-    Database = window.arguments[0];
+    this.mDb = window.arguments[0];
     var aRetVals = window.arguments[1];
     this.loadDbNames("dbName", aRetVals.dbName);
     if (typeof aRetVals.readonlyFlags != "undefined") {
@@ -507,7 +509,7 @@ var CreateManager = {
     //temp object will be created in temp db only
     if (txtTemp == "") {
       var dbName = $$("dbName").value;
-       name = Database.getPrefixedName(name, dbName);
+       name = this.mDb.getPrefixedName(name, dbName);
      }
      else
        name = SQLiteFn.quoteIdentifier(name);
@@ -551,7 +553,7 @@ var CreateManager = {
     //temp object will be created in temp db only
     if (txtTemp == "") {
       var dbName = $$("dbName").value;
-       name = Database.getPrefixedName(name, dbName);
+       name = this.mDb.getPrefixedName(name, dbName);
      }
      else
        name = SQLiteFn.quoteIdentifier(name);
@@ -582,7 +584,7 @@ var CreateManager = {
     var txtEvent = $$("dbEvent").selectedItem.label;
 
     var sQuery = "CREATE " + txtTemp + " TRIGGER " + txtExist + name + " " + txtTime + " " + txtEvent + " ON " + txtTable + txtForEachRow + whenExpression + " BEGIN " + steps + " END";
-    return Database.confirmAndExecute([sQuery], sm_getLFStr("createMngr.trigger.confirm", [name], 1), "confirm.create");
+    return this.mDb.confirmAndExecute([sQuery], sm_getLFStr("createMngr.trigger.confirm", [name], 1), "confirm.create");
   },
 
   doCancel: function() {

@@ -1074,16 +1074,8 @@ var SQLiteManager = {
 
     if (this.mDb.getFile() == null)
       return false;
-
-    var aSettings = ["schema_version", "user_version", "auto_vacuum", "cache_size", /*"case_sensitive_like",*/ "count_changes", "default_cache_size", "empty_result_callbacks", "encoding", "full_column_names", "fullfsync", "journal_mode", "journal_size_limit", "legacy_file_format", "locking_mode", "page_size", "max_page_count", "page_count", "freelist_count", "read_uncommitted", "reverse_unordered_selects", "short_column_names", "synchronous", "temp_store", "temp_store_directory"];
-
-    if (this.isSqliteHigherThan("3.6.19")) {
-      aSettings.push("foreign_keys");
-      aSettings.push("recursive_triggers");
-
-      $$("hb-pr-foreign_keys").hidden = false;
-      $$("hb-pr-recursive_triggers").hidden = false;
-    }
+//assume sqlite >= 3.6.19
+    var aSettings = ["schema_version", "user_version", "auto_vacuum", "cache_size", /*"case_sensitive_like",*/ "count_changes", "default_cache_size", "empty_result_callbacks", "encoding", "full_column_names", "fullfsync", "journal_mode", "journal_size_limit", "legacy_file_format", "locking_mode", "page_size", "max_page_count", "page_count", "freelist_count", "read_uncommitted", "reverse_unordered_selects", "short_column_names", "synchronous", "temp_store", "temp_store_directory", "foreign_keys", "recursive_triggers"];
 
     for(var i = 0; i < aSettings.length; i++)  {
       var sSetting = aSettings[i];
@@ -1100,7 +1092,7 @@ var SQLiteManager = {
     if (oType == "VIEW")
       return this.searchView(oName);
     if (oType == "TABLE" || oType == "MASTER") {
-      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul", "RowOperations", "chrome, resizable, centerscreen, modal, dialog", Database, oName, "search");
+      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul", "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, oName, "search");
       return true;
     }
   },
@@ -1179,7 +1171,7 @@ var SQLiteManager = {
       types[col] = '';
     }
     var cols = [names, types];
-    window.openDialog("chrome://sqlitemanager/content/RowOperations.xul",  "RowOperations", "chrome, resizable, centerscreen, modal, dialog", Database, sViewName, "search-view", cols);
+    window.openDialog("chrome://sqlitemanager/content/RowOperations.xul",  "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, sViewName, "search-view", cols);
     return true;
   },
 
@@ -1500,7 +1492,6 @@ var SQLiteManager = {
     else
       fname += sExt;
       
-    //let the user choose the folder for the new db file  
     //let the user choose the folder for the new db file  
     var dir = SmGlobals.chooseDirectory(sm_getLStr("selectFolderForDb"));
     if (dir != null) {

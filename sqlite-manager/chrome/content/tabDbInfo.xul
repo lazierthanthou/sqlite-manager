@@ -4,7 +4,8 @@
 <!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/tabDbInfo.dtd">
 
 <overlay id="tabDbInfo-overlay"
-      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+ xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+ xmlns:html="http://www.w3.org/1999/xhtml">
 
   <tabpanel id="dbInfoTab" flex="1">
     <notificationbox id="boxNotifyDbInfo" flex="1">
@@ -15,282 +16,405 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
   <vbox id="vb-dbInfoTab" flex="1" style="overflow:auto">
    <groupbox>
     <caption label="&versions;"/>
-    <hbox>
-      <label value="&schema_version;" class="dbinfo"/>
-      <textbox id="pr-schema_version" type="number"  value=""/>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('schema_version');" style="color:red;"/>
-    </hbox>
-    <hbox>
-      <label value="&user_version;" class="dbinfo"/>
-      <textbox id="pr-user_version" type="number"  value=""/>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('user_version');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&schema_version;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <textbox id="pr-schema_version" type="number"  value=""/>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('schema_version');" style="color:red;">&change;</html:button>
+      </html:td>
+    </html:tr>
+
+    <html:tr>
+      <html:td>
+        <label value="&user_version;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <textbox id="pr-user_version" type="number"  value=""/>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('user_version');">&change;</html:button>
+      </html:td>
+    </html:tr>
    </groupbox>
 
    <groupbox>
     <caption label="&pages;"/>
-    <hbox>
-      <label value="&page_size;" class="dbinfo"/>
-      <menulist id="pr-page_size">
-        <menupopup>
-          <menuitem label="512" value="512"/>
-          <menuitem label="1024" value="1024"/>
-          <menuitem label="2048" value="2048"/>
-          <menuitem label="4096" value="4096"/>
-          <menuitem label="8192" value="8192"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('page_size');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&page_size;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-page_size">
+          <html:option value="512">512</html:option>
+          <html:option value="1024">1024</html:option>
+          <html:option value="2048">2048</html:option>
+          <html:option value="4096">4096</html:option>
+          <html:option value="8192">8192</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('page_size');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
-    <hbox>
-      <label value="&page_count;" class="dbinfo"/>
-      <textbox id="pr-page_count" style="width:10ex" readonly="true"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&page_count;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:input type="text" id="pr-page_count" style="width:10ex" readonly="true"/>
+      </html:td>
+    </html:tr>
 
-    <hbox>
-      <label value="&freelist_count;" class="dbinfo"/>
-      <textbox id="pr-freelist_count" style="width:10ex" readonly="true"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&freelist_count;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:input type="text" id="pr-freelist_count" style="width:10ex" readonly="true"/>
+      </html:td>
+    </html:tr>
 
-    <hbox>
-      <label value="&max_page_count;" class="dbinfo"/>
-      <textbox id="pr-max_page_count" type="number" value=""/>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('max_page_count');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&max_page_count;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <textbox id="pr-max_page_count" type="number" />
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('max_page_count');">&change;</html:button>
+      </html:td>
+    </html:tr>
    </groupbox>
 
    <groupbox>
     <caption label="&cache_size;"/>
-    <hbox>
-      <label value="&cache_size;" class="dbinfo"/>
-      <textbox id="pr-cache_size" type="number" value=""/>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('cache_size');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&cache_size;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <textbox id="pr-cache_size" type="number" />
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('cache_size');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
-    <hbox>
-      <label value="&default_cache_size;" class="dbinfo"/>
-      <textbox id="pr-default_cache_size" type="number" value=""/>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('default_cache_size');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&default_cache_size;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <textbox id="pr-default_cache_size" type="number" />
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('default_cache_size');">&change;</html:button>
+      </html:td>
+    </html:tr>
    </groupbox>
 
    <groupbox>
     <caption label="&journals;"/>
-    <hbox>
-      <label value="&journal_mode;" class="dbinfo"/>
-      <menulist id="pr-journal_mode">
-        <menupopup>
-          <menuitem label="delete" value="delete"/>
-          <menuitem label="truncate" value="truncate"/>
-          <menuitem label="persist" value="persist"/>
-          <menuitem label="memory" value="memory"/>
-          <menuitem label="off" value="off"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('journal_mode');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&journal_mode;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-journal_mode">
+          <html:option value="delete">delete</html:option>
+          <html:option value="truncate">truncate</html:option>
+          <html:option value="persist">persist</html:option>
+          <html:option value="memory">memory</html:option>
+          <html:option value="off">off</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('journal_mode');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
-    <hbox>
-      <label value="&journal_size_limit;" class="dbinfo"/>
-      <textbox id="pr-journal_size_limit" type="number" value=""/>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('journal_size_limit');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&journal_size_limit;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <textbox id="pr-journal_size_limit" type="number" />
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('journal_size_limit');">&change;</html:button>
+      </html:td>
+    </html:tr>
    </groupbox>
 
    <groupbox>
     <caption label="&others;"/>
-    <hbox>
-      <label value="&auto_vacuum;" class="dbinfo"/>
-      <menulist id="pr-auto_vacuum">
-        <menupopup>
-          <menuitem label="&None;" value="0"/>
-          <menuitem label="&Full;" value="1"/>
-          <menuitem label="&Incremental;" value="2"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('auto_vacuum');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&auto_vacuum;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-auto_vacuum">
+          <html:option value="0">&None;</html:option>
+          <html:option value="1">&Full;</html:option>
+          <html:option value="2">&Incremental;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+          <html:button onclick="SQLiteManager.changeDbSetting('auto_vacuum');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
 <!-- can set the value but not get it; see pragma help at sqlite.org
-    <hbox>
-      <label value="&case_sensitive_like;" class="dbinfo"/>
-      <menulist id="pr-case_sensitive_like">
-        <menupopup>
-          <menuitem label="&On;" value="1"/>
-          <menuitem label="&Off;" value="0"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('case_sensitive_like');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&case_sensitive_like;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-case_sensitive_like">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('case_sensitive_like');">&change;</html:button>
+      </html:td>
+    </html:tr>
 -->
 
-    <hbox>
-      <label value="&count_changes;" class="dbinfo"/>
-      <menulist id="pr-count_changes">
-        <menupopup>
-          <menuitem label="&On;" value="1"/>
-          <menuitem label="&Off;" value="0"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('count_changes');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&count_changes;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-count_changes">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+          <html:button onclick="SQLiteManager.changeDbSetting('count_changes');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
-    <hbox>
-      <label value="&empty_result_callbacks;" class="dbinfo"/>
-      <menulist id="pr-empty_result_callbacks">
-        <menupopup>
-          <menuitem label="&On;" value="1"/>
-          <menuitem label="&Off;" value="0"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('empty_result_callbacks');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&empty_result_callbacks;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-empty_result_callbacks">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+          <html:button onclick="SQLiteManager.changeDbSetting('empty_result_callbacks');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
-    <hbox>
-      <label value="&encoding;" class="dbinfo"/>
-      <menulist id="pr-encoding">
-        <menupopup>
-          <menuitem label="&UTF8;" value="UTF-8"/>
-          <menuitem label="&UTF16;" value="UTF-16"/>
-          <menuitem label="&UTF16le;" value="UTF-16le"/>
-          <menuitem label="&UTF16be;" value="UTF-16be"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('encoding');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&encoding;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-encoding">
+          <html:option value="UTF-8">&UTF8;</html:option>
+          <html:option value="UTF-16">&UTF16;</html:option>
+          <html:option value="UTF-16le">&UTF16le;</html:option>
+          <html:option value="UTF-16be">&UTF16be;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('encoding');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
-    <hbox id="hb-pr-foreign_keys" hidden="true">
-      <label value="&foreign_keys;" class="dbinfo"/>
-      <menulist id="pr-foreign_keys">
-        <menupopup>
-          <menuitem label="&On;" value="1"/>
-          <menuitem label="&Off;" value="0"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('foreign_keys');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&foreign_keys;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-foreign_keys">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('foreign_keys');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
-    <hbox>
-      <label value="&fullfsync;" class="dbinfo"/>
-      <menulist id="pr-fullfsync">
-        <menupopup>
-          <menuitem label="&On;" value="1"/>
-          <menuitem label="&Off;" value="0"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('fullfsync');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&fullfsync;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-fullfsync">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('fullfsync');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
-    <hbox>
-      <label value="&legacy_file_format;" class="dbinfo"/>
-      <menulist id="pr-legacy_file_format">
-        <menupopup>
-          <menuitem label="&On;" value="1"/>
-          <menuitem label="&Off;" value="0"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('legacy_file_format');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&legacy_file_format;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-legacy_file_format">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('legacy_file_format');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
-    <hbox>
-      <label value="&locking_mode;" class="dbinfo"/>
-      <menulist id="pr-locking_mode">
-        <menupopup>
-          <menuitem label="&Normal;" value="normal"/>
-          <menuitem label="&Exclusive;" value="exclusive"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('locking_mode');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&locking_mode;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-locking_mode">
+          <html:option value="normal">&Normal;</html:option>
+          <html:option value="exclusive">&Exclusive;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('locking_mode');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
-    <hbox>
-      <label value="&read_uncommitted;" class="dbinfo"/>
-      <menulist id="pr-read_uncommitted">
-        <menupopup>
-          <menuitem label="&On;" value="1"/>
-          <menuitem label="&Off;" value="0"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('read_uncommitted');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&read_uncommitted;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-read_uncommitted">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('read_uncommitted');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
-    <hbox id="hb-pr-recursive_triggers" hidden="true">
-      <label value="&recursive_triggers;" class="dbinfo"/>
-      <menulist id="pr-recursive_triggers">
-        <menupopup>
-          <menuitem label="&On;" value="1"/>
-          <menuitem label="&Off;" value="0"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('recursive_triggers');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&recursive_triggers;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-recursive_triggers">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('recursive_triggers');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
-    <hbox>
-      <label value="&reverse_unordered_selects;" class="dbinfo"/>
-      <menulist id="pr-reverse_unordered_selects">
-        <menupopup>
-          <menuitem label="&On;" value="1"/>
-          <menuitem label="&Off;" value="0"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('reverse_unordered_selects');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&reverse_unordered_selects;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-reverse_unordered_selects">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('reverse_unordered_selects');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
-    <hbox>
-      <label value="&full_column_names;" class="dbinfo"/>
-      <menulist id="pr-full_column_names">
-        <menupopup>
-          <menuitem label="&On;" value="1"/>
-          <menuitem label="&Off;" value="0"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('full_column_names');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&full_column_names;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-full_column_names">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('full_column_names');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
-    <hbox>
-      <label value="&short_column_names;" class="dbinfo"/>
-      <menulist id="pr-short_column_names">
-        <menupopup>
-          <menuitem label="&On;" value="1"/>
-          <menuitem label="&Off;" value="0"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('short_column_names');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&short_column_names;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-short_column_names">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('short_column_names');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
-    <hbox>
-      <label value="&synchronous;" class="dbinfo"/>
-      <menulist id="pr-synchronous">
-        <menupopup>
-          <menuitem label="&Off;" value="0"/>
-          <menuitem label="&Normal;" value="1"/>
-          <menuitem label="&Full;" value="2"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('synchronous');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&synchronous;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-synchronous">
+          <html:option value="0">&Off;</html:option>
+          <html:option value="1">&Normal;</html:option>
+          <html:option value="2">&Full;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('synchronous');">&change;</html:button>
+      </html:td>
+    </html:tr>
    </groupbox>
 
    <groupbox>
     <caption label="&temp_store;"/>
-    <hbox>
-      <label value="&temp_store;" class="dbinfo"/>
-      <menulist id="pr-temp_store">
-        <menupopup>
-          <menuitem label="&Default;" value="0"/>
-          <menuitem label="&File;" value="1"/>
-          <menuitem label="&Memory;" value="2"/>
-        </menupopup>
-      </menulist>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('temp_store');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&temp_store;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-temp_store">
+          <html:option value="0">&Default;</html:option>
+          <html:option value="1">&File;</html:option>
+          <html:option value="2">&Memory;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('temp_store');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
-    <hbox>
-      <label value="&temp_store_directory;" class="dbinfo"/>
-      <textbox id="pr-temp_store_directory" value=""/>
-      <button label="&change;" oncommand="SQLiteManager.changeDbSetting('temp_store_directory');"/>
-    </hbox>
+    <html:tr>
+      <html:td>
+        <label value="&temp_store_directory;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:input type="text" id="pr-temp_store_directory" />
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('temp_store_directory');">&change;</html:button>
+      </html:td>
+    </html:tr>
    </groupbox>
   </vbox>
   </notificationbox>

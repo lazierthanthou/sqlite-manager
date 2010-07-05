@@ -39,8 +39,7 @@ var SmGlobals = {
     var extId = "SQLiteManager@mrinalkant.blogspot.com";
     this.appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
 
-    this.gecko_1914pre = (Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator).compare(this.appInfo.platformVersion, "1.9.1.4pre") >= 0);
-    this.gecko_193a1 = (Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator).compare(this.appInfo.platformVersion, "1.9.3a1") >= 0);
+    this.gecko_193b2pre = (Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator).compare(this.appInfo.platformVersion, "1.9.3b2pre") >= 0);
 
     if (this.appInfo.ID == extId) {
       this.extVersion = this.appInfo.version;
@@ -50,10 +49,20 @@ var SmGlobals = {
       this.extLocation = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties).get('CurProcD', Ci.nsIFile).path;
     }
     else {
-      var extInfo = Cc["@mozilla.org/extensions/manager;1"].getService(Ci.nsIExtensionManager).getItemForID(extId);
-      this.extVersion = extInfo.version;
-      this.extCreator = "Mrinal Kant";
-      this.extLocation = Cc["@mozilla.org/extensions/manager;1"].getService(Ci.nsIExtensionManager).getInstallLocation(extId).getItemFile(extId, '').path;
+      try {
+        Components.utils.import("resource://gre/modules/AddonManager.jsm");
+        AddonManager.getAddonByID(extId, function(addon) {
+          SmGlobals.extVersion = addon.version;
+          SmGlobals.extCreator = addon.creator;
+          //SmGlobals.extLocation = addon.;
+        });      
+      }
+      catch (ex) {
+        var extInfo = Cc["@mozilla.org/extensions/manager;1"].getService(Ci.nsIExtensionManager).getItemForID(extId);
+        this.extVersion = extInfo.version;
+        this.extCreator = "Mrinal Kant";
+        this.extLocation = Cc["@mozilla.org/extensions/manager;1"].getService(Ci.nsIExtensionManager).getInstallLocation(extId).getItemFile(extId, '').path;
+      }
     }
   },
 

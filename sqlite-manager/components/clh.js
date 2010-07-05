@@ -172,3 +172,17 @@ function NSGetModule(comMgr, fileSpec)
   return myAppHandlerModule;
 }
 
+function NSGetFactory(comMgr, fileSpec)
+{
+  return myAppHandlerModule;
+}
+
+/**
+* XPCOMUtils.generateNSGetFactory was introduced in Mozilla 2 (Firefox 4).
+* XPCOMUtils.generateNSGetModule is for Mozilla 1.9.2 (Firefox 3.6).
+if (XPCOMUtils.generateNSGetFactory)
+    var NSGetFactory = XPCOMUtils.generateNSGetFactory([mySample]);
+else
+    var NSGetModule = XPCOMUtils.generateNSGetModule([mySample]);
+*/
+

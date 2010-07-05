@@ -48,123 +48,6 @@ var SQLiteManager = {
 
   maFileExt: [],
 
-  //Purpose: generates foreign key triggers based on
-  //http://www.sqlite.org/cvstrac/wiki?p=ForeignKeyTriggers
-  //TODO: remove this function after sqlite 3.6.19 and use PRAGMA foreign_keys instead
-  generateFKTriggers: function() {
-    var sTableName = this.aCurrObjNames["table"];
-    var allRows = this.mDb.getForeignKeyList(sTableName, "");
-    if (allRows.length == 0) {
-      alert(sm_getLStr("sqlm.noForeignKey"));
-      return false;
-    }
-
-    var iId = 0;
-    var aTemp = [], aFkeys = [];
-    for (var i = 0; i < allRows.length; i++) {
-      fk = allRows[i];
-      if (!this.mDb.tableExists(fk.table, "")) {
-        alert(sm_getLFStr("sqlm.fKeyNoTable",[fk.table]));
-        return false;
-      }
-      if (fk.table == sTableName) {
-        alert(sm_getLStr("sqlm.fKeySelfReference"));
-        return false;
-      }
-      if (fk.to == null) {
-        alert(sm_getLFStr("sqlm.fKeyUnnamedColumn",[fk.from]));
-        return false;
-      }
-      if (fk.id == iId) {
-        aTemp.push(fk);
-      }
-      else {
-        aFkeys.push(aTemp);
-        aTemp = [fk];
-      }
-    }
-
-    if (i > 0)
-      aFkeys.push(aTemp);
-
-    var aQ = [];
-    for (var i=0; i < aFkeys.length; i++) {
-      var aOneKey = aFkeys[i];
-
-      var sOnUpdate = aOneKey[0].on_update;
-      var sOnDelete = aOneKey[0].on_delete;
-      var sToTable = aOneKey[0].table;
-      var id = aOneKey[0].id;
-
-      var sSelectColsTo = "", sSelectColsFrom = "", sWhereTo = "", sWhereFrom = "", sNullCols = "", sSetClause = "";
-
-      for (var j=0; j < aOneKey.length; j++) {
-        var oneRow = aOneKey[j];
-        if (j != 0) {
-          sSelectColsTo += ", ";
-          sSelectColsFrom += ", ";
-          sSetClause += ", ";
-          sWhereTo += " AND ";
-          sWhereFrom += " AND ";
-        }
-        sSelectColsTo += '"' + oneRow.to + '"';
-        sSelectColsFrom += '"' + oneRow.from + '"';
-        sWhereTo += '"' + oneRow.to + '" = NEW."' + oneRow.from + '"';
-        sWhereFrom += '"' + oneRow.from + '" = OLD."' + oneRow.to + '"';
-        sSetClause += '"' + oneRow.from + '" = NEW."' + oneRow.to + '"';
-        //if from column is not notnull
-        var aFromCols = this.mDb.getTableInfo(sTableName, "");
-        for (var k = 0; k < aFromCols.length; k++) {
-//        alert(k + " : " + oneRow.from + " : " + aFromCols[k].name + " : " + aFromCols[k].notnull);
-          if (oneRow.from == aFromCols[k].name && aFromCols[k].notnull == 0) {
-            sNullCols += ' NEW."' + oneRow.from + '" IS NOT NULL AND ';
-          }
-        }
-      }
-      //now try creating strings for trigger name, etc.
-      var sFkeyTrigPrefix = "_fk";
-
-      //1. insert on child table
-      var insTrigName = sFkeyTrigPrefix + "_" + sTableName + "_insert_" + id;
-      var sError = "'insert on table " + sTableName + " violates foreign key constraint'";
-      aQ.push('DROP TRIGGER IF EXISTS ' + insTrigName);
-      aQ.push('CREATE TRIGGER IF NOT EXISTS ' + insTrigName + ' BEFORE INSERT ON "' + sTableName + '" FOR EACH ROW BEGIN SELECT RAISE(ROLLBACK, ' + sError + ") WHERE " + sNullCols + " (SELECT " + sSelectColsTo + ' FROM "' + sToTable + '" WHERE ' + sWhereTo + ') IS NULL; END;');
-
-      //2. update on child table
-      var updTrigName = sFkeyTrigPrefix + "_" + sTableName + "_update_" + id;
-      var sError = "'update on table " + sTableName + " violates foreign key constraint'";
-      aQ.push('DROP TRIGGER IF EXISTS ' + updTrigName);
-      aQ.push('CREATE TRIGGER IF NOT EXISTS ' + updTrigName + ' BEFORE UPDATE ON "' + sTableName + '" FOR EACH ROW BEGIN SELECT RAISE(ROLLBACK, ' + sError + ") WHERE " + sNullCols + " (SELECT " + sSelectColsTo + ' FROM "' + sToTable + '" WHERE ' + sWhereTo + ') IS NULL; END;');
-
-      //3. delete on parent table
-      var delTrigName = sFkeyTrigPrefix + "_" + sTableName + "_delete_" + id;
-      var sError = "'delete on table " + sToTable + " violates foreign key constraint'";
-      aQ.push('DROP TRIGGER IF EXISTS ' + delTrigName);
-      if (sOnDelete.toUpperCase() == "CASCADE") {
-        aQ.push('CREATE TRIGGER IF NOT EXISTS ' + delTrigName + ' BEFORE DELETE ON "' + sToTable + '" FOR EACH ROW BEGIN DELETE FROM "' + sTableName + '" WHERE ' + sWhereFrom + '; END;');
-      }
-      else {
-        aQ.push('CREATE TRIGGER IF NOT EXISTS ' + delTrigName + ' BEFORE DELETE ON "' + sToTable + '" FOR EACH ROW BEGIN SELECT RAISE(ROLLBACK, ' + sError + ') WHERE (SELECT ' + sSelectColsFrom + ' FROM "' + sTableName + '" WHERE ' + sWhereFrom + ') IS NOT NULL; END;');
-      }
-
-      //4. update on parent table
-      var updParTrigName = sFkeyTrigPrefix + "_" + sTableName + "_updateParent_" + id;
-      var sError = "'update on table " + sToTable + " violates foreign key constraint'";
-      aQ.push('DROP TRIGGER IF EXISTS ' + updParTrigName);
-      if (sOnUpdate.toUpperCase() == "CASCADE") {//after update
-        aQ.push('CREATE TRIGGER IF NOT EXISTS ' + updParTrigName + ' AFTER UPDATE ON "' + sToTable + '" FOR EACH ROW BEGIN UPDATE "' + sTableName + '" SET ' + sSetClause + " WHERE " + sWhereFrom + '; END;');
-      }
-      else {
-        aQ.push('CREATE TRIGGER IF NOT EXISTS ' + updParTrigName + ' BEFORE UPDATE ON "' + sToTable + '" FOR EACH ROW BEGIN SELECT RAISE(ROLLBACK, ' + sError + ') WHERE (SELECT ' + sSelectColsFrom + ' FROM "' + sTableName + '" WHERE ' + sWhereFrom + ') IS NOT NULL; END;');
-      }
-    }
-
-    if (sm_confirm(sm_getLStr("sqlm.confirm.title"), sm_getLStr("sqlm.confirm.msg") + aQ.join('\n\n'))) {
-      this.mDb.executeSimpleSQLs(aQ);
-      this.refreshDbStructure();
-    }
-  },
-
   experiment: function() {
     //document.querySelector('treechildren::-moz-tree-cell(nullvalue selected)');
   },
@@ -698,10 +581,6 @@ var SQLiteManager = {
 
     if (this.mDb.getFile() == null)
       return false;
-
-    if (this.isSqliteHigherThan("3.6.19")) {
-      $$("btn-foreign-key").hidden = true;
-    }
 
     //there is a database object at level 1 only
     if(this.mostCurrObjName == null) {
@@ -2455,11 +2334,7 @@ var SQLiteManager = {
     var udf = SmUdf.getFunctions();
 
     for (var fn in udf) {
-      var bAdded = false;
-      if (SmGlobals.gecko_1914pre) //for gecko >= 1.9.1.4pre
-        bAdded = this.mDb.createFunction(udf[fn].fName, udf[fn].fLength, udf[fn].onFunctionCall);
-      else   //for older gecko
-        bAdded = this.mDb.createFunction(udf[fn].fName, udf[fn].fLength, udf[fn]);
+      var bAdded = this.mDb.createFunction(udf[fn].fName, udf[fn].fLength, udf[fn].onFunctionCall);
 
       if (bAdded)
         sm_log("Loaded user-defined function: " + udf[fn].fName + ", args.length = " + udf[fn].fLength);

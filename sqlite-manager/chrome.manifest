@@ -3,6 +3,10 @@ skin        sqlitemanager    default  chrome/skin/default/
 locale      sqlitemanager    en-US    chrome/locale/en-US/
 resource    sqlitemanager    chrome/resource/
 
+component {f15ff0f9-9699-496e-a13c-a651365abe2a} components/clh.js
+contract @mrinalkant/commandlinehandler/general-startup;1?type=sqlitemanager {f15ff0f9-9699-496e-a13c-a651365abe2a}
+category profile-after-change m-sqlitemanager @mrinalkant/commandlinehandler/general-startup;1?type=sqlitemanager
+
 #Firefox
 overlay chrome://browser/content/browser.xul chrome://sqlitemanager/content/overlays/firefox.xul
 style   chrome://global/content/customizeToolbar.xul chrome://sqlitemanager/skin/smoverlay.css

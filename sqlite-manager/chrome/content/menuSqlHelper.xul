@@ -3,7 +3,7 @@
       xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <menubar id="sql-help-menubar">
-    <menu id="sql-help-alter-menu" label="Select">
+    <menu label="Select">
       <menupopup>
         <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
           label="SELECT * FROM tableName" 
@@ -17,7 +17,7 @@
       </menupopup>
     </menu>
     <toolbarseparator/>
-    <menu id="sql-help-drop-menu" label="Data Manipulation">
+    <menu label="Data Manipulation">
       <menupopup>
         <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
           label="DELETE" 
@@ -40,7 +40,7 @@
       </menupopup>
     </menu>
     <toolbarseparator/>
-    <menu id="sql-help-drop-menu" label="Create/Alter">
+    <menu label="Create/Alter">
       <menupopup>
         <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
           label="CREATE TABLE" 
@@ -77,7 +77,7 @@
       </menupopup>
     </menu>
     <toolbarseparator/>
-    <menu id="sql-help-drop-menu" label="Drop">
+    <menu label="Drop">
       <menupopup>
         <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
           label="DROP TABLE" value="DROP TABLE tableName"/>
@@ -90,7 +90,7 @@
       </menupopup>
     </menu>
     <toolbarseparator/>
-    <menu id="sql-help-drop-menu" label="ReIndex">
+    <menu label="ReIndex">
       <menupopup>
         <menuitem oncommand="SQLiteManager.setSqlText(this.label)" label="REINDEX tableName"/>
         <menuitem oncommand="SQLiteManager.setSqlText(this.label)" label="REINDEX indexName"/>
@@ -98,7 +98,7 @@
       </menupopup>
     </menu>
     <toolbarseparator/>
-    <menu id="sql-help-pragma-menu" label="PRAGMA">
+    <menu label="PRAGMA">
       <menupopup>
         <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
           label="PRAGMA table_info" value="PRAGMA table_info (tableName)"/>

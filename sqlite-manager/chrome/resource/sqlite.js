@@ -1110,15 +1110,18 @@ SQLiteHandler.prototype = {
     }
 */
 
-    //any space makes the str as text. If this is not desiarable, first do the following:
+    //any space makes the str as text. If this is not desirable, first do the following:
     //str = str.trim();
     var reInt = new RegExp(SQLiteRegex.mInteger);
-    if (reInt.test(str))
+    if (reInt.test(str) || str == "0")
       return {type: SQLiteTypes.INTEGER, value: Number(str)};
 
     var reReal = new RegExp(SQLiteRegex.mReal);
-    if (reReal.test(str))
-      return {type: SQLiteTypes.REAL, value: Number(str)};
+    if (reReal.test(str) && (str.indexOf('.') >= 0 || str.indexOf('e') >= 0 || str.indexOf('E') >= 0)) {
+      //var reBadPrefix = new RegExp("^[-+]?[0][^\.][.]*$");
+      //if (!reBadPrefix.test(str))
+        return {type: SQLiteTypes.REAL, value: Number(str)};
+    }
 
     var reBlob = new RegExp(SQLiteRegex.mBlob);
     if (reBlob.test(str))
@@ -1137,7 +1140,7 @@ SQLiteHandler.prototype = {
 
 var SQLiteRegex = {
   mNull: "^[nN][uU][lL][lL]$",
-  mInteger: "^[-+]?[0-9]+$",
+  mInteger: "^[-+]?[1-9][0-9]*$",
   mReal: "^[-+]?[0-9]*[\.]?[0-9]+([eE][-+]?[0-9]+)?$",
   mBlob: "^[xX]\'([0-9a-fA-F][0-9a-fA-F])*\'$"
 };

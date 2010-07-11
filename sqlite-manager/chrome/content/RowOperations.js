@@ -1,6 +1,7 @@
 Components.utils.import("resource://sqlitemanager/sqlite.js");
 
 var RowOperations = {
+  mDb: null,
   mbConfirmationNeeded: false,
 
   maQueries: [],
@@ -34,7 +35,6 @@ var RowOperations = {
       ["IS NOT NULL", "", ""]
     ],
 
-  mDb: null,
   loadDialog: function () {
     this.mDb = window.arguments[0];
     this.sCurrentTable = window.arguments[1];
@@ -103,7 +103,7 @@ var RowOperations = {
 
   selectTable: function(sID) {
     var sTable = $$(sID).value;
-    //to do, if the table dropdown is enabled
+    //TODO: if the table dropdown is enabled
   },
 
   doOK: function() {

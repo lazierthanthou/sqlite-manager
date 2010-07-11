@@ -49,7 +49,10 @@ var SQLiteManager = {
   maFileExt: [],
 
   experiment: function() {
-    //document.querySelector('treechildren::-moz-tree-cell(nullvalue selected)');
+    //checking the use of localStorage in extension
+    //result: failure
+    window.localStorage.setItem("status", "checking");
+    alert(window.localStorage.getItem("status"));
   },
 
   isSqliteHigherThan: function (sVersion) {
@@ -1528,7 +1531,7 @@ var SQLiteManager = {
     }
 
     var aRetVals = {};
-    window.openDialog("chrome://sqlitemanager/content/createTable.xul", "createTable", "chrome, resizable, centerscreen, modal, dialog", Database, aRetVals);
+    window.openDialog("chrome://sqlitemanager/content/createTable.xul", "createTable", "chrome, resizable, centerscreen, modal, dialog", this.mDb, aRetVals);
      if (aRetVals.ok) {
       this.mDb.confirmAndExecute([aRetVals.createQuery], sm_getLFStr("sqlm.confirm.createTable", [aRetVals.tableName]), "confirm.create");
       this.refreshDbStructure();
@@ -1547,7 +1550,7 @@ var SQLiteManager = {
        var aRetVals = {dbName: this.mDb.logicalDbName, tableName: this.aCurrObjNames["table"]};
       window.openDialog(xul, "create" + sObjectType, 
               "chrome, resizable, centerscreen, modal, dialog", 
-              Database, aRetVals);
+              this.mDb, aRetVals);
       if (aRetVals.ok) {
         this.mDb.confirmAndExecute(aRetVals.queries, sm_getLFStr("sqlm.confirm.createObj", [sObjectType, aRetVals.objectName]), "confirm.create");
         this.refreshDbStructure();
@@ -1557,7 +1560,7 @@ var SQLiteManager = {
     else
       window.openDialog(xul, "create" + sObjectType, 
               "chrome, resizable, centerscreen, modal, dialog", 
-              Database, this.aCurrObjNames["table"], sObjectType);
+              this.mDb, this.aCurrObjNames["table"], sObjectType);
 
     this.refreshDbStructure();
     this.loadTabBrowse();
@@ -1572,7 +1575,7 @@ var SQLiteManager = {
 
     var aRetVals = {dbName: this.mDb.logicalDbName, objectName: sViewName, modify: 1, selectStmt: sSelect};
     aRetVals.readonlyFlags = ["dbnames", "viewname"];
-    window.openDialog("chrome://sqlitemanager/content/createview.xul", "createView", "chrome, resizable, centerscreen, modal, dialog", Database, aRetVals);
+    window.openDialog("chrome://sqlitemanager/content/createview.xul", "createView", "chrome, resizable, centerscreen, modal, dialog", this.mDb, aRetVals);
     if (aRetVals.ok) {
       this.mDb.confirmAndExecute(aRetVals.queries, sm_getLFStr("sqlm.confirm.modifyView", [aRetVals.objectName]), "confirm.create");
       this.refreshDbStructure();
@@ -1980,7 +1983,7 @@ var SQLiteManager = {
 /* following code if dialog is popped up for editing etc. */
     var bUseWindow = true;
     if (bUseWindow) {
-      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul", "RowOperations", "chrome, resizable, centerscreen, modal, dialog", Database, this.aCurrObjNames["table"], sOperation, rowCriteria);
+      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul", "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, this.aCurrObjNames["table"], sOperation, rowCriteria);
       if(sOperation != "update") {
         this.refreshDbStructure();
       }

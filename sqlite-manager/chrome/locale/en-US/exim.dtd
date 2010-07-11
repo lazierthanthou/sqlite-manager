@@ -35,6 +35,7 @@
 <!ENTITY eximCsv_encloser.doublequotes.standard     "Double quotes (&quot;), if necessary (Standard)">
 <!ENTITY eximCsv_encloser.doublequotes.standard.ak  "q">
 <!ENTITY eximCsv_encloser.doublequotes.always       "Double quotes (&quot;), always">
+<!ENTITY eximCsv_encloser.doublequotes.likeExcel       "Like MSExcel (double quotes if field contains &quot; or separator)">
 <!ENTITY eximCsv_encloser.singlequotes              "Single quotes (')">
 <!ENTITY eximCsv_encloser.other        "Other">
 <!ENTITY eximCsv-expSaveSetting        "Save CSV Export Settings">

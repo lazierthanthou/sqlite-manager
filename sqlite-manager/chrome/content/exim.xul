@@ -81,6 +81,9 @@
             <radio label="&eximCsv_encloser.doublequotes.always;" value="&quot;"/>
           </hbox>
           <hbox>
+            <radio id="eximCsv-likeExcel" label="&eximCsv_encloser.doublequotes.likeExcel;" value="E"/>
+          </hbox>
+          <hbox>
   <!--
             <radio label="&eximCsv_encloser.singlequotes;" value="'"/>
             <radio label="&eximCsv_encloser.other;" value="other"/>

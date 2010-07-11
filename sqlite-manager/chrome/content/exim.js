@@ -34,12 +34,12 @@ var SmExim = {
 
   loadDialog: function(sOpType, sObjectType, sObjectName) {
     this.init();
-    this.msDbName = Database.logicalDbName;
+    this.msDbName = SQLiteManager.mDb.logicalDbName;
 
     if (sOpType == "import") {
       $$("tab-exim").label = sm_getLStr("eximTab.import.label");
 
-      smShow(["exim-imp-ok", "eximFileSelection", "eximCsvTableNameLbl", "eximCsvTableName", "eximCsv_ignoreTrailingDelimiter"]);
+      smShow(["exim-imp-ok", "eximFileSelection", "eximCsvTableNameLbl", "eximCsvTableName", "eximCsv_ignoreTrailingDelimiter", "eximCsv-likeExcel"]);
 
       smHide(["exim-exp-ok", "eximSql-create-statement", "eximObjectSelection", "eximCsv-expSaveSetting"]);
 
@@ -52,11 +52,11 @@ var SmExim = {
       this.sObjectName = sObjectName;
       $$("tab-exim").label = sm_getLStr("eximTab.export.label");
 //      $$("eximSubtitle").value = sm_getLFStr("eximTab.export.subtitle", [sObjectType], 1) + this.sObjectName;
-      smHide(["exim-imp-ok", "eximFileSelection", "eximCsvTableNameLbl", "eximCsvTableName", "eximCsv_ignoreTrailingDelimiter"]);
+      smHide(["exim-imp-ok", "eximFileSelection", "eximCsvTableNameLbl", "eximCsvTableName", "eximCsv_ignoreTrailingDelimiter", "eximCsv-likeExcel"]);
 
       smShow(["exim-exp-ok", "eximSql-create-statement", "eximObjectSelection", "eximCsv-expSaveSetting"]);
 
-      this.loadDbNames("eximDbName", Database.logicalDbName);
+      this.loadDbNames("eximDbName", SQLiteManager.mDb.logicalDbName);
       this.loadObjectNames("eximObjectNames", this.sObjectName, sObjectType);
 
       $$("eximLblObjectType").value = sm_getLStr("eximLblObjectType") + sObjectType;
@@ -70,12 +70,12 @@ var SmExim = {
 
     var aObjectNames = [];
     if (sObjectType == "table") {
-      var aMastTableNames = Database.getObjectList("master", dbName);
-       var aNormTableNames = Database.getObjectList("table", dbName);
+      var aMastTableNames = SQLiteManager.mDb.getObjectList("master", dbName);
+       var aNormTableNames = SQLiteManager.mDb.getObjectList("table", dbName);
       aObjectNames = aMastTableNames.concat(aNormTableNames);
     }
     else
-       aObjectNames = Database.getObjectList(sObjectType, dbName);
+       aObjectNames = SQLiteManager.mDb.getObjectList(sObjectType, dbName);
 
     PopulateDropDownItems(aObjectNames, listbox, sTableName);
     this.onSelectObject();
@@ -83,7 +83,7 @@ var SmExim = {
 
   loadDbNames: function(sListBoxId, sDbName) {
     var listbox = $$(sListBoxId);
-    var aObjectNames = Database.getDatabaseList();
+    var aObjectNames = SQLiteManager.mDb.getDatabaseList();
     PopulateDropDownItems(aObjectNames, listbox, sDbName);
   },
 
@@ -146,7 +146,7 @@ var SmExim = {
     // This assumes that fos is the nsIOutputStream you want to write to
     os.init(foStream, "UTF-8", 0, 0x0000);
     
-    var sQuery = "SELECT * FROM " + Database.getPrefixedName(sTableName, sDbName);
+    var sQuery = "SELECT * FROM " + SQLiteManager.mDb.getPrefixedName(sTableName, sDbName);
     var iExportNum = 0;
     switch(this.sExpType) {
       case "csv":
@@ -187,9 +187,10 @@ var SmExim = {
   },
 
   writeCsvContent: function(foStream, sQuery, cSeparator, cEncloser, bColNames) {
-    Database.selectQuery(sQuery, true);
-    var allRecords = Database.getRecords();
-    var columns = Database.getColumns();
+    SQLiteManager.mDb.selectQuery(sQuery, true);
+    var allRecords = SQLiteManager.mDb.getRecords();
+    var columns = SQLiteManager.mDb.getColumns();
+    var types = SQLiteManager.mDb.getRecordTypes();
     
     if(bColNames) {
       var data = [];
@@ -209,10 +210,15 @@ var SmExim = {
 
     for(var i = 0; i < allRecords.length; i++) {
       var row = allRecords[i];
+      var rowTypes = types[i];
       var data = [];
       for (var iCol = 0; iCol < row.length; iCol++) {
         if (row[iCol] == null) {
           data.push('');
+          continue;
+        }
+        if (rowTypes[iCol] == SQLiteTypes.BLOB) {
+          data.push(row[iCol]);
           continue;
         }
         if (cEncloser == "din") {
@@ -250,18 +256,18 @@ var SmExim = {
     }
 
     if (bCreate) {
-      var sTableSql = Database.getMasterInfo(sTable, sDbName).sql;
+      var sTableSql = SQLiteManager.mDb.getMasterInfo(sTable, sDbName).sql;
       data = "DROP TABLE IF EXISTS " + SQLiteFn.quoteIdentifier(sTable) + ";\n";
       data += sTableSql + ";\n";
         foStream.writeString(data);
 
     }
 
-    var sQuery = "SELECT * FROM " + Database.getPrefixedName(sTable, sDbName);
-    Database.selectQuery(sQuery, true); //true to return blob as hex with x'' around it
-    var allRecords = Database.getRecords();
-    var columns = Database.getColumns();
-    var types = Database.getRecordTypes();
+    var sQuery = "SELECT * FROM " + SQLiteManager.mDb.getPrefixedName(sTable, sDbName);
+    SQLiteManager.mDb.selectQuery(sQuery, true); //true to return blob as hex with x'' around it
+    var allRecords = SQLiteManager.mDb.getRecords();
+    var columns = SQLiteManager.mDb.getColumns();
+    var types = SQLiteManager.mDb.getRecordTypes();
     if (allRecords.length > 0) { 
       var sInsert = "INSERT INTO " + SQLiteFn.quoteIdentifier(sTable) + " VALUES(";
       for(var i = 0; i < allRecords.length; i++) {
@@ -293,18 +299,18 @@ var SmExim = {
   },
 
   writeXmlContent: function(foStream, sQuery, bType) {
-    Database.selectQuery(sQuery, true);
-    var allRecords = Database.getRecords();
-    var columns = Database.getColumns();
-    var types = Database.getRecordTypes();
-    var sDbName = Database.getFileName();
+    SQLiteManager.mDb.selectQuery(sQuery, true);
+    var allRecords = SQLiteManager.mDb.getRecords();
+    var columns = SQLiteManager.mDb.getColumns();
+    var types = SQLiteManager.mDb.getRecordTypes();
+    var sDbName = SQLiteManager.mDb.getFileName();
     var data = '<?xml version="1.0" encoding="utf-8" ?>\n';
     data += "<!--\n";
     data += "  GUID:  sqlite-manager@sqlite-manager.googlecode.com\n";
     data += "  Homepage:  http://sqlite-manager.googlecode.com\n\n";
     var d = new Date();
     data += "  Generation Time: " + d.toGMTString() + "\n";
-    data += "  SQLite version: " + Database.sqliteVersion + "\n";
+    data += "  SQLite version: " + SQLiteManager.mDb.sqliteVersion + "\n";
     data += "-->\n\n";
     data += "<!-- Database: " + sDbName + " -->\n";
     foStream.writeString(data);
@@ -488,7 +494,7 @@ var SmExim = {
       //if the worker succeeded, do things that should be done after the completed stage
       switch (obj.stage) {
         case 1: //file read; create table query is to be made
-          var sDbName = Database.logicalDbName;
+          var sDbName = SQLiteManager.mDb.logicalDbName;
           var aRet = SmExim.getCreateTableQuery(obj.tableName, sDbName, obj.columns, false);
           if (aRet.error) {
             SmExim.handleImportCompletion(-1);
@@ -510,7 +516,7 @@ var SmExim = {
             if (obj.createTableQuery != "") {
               obj.queries.unshift(obj.createTableQuery);
             }
-            var bReturn = Database.executeTransaction(obj.queries);
+            var bReturn = SQLiteManager.mDb.executeTransaction(obj.queries);
 
             //BEGIN async use
             //did not really help
@@ -519,11 +525,11 @@ var SmExim = {
             /*
             var bReturn = true;
             if (obj.createTableQuery != "") {
-              bReturn = Database.executeTransaction([obj.createTableQuery]);
+              bReturn = SQLiteManager.mDb.executeTransaction([obj.createTableQuery]);
             }
 
             if (bReturn)
-              bReturn = Database.executeAsync(obj.queries);
+              bReturn = SQLiteManager.mDb.executeAsync(obj.queries);
             */
             //END async use
 
@@ -562,7 +568,7 @@ var SmExim = {
 
     var answer = smPrompt.confirm(null, sm_getLStr("exim.confirm.sqlStats.title"), sm_getLStr("exim.confirm.sqlStats.msg") + aQueries.length);
     if(answer) {
-      var bReturn = Database.executeTransaction(aQueries);
+      var bReturn = SQLiteManager.mDb.executeTransaction(aQueries);
       if (bReturn)
         return aQueries.length;
     }
@@ -618,8 +624,8 @@ var SmExim = {
         else
           sVals += SQLiteFn.quote(colText);
       }
-      var sDbName = Database.logicalDbName;
-      var sTabNameInInsert = Database.getPrefixedName(sTabName, sDbName);
+      var sDbName = SQLiteManager.mDb.logicalDbName;
+      var sTabNameInInsert = SQLiteManager.mDb.getPrefixedName(sTabName, sDbName);
       var iFound = xmlTables.indexOf(sTabName);
       if (iFound == -1) {
         //last arg is true to indicate that user cannot edit column names needed until we can maintain arrays for original and new names like we do for tables using xmlTables & actualTables
@@ -642,7 +648,7 @@ var SmExim = {
 
     var answer = smPrompt.confirm(null, sm_getLStr("exim.confirm.irows.title"), sm_getLStr("exim.confirm.irows.msg") + iRows);
     if(answer) {
-      var bReturn = Database.executeTransaction(aQueries);
+      var bReturn = SQLiteManager.mDb.executeTransaction(aQueries);
       if (bReturn)
         return iRows;
     }
@@ -651,8 +657,8 @@ var SmExim = {
 
   getCreateTableQuery: function(sTabName, sDbName, aCols, bReadOnlyColNames) {
     //importing to an existing table
-    if (Database.tableExists(sTabName, sDbName)) {
-      sTabName = Database.getPrefixedName(sTabName, sDbName);
+    if (SQLiteManager.mDb.tableExists(sTabName, sDbName)) {
+      sTabName = SQLiteManager.mDb.getPrefixedName(sTabName, sDbName);
       //confirm before proceeding
       //TODO: the buttons should say Continue (=OK), Abort (=Cancel)
       // and Let me modify = open createTable.xul
@@ -675,7 +681,7 @@ var SmExim = {
       }
     }
     //user chose not to modify, or pressed cancel in create table dialog
-    sTabName = Database.getPrefixedName(sTabName, sDbName);
+    sTabName = SQLiteManager.mDb.getPrefixedName(sTabName, sDbName);
     for (var ic = 0; ic < aCols.length; ic++)
       aCols[ic] = SQLiteFn.quoteIdentifier(aCols[ic]);
     var sCols = aCols.toString();

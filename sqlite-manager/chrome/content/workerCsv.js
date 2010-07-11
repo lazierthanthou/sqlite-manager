@@ -35,6 +35,7 @@ var gFile = {
 var tempStore = {
   csvParams: null,
   csvRecords: null,
+  csvBlobInfo: null,
   columns: [],
   queries: []
 };
@@ -115,16 +116,29 @@ function createAllQueries(params) {
 
     var aInp = [];
     for (var c = 0; c < aVals.length; c++) {
-      if (aVals[c] == null) {
-        aVals[c] = "null";
-      }
-      else {
-        //quote, if not already within quotes
-        if (!(aVals[c].length > 0 && (aVals[c][0] == "'" || aVals[c][0] == '"'))) {
-          aVals[c] = "'" + aVals[c] + "'";
+      try {
+        if (aVals[c] == null) {
+          aVals[c] = "null";
+        }
+        else {
+          //quote the value only if it is not a blob
+          if (tempStore.csvBlobInfo.indexOf(i + "x" + c) < 0) {
+            //encloser = E means csv from excel (field is enclosed in double quotes only if it contains double quotes or separator; single quotes will be in file like any other char; so enclose in double quotes); to be used for files like the one in Issue #460
+            if (tempStore.csvParams.encloser == 'E') {
+              if (!(aVals[c].length > 0 && aVals[c][0] == '"' && aVals[c][0] == aVals[c][aVals.length - 1])) {
+                aVals[c] = '"' + aVals[c] + '"';
+              }
+            }
+            //quote the value if it is not already within quotes
+            else if (!(aVals[c].length > 0 && (aVals[c][0] == "'" || aVals[c][0] == '"') && aVals[c][0] == aVals[c][aVals.length - 1])) {
+              aVals[c] = "'" + aVals[c] + "'";
+            }
+          }
         }
       }
-
+      catch (e) {
+        //TODO: some message here
+      }
       aInp.push(aVals[c]);
     }
 
@@ -133,7 +147,7 @@ function createAllQueries(params) {
     while (aInp.length < iCols)
       aInp.push(sNoValue);
 
-    //aBadLines will not be empty only if their are more values than columns
+    //aBadLines will not be empty only if there are more values than columns
     if (aInp.length != iCols) {
       aBadLines.push(i+1);
       continue;
@@ -174,6 +188,7 @@ function csvToArray(separator) {
   //check whether tab is handled correctly as a separator
 
   tempStore.csvRecords = [];
+  tempStore.csvBlobInfo = [];
   var token;
   var line = [];
   var tkSEPARATOR = 0, tkNEWLINE = 1, tkNORMAL = 2;
@@ -189,6 +204,7 @@ function csvToArray(separator) {
         tempStore.csvRecords.push(line);
         postMessage('Parsing csv data: ' + tempStore.csvRecords.length + ' records');
         line = [];
+        
       }
       break; //exit the while loop
     }
@@ -242,14 +258,10 @@ function csvToArray(separator) {
       line.push(token);
       break;
 
-//    case "x":
-//    case "X":
-//      var iStart = i, iEnd = i;
-//      break;
-
     default:
       tk = tkNORMAL;
       iStart = i;
+
       i++;
       for (; i < gFile.size; i++) {
         c = gFile.contents[i];
@@ -260,6 +272,17 @@ function csvToArray(separator) {
       }
       iEnd = i;
       token = gFile.contents.substring(iStart, iEnd+1);
+
+      try {
+        if ((gFile.contents[iStart] == 'x' || gFile.contents[iStart] == 'X')
+            && gFile.contents[iStart + 1] == "'"
+            && gFile.contents[iEnd] == "'") {
+          tempStore.csvBlobInfo.push(tempStore.csvRecords.length + "x" + line.length);
+        }
+      }
+      catch (e) {
+      }
+
       line.push(token);
       break;
     }

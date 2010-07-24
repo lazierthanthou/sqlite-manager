@@ -459,6 +459,96 @@ SQLiteHandler.prototype = {
     return this.confirmAndExecute([sQuery], "Add Column to Table " + sTable);
   },
 
+  alterColumn: function(sTable, oColumn) {
+    //get the columns
+    var cols = this.getTableInfo(sTable, "");
+    //correct the cols array
+    for(var i = 0; i < cols.length; i++) {
+      if (cols[i].name == oColumn.oldColName) {
+        cols[i].name = oColumn.newColName;
+        cols[i].type = oColumn.newColType;
+        cols[i].dflt_value = oColumn.newDefaultValue;
+      }
+      else
+        continue;
+    }
+    return this.modifyTable(sTable, oColumn.info, cols)
+  },
+
+  dropColumn: function(sTable, oColumn) {
+    //get the columns
+    var cols = this.getTableInfo(sTable, "");
+    //correct the cols array
+    for(var i = 0; i < cols.length; i++) {
+      if (cols[i].name == oColumn.oldColName) {
+        cols.splice(i, 1);
+      }
+      else
+        continue;
+    }
+    return this.modifyTable(sTable, oColumn.info, cols)
+  },
+
+  modifyTable: function(sTable, sInfo, cols) {
+    var aPK = [], aCols = [], aColNames = [];
+
+    for(var i = 0; i < cols.length; i++) {
+      var colname = cols[i].name;
+      colname = SQLiteFn.quoteIdentifier(colname);
+      aColNames.push(colname);
+
+      var col = [i, colname];
+      aCols.push(col);
+      if(cols[i].pk == 1)
+        aPK.push(colname);
+    }
+    var colList = aColNames.toString();
+
+    var aColDefs = [];
+    for(var i = 0; i < aCols.length; i++) {
+      var j = aCols[i][0]
+      var datatype = cols[j].type;
+
+      var txtNull = " NOT NULL ";
+      if(cols[j].notnull == 0)
+        txtNull = "";
+
+      //Issue #433: apply () around default value because pragma returns values without these; an extra set of () around the value will in any case be harmless
+      var defaultvalue = "";
+      if(cols[j].dflt_value != null)
+        defaultvalue = " DEFAULT (" + cols[j].dflt_value + ") ";
+
+      var pk = "";
+      if(aPK.length == 1 && aPK[0] == aCols[i][1])
+        pk = " PRIMARY KEY ";
+      var col = aCols[i][1] + " " + datatype + pk + txtNull + defaultvalue;
+      aColDefs.push(col);
+    }
+    var coldef = aColDefs.toString();
+
+    //this is the primary key constraint on multiple columns
+    var constraintPK = "";
+    if(aPK.length > 1)
+      constraintPK = ", PRIMARY KEY (" + aPK.toString() + ") ";
+
+    coldef += constraintPK;
+
+////////////////////////////
+    var sTab = this.getPrefixedName(sTable, "");
+    var sSomePrefix = "oXHFcGcd04oXHFcGcd04_";
+    var sTempTable = this.getPrefixedName(sSomePrefix + sTable, "");
+    var sTempTableName = SQLiteFn.quoteIdentifier(sSomePrefix + sTable);
+
+    var aQueries = [];
+    aQueries.push("ALTER TABLE " + sTab + " RENAME TO " + sTempTableName);
+    aQueries.push("CREATE TABLE " + sTab + " (" + coldef + ")");    
+    aQueries.push("INSERT INTO " + sTab + " SELECT " + colList + " FROM " + sTempTable);
+    aQueries.push("DROP TABLE " + sTempTable);    
+
+    var bReturn = this.confirmAndExecute(aQueries, sInfo, "confirm.otherSql");
+    return bReturn;
+  },
+
   // selectQuery : execute a select query and store the results
   selectQuery: function(sQuery, bBlobAsHex) {
     this.aTableData = new Array();

@@ -259,9 +259,11 @@ var CreateManager = {
 
   doOK: function() {
   },
-    
-  modifyTable: function(sOperation, sTable, sColumn) {
+
+  //called from outside this object; so, necessary to pass the db object    
+  modifyTable: function(sOperation, oDb, sTable, sColumn) {
     //get the columns
+    this.mDb = oDb;
     var cols = this.mDb.getTableInfo(sTable, "");
     if (sOperation == "alterColumn") {
       //correct the cols array

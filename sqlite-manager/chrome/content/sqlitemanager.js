@@ -1640,7 +1640,7 @@ var SQLiteManager = {
                     newColName: sNewName,
                     newColType: sNewType,
                     newDefaultValue: sNewDefVal};
-    var bReturn = CreateManager.modifyTable("alterColumn", sTable, aNewInfo);
+    var bReturn = CreateManager.modifyTable("alterColumn", this.mDb, sTable, aNewInfo);
     if(bReturn) {
       this.cancelEditColumn();
 
@@ -1661,7 +1661,7 @@ var SQLiteManager = {
     var sColumn = treeCol.view.getCellText(row, col);
     var sTable = treeCol.getAttribute("smTableName");
 
-    var bReturn = CreateManager.modifyTable("dropColumn", sTable, sColumn);
+    var bReturn = CreateManager.modifyTable("dropColumn", this.mDb, sTable, sColumn);
     if(bReturn) {
       this.refreshDbStructure();
       this.loadTabBrowse();

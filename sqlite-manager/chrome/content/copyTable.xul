@@ -9,6 +9,7 @@
   buttons="accept,cancel"
   ondialogaccept="return SmTableCopier.doOK();"
   ondialogcancel="return true;"
+  buttonlabelaccept="OK" buttonaccesskeyaccept="O"
   onload="SmTableCopier.loadDialog();">
 
   <script type="application/x-javascript" src="globals.js"/>  

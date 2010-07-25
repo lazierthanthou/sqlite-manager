@@ -3,12 +3,13 @@
 <!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
  
 <dialog id="createindex" title="&window.title; - &createIndex;"
-        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-        buttons="accept,cancel"
-        ondialogaccept="return CreateManager.doOKCreateIndex();"
-        ondialogcancel="return CreateManager.doCancel();"
-        onload="CreateManager.loadCreateIndexDialog();"
-        flex="1">
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  buttons="accept,cancel"
+  ondialogaccept="return CreateManager.doOKCreateIndex();"
+  ondialogcancel="return CreateManager.doCancel();"
+  buttonlabelaccept="OK" buttonaccesskeyaccept="O"
+  onload="CreateManager.loadCreateIndexDialog();"
+  flex="1">
 
   <script type="application/x-javascript" src="createManager.js"/>  
   <script type="application/x-javascript" src="globals.js"/>  

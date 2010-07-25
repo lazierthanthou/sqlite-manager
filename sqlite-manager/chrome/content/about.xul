@@ -7,6 +7,7 @@
 <dialog id="sm-about" title="&about; &window.title;"
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
   buttons="accept"
+  buttonlabelaccept="OK" buttonaccesskeyaccept="O"
   ondialogaccept="window.close();" onload="fillAboutValues();">
 
   <script type="application/x-javascript" src="globals.js"/>  

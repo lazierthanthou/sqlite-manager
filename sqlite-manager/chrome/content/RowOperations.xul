@@ -10,6 +10,7 @@
   persist="width sizemode"
   ondialogaccept="return RowOperations.doOK();"
   ondialogcancel="return RowOperations.doCancel();"
+  buttonlabelaccept="OK" buttonaccesskeyaccept="O"
   onload="RowOperations.loadDialog();">
 
   <script type="application/x-javascript" src="globals.js"/>  

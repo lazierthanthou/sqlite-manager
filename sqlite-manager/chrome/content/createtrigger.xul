@@ -3,11 +3,12 @@
 <!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
 
 <dialog id="createtrigger" title="&window.title; - &createTrigger;"
-        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-        buttons="accept,cancel"
-        ondialogaccept="return CreateManager.doOKCreateTrigger();"
-        ondialogcancel="return CreateManager.doCancel();"
-        onload="CreateManager.loadCreateTriggerDialog();">
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  buttons="accept,cancel"
+  ondialogaccept="return CreateManager.doOKCreateTrigger();"
+  ondialogcancel="return CreateManager.doCancel();"
+  buttonlabelaccept="OK" buttonaccesskeyaccept="O"
+  onload="CreateManager.loadCreateTriggerDialog();">
 
   <script type="application/x-javascript" src="createManager.js"/>  
   <script type="application/x-javascript" src="globals.js"/>  

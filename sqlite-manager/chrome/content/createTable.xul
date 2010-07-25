@@ -3,12 +3,13 @@
 <!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
 
 <dialog id="createtable" title="&window.title; - &createTable;"
-        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-        persist="width sizemode"
-        buttons="accept,cancel"
-        ondialogaccept="return CreateManager.doOKCreateTable();"
-        ondialogcancel="return CreateManager.doCancel();"
-        onload="CreateManager.loadCreateTableDialog();">
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  persist="width sizemode"
+  buttons="accept,cancel"
+  ondialogaccept="return CreateManager.doOKCreateTable();"
+  ondialogcancel="return CreateManager.doCancel();"
+  buttonlabelaccept="OK" buttonaccesskeyaccept="O"
+  onload="CreateManager.loadCreateTableDialog();">
 
   <script type="application/x-javascript" src="createManager.js"/>
   <script type="application/x-javascript" src="globals.js"/>

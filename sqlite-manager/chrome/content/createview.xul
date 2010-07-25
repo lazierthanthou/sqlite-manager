@@ -4,11 +4,12 @@
 <!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
  
 <dialog id="createview" title="&window.title; - &createView;"
-        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-        buttons="accept,cancel"
-        ondialogaccept="return CreateManager.doOKCreateView();"
-        ondialogcancel="return CreateManager.doCancel();"
-        onload="CreateManager.loadCreateViewDialog();">
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  buttons="accept,cancel"
+  ondialogaccept="return CreateManager.doOKCreateView();"
+  ondialogcancel="return CreateManager.doCancel();"
+  buttonlabelaccept="OK" buttonaccesskeyaccept="O"
+  onload="CreateManager.loadCreateViewDialog();">
 
   <script type="application/x-javascript" src="createManager.js"/>
   <script type="application/x-javascript" src="globals.js"/>

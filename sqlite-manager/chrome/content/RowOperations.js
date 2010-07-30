@@ -888,13 +888,15 @@ var RowOperations = {
   //used for searching within table/view
   doOKSearch: function() {
     var inpval, opval, fld;
-    var where = "";
+    var where = [];
     for(var i = 0; i < this.aColumns.length; i++) {
       var ctrltb = $$("ctrl-tb-" + i);
       inpval = ctrltb.value;
-      if (inpval.length == 0)
-        continue;
       opval = $$("op-" + this.aColumns[i].name).value;
+
+      //fixed issue #490
+      if (inpval.length == 0 && (this.aOps[opval][0] != "IS NULL" && this.aOps[opval][0] != "IS NOT NULL"))
+        continue;
 //      if (this.aOps[opval][0] == g_strIgnore)
 //        continue;
 
@@ -915,11 +917,7 @@ var RowOperations = {
           break;
       }
       inpval = SQLiteFn.quoteIdentifier(this.aColumns[i].name) + " " + inpval;
-
-      if(where.length > 0)
-        inpval = " AND " + inpval;
-
-      where += inpval;
+      where.push(inpval);
     }
     var extracol = "";
     if (this.sOperation == "search") {  //do this for table, not for view
@@ -927,8 +925,9 @@ var RowOperations = {
       if (rowidcol["name"] == "rowid")
         extracol = " rowid, ";
     }
+
     if(where.length > 0)
-      where = " WHERE " + where;
+      where = " WHERE " + where.join(" AND ");
 
     var answer = true;
     if(answer) {

@@ -462,6 +462,8 @@ SQLiteHandler.prototype = {
   alterColumn: function(sTable, oColumn) {
     //get the columns
     var cols = this.getTableInfo(sTable, "");
+//    var oldCols = cols; //this seems to create an alias for cols instead of a copy
+    var oldCols = this.getTableInfo(sTable, "");
     //correct the cols array
     for(var i = 0; i < cols.length; i++) {
       if (cols[i].name == oColumn.oldColName) {
@@ -469,10 +471,8 @@ SQLiteHandler.prototype = {
         cols[i].type = oColumn.newColType;
         cols[i].dflt_value = oColumn.newDefaultValue;
       }
-      else
-        continue;
     }
-    return this.modifyTable(sTable, oColumn.info, cols)
+    return this.modifyTable(sTable, oColumn.info, cols, oldCols);
   },
 
   dropColumn: function(sTable, oColumn) {
@@ -483,15 +483,21 @@ SQLiteHandler.prototype = {
       if (cols[i].name == oColumn.oldColName) {
         cols.splice(i, 1);
       }
-      else
-        continue;
     }
-    return this.modifyTable(sTable, oColumn.info, cols)
+    return this.modifyTable(sTable, oColumn.info, cols, cols);
   },
 
-  modifyTable: function(sTable, sInfo, cols) {
-    var aPK = [], aCols = [], aColNames = [];
+  modifyTable: function(sTable, sInfo, cols, oldCols) {
+    //use oldCols to work out the colList to be used to select columns to be inserted in the altered table
+    var colList = [];
+    for(var i = 0; i < oldCols.length; i++) {
+      var colname = oldCols[i].name;
+      colname = SQLiteFn.quoteIdentifier(colname);
+      colList.push(colname);
+    }
+    colList = colList.toString();
 
+    var aPK = [], aCols = [], aColNames = [];
     for(var i = 0; i < cols.length; i++) {
       var colname = cols[i].name;
       colname = SQLiteFn.quoteIdentifier(colname);
@@ -502,7 +508,6 @@ SQLiteHandler.prototype = {
       if(cols[i].pk == 1)
         aPK.push(colname);
     }
-    var colList = aColNames.toString();
 
     var aColDefs = [];
     for(var i = 0; i < aCols.length; i++) {

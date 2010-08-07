@@ -1290,6 +1290,44 @@ var SQLiteManager = {
     }
   },
 
+  exportQuery: function(sFormat) {
+    treeExecute.exportAllRows(sFormat);
+    alert(22);
+  },
+
+  saveText: function(sText, sFormat) {
+    alert(33);
+    const nsIFilePicker = Ci.nsIFilePicker;
+    var fp = Cc["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
+    fp.init(window, sm_getLStr("exim.exportToFile"), nsIFilePicker.modeSave);
+    fp.appendFilters(nsIFilePicker.filterAll);
+    fp.defaultString = "output." + sFormat.substring(0,3);
+    
+    var rv = fp.show();
+    
+    //if chosen then
+    if (rv != nsIFilePicker.returnOK && rv != nsIFilePicker.returnReplace) {
+      alert(sm_getLStr("exim.chooseFileExport"));
+      return false;
+    }
+    var file = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsILocalFile);
+    file.initWithFile(fp.file);
+
+    var foStream = Cc["@mozilla.org/network/file-output-stream;1"].createInstance(Ci.nsIFileOutputStream);
+    // use 0x02 | 0x10 to open file for appending.
+    foStream.init(file, 0x02 | 0x08 | 0x20, 0664, 0); // write, create, truncate
+
+    var os = Cc["@mozilla.org/intl/converter-output-stream;1"].createInstance(Ci.nsIConverterOutputStream);
+    
+    // This assumes that fos is the nsIOutputStream you want to write to
+    os.init(foStream, "UTF-8", 0, 0x0000);
+
+    os.writeString(sText);
+
+    os.close();
+    foStream.close();
+  },
+
   newDatabase: function() {
     var sExt = "." + this.maFileExt[0];
     //prompt for a file name

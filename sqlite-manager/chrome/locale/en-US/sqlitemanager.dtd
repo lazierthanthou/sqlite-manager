@@ -179,6 +179,8 @@
 <!ENTITY	buttonExecute 	  "Execute Statement (no results)">
 <!ENTITY	buttonExecute.ak  "E">
 <!ENTITY	label.sqlLastError "Last Error">
+<!ENTITY	btn.exportQuery        "Export">
+<!ENTITY	btn.exportQuery.ak 	  "x">
 <!ENTITY	label.resultOfQuery "Result of the Query">
 <!ENTITY	label.resultOfQuery.ak "Q">
 <!ENTITY	btn.prevSql 	"Previous Sql from History">

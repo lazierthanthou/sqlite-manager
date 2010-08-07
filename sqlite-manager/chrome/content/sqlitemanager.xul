@@ -408,6 +408,8 @@
             <html:input id="numTriggers" type="text" size="8" readonly="true"/>
           </hbox>
           </groupbox>
+
+          <!-- Edit column UI -->
           <groupbox id="gb-editColumn" hidden="true">
           <caption label="&menu.editColumn;"/>
             <html:table>
@@ -597,6 +599,7 @@
   -->
             <label class="forControl" value="&label.sqlLastError;:"/>
             <textbox id="sqlLastError" readonly="true" flex="1"/>
+            <button id="buttonExport" oncommand="SQLiteManager.exportQuery('csv')" label="&btn.exportQuery;" accesskey="&btn.exportQuery.ak;" />
             </hbox>
             </vbox>
             <splitter id="executetabsplitter" persist="state" collapse="before"/>

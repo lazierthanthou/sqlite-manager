@@ -39,6 +39,17 @@ TreeDataTable.prototype = {
     }
   },
   
+  // sFormat: csv, csv-excel, sql
+  exportAllRows: function(sFormat) {
+    var aOut = [];
+    for (var iRow = 0; iRow < this.treeTable.view.rowCount; iRow++) {
+      aOut.push(this.GetRowData(iRow, sFormat));
+    }
+
+    if (aOut.length > 0)
+      SQLiteManager.saveText(aOut.join("\n"), sFormat);
+  },
+
   // UserCopyRows: copy all currently highlighted rows
   // sFormat: csv, csv-excel, sql
   UserCopyRows: function(sFormat) {
@@ -49,6 +60,7 @@ TreeDataTable.prototype = {
     var aOut = [];
     for (var iRange = 0; iRange < iRangeCount; iRange++) {
       sel.getRangeAt(iRange,start,end);
+
       for (var iRow = start.value; iRow <= end.value; iRow++) {
         aOut.push(this.GetRowData(iRow, sFormat));
       }

@@ -179,8 +179,15 @@
 <!ENTITY	buttonExecute 	  "Execute Statement (no results)">
 <!ENTITY	buttonExecute.ak  "E">
 <!ENTITY	label.sqlLastError "Last Error">
-<!ENTITY	btn.exportQuery        "Export">
-<!ENTITY	btn.exportQuery.ak 	  "x">
+
+<!ENTITY	mb.queryActions        "Actions">
+<!ENTITY	mi.viewQueryAsTable        "View Table">
+<!ENTITY	mi.viewQueryAsTable.ak 	  "T">
+<!ENTITY	mi.viewQueryAsCsv        "View CSV">
+<!ENTITY	mi.viewQueryAsCsv.ak 	  "C">
+<!ENTITY	mi.saveQueryAsCsv        "Save Result (CSV) to File">
+<!ENTITY	mi.saveQueryAsCsv.ak 	  "S">
+
 <!ENTITY	label.resultOfQuery "Result of the Query">
 <!ENTITY	label.resultOfQuery.ak "Q">
 <!ENTITY	btn.prevSql 	"Previous Sql from History">

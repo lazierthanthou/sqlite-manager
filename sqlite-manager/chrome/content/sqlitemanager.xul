@@ -593,23 +593,40 @@
               <menupopup/>
             </menulist>
             <button id="buttonRun" command="smc-runQuery" label="&btn.runsql;" accesskey="&btn.runsql.ak;" tooltiptext="&btn.runsql.tooltiptext;"/>
+            <button type="menu" label="&mb.queryActions;">
+              <menupopup>
+                <menuitem oncommand="SQLiteManager.setQueryView('table')" 
+                  label="&mi.viewQueryAsTable;" accesskey="&mi.viewQueryAsTable.ak;" />
+                <menuitem oncommand="SQLiteManager.setQueryView('csv')" 
+                  label="&mi.viewQueryAsCsv;" accesskey="&mi.viewQueryAsCsv.ak;" />
+
+                <menuseparator />
+                <menuitem oncommand="SQLiteManager.saveQuery('csv')" 
+                  label="&mi.saveQueryAsCsv;" accesskey="&mi.saveQueryAsCsv.ak;" />
+              </menupopup>
+            </button>
   <!--
             <button id="buttonRun" label="&buttonRun;" accesskey="&buttonRun.ak;" oncommand="SQLiteManager.runSqlStatement('select')" />
             <button id="buttonExecute" label="&buttonExecute;" accesskey="&buttonExecute.ak;" oncommand="SQLiteManager.runSqlStatement('execute')" />
   -->
             <label class="forControl" value="&label.sqlLastError;:"/>
             <textbox id="sqlLastError" readonly="true" flex="1"/>
-            <button id="buttonExport" oncommand="SQLiteManager.exportQuery('csv')" label="&btn.exportQuery;" accesskey="&btn.exportQuery.ak;" />
             </hbox>
             </vbox>
+
             <splitter id="executetabsplitter" persist="state" collapse="before"/>
 
-            <hbox flex="1">
-              <tree align="stretch" id="treeSqlOutput" style="min-height:10em" enableColumnDrag="true" seltype="multiple" flex="1">
-                <treecols hidden="true"/>
-                <treechildren id="sqloutput-treechildren" hidden="true" flex="1" onclick="treeExecute.UserTreeClick(event)" context="mp-copy"/>  
-              </tree>
-            </hbox>
+            <deck id="sqlOutput" selectedIndex="0">
+              <hbox flex="100">
+                <tree align="stretch" id="treeSqlOutput" style="min-height:10em" enableColumnDrag="true" seltype="multiple" flex="1">
+                  <treecols hidden="true"/>
+                  <treechildren id="sqloutput-treechildren" hidden="true" flex="1" onclick="treeExecute.UserTreeClick(event)" context="mp-copy"/>  
+                </tree>
+              </hbox>
+              <hbox flex="1">
+                <textbox id="txtSqlOutput" multiline="true" rows="12" flex="1" />
+              </hbox>
+            </deck>
           </vbox>
         </tabpanel>
 

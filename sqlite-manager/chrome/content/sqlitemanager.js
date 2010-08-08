@@ -1282,7 +1282,8 @@ var SQLiteManager = {
     //otherwise, it does not refresh the structure tree as expected
     this.refreshDbStructure();
     this.loadTabBrowse();
-    
+
+    this.setQueryView("table");
     treeExecute.ShowTable(false);
     if (bRet && queries.length == 1) {
       treeExecute.createColumns(aColumns, 0, [], null);
@@ -1290,19 +1291,29 @@ var SQLiteManager = {
     }
   },
 
-  exportQuery: function(sFormat) {
-    treeExecute.exportAllRows(sFormat);
+  setQueryView: function(sView) {
+    var aViewTypes = ["table", "csv"];
+    $$("sqlOutput").selectedIndex = aViewTypes.indexOf(sView);
+    if (sView == "csv") {
+      var sText = treeExecute.exportAllRows("csv");
+      $$("txtSqlOutput").value = sText;
+    }
   },
 
-  saveText: function(sText, sFormat) {
+  saveQuery: function(sFormat) {
+    var sText = treeExecute.exportAllRows(sFormat);
+    this.saveToFile(sText, sFormat);
+  },
+
+  saveToFile: function(sText, sFormat) {
     const nsIFilePicker = Ci.nsIFilePicker;
     var fp = Cc["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
     fp.init(window, sm_getLStr("exim.exportToFile"), nsIFilePicker.modeSave);
     fp.appendFilters(nsIFilePicker.filterAll);
     fp.defaultString = "output." + sFormat.substring(0,3);
-    
+
     var rv = fp.show();
-    
+
     //if chosen then
     if (rv != nsIFilePicker.returnOK && rv != nsIFilePicker.returnReplace) {
       alert(sm_getLStr("exim.chooseFileExport"));

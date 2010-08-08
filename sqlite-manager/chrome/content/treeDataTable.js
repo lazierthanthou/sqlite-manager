@@ -47,7 +47,9 @@ TreeDataTable.prototype = {
     }
 
     if (aOut.length > 0)
-      SQLiteManager.saveText(aOut.join("\n"), sFormat);
+      return aOut.join("\n");
+
+    return "";
   },
 
   // UserCopyRows: copy all currently highlighted rows

@@ -1292,11 +1292,9 @@ var SQLiteManager = {
 
   exportQuery: function(sFormat) {
     treeExecute.exportAllRows(sFormat);
-    alert(22);
   },
 
   saveText: function(sText, sFormat) {
-    alert(33);
     const nsIFilePicker = Ci.nsIFilePicker;
     var fp = Cc["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
     fp.init(window, sm_getLStr("exim.exportToFile"), nsIFilePicker.modeSave);

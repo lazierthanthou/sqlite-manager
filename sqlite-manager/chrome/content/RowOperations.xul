@@ -38,7 +38,8 @@
   </hbox>
 
 <!-- vbox to show when insert/update/delete/search operation is invoked -->
-  <vbox id="vbox-insert">
+  <!-- Issue #495: fixed by adding style, flex and height attributes (as in createTable.xul) to the vbox below -->
+  <vbox id="vbox-insert" style="overflow-y:auto" flex="1" height="300">
     <groupbox id="columnEntryFields" flex="1">
     </groupbox>
   </vbox>

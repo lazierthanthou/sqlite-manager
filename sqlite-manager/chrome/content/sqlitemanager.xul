@@ -616,7 +616,7 @@
 
             <splitter id="executetabsplitter" persist="state" collapse="before"/>
 
-            <deck id="sqlOutput" selectedIndex="0">
+            <deck id="sqlOutput" selectedIndex="0" flex="1">
               <hbox flex="100">
                 <tree align="stretch" id="treeSqlOutput" style="min-height:10em" enableColumnDrag="true" seltype="multiple" flex="1">
                   <treecols hidden="true"/>

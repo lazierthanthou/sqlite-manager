@@ -37,6 +37,7 @@
 <!ENTITY eximCsv_encloser.doublequotes.always       "Double quotes (&quot;), always">
 <!ENTITY eximCsv_encloser.doublequotes.likeExcel       "Like MSExcel (double quotes if field contains &quot; or separator)">
 <!ENTITY eximCsv_encloser.singlequotes              "Single quotes (')">
+<!ENTITY eximCsv_encloser.none        "None">
 <!ENTITY eximCsv_encloser.other        "Other">
 <!ENTITY eximCsv-expSaveSetting        "Save CSV Export Settings">
 <!ENTITY eximCsv-expSaveSetting-tooltiptext "You can save these settings if you want 'Copy Rows as CSV' operations to use these settings.">

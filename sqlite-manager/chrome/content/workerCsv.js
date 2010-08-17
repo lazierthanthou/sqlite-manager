@@ -129,6 +129,10 @@ function createAllQueries(params) {
                 aVals[c] = '"' + aVals[c] + '"';
               }
             }
+            //encloser = N means there is no enclosing character
+            else if (tempStore.csvParams.encloser == 'N') {
+              aVals[c] = singleQuote(aVals[c]);
+            }
             //quote the value if it is not already within quotes
             else if (!(aVals[c].length > 0 && (aVals[c][0] == "'" || aVals[c][0] == '"') && aVals[c][0] == aVals[c][aVals.length - 1])) {
               aVals[c] = "'" + aVals[c] + "'";
@@ -287,4 +291,15 @@ function csvToArray(separator) {
       break;
     }
   }
+}
+
+function singleQuote(sText) {
+  var sReturn = "'";
+  for (var i = 0; i < sText.length; i++) {
+    sReturn += sText[i];
+    if (sText[i] == "'")
+      sReturn += sText[i];
+  }
+  sReturn += "'";
+  return sReturn;
 }

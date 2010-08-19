@@ -674,7 +674,7 @@ var SmExim = {
       var aRetVals = {tableName: sTabName, colNames: aCols};
       if (bReadOnlyColNames)
         aRetVals.readonlyFlags = ["colnames"];
-      window.openDialog("chrome://sqlitemanager/content/createTable.xul",  "createTable", "chrome, resizable, centerscreen, modal, dialog", Database, aRetVals);
+      window.openDialog("chrome://sqlitemanager/content/createTable.xul",  "createTable", "chrome, resizable, centerscreen, modal, dialog", SQLiteManager.mDb, aRetVals);
       if (aRetVals.ok) {
         sQuery = aRetVals.createQuery;
         return {error: false, query: sQuery, tableName: aRetVals.tableName};

@@ -1,0 +1,4 @@
+22	11	S01GA	Curare la congiuntivite allergica con colliri	
+23	12	D04AA	Curare l'allergia cutanea ed il prurito con creme locali	
+74	40	A02AD	Curare acidità e bruciori di stomaco	
+

@@ -1,0 +1,12 @@
+BEGIN TRANSACTION;
+DROP TABLE IF EXISTS "icons";
+CREATE TABLE 'icons' (id INTEGER PRIMARY KEY, url LONGVARCHAR UNIQUE, data BLOB, mime_type VARCHAR(32), expiration LONG);
+INSERT INTO "icons"VALUES(45,'http://www.mozilla.org/2005/made-up-favicon/44-1197038384453125','_BLOB_','''image/bmp1''','bbbbbbbbbbb');
+INSERT INTO "icons"VALUES(1496,'https://www.irctc.co.in/favicon.ico',BLOB (Size: 894),'image/x-icon',1206462132125000);
+INSERT INTO "icons"VALUES(1498,'http://technology.newscientist.com/favicon.ico',BLOB (Size: 228),BLOB (Size: 384),1208061438765625);
+INSERT INTO "icons"VALUES(1503,'http://picasaweb.google.com/favicon.ico',BLOB (Size: 384),'image/png',1208765105078125);
+INSERT INTO "icons"VALUES(1504,'qwerjjfdsfdfd',BLOB (Size: 384),BLOB (Size: 384),'bbbb');
+INSERT INTO "icons"VALUES(1505,BLOB (Size: 384),BLOB (Size: 76566),BLOB (Size: 384),'''llll''ghghg');
+INSERT INTO "icons"VALUES(3344,'',BLOB (Size: 384),'','mkt');
+INSERT INTO "icons"VALUES(112233,'qqq',BLOB (Size: 384),BLOB (Size: 384),'zzzzzzzzzzzzzzzzzzzz');
+COMMIT;

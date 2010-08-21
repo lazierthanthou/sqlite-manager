@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  GUID:  SQLiteManager@mrinalkant.blogspot.com
+  Homepage:  http://sqlite-manager.googlecode.com
+
+  Generation Time: Thu, 28 Aug 2008 11:05:58 GMT
+  SQLite version: 3.5.9
+-->
+
+<!-- Database: trial.sqlite -->
+<trial.sqlite>
+  <csvTest>
+    <col_1 type="3"/>
+    <col_2 type="3">56</col_2>
+    <col_3 type="3">tt"rr</col_3>
+    <col_4 type="3">gghh"jj"kk</col_4>
+    <col_5 type="3">where
+are you</col_5>
+  </csvTest>
+  <csvTest>
+    <col_1 type="3">98</col_1>
+    <col_2 type="3"/>
+    <col_3 type="3">imposs</col_3>
+    <col_4 type="3">and it is me 
+again</col_4>
+    <col_5 type="3">likel
+y</col_5>
+  </csvTest>
+  <engine_data>
+    <id type="3">3</id>
+    <engineid type="3">[app]/amazondotcom.xml</engineid>
+    <name type="3">hidden</name>
+    <value type="3">0</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">4</id>
+    <engineid type="3">[app]/answers.xml</engineid>
+    <name type="3">hidden</name>
+    <value type="3">0</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">5</id>
+    <engineid type="3">[app]/creativecommons.xml</engineid>
+    <name type="3">hidden</name>
+    <value type="3">0</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">6</id>
+    <engineid type="3">[app]/eBay.xml</engineid>
+    <name type="3">hidden</name>
+    <value type="3">0</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">7</id>
+    <engineid type="3">[app]/google.xml</engineid>
+    <name type="3">hidden</name>
+    <value type="3">0</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">8</id>
+    <engineid type="3">[app]/yahoo.xml</engineid>
+    <name type="3">hidden</name>
+    <value type="3">0</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">34</id>
+    <engineid type="3">[profile]/wikipedia-en.xml</engineid>
+    <name type="3">updatedatatype</name>
+    <value type="3">2</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">140</id>
+    <engineid type="3">[app]/amazondotcom.xml</engineid>
+    <name type="3">order</name>
+    <value type="3">4</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">141</id>
+    <engineid type="3">[app]/eBay.xml</engineid>
+    <name type="3">order</name>
+    <value type="3">5</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">142</id>
+    <engineid type="3">[app]/yahoo.xml</engineid>
+    <name type="3">order</name>
+    <value type="3">6</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">144</id>
+    <engineid type="3">[app]/google.xml</engineid>
+    <name type="3">order</name>
+    <value type="3">1</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">145</id>
+    <engineid type="3">[profile]/wikipedia-en.xml</engineid>
+    <name type="3">order</name>
+    <value type="3">2</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">146</id>
+    <engineid type="3">[app]/answers.xml</engineid>
+    <name type="3">order</name>
+    <value type="3">3</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">147</id>
+    <engineid type="3">[app]/amazon-en-GB.xml</engineid>
+    <name type="3">order</name>
+    <value type="3">4</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">148</id>
+    <engineid type="3">[app]/chambers-en-GB.xml</engineid>
+    <name type="3">order</name>
+    <value type="3">5</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">149</id>
+    <engineid type="3">[app]/eBay-en-GB.xml</engineid>
+    <name type="3">order</name>
+    <value type="3">6</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">150</id>
+    <engineid type="3">[app]/creativecommons.xml</engineid>
+    <name type="3">order</name>
+    <value type="3">7</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">151</id>
+    <engineid type="3">[app]/yahoo-en-GB.xml</engineid>
+    <name type="3">order</name>
+    <value type="3">8</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">154</id>
+    <engineid type="3">[profile]/wikipedia-en.xml</engineid>
+    <name type="3">updateexpir</name>
+    <value type="3">1197462477062</value>
+  </engine_data>
+  <engine_data>
+    <id type="3">155</id>
+    <engineid type="3">[profile]/wikipedia-en.xml</engineid>
+    <name type="3">updatelastmodified</name>
+    <value type="3">Wed, 05 Dec 2007 12:28:04 GMT</value>
+  </engine_data>
+</trial.sqlite>

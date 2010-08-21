@@ -1,0 +1,266 @@
+A,automatic
+A3,automatic 3-speed
+A4,automatic 4-speed
+A4 x 2,"ditto, high and low range gearing"
+A4L,"ditto, low ratio"
+A5,automatic 5-speed
+A5 x 2,"ditto, high and low range gearing"
+A6,automatic 6-speed
+A7,automatic 7-speed
+A/SAT5,automatic/semi automatic transmission 5-speed
+ASM,automatic shift manual
+AWD,all wheel drive
+bhp,brake horsepower
+CAT,catalyst
+CVT,continuously variable transmission
+D,diesel engined vehicle
+D6,direct shift 6-speed
+Di,direct injection diesel engine
+DID,direct injection diesel
+DOHC,dual overhead camshaft
+E-Diesel,economy diesel
+FAP,particulate filter
+FDR,final drive ratio
+GDi,gasoline direct diesel
+Hybrid,combined internal combustion engine and electric motor and battery
+i,fuel injection
+ide,petrol direct injection
+km/h,kilometres per hour
+kW,kilowatt
+LWB,long wheelbase
+l/100km,litres per 100 kilometres
+mpg,miles per gallon
+mph,miles per hour
+M,manual
+M5,manual 5-speed
+M5 x 2,"ditto, high and low range gearing"
+M6,manual 6-speed
+M6/S6,manual 6-speed/sequential 6-speed
+MULTI5,multimode 5-speed
+PAS,power assisted steering
+QA5,"4-wheel drive, Auto 5-speed"
+QA6,"4-wheel drive, Auto 6-speed"
+QD6,quattro direct shift 6-speed
+QM5,"4-wheel drive, Manual 5-speed"
+QM6,"4-wheel drive, Manual 6-speed"
+S/A6,semi automatic transmission 6-speed
+SAT5,semi automatic transmission 5-speed
+SAT6,semi automatic transmission 6-speed
+SMG7,sequential manual gearshift 7-speed
+SOHC,single overhead camshaft
+SS5,sequential shift 5-speed
+SWB,short wheelbase
+TCI,turbo charged diesel with intercooler
+TD,turbo diesel
+TDdi,turbo diesel direct injection
+TDi,turbo charged direct injection diesel
+TDI,turbo diesel with intercooler
+4SS,4-speed sequential shift gearbox
+4WD,4-wheel drive
+4 x 4,4-wheel drive
+VSA,vehicle stability assistance
+A,automatic
+A4,automatic 4-speed
+4Atx2,"ditto, high and low range gearing"
+A5,automatic 5-speed
+5Atx2,"ditto, high and low range gearing"
+A7,automatic 7-speed
+A/SAT5,automatic / semi automatic transmission 5 speed
+ASM,automatic shift manual
+AWD,all wheel drive
+bhp,brake horsepower
+CVT,continuously variable transmission
+D,diesel engined vehicle
+D6,direct shift 6-speed
+Di,direct injection diesel engine
+DID,direct injection diesel
+DOHC,dual overhead camshaft
+DPF(S),diesel particulate filter (system)
+E-Diesel,economy diesel
+FAP,particulate filter
+FDR,final drive ratio
+GDi,gasoline direct diesel
+i,fuel injection
+ide,petrol direct injection
+km/h,kilometres per hour
+kW,kilowatt
+LWB,long wheelbase
+l/100km,litres per 100 kilometres
+mpg,miles per gallon
+mph,miles per hour
+M,manual
+M5,manual 5-speed
+5MTx2,"ditto, high and low range gearing"
+M6,manual 6-speed
+M6/S6,manual 6 speed / sequential 6 speed
+MULTI5,multimode 5 speed
+PAS,power assisted steering
+QA5,"4-wheel drive, Auto 5-speed"
+QA6,"4-wheel drive, Auto 6-speed"
+QD6,quattro direct shift 6 speed
+QM5,"4-wheel drive, Manual 5-speed"
+QM6,"4-wheel drive, Manual 6-speed"
+S/A6,semi automatic transmission 6-speed
+SAT5,semi automatic transmission 5-speed
+SAT6,semi automatic transmission 6-speed
+SMG7,sequential manual gearshift 7 speed
+SOHC,single overhead camshaft
+SS5,sequential shift 5-speed
+SWB,short wheelbase
+TCI,turbo charged diesel with intercooler
+TD,turbo diesel
+TDdi,turbo diesel direct injection
+TDi,turbo charged direct injection diesel
+TDI,turbo diesel with intercooler
+4SS,4-speed sequential shift gearbox
+4WD,4-wheel drive
+4 x 4,4-wheel drive
+A,automatic
+A3,automatic 3-speed
+A4,automatic 4-speed
+A4x2,"ditto, high and low range gearing"
+A4L,"ditto, low ratio"
+AWD,all wheel drive
+bhp,brake horsepower
+CAT,catalyst
+CVT,continuously variable transmission
+D,diesel engined vehicle
+Di,direct injection diesel engine
+DID,direct injection diesel
+DOHC,dual overhead camshafts
+FA4,front wheel drive auto 4-speed
+FM5,front wheel drive manual 5-speed
+FDR,final drive ratio
+GDi,gasoline direct diesel
+i,fuel injection
+km/h,kilometres per hour
+kW,kilowatt
+LWB,long wheelbase
+l/100km,litres per 100 kilometres
+mpg,miles per gallon
+mph,miles per hour
+M,manual
+M5,manual 5-speed
+5MT,manual 5-speed
+M5x2,"ditto, high and low range gearing"
+M5N,"ditto, normal ratio"
+M5NE ,"ditto, normal economy ratio"
+M5/s,"manual 5-speed, close ratio gearbox"
+M6,manual 6-speed
+PAS,power assisted steering
+PS,metric horsepower
+QA5,4-wheel drive Auto 5-speed
+QM5,4-wheel drive Manual 5-speed
+QM6,4-wheel drive Manual 6-speed
+SAT 5,semi automatic transmission 5-speed
+SM5,semi automatic gearbox 5-speed
+SOHC,single overhead camshaft
+4SS,4-speed sequential shift gearbox
+SWB,short wheelbase
+TCI,turbo charged diesel with intercooler
+TD,turbo diesel
+TDi,turbo charged direct injection diesel
+TDI,turbo diesel with intercooler
+4WD,4-wheel drive
+4x4,4-wheel drive
+A,automatic
+A3,automatic 3-speed
+A4,automatic 4-speed
+A4x2,"ditto, high and low range gearing"
+A4L,"ditto, low ratio"
+AWD,all wheel drive
+bhp,brake horsepower
+CAT,catalyst
+CVT,continuously variable transmission
+D,diesel engined vehicle
+Di,direct injection diesel engine
+DID,direct injection diesel
+DOHC,dual overhead camshafts
+FA4,front wheel drive auto 4-speed
+FM5,front wheel drive manual 5-speed
+FDR,final drive ratio
+GDi,gasoline direct diesel
+i,fuel injection
+km/h,kilometres per hour
+kW,kilowatt
+LWB,long wheelbase
+l/100km,litres per 100 kilometres
+mpg,miles per gallon
+mph,miles per hour
+M,manual
+M5,manual 5-speed
+5MT,manual 5-speed
+M5x2,"ditto, high and low range gearing"
+M5N,"ditto, normal ratio"
+M5NE ,"ditto, normal economy ratio"
+M5/s,"manual 5-speed, close ratio gearbox"
+M6,manual 6-speed
+PAS,power assisted steering
+PS,metric horsepower
+QA5,4-wheel drive Auto 5-speed
+QM5,4-wheel drive Manual 5-speed
+QM6,4-wheel drive Manual 6-speed
+SAT 5,semi automatic transmission 5-speed
+SM5,semi automatic gearbox 5-speed
+SOHC,single overhead camshaft
+4SS,4-speed sequential shift gearbox
+SWB,short wheelbase
+TCI,turbo charged diesel with intercooler
+TD,turbo diesel,,
+TDi,turbo charged direct injection diesel,,
+TDI,turbo diesel with intercooler,,
+4WD,4-wheel drive,,
+4x4,4-wheel driveA,,automatic
+A3,automatic 3-speed,,
+A4,automatic 4-speed,,
+A4 x 2,"ditto, high and low range gearing",,
+A4L,"ditto, low ratio",,
+ASM,automatic shift manual,,
+AV,automatic variable transmission,,
+AWD,all wheel drive,,
+bhp,brake horsepower,,
+CAT,catalyst,,
+CVT,continuously variable transmission,,
+D,diesel engined vehicle,,
+Di,direct injection diesel engine
+DID,direct injection diesel
+DOHC,dual overhead camshaft
+E-Diesel,economy diesel
+FAP,particulate filter
+FA4,front wheel drive auto 4-speed
+FM5,front wheel drive manual 5-speed
+FDR,final drive ratio
+GDi,gasoline direct diesel
+i,fuel injection
+ide,petrol direct injection
+km/h,kilometres per hour
+kW,kilowatt
+LWB,long wheelbase
+1/100kw,litres per 100 kilometres
+mpg,miles per gallon
+mph,miles per hour
+M,manual
+M5,manual 5-speed
+M5 x 2,"ditto, high and low range gearing"
+M5N,"ditto, normal ratio"
+M5NE,"ditto, normal economy ratio"
+M5/s,"manual 5-speed, close ratio gearbox"
+M6,manual 6-speed
+MTA,manual/automatic transmission
+PAS,power assisted steering
+QA5,"4-wheel drive, Auto 5-speed"
+QM5,"4-wheel drive, Manual 5-speed"
+QM6,"4-wheel drive, Manual 6-speed"
+SAT,semi automatic transmission 5-speed
+SM5,semi automatic gearbox 5-speed
+SOHC,single overhead camshaft
+4SS,4-speed sequential shift gearbox
+SWB,short wheelbase
+TCI,turbo charged diesel with intercooler
+TD,turbo diesel
+TDdi,turbo diesel direct injection
+TDi,turbo charged direct injection diesel
+TDI,turbo diesel with intercooler
+4WD,4-wheel drive
+4 x 4,4-wheel drive
+VSA,vehicle stability assistance

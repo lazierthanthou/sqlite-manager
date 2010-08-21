@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  GUID:  SQLiteManager@mrinalkant.blogspot.com
+  Homepage:  http://sqlite-manager.googlecode.com
+
+  Generation Time: Fri, 11 Jul 2008 12:30:38 GMT
+  SQLite version: 3.5.4.2
+-->
+
+<!-- Database: trial.sqlite -->
+<trial.sqlite>
+  <charactersUTF-8>
+    <Name type="3">Andrea</Name>
+    <Surname type="3">Alinčová</Surname>
+    <Class type="3">1.A</Class>
+  </charactersUTF-8>
+  <charactersUTF-8>
+    <Name type="3">Patricie</Name>
+    <Surname type="3">Bartošová</Surname>
+    <Class type="3">1.A</Class>
+  </charactersUTF-8>
+  <charactersUTF-8>
+    <Name type="3">Milan</Name>
+    <Surname type="3">Bašek</Surname>
+    <Class type="3">1.A</Class>
+  </charactersUTF-8>
+  <charactersUTF-8>
+    <Name type="3">Adam</Name>
+    <Surname type="3">Beneš</Surname>
+    <Class type="3">1.A</Class>
+  </charactersUTF-8>
+  <charactersUTF-8>
+    <Name type="3">Jana</Name>
+    <Surname type="3">Bizoňová</Surname>
+    <Class type="3">1.A</Class>
+  </charactersUTF-8>
+  <charactersUTF-8>
+    <Name type="3">Kamila</Name>
+    <Surname type="3">Bradáčová</Surname>
+    <Class type="3">1.A</Class>
+  </charactersUTF-8>
+  <charactersUTF-8>
+    <Name type="3">Michaela</Name>
+    <Surname type="3">Burešová</Surname>
+    <Class type="3">1.A</Class>
+  </charactersUTF-8>
+  <charactersUTF-8>
+    <Name type="3">Zuzana</Name>
+    <Surname type="3">Černá</Surname>
+    <Class type="3">1.A</Class>
+  </charactersUTF-8>
+  <charactersUTF-8>
+    <Name type="3">Alena</Name>
+    <Surname type="3">Daňková</Surname>
+    <Class type="3">1.A</Class>
+  </charactersUTF-8>
+  <charactersUTF-8>
+    <Name type="3">Cyrilic</Name>
+    <Surname type="3">Вот и вся статья</Surname>
+    <Class type="3">any</Class>
+  </charactersUTF-8>
+</trial.sqlite>

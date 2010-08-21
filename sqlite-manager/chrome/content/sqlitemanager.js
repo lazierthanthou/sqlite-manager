@@ -138,7 +138,7 @@ var SQLiteManager = {
             bOpenLastDb = false;
             var file = cmdLine.resolveFile(fArg);
             this.setDatabase(file);
-            if (this.mDb.getFile() == null)
+            if (!this.mDb.isConnected())
               alert('Failed to connect to ' + file.path);
           }
         } catch (e) {
@@ -159,7 +159,7 @@ var SQLiteManager = {
           }
           else {
             this.setDatabase(file);
-            if (this.mDb.getFile() == null)
+            if (!this.mDb.isConnected())
               alert('Failed to connect to ' + file.path);
           }
         }
@@ -422,14 +422,14 @@ var SQLiteManager = {
   },
 
   refresh: function() {
-    if (this.mDb.getFile() == null)
+    if (!this.mDb.isConnected())
       return false;
     this.refreshDbStructure();
     return true; 
   },
   //Issue #108
   reconnect: function() {
-    if (this.mDb.getFile() == null)
+    if (!this.mDb.isConnected())
       return true;
     //check whether the file still exists
     var sPath = this.mDb.getFile().path;
@@ -451,7 +451,7 @@ var SQLiteManager = {
   //and whenever the schema changes
   refreshDbStructure: function() {
     //1. if no database is selected
-    if (this.mDb.getFile() == null) {
+    if (!this.mDb.isConnected()) {
       smStructTrees[0].removeChildData();
 
       for(var i = 0; i < this.aObjTypes.length; i++) {
@@ -582,7 +582,7 @@ var SQLiteManager = {
     this.hideTabStructure();
     this.cancelEditColumn();
 
-    if (this.mDb.getFile() == null)
+    if (!this.mDb.isConnected())
       return false;
 
     //there is a database object at level 1 only
@@ -637,14 +637,6 @@ var SQLiteManager = {
     if (sTable == null)
       return;
 
-////////////////////////////////////
-    if (this.mDb.getOpenStatus() != "Exclusive") {
-//      $$("treeTabCols").datasources = "file://" + this.mDb.getFile().path;
-//      $$("qPragmaTable").textContent = "PRAGMA table_info('" + sTable + "')";
-//      $$("treeTabCols").builder.rebuild();
-    }
-
-////////////////////////////////////
     smShow(["hb-addcol", "mp-opTableColumn"]);
     if (sTable.indexOf("sqlite_") == 0) {
       //no add/edit/drop column for master tables
@@ -783,7 +775,7 @@ var SQLiteManager = {
     if(this.getSelectedTabId() != "tab-browse")
       return false;
       
-    if (this.mDb.getFile() == null)
+    if (!this.mDb.isConnected())
       return false;
 
     if (this.mostCurrObjType == null)
@@ -954,7 +946,7 @@ var SQLiteManager = {
     if(this.getSelectedTabId() != "tab-dbinfo")
       return false;
 
-    if (this.mDb.getFile() == null)
+    if (!this.mDb.isConnected())
       return false;
 //assume sqlite >= 3.6.19
     var aSettings = ["schema_version", "user_version", "auto_vacuum", "cache_size", /*"case_sensitive_like",*/ "count_changes", "default_cache_size", "empty_result_callbacks", "encoding", "full_column_names", "fullfsync", "journal_mode", "journal_size_limit", "legacy_file_format", "locking_mode", "page_size", "max_page_count", "page_count", "freelist_count", "read_uncommitted", "reverse_unordered_selects", "short_column_names", "synchronous", "temp_store", "temp_store_directory", "foreign_keys", "recursive_triggers"];
@@ -1154,7 +1146,7 @@ var SQLiteManager = {
   useExtensionManagementTable: function(bUse, bImplicit) {
     var mi = $$("menu-general-extensionTable");
 
-    if(this.mDb.getFile() == null) {
+    if (!this.mDb.isConnected()) {
       //revert to the state before clicking
       mi.removeAttribute("checked");
       if (!bImplicit) alert(sm_getLStr("firstOpenADb"));
@@ -1215,7 +1207,7 @@ var SQLiteManager = {
 
   populateQueryListbox: function() {
     var listbox = $$("listbox-queries");
-    if (this.mDb.getFile() == null) {
+    if (!this.mDb.isConnected()) {
       listbox.hidden = true;
       return false;
     }
@@ -1234,7 +1226,7 @@ var SQLiteManager = {
     if(this.getSelectedTabId() != "tab-execute")
       return false;
 
-    if(this.mDb.getFile() == null)  {
+    if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
       return false;
     }
@@ -1377,7 +1369,7 @@ var SQLiteManager = {
   //closeDatabase: 
   closeDatabase: function(bAlert) {
     //nothing to close if no database is already open    
-    if(this.mDb.getFile() == null)  {
+    if (!this.mDb.isConnected()) {
        if(bAlert)
         alert(sm_getLStr("noOpenDb"));
       return true;
@@ -1407,7 +1399,7 @@ var SQLiteManager = {
   },
     
   copyDatabase: function() {
-     if(this.mDb.getFile() == null) {
+     if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
       return;
     }
@@ -1450,7 +1442,7 @@ var SQLiteManager = {
   },
     
   compactDatabase: function() {
-    if (this.mDb.getFile() == null) {
+    if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
       return false;
     }
@@ -1465,7 +1457,7 @@ var SQLiteManager = {
   },
 
   analyzeDatabase: function() {
-    if (this.mDb.getFile() == null) {
+    if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
       return false;
     }
@@ -1475,7 +1467,7 @@ var SQLiteManager = {
   },
 
   checkIntegrity: function() {
-    if (this.mDb.getFile() == null) {
+    if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
       return false;
     }
@@ -1572,7 +1564,7 @@ var SQLiteManager = {
   },
 
   createTable: function() {        
-    if (this.mDb.getFile() == null) {
+    if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
       return false;
     }
@@ -1587,7 +1579,7 @@ var SQLiteManager = {
   },
 
   createObject: function(sObjectType) {
-    if (this.mDb.getFile() == null) {
+    if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
       return false;
     }
@@ -1732,7 +1724,7 @@ var SQLiteManager = {
   },
 
   dropObject: function(sObjectType) {
-    if (this.mDb.getFile() == null) {
+    if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
       return false;
     }
@@ -1756,7 +1748,7 @@ var SQLiteManager = {
   },
 
   exportAll: function(sWhat) {
-    if (this.mDb.getFile() == null) {
+    if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
       return false;
     }
@@ -1836,7 +1828,7 @@ var SQLiteManager = {
   },
 
   importFromFile: function() {
-    if (this.mDb.getFile() == null) {
+    if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
       return false;
     }
@@ -1845,7 +1837,7 @@ var SQLiteManager = {
   },
   
   exportObject: function(sObjectType) {
-    if (this.mDb.getFile() == null) {
+    if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
       return false;
     }
@@ -1929,7 +1921,7 @@ var SQLiteManager = {
   operateOnTable: function(sOperation) {
     //these operations make sense in the context of some table
     //so, take action only if there is a valid selected db and table
-    if (this.mDb.getFile() == null || this.aCurrObjNames["table"] == null) {
+    if (!this.mDb.isConnected() || this.aCurrObjNames["table"] == null) {
       alert(sm_getLStr("noDbOrTable"));
       return false;
     }
@@ -2170,7 +2162,7 @@ var SQLiteManager = {
   },
 
   attachDatabase: function() {
-    if(this.mDb.getFile() == null)  {
+    if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
       return;
     }
@@ -2379,7 +2371,7 @@ var SQLiteManager = {
   },
 
   createFunctions: function(bAppendMode) {
-    if(this.mDb.getFile() == null)  {
+    if (!this.mDb.isConnected()) {
       sm_log('createFunctions: returning because not connected to any database');
       return;
     }

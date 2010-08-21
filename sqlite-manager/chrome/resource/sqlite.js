@@ -284,6 +284,12 @@ SQLiteHandler.prototype = {
     return null;
   },
 
+  isConnected: function() {
+    if (this.dbConn != null)
+      return true;
+    return false;
+  },
+
   get sqliteVersion() {
     this.selectQuery("SELECT sqlite_version()");
     return this.aTableData[0][0];

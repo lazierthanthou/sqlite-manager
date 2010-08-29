@@ -141,18 +141,19 @@ TreeDbStructure.prototype = {
         var toinsert = this.childData[label];
         var sType = label;
         var bContainer = false;
-        if (label == "table" || label == "master") bContainer = true;
+        if (label == "table" || label == "master" || label == "view")
+          bContainer = true;
 
         for (var i = 0; i < toinsert.length; i++) {
-           this.visibleData.splice(idx + i + 1, 0, [toinsert[i], bContainer,false,sType,thisLevel + 1]);
+           this.visibleData.splice(idx + i + 1, 0, [toinsert[i], bContainer, false, sType, thisLevel + 1]);
         }
         this.treeBox.rowCountChanged(idx + 1, toinsert.length);
       }
 
-      if(thisLevel == 1 && (this.getSmType(idx) == "table" || this.getSmType(idx) == "master")) {
+      if(thisLevel == 1 && (this.getSmType(idx) == "table" || this.getSmType(idx) == "master" || this.getSmType(idx) == "view")) {
         var info = SQLiteManager.getTableInfo(this.getCellText(idx), "");
         for(var i = 0; i < info.length; i++) {
-          this.visibleData.splice(idx + i + 1, 0, [[info[i].name], false,false,"someColumn",thisLevel + 1]);
+          this.visibleData.splice(idx + i + 1, 0, [[info[i].name], false, false, "someColumn", thisLevel + 1]);
         }
         this.treeBox.rowCountChanged(idx + 1, info.length);
       }

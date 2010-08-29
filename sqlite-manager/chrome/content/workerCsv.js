@@ -76,10 +76,9 @@ function processCsvData(whichReader) {
   }
 
   tempStore.columns = [];
-  var aVals = tempStore.csvRecords[0];
   if (tempStore.csvParams.bColNames) {
     //first row contains column names
-    tempStore.columns = aVals;
+    tempStore.columns = tempStore.csvRecords[0];
     //if col names are enclosed in quotes, remove them from both ends
     for (var c = 0; c < tempStore.columns.length; c++) {
       if (tempStore.columns[c][0] == "'" ||
@@ -90,6 +89,7 @@ function processCsvData(whichReader) {
     }
   }
   else {
+    var aVals = tempStore.csvRecords[0];
     for (var c = 1; c <= aVals.length; c++)
       tempStore.columns.push("col_" + c);
   }
@@ -125,7 +125,7 @@ function createAllQueries(params) {
           if (tempStore.csvBlobInfo.indexOf(i + "x" + c) < 0) {
             //encloser = E means csv from excel (field is enclosed in double quotes only if it contains double quotes or separator; single quotes will be in file like any other char; so enclose in double quotes); to be used for files like the one in Issue #460
             if (tempStore.csvParams.encloser == 'E') {
-              if (!(aVals[c].length > 0 && aVals[c][0] == '"' && aVals[c][0] == aVals[c][aVals.length - 1])) {
+              if (!(aVals[c].length > 0 && aVals[c][0] == '"' && aVals[c][0] == aVals[c][aVals[c].length - 1])) {
                 aVals[c] = '"' + aVals[c] + '"';
               }
             }
@@ -134,8 +134,8 @@ function createAllQueries(params) {
               aVals[c] = singleQuote(aVals[c]);
             }
             //quote the value if it is not already within quotes
-            else if (!(aVals[c].length > 0 && (aVals[c][0] == "'" || aVals[c][0] == '"') && aVals[c][0] == aVals[c][aVals.length - 1])) {
-              aVals[c] = "'" + aVals[c] + "'";
+            else if (!(aVals[c].length > 0 && (aVals[c][0] == "'" || aVals[c][0] == '"') && aVals[c][0] == aVals[c][aVals[c].length - 1])) {
+              aVals[c] = singleQuote(aVals[c]);
             }
           }
         }

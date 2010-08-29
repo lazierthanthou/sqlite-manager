@@ -1,4 +1,6 @@
 b,c
-"create table if not exists ""255"" (a default 1, b default 2, c default 3, d default 4)", "create the table using sql in column b to import this csv"
-111,222
+"abc ""255"" xyz", "first col has quote"
+"""aaa","first char, first col is quote"
+"zzz""","last char, first col is quote"
+111, 222
 333,444

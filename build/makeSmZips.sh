@@ -172,12 +172,6 @@ createLangFile () {
   rm -r $workDir
 }
 
-installExt () {
-  echo "Unzipping the xpi file..."
-  cd /home/user/mrinal/extensions/SQLiteManager@mrinalkant.blogspot.com
-  unzip -o $releaseDir/$xpiFile
-}
-
 buildWithVersion () {
   getNewVersion
   getNewBuildId
@@ -186,8 +180,6 @@ buildWithVersion () {
   xpiFile="sqlitemanager-"$version".xpi"
 
   createXpiFile
-  installExt
-
   createXRFile
 }
 

@@ -66,7 +66,7 @@ var SQLiteManager = {
 
   // Startup: called ONCE during the browser window "load" event
   Startup: function() {
-//    $$("experiment").hidden = true;
+    $$("experiment").hidden = true;
 
     this.mDb = new SQLiteHandler();
     this.mDb.setFuncConfirm(SmGlobals.confirmBeforeExecuting);

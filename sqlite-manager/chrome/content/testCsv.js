@@ -39,10 +39,7 @@ var SmTestExim = {
   reportImportResult: function(iImportNum) {
     if (iImportNum > 0) {
       var sMessage = sm_getLStr("exim.importNum.title");
-      if (this.sExpType == "sql")
-        sMessage += " " + sm_getLFStr("exim.importNum.statements", [iImportNum], 1);
-      else
-        sMessage += " " + sm_getLFStr("exim.importNum.records", [iImportNum], 1);
+      sMessage += " " + sm_getLFStr("exim.importNum.records", [iImportNum], 1);
       var sType = "info";
       sm_notify("boxNotifyExim", sMessage, sType);
     }
@@ -65,6 +62,7 @@ var SmTestExim = {
       var obj = event.data;
 
       if (typeof obj == 'string') {
+//        sm_log("Importing: " + event.data);
         SmExim.showImportStatus("Importing: " + event.data);
         return;
       }

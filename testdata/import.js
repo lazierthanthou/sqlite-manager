@@ -76,6 +76,7 @@ csvFiles.push(
   //,, means the field between them is null
   //if field begins with " and doesn't end with " it will cause non-import of that line
   //if \r or \n in quoted value, it should not be the end of the record
+  //the line beginning with bad will fail to import because of space after " in the third field
   ["csvTest.csv", {
     "file": "file:///home/user/sqlite-manager/testdata/csvTest.csv",
     "tableName": "csvTest", "separator": ",", "encloser": '"',

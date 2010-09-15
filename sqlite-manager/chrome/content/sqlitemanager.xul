@@ -248,7 +248,7 @@
           <menuitem id="menu-general-sharedPagerCache" label="&mi.sharedPagerCache;"  accesskey="&mi.sharedPagerCache.ak;" type="checkbox"/>
           <menuitem id="menu-general-extensionTable" type="checkbox" label="&mi.extensionTable;" accesskey="&mi.extensionTable.ak;" oncommand="SQLiteManager.useExtensionManagementTable(this.hasAttribute('checked'),false);" observes="bc-dbOpen"/>
 
-            <menuitem id="experiment" label="Experiment" oncommand="SQLiteManager.experiment()"/>
+            <menuitem id="experiment" label="Experiment" oncommand="SQLiteManager.experiment()" hidden="true" />
           </menupopup>
         </menu>
         <menu id="menu-help" label="&menu.help;">

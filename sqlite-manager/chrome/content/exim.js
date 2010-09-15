@@ -1,7 +1,6 @@
 Components.utils.import("resource://sqlitemanager/fileIO.js");
 Components.utils.import("resource://sqlitemanager/tokenize.js");
 
-var Database;
 var SmExim = {
   importWorker: null, //for worker thread
 
@@ -160,6 +159,8 @@ var SmExim = {
         var cEncloser = $$("eximCsv_encloser").value;
         if(cEncloser == "other")
          cEncloser = $$("eximCsv_encloser-text").value;
+        else if(cEncloser == "N")
+          cEncloser = "";
         //colnames needed or not
         var bColNames = $$("eximCsv_column-names").checked;
 
@@ -384,7 +385,9 @@ var SmExim = {
     switch(this.sExpType) {
       case "csv":
         $$("eximStatus").hidden = false;
-        this.readCsvContent();
+        var csvParams = this.populateCsvParams();
+        if (csvParams.file)
+          this.readCsvContent(csvParams, SmExim.handleImportCompletion, true);
         return;
         break;
       case "sql":
@@ -398,9 +401,10 @@ var SmExim = {
   },
 
   handleImportCompletion: function(iStatus) {
-    this.importWorker.terminate();
+    SmExim.importWorker.terminate();
     $$("eximStatus").hidden = true;
-    this.reportImportResult(iStatus);
+    SmExim.reportImportResult(iStatus);
+    SQLiteManager.refreshDbStructure();
   },
 
   showImportStatus: function(str) {
@@ -433,7 +437,7 @@ var SmExim = {
     $$("eximStatus").hidden = true;
   },
 
-  readCsvContent: function() {
+  populateCsvParams: function() {
     var csvParams = {};
 
     var sTabName = $$("eximCsvTableName").value;
@@ -443,7 +447,7 @@ var SmExim = {
       var sType = "critical";
       sm_notify("boxNotifyExim", sMessage, sType);
       this.reportImportResult(-1);
-      return;
+      return csvParams;
     }
     csvParams.tableName = sTabName;
 
@@ -474,12 +478,15 @@ var SmExim = {
     // URL is a nsIURI; to get "file://...", use URL.spec
     csvParams.file = URL.spec;
 
-    this.importWorker = new Worker('workerCsv.js');
-    this.importWorker.onmessage = function(event) {
+    return csvParams;
+  },
+
+  readCsvContent: function(csvParams, callbackCompletion, bAllowPrompts) {
+    SmExim.importWorker = new Worker('workerCsv.js');
+    SmExim.importWorker.onmessage = function(event) {
       var obj = event.data;
 
       if (typeof obj == 'string') {
-//        sm_log("Importing: " + event.data);
         SmExim.showImportStatus("Importing: " + event.data);
         return;
       }
@@ -487,7 +494,7 @@ var SmExim = {
       //if the worker failed, terminate it
       if (obj.success == 0) {
         alert(obj.description);
-        SmExim.handleImportCompletion(-1);
+        callbackCompletion(-1);
         return;
       }
 
@@ -495,24 +502,31 @@ var SmExim = {
       switch (obj.stage) {
         case 1: //file read; create table query is to be made
           var sDbName = SQLiteManager.mDb.logicalDbName;
-          var aRet = SmExim.getCreateTableQuery(obj.tableName, sDbName, obj.columns, false);
+          var aRet = SmExim.getCreateTableQuery(obj.tableName, sDbName, obj.columns, false, bAllowPrompts);
           if (aRet.error) {
-            SmExim.handleImportCompletion(-1);
+            callbackCompletion(-1);
             return;
           }
           var params = {stage: 2};
           params.createTableQuery = aRet.query;
           params.tableName = aRet.tableName;
+          sm_log("Importing: Importing to table: " + params.tableName);
           SmExim.importWorker.postMessage(params);
           break;
         case 2: //queries created; execution to be done
-          var answer = smPrompt.confirm(null, sm_getLStr("exim.confirm.rows.title"), sm_getLStr("exim.confirm.rows.msg") + obj.numRecords);
+          var answer = true;
+          if (bAllowPrompts)
+            answer = smPrompt.confirm(null, sm_getLStr("exim.confirm.rows.title"), sm_getLStr("exim.confirm.rows.msg") + obj.numRecords);
           if(answer) {
             if (obj.badLines.length > 0) {
               var err = sm_getLFStr("exim.import.failed", [obj.badLines.length], 1) + obj.badLines.join(", ");
-              alert(err);
+              if (bAllowPrompts)
+                alert(err);
+              else
+                sm_log(err);
             }
             SmExim.showImportStatus("Importing: inserting " + obj.numRecords + " records in the database...");
+            sm_log("Importing: inserting " + obj.numRecords + " records in the database...");
             if (obj.createTableQuery != "") {
               obj.queries.unshift(obj.createTableQuery);
             }
@@ -536,23 +550,23 @@ var SmExim = {
             //TODO: we should also try returning queries from the worker through postmessage so that they can be executed as they are received. Of course, this will require giving up the execution of all the queries in a single transaction
             //provide an option for this in the import tab so that the user can decide whether they want a transaction or not
             if (bReturn) {
-              SmExim.handleImportCompletion(obj.numRecords);
+              callbackCompletion(obj.numRecords);
               return;
             }
           }
-          SmExim.handleImportCompletion(-1);
+          callbackCompletion(-1);
           return;
           break;
       }
     };
 
-    this.importWorker.onerror = function(error) {
+    SmExim.importWorker.onerror = function(error) {
       alert(["CSV Worker error!", error.message, 'File name: ' + error.filename, 'Line number: ' + error.lineno].join('\n'));
-      SmExim.handleImportCompletion(-1);
+      callbackCompletion(-1);
     };
 
     csvParams.stage = 1;
-    this.importWorker.postMessage(csvParams);
+    SmExim.importWorker.postMessage(csvParams);
   },
 
   readSqlContent: function(file, charset) {
@@ -628,8 +642,8 @@ var SmExim = {
       var sTabNameInInsert = SQLiteManager.mDb.getPrefixedName(sTabName, sDbName);
       var iFound = xmlTables.indexOf(sTabName);
       if (iFound == -1) {
-        //last arg is true to indicate that user cannot edit column names needed until we can maintain arrays for original and new names like we do for tables using xmlTables & actualTables
-        var aRet = this.getCreateTableQuery(sTabName, sDbName, aCols, true);
+        //penultimate arg is true to indicate that user cannot edit column names needed until we can maintain arrays for original and new names like we do for tables using xmlTables & actualTables
+        var aRet = this.getCreateTableQuery(sTabName, sDbName, aCols, true, true);
         if (aRet.error)
           return -1;
         if (aRet.query != "") {
@@ -655,21 +669,26 @@ var SmExim = {
     return -1;
   },
 
-  getCreateTableQuery: function(sTabName, sDbName, aCols, bReadOnlyColNames) {
+  getCreateTableQuery: function(sTabName, sDbName, aCols, bReadOnlyColNames, bAllowPrompts) {
     //importing to an existing table
     if (SQLiteManager.mDb.tableExists(sTabName, sDbName)) {
       sTabName = SQLiteManager.mDb.getPrefixedName(sTabName, sDbName);
       //confirm before proceeding
       //TODO: the buttons should say Continue (=OK), Abort (=Cancel)
       // and Let me modify = open createTable.xul
-      var answer = smPrompt.confirm(null, sm_getLStr("exim.confirm.tabName.title"), sm_getLFStr("exim.confirm.tabName.msg", [sTabName], 1));
+      var answer = false; //do not insert in existing table unless user explicitly says yes
+      if (bAllowPrompts)
+        answer = smPrompt.confirm(null, sm_getLStr("exim.confirm.tabName.title"), sm_getLFStr("exim.confirm.tabName.msg", [sTabName], 1));
       return {error: !answer, query: "", tableName: sTabName};
     }
 
     //table needs to be created
     var sQuery = "";
     //ask whether the user wants to modify the new table
-    var answer = smPrompt.confirm(null, sm_getLStr("exim.confirm.createTable.title"), sm_getLFStr("exim.confirm.createTable.msg", [sTabName],1));
+    var answer = false;
+    if (bAllowPrompts)
+      answer = smPrompt.confirm(null, sm_getLStr("exim.confirm.createTable.title"), sm_getLFStr("exim.confirm.createTable.msg", [sTabName],1));
+
     if(answer) { //if yes, call create table dialog
       var aRetVals = {tableName: sTabName, colNames: aCols};
       if (bReadOnlyColNames)
@@ -680,6 +699,7 @@ var SmExim = {
         return {error: false, query: sQuery, tableName: aRetVals.tableName};
       }
     }
+
     //user chose not to modify, or pressed cancel in create table dialog
     sTabName = SQLiteManager.mDb.getPrefixedName(sTabName, sDbName);
     for (var ic = 0; ic < aCols.length; ic++)

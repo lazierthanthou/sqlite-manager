@@ -53,7 +53,7 @@ var SQLiteManager = {
     //result: failure
 //    window.localStorage.setItem("status", "checking");
 //    alert(window.localStorage.getItem("status"));
-    SmTestExim.doOKImport();
+    SmTestExim.doOKImport("file:///home/user/sqlite-manager/testdata/import.js");
   },
 
   isSqliteHigherThan: function (sVersion) {
@@ -66,7 +66,13 @@ var SQLiteManager = {
 
   // Startup: called ONCE during the browser window "load" event
   Startup: function() {
-    $$("experiment").hidden = true;
+    try {
+      var bExpMenu = sm_prefsBranch.getBoolPref("6de03bb8c386206");
+      if(bExpMenu)
+        $$("experiment").hidden = false;
+    }
+    catch (e) {
+    }
 
     this.mDb = new SQLiteHandler();
     this.mDb.setFuncConfirm(SmGlobals.confirmBeforeExecuting);

@@ -191,7 +191,10 @@ SQLiteHandler.prototype = {
       this.onSqlError(e, msg, null, false);
       return false;
     }
-    this.maAddedFunctions.push(fnName);
+
+    if (this.maAddedFunctions.indexOf(fnName) < 0)
+      this.maAddedFunctions.push(fnName);
+
     return true;
   },
 
@@ -207,7 +210,10 @@ SQLiteHandler.prototype = {
       this.onSqlError(e, msg, null, false);
       return false;
     }
-    this.maAddedFunctions.push(fnName);
+
+    if (this.maAddedFunctions.indexOf(fnName) < 0)
+      this.maAddedFunctions.push(fnName);
+
     return true;
   },
 
@@ -224,7 +230,7 @@ SQLiteHandler.prototype = {
         this.maAddedFunctions.splice(i, 1);
       } catch (e) {
         i++;
-        this.onSqlError(e, "removeAllFunctions: Failed while attempting to remove storage function: " + fnName + '\nstep: ' + step, null, true);
+        this.onSqlError(e, "removeAllFunctions: Failed while attempting to remove storage function: " + fnName + '\nstep: ' + step, null, false);
       }
     }
   },

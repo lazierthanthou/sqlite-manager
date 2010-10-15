@@ -849,7 +849,7 @@ var SQLiteManager = {
     var types = this.mDb.getRecordTypes();
     var columns = this.mDb.getColumns();
     this.miCount = this.mDb.getRowCount(sObjName, this.msBrowseCondition);
-    $$("sbQueryTime").label = "ET: " + timeElapsed;
+    $$("sbQueryTime").label = "ET: " + timeElapsed + " ms";
 
     this.manageNavigationControls();      
     if (records && columns) {
@@ -1274,7 +1274,7 @@ var SQLiteManager = {
     //display the last error in the textbox
     $$("sqlLastError").value = this.mDb.getLastError();
     if (bRet) {
-      $$("sbQueryTime").label = "ET: " + timeElapsed;
+      $$("sbQueryTime").label = "ET: " + timeElapsed + " ms";
     }
 
     //the following two lines must be before the code for tree

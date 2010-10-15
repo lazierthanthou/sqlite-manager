@@ -65,7 +65,7 @@ SQLiteHandler.prototype = {
   mLogicalDbName: "main", //for main, temp and attached databases
 
   lastErrorString: "",
-  miTime: 0, //time elapsed during queries
+  miTime: 0, //time elapsed during queries (in milliseconds)
 
   mFuncConfirm: null,
   mBlobPrefs: {sStrForBlob: 'BLOB', bShowSize: true, iMaxSizeToShowData: 100, iHowToShowData: 0},
@@ -236,7 +236,10 @@ SQLiteHandler.prototype = {
   },
 
   getOpenStatus: function() { return this.mOpenStatus; },
-  getElapsedTime: function() { return this.miTime; },
+  getElapsedTime: function() {
+    //in milliseconds
+    return this.miTime;
+  },
   getRecords: function() { return this.aTableData; },
   getRecordTypes: function() { return this.aTableType; },
   getColumns: function() { return this.aColumns; },

@@ -77,7 +77,7 @@ createXRFile () {
   sed -i -e "s/XXXbuildIdXXX/$buildID/g" $workDir/application.ini
   echo "application.ini modified."
 
-  echo "Set correct permissions on all the files"
+  echo "Set correct permissions on alll the files"
   chmod -R 744 ./
 
   echo "Creating zip file: "$xrFile

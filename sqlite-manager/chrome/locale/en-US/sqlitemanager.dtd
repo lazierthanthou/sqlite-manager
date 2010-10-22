@@ -322,3 +322,7 @@
 <!ENTITY rowOperations.tablenames     "Table Name:">
 <!ENTITY rowOperations.tablenames.ak  "N">
 <!ENTITY rowOperations.loading        "(loading)">
+
+<!ENTITY oldValues  "Old Values">
+<!ENTITY newValues  "New Values">
+

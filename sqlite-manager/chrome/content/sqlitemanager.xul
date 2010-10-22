@@ -422,13 +422,13 @@
                   <html:td>Default Value</html:td>
                 </html:tr>
                 <html:tr>
-                  <html:td>Old Values</html:td>
+                  <html:td>&oldValues;</html:td>
                   <html:td><html:input id="tb-ec-oldName" type="text" size="20" readonly="true" /></html:td>
                   <html:td><html:input id="tb-ec-oldType" type="text" size="20" readonly="true" /></html:td>
                   <html:td><html:input id="tb-ec-oldDefault" type="text" size="20" readonly="true" /></html:td>
                  </html:tr>
                 <html:tr>
-                  <html:td>Old Values</html:td>
+                  <html:td>&newValues;</html:td>
                   <html:td><html:input id="tb-ec-newName" type="text" size="20" /></html:td>
                   <html:td><html:input id="tb-ec-newType" type="text" size="20" /></html:td>
                   <html:td><html:input id="tb-ec-newDefault" type="text" size="20" /></html:td>

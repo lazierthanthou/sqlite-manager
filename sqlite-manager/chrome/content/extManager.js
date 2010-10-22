@@ -1,5 +1,4 @@
-function SMExtensionManager(objDb) {
-  this.m_db = SQLiteManager.mDb;//Database;
+function SMExtensionManager() {
   this.m_tbl = sm_prefsBranch.getCharPref("tableForExtensionManagement");
 };
 
@@ -15,15 +14,15 @@ SMExtensionManager.prototype = {
 
   _init: function(dbPath) {
     //if the table does not exist, create it
-    if (!this.m_db.tableExists(this.m_tbl))  {
+    if (!SQLiteManager.mDb.tableExists(this.m_tbl))  {
       if (!this.m_bUseConfig)
         return false;
 
       var aQueries = [];
       aQueries.push("create table " + this.m_tbl + " (`id` integer primary key, `type` text not null , `value` text)");
-      this.m_db.executeTransaction(aQueries);
+      SQLiteManager.mDb.executeTransaction(aQueries);
     }
-    this.m_db.executeTransaction(["delete from " + this.m_tbl + " where `type` = 'Enabled'", "insert into " + this.m_tbl + "(`type`, `value`) values('Enabled', '1')"]);
+    SQLiteManager.mDb.executeTransaction(["delete from " + this.m_tbl + " where `type` = 'Enabled'", "insert into " + this.m_tbl + "(`type`, `value`) values('Enabled', '1')"]);
 
     return true;
   },
@@ -38,23 +37,23 @@ SMExtensionManager.prototype = {
     else {
       if (bImplicit) return;
 
-      if (this.m_db.tableExists(this.m_tbl)) {
+      if (SQLiteManager.mDb.tableExists(this.m_tbl)) {
         var aQueries = [];
         aQueries.push();
         var bRet = confirm(sm_getLFStr("extManager.dropTableConfirm", [this.m_tbl],1));
         if (bRet)
-          this.m_db.executeTransaction(["drop table " + this.m_tbl]);
+          SQLiteManager.mDb.executeTransaction(["drop table " + this.m_tbl]);
         else
-          this.m_db.executeTransaction(["delete from " + this.m_tbl + " where `type` = 'Enabled'", "insert into " + this.m_tbl + "(`type`, `value`) values('Enabled', '0')"]);
+          SQLiteManager.mDb.executeTransaction(["delete from " + this.m_tbl + " where `type` = 'Enabled'", "insert into " + this.m_tbl + "(`type`, `value`) values('Enabled', '0')"]);
       }
     }
   },
 
   getUsage: function() {
     //check for the table and enable type = 1 to return true;
-    if(this.m_db.tableExists(this.m_tbl)) {
-      this.m_db.selectQuery("select value from " + this.m_tbl + " where type = 'Enabled'");
-      var aData = this.m_db.getRecords();
+    if(SQLiteManager.mDb.tableExists(this.m_tbl)) {
+      SQLiteManager.mDb.selectQuery("select value from " + this.m_tbl + " where type = 'Enabled'");
+      var aData = SQLiteManager.mDb.getRecords();
       if (aData.length > 0 && aData[0][0] == 1) {
         return true;
       }
@@ -66,7 +65,7 @@ SMExtensionManager.prototype = {
     if (!this.m_bUseConfig)
       return false;
 
-    this.m_db.executeTransaction(["insert into " + this.m_tbl + "(type, value) values('QueryHistory', " + SQLiteFn.quote(sQuery) + ")"]);
+    SQLiteManager.mDb.executeTransaction(["insert into " + this.m_tbl + "(type, value) values('QueryHistory', " + SQLiteFn.quote(sQuery) + ")"]);
     return true;
   },
 
@@ -79,8 +78,8 @@ SMExtensionManager.prototype = {
     if (this.m_queryId != null)
       crit2 = " and id < " + this.m_queryId;
 
-    this.m_db.selectQuery('select "id", "value" from ' + this.m_tbl + " where type = 'QueryHistory' and id = (select max(id) from " + this.m_tbl + " where type = 'QueryHistory' " + crit2 + ")");
-    var aData = this.m_db.getRecords();
+    SQLiteManager.mDb.selectQuery('select "id", "value" from ' + this.m_tbl + " where type = 'QueryHistory' and id = (select max(id) from " + this.m_tbl + " where type = 'QueryHistory' " + crit2 + ")");
+    var aData = SQLiteManager.mDb.getRecords();
     if (aData.length > 0) {
       this.m_queryId = aData[0][0];
       return aData[0][1];
@@ -96,8 +95,8 @@ SMExtensionManager.prototype = {
     if (this.m_queryId == null)
       return null;
 
-    this.m_db.selectQuery("select id, value from " + this.m_tbl + " where type = 'QueryHistory' and id = (select min(id) from " + this.m_tbl + " where type = 'QueryHistory' and id > " + this.m_queryId + ")");
-    var aData = this.m_db.getRecords();
+    SQLiteManager.mDb.selectQuery("select id, value from " + this.m_tbl + " where type = 'QueryHistory' and id = (select min(id) from " + this.m_tbl + " where type = 'QueryHistory' and id > " + this.m_queryId + ")");
+    var aData = SQLiteManager.mDb.getRecords();
     if (aData.length > 0) {
       this.m_queryId = aData[0][0];
       return aData[0][1];
@@ -110,7 +109,7 @@ SMExtensionManager.prototype = {
     if (!this.m_bUseConfig)
       return false;
 
-    this.m_db.executeTransaction(["delete from " + this.m_tbl + " where type = 'QueryHistory'"]);
+    SQLiteManager.mDb.executeTransaction(["delete from " + this.m_tbl + " where type = 'QueryHistory'"]);
     alert(sm_getLStr("extManager.deleteQueries") + this.m_tbl);
     this.m_queryId = null;
     return true;
@@ -132,7 +131,7 @@ SMExtensionManager.prototype = {
       return false;
     }
 
-    this.m_db.executeTransaction(['INSERT INTO ' + this.m_tbl + '("type", "value") VALUES(' + SQLiteFn.quote('NamedQuery:' + qName) + ', ' + SQLiteFn.quote(sQuery) + ')']);
+    SQLiteManager.mDb.executeTransaction(['INSERT INTO ' + this.m_tbl + '("type", "value") VALUES(' + SQLiteFn.quote('NamedQuery:' + qName) + ', ' + SQLiteFn.quote(sQuery) + ')']);
     return true;
   },
 
@@ -147,11 +146,11 @@ SMExtensionManager.prototype = {
       criteria = "= '" + prefix + sQueryName + "'";
 
     try {
-    this.m_db.selectQuery('SELECT "type", "value" FROM ' + this.m_tbl + ' WHERE "type" ' + criteria + ' ORDER BY "type"');
+    SQLiteManager.mDb.selectQuery('SELECT "type", "value" FROM ' + this.m_tbl + ' WHERE "type" ' + criteria + ' ORDER BY "type"');
     } catch (e) {
       alert(e);
     }
-    var aData = this.m_db.getRecords();
+    var aData = SQLiteManager.mDb.getRecords();
 
     var aQueries = new Array();
     var aTemp, sName;
@@ -180,13 +179,13 @@ SMExtensionManager.prototype = {
     var sEc = "StructTree:ExpandedCategories", sEo = "StructTree:ExpandedObjects";
     var aExpand = [["all-table"],[]];
 
-    this.m_db.selectQuery('select "id", "value" from ' + this.m_tbl + " where type = '" + sEc + "'");
-    var aData = this.m_db.getRecords();
+    SQLiteManager.mDb.selectQuery('select "id", "value" from ' + this.m_tbl + " where type = '" + sEc + "'");
+    var aData = SQLiteManager.mDb.getRecords();
     if (aData.length > 0) {
       aExpand[0] = aData[0][1].split(",");
     }
-    this.m_db.selectQuery('select "id", "value" from ' + this.m_tbl + " where type = '" + sEo + "'");
-    var aData = this.m_db.getRecords();
+    SQLiteManager.mDb.selectQuery('select "id", "value" from ' + this.m_tbl + " where type = '" + sEo + "'");
+    var aData = SQLiteManager.mDb.getRecords();
     if (aData.length > 0) {
       aExpand[1] = aData[0][1].split(",");
     }
@@ -203,7 +202,7 @@ SMExtensionManager.prototype = {
     var q1 = "delete from " + this.m_tbl + " where type = '" + sEc + "' OR type = '" + sEo + "'";
     var q2 = "insert into " + this.m_tbl + "(type, value) values('" + sEc + "', '" + aExpand[0].toString() + "')";
     var q3 = "insert into " + this.m_tbl + "(type, value) values('" + sEo + "', '" + aExpand[1].toString() + "')";
-    this.m_db.executeTransaction([q1,q2,q3]);
+    SQLiteManager.mDb.executeTransaction([q1,q2,q3]);
   },
 
   saveBrowseTreeColState: function(objType, objName, objState) {
@@ -217,7 +216,7 @@ SMExtensionManager.prototype = {
 
     var q1 = "delete from " + this.m_tbl + " where type = '" + sEc + "'";
     var q2 = "insert into " + this.m_tbl + "(type, value) values('" + sEc + "', '" + objState + "')";
-    this.m_db.executeTransaction([q1,q2]);
+    SQLiteManager.mDb.executeTransaction([q1,q2]);
   },
 
   getBrowseTreeColState: function(objType, objName) {
@@ -229,8 +228,8 @@ SMExtensionManager.prototype = {
       return false;
 
     var aStr = "";
-    this.m_db.selectQuery("select value from " + this.m_tbl + " where type = '" + sEc + "'");
-    var aData = this.m_db.getRecords();
+    SQLiteManager.mDb.selectQuery("select value from " + this.m_tbl + " where type = '" + sEc + "'");
+    var aData = SQLiteManager.mDb.getRecords();
     if (aData.length > 0) {
       aStr = aData[0][0];
       this.m_oColStates[sEc] = aStr;
@@ -246,8 +245,8 @@ SMExtensionManager.prototype = {
     var sEc = "StructTree:AttachedDb";
     var aAttached = [];
 
-    this.m_db.selectQuery('select "value" from ' + this.m_tbl + " where type = '" + sEc + "'");
-    var aData = this.m_db.getRecords();
+    SQLiteManager.mDb.selectQuery('select "value" from ' + this.m_tbl + " where type = '" + sEc + "'");
+    var aData = SQLiteManager.mDb.getRecords();
     if (aData.length > 0) {
       aAttached = JSON.parse(aData[0][0]);
     }
@@ -263,6 +262,6 @@ SMExtensionManager.prototype = {
 
     var q1 = "delete from " + this.m_tbl + " where type = '" + sEc + "'";
     var q2 = "insert into " + this.m_tbl + "(type, value) values('" + sEc + "', '" + JSON.stringify(aAttached) + "')";
-    this.m_db.executeTransaction([q1,q2]);
+    SQLiteManager.mDb.executeTransaction([q1,q2]);
   }
 };

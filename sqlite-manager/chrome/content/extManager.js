@@ -1,16 +1,17 @@
 function SMExtensionManager() {
   this.m_tbl = sm_prefsBranch.getCharPref("tableForExtensionManagement");
+
+  //variable to hold BrowseTree:ColState: info
+  this.m_oColStates = {};
+
+  //variable to handle the current query in query history
+  this.m_queryId = null;
 };
 
 SMExtensionManager.prototype = {
-  //variable to handle the current query in query history
-  m_queryId: null,
-  
   m_bSetUsageDone: false,
   //boolean value: true if m_tbl exists, or is explicitly set to true
   m_bUseConfig: false,
-
-  m_oColStates: {},
 
   _init: function(dbPath) {
     //if the table does not exist, create it

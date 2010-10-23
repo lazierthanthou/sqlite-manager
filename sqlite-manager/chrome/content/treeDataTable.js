@@ -1,4 +1,127 @@
 // ****** table event handling and display ******
+
+// SmDatabaseTreeView: Create a custom nsITreeView
+function SmDatabaseTreeView() {
+  // 2 dimensional array containing table contents
+  this.aTableData = [];
+
+  // Column information
+  this.aColumns = [];
+  this.aTypes = [];
+
+  this.aOrder = [];
+}
+
+SmDatabaseTreeView.prototype = {
+  init: function(aTableData, aColumns, aTypes) {
+    this.aTableData = aTableData;
+    // Column information
+    this.aColumns = aColumns;
+    this.aTypes = aTypes;
+
+    this.aOrder = [];
+    for (var i=0; i < this.aColumns.length; i++)
+     this.aOrder.push(-1);//0=asc; 1=desc
+
+    // Number of rows in the table
+    this.rowCount = aTableData.length;
+
+//    this.treeBox.invalidate();
+  },
+
+  getCellText: function(row,col) {
+    var sResult;
+    try { sResult= this.aTableData[row][col.id]; }
+    catch (e) { return "<" + row + "," + col.id + ">"; }
+    return sResult;
+  },
+
+  setTree: function(treebox){ this.treebox = treebox; },
+  isContainer: function(row){ return false; },
+  isSeparator: function(row){ return false; },
+  isSorted: function(row){ return false; },
+  getLevel: function(row){ return 0; },
+  getImageSrc: function(row,col){ return null; },
+  getRowProperties: function(row,properties){},
+  getCellProperties: function(row,col,properties) {
+    var atomService = Components.classes["@mozilla.org/atom-service;1"].getService(Components.interfaces.nsIAtomService);
+    switch(this.aTypes[row][col.id]) {
+      case SQLiteTypes.INTEGER:
+        var atom = atomService.getAtom("integervalue");
+        properties.AppendElement(atom);
+        break;
+      case SQLiteTypes.REAL:
+        var atom = atomService.getAtom("floatvalue");
+        properties.AppendElement(atom);
+        break;
+      case SQLiteTypes.BLOB:
+        var atom = atomService.getAtom("blobvalue");
+        properties.AppendElement(atom);
+        break;
+      case SQLiteTypes.NULL: 
+        var atom = atomService.getAtom("nullvalue");
+        properties.AppendElement(atom);
+        break;
+      case SQLiteTypes.TEXT:
+      default:
+        var atom = atomService.getAtom("textvalue");
+        properties.AppendElement(atom);
+        break;
+    }
+    if (typeof this.getCellText(row,col) == "number") {
+      var atom = atomService.getAtom("numbervalue");
+      properties.AppendElement(atom);
+    }
+    var atom = atomService.getAtom("tabledata");
+    properties.AppendElement(atom);
+  },
+
+  getColumnProperties: function(colid,col,properties){},
+
+  cycleHeader: function(col) {
+    this.SortColumn(col);
+  },
+
+  //this function is used only for tree in execute tab
+  SortColumn: function(col) {
+    var index  = col.id; 
+    var name = this.aColumns[index][0];
+    var type = this.aColumns[index][1];
+    var isnum = ((this.aColumns[index][2]==1)?1:0);
+    this.aOrder[index] = (this.aOrder[index]==0)?1:0;
+    var order = this.aOrder[index];
+//alert(order+"="+name);
+    
+    this.SortTable(this.aTableData, index, order, isnum);  // sort the table
+    this.treebox.invalidate();
+  },
+
+// This is the actual sorting method, extending the array.sort() method
+  SortTable: function(table, col, order, isnum) {
+    if (isnum) { // use numeric comparison 
+        if (order == 0) { // ascending 
+            this.columnSort = function (a,b){ return (a[col]-b[col]); };
+        }
+        else { // descending 
+            this.columnSort = function (a,b){ return (b[col]-a[col]); };
+        }
+    }
+    else { // use string comparison 
+        if (order == 0){ // ascending 
+            this.columnSort = function(a,b){
+                return (a[col]<b[col])?-1:(a[col]>b[col])?1:0; };
+        }
+        else { // descending 
+            this.columnSort = function(a,b){
+                return (a[col]>b[col])?-1:(a[col]<b[col])?1:0; };
+        }
+    }
+    // use array.sort(comparer) method
+    table.sort(this.columnSort);
+  }
+};
+
+
 function TreeDataTable(sTreeId) {
   this.mTreeId = sTreeId;
   this.treeTable = null; // Tree containing listing of current table
@@ -10,8 +133,14 @@ TreeDataTable.prototype = {
   lastCol: null,
 
   // Initialize: Set up the treeview which will display the table contents
-  init: function() {        
+  init: function() {
     this.treeTable = document.getElementById(this.mTreeId);
+
+    this.treeView = new SmDatabaseTreeView();
+    this.treeView.init([], [], []);
+    //init must be done before assigning to treeTable.view otherwise it does not work
+    //this.treetable.view.init() also fails.
+    this.treeTable.view = this.treeView;
   },
 
   // ShowTable: Show/hide any currently displayed table data
@@ -239,111 +368,10 @@ TreeDataTable.prototype = {
 
   // PopulateTableData: Assign our custom treeview
   PopulateTableData: function(aTableData, aColumns, aTypes) {   
-    this.treeTable.view = new this.DatabaseTreeView(aTableData, aColumns, aTypes);
+    this.treeView.init(aTableData, aColumns, aTypes);
+    this.treeTable.view = this.treeView;
+
     this.ShowTable(true);
-  },
-
-  // DatabaseTreeView: Create a custom nsITreeView
-  DatabaseTreeView: function(aTableData, aColumns, aTypes) {
-    // http://kb.mozillazine.org/Sorting_Trees
-    // 2 dimensional array containing table contents
-    this.aTableData = aTableData;
-    // Column information
-    this.aColumns = aColumns;
-    this.aTypes = aTypes;
-
-    this.aOrder = [];
-    for (var i=0; i < this.aColumns.length; i++)
-     this.aOrder.push(-1);//0=asc; 1=desc
-
-    // Number of rows in the table
-    this.rowCount = aTableData.length;
-
-    this.getCellText = function(row,col) {
-      var sResult;
-      try { sResult= this.aTableData[row][col.id]; }
-      catch (e) { return "<" + row + "," + col.id + ">"; }
-      return sResult;
-    };
-
-    this.setTree             = function(treebox){ this.treebox=treebox; };
-    this.isContainer         = function(row){ return false; };
-    this.isSeparator         = function(row){ return false; };
-    this.isSorted            = function(row){ return false; };
-    this.cycleHeader         = function(col){ this.SortColumn(col); }
-    this.getLevel            = function(row){ return 0; };
-    this.getImageSrc         = function(row,col){ return null; };
-    this.getRowProperties    = function(row,properties){};
-    this.getCellProperties   = function(row,col,properties) {
-      var atomService = Components.classes["@mozilla.org/atom-service;1"].getService(Components.interfaces.nsIAtomService);
-      switch(this.aTypes[row][col.id]) {
-        case SQLiteTypes.INTEGER:
-          var atom = atomService.getAtom("integervalue");
-          properties.AppendElement(atom);
-          break;
-        case SQLiteTypes.REAL:
-          var atom = atomService.getAtom("floatvalue");
-          properties.AppendElement(atom);
-          break;
-        case SQLiteTypes.BLOB:
-          var atom = atomService.getAtom("blobvalue");
-          properties.AppendElement(atom);
-          break;
-        case SQLiteTypes.NULL: 
-          var atom = atomService.getAtom("nullvalue");
-          properties.AppendElement(atom);
-          break;
-        case SQLiteTypes.TEXT:
-        default:
-          var atom = atomService.getAtom("textvalue");
-          properties.AppendElement(atom);
-          break;
-      }
-      if (typeof this.getCellText(row,col) == "number") {
-        var atom = atomService.getAtom("numbervalue");
-        properties.AppendElement(atom);
-      }
-      var atom = atomService.getAtom("tabledata");
-      properties.AppendElement(atom);
-    };
-    this.getColumnProperties = function(colid,col,properties){};
-
-    this.SortColumn = function(col) {
-      var index  = col.id; 
-      var name = this.aColumns[index][0];
-      var type = this.aColumns[index][1];
-      var isnum = ((this.aColumns[index][2]==1)?1:0);
-      this.aOrder[index] = (this.aOrder[index]==0)?1:0;
-      var order = this.aOrder[index];
-//alert(order+"="+name);
-      
-      this.SortTable(this.aTableData,index,order,isnum);  // sort the table
-      this.rowCount= this.aTableData.length; // Not the right place for this but...
-      this.treeTable.view = new treeView(this.aTableData, this.aColumns, this.rowCount);       
-    };
-
-  // This is the actual sorting method, extending the array.sort() method
-    this.SortTable = function(table,col,order,isnum) {
-      if(isnum){ // use numeric comparison 
-          if(order==0){ // ascending 
-              this.columnSort= function (a,b){ return (a[col]-b[col]); };
-          }
-          else{ // descending 
-              this.columnSort= function (a,b){ return (b[col]-a[col]); };
-          }
-      }
-      else{ // use string comparison 
-          if(order==0){ // ascending 
-              this.columnSort= function(a,b){
-                  return (a[col]<b[col])?-1:(a[col]>b[col])?1:0; };
-          }
-          else{ // descending 
-              this.columnSort= function(a,b){
-                  return (a[col]>b[col])?-1:(a[col]<b[col])?1:0; };
-          }
-      }
-      // use array.sort(comparer) method
-      table.sort(this.columnSort);
-    };
   }
 };
+

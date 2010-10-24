@@ -322,17 +322,19 @@ TreeDataTable.prototype = {
 
     if (bLast) {
       //want to do anything special for the last column? do it here.
-      treecol.setAttribute("flex", 1);
+      //issue #485: for the last column remove the flex property so that it can be resized; but resizing requires that view be scrolled to make last splitter visible and even after that the size can be increased only little by little due to paucity of space on the right
+      //anyway, flex is not needed because the logic used in calculating width takes care that the entire tree width is used
+      //treecol.setAttribute("flex", 1);
     }
     treecols.appendChild(treecol);
 
     //add a splitter after every column
     var splitter = document.createElement("splitter");
-    splitter.setAttribute("class", "tree-splitter");        
+    splitter.setAttribute("class", "tree-splitter");
     splitter.setAttribute("resizebefore", "closest");
     splitter.setAttribute("resizeafter", "grow");
     splitter.setAttribute("oncommand", "SQLiteManager.saveBrowseTreeColState(this)");
-    treecols.appendChild(splitter); 
+    treecols.appendChild(splitter);
   },
 
   // iExtraColForRowId: indicates column number for the column which is a rowid

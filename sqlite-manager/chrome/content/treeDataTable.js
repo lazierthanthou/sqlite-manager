@@ -1,7 +1,9 @@
 // ****** table event handling and display ******
 
 // SmDatabaseTreeView: Create a custom nsITreeView
-function SmDatabaseTreeView() {
+function SmDatabaseTreeView(sTreeId) {
+  this.mTreeId = sTreeId;
+
   // 2 dimensional array containing table contents
   this.aTableData = [];
 
@@ -21,29 +23,30 @@ SmDatabaseTreeView.prototype = {
 
     this.aOrder = [];
     for (var i=0; i < this.aColumns.length; i++)
-     this.aOrder.push(-1);//0=asc; 1=desc
+      this.aOrder.push(-1);//0=asc; 1=desc
 
-    // Number of rows in the table
-    this.rowCount = aTableData.length;
-
-//    this.treeBox.invalidate();
+    //without this re-assigning the view, we get extra rows when we use last button in the navigation panel in browse tab.
+    document.getElementById(this.mTreeId).view = this;
   },
 
-  getCellText: function(row,col) {
-    var sResult;
-    try { sResult= this.aTableData[row][col.id]; }
-    catch (e) { return "<" + row + "," + col.id + ">"; }
-    return sResult;
+  get rowCount() { return this.aTableData.length; },
+  getCellText: function(row, col) {
+    try {
+      return this.aTableData[row][col.id];
+    }
+    catch (e) {
+      return "<" + row + "," + col.id + ">";
+    }
   },
 
-  setTree: function(treebox){ this.treebox = treebox; },
-  isContainer: function(row){ return false; },
-  isSeparator: function(row){ return false; },
-  isSorted: function(row){ return false; },
-  getLevel: function(row){ return 0; },
-  getImageSrc: function(row,col){ return null; },
-  getRowProperties: function(row,properties){},
-  getCellProperties: function(row,col,properties) {
+  setTree: function(treebox) { this.treebox = treebox; },
+  isContainer: function(row) { return false; },
+  isSeparator: function(row) { return false; },
+  isSorted: function(row) { return false; },
+  getLevel: function(row) { return 0; },
+  getImageSrc: function(row, col) { return null; },
+  getRowProperties: function(row, properties) {},
+  getCellProperties: function(row, col, properties) {
     var atomService = Components.classes["@mozilla.org/atom-service;1"].getService(Components.interfaces.nsIAtomService);
     switch(this.aTypes[row][col.id]) {
       case SQLiteTypes.INTEGER:
@@ -76,10 +79,35 @@ SmDatabaseTreeView.prototype = {
     properties.AppendElement(atom);
   },
 
-  getColumnProperties: function(colid,col,properties){},
+  getColumnProperties: function(colid, col, properties){},
 
   cycleHeader: function(col) {
-    this.SortColumn(col);
+    if (this.mTreeId == "browse-tree") {
+      var index  = col.id; 
+      var colname = this.aColumns[index][0];
+      var aSortInfo = SQLiteManager.changeSortOrder(colname);
+
+      var sBgColor = "black";
+      for(var i = 0; i < aSortInfo.length; i++) {
+        if (aSortInfo[i][0] == colname) {
+          switch (aSortInfo[i][1]) {
+            case "asc":
+              sBgColor = "green";
+              break;
+            case "desc":
+              sBgColor = "red";
+              break;
+          }
+        }
+      }
+
+      col.element.setAttribute("style", "color:" + sBgColor);
+
+      //the following function repopulates the data in the view by calling this view's init function indirectly via TreeDataTable's PopulateTableData function
+      SQLiteManager.loadTabBrowse();
+    }
+    else
+      this.SortColumn(col);
   },
 
   //this function is used only for tree in execute tab
@@ -136,7 +164,7 @@ TreeDataTable.prototype = {
   init: function() {
     this.treeTable = document.getElementById(this.mTreeId);
 
-    this.treeView = new SmDatabaseTreeView();
+    this.treeView = new SmDatabaseTreeView(this.mTreeId);
     this.treeView.init([], [], []);
     //init must be done before assigning to treeTable.view otherwise it does not work
     //this.treetable.view.init() also fails.
@@ -271,7 +299,7 @@ TreeDataTable.prototype = {
     }
   },
 
-  AddTreecol: function(treecols, sId, col, sColType, iWidth, bLast, bExtraRowId, sClickFn, sBgColor) {
+  AddTreecol: function(treecols, sId, col, sColType, iWidth, bLast, bExtraRowId, sBgColor) {
     //bExtraRowId = true for rowid column which is not one of the tables'columns
     var treecol = document.createElement("treecol");
     treecol.setAttribute("label", col);
@@ -284,8 +312,6 @@ TreeDataTable.prototype = {
     treecol.setAttribute("minwidth", 60);
     //Issue #378
     //treecol.setAttribute("context", 'mp-data-treecol');
-    if (sClickFn != null)
-      treecol.setAttribute("onclick", sClickFn);
     if (sBgColor != null)
       treecol.setAttribute("style", "color:"+sBgColor);
 
@@ -312,7 +338,7 @@ TreeDataTable.prototype = {
   // iExtraColForRowId: indicates column number for the column which is a rowid
   //  0 means no extra rowid, column numbering begins with 1
   //  use this while copying Issue #151
-  createColumns: function(aColumns, iExtraColForRowId, aSortInfo, sClickFn) {
+  createColumns: function(aColumns, iExtraColForRowId, aSortInfo) {
     var treecols = this.treeTable.firstChild;
     SmGlobals.$empty(treecols);
 
@@ -351,7 +377,7 @@ TreeDataTable.prototype = {
       }
 
       var bExtraColForRowId = (iColumn==iExtraColForRowId-1) ? true : false;
-      this.AddTreecol(treecols, iColumn, allCols[iColumn][0], sColType, iTotalWidth, (iColumn==iColumnCount-1?true:false), bExtraColForRowId, sClickFn, sBgColor);
+      this.AddTreecol(treecols, iColumn, allCols[iColumn][0], sColType, iTotalWidth, (iColumn==iColumnCount-1?true:false), bExtraColForRowId, sBgColor);
     }
   },
 
@@ -367,11 +393,9 @@ TreeDataTable.prototype = {
   },
 
   // PopulateTableData: Assign our custom treeview
-  PopulateTableData: function(aTableData, aColumns, aTypes) {   
+  PopulateTableData: function(aTableData, aColumns, aTypes) {
+    //populate the tree's view with fresh data
     this.treeView.init(aTableData, aColumns, aTypes);
-    this.treeTable.view = this.treeView;
-
-    this.ShowTable(true);
   }
 };
 

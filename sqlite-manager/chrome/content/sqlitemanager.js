@@ -333,7 +333,7 @@ var SQLiteManager = {
     switch(data) {
       case "jsonDataTreeStyle":
         if (SmGlobals.stylerDataTree.addTreeStyle())
-          this.loadTabBrowse();
+          this.loadTabBrowse(); //TODO: effect shown only when browsed object changes
         break;
       case "jsonMruData":
         this.showMruList();
@@ -744,11 +744,7 @@ var SQLiteManager = {
     }
   },
 
-  changeSortOrder: function(ev) {
-    if (ev.button==2) //right click
-      return;
-    var tgt = ev.target
-    var sColName = tgt.getAttribute("label");
+  changeSortOrder: function(sColName) {
     var bFound = false;
     for(var i = 0; i < this.maSortInfo.length; i++) {
       if (this.maSortInfo[i][0] == sColName) {
@@ -773,7 +769,8 @@ var SQLiteManager = {
     }
     if (!bFound)
       this.maSortInfo.splice(0, 0, [sColName, "asc"]);
-    this.loadTabBrowse();
+
+    return this.maSortInfo;
   },
 
   //loadTabBrowse: populates the table list and the tree view for current table; must be called whenever a database is opened/closed and whenever the schema changes; depends entirely upon the values in "browse-type" and "browse-name" controls
@@ -781,7 +778,7 @@ var SQLiteManager = {
     //no need to waste resources if this tab is not selected
     if(this.getSelectedTabId() != "tab-browse")
       return false;
-      
+
     if (!this.mDb.isConnected())
       return false;
 
@@ -800,7 +797,9 @@ var SQLiteManager = {
 
     //populate the treeview
     var sObjName = this.mostCurrObjName;
+    var bBrowseObjectChanged = false;
     if (sObjName != this.msBrowseObjName) {
+      bBrowseObjectChanged = true;
       this.miOffset = 0;
       this.msBrowseObjName = sObjName;
       this.msBrowseCondition = "";
@@ -832,7 +831,8 @@ var SQLiteManager = {
     treeChildren.setAttribute("context", setting[1]);
     treeChildren.setAttribute("ondblclick", setting[2]);
 
-    treeBrowse.ShowTable(false);
+    if (bBrowseObjectChanged)
+      treeBrowse.ShowTable(false);
 
     try {
       var aArgs = {sWhere: this.msBrowseCondition, iLimit: this.miLimit, iOffset: this.miOffset, aOrder: this.maSortInfo};
@@ -855,17 +855,37 @@ var SQLiteManager = {
     if (records && columns) {
       $$("browse-tree").setAttribute("smObjType", sObjType);
       $$("browse-tree").setAttribute("smObjName", sObjName);
-      treeBrowse.createColumns(columns, iRetVal, this.maSortInfo, "SQLiteManager.changeSortOrder(event);");
-      var jsonColInfo = smExtManager.getBrowseTreeColState(sObjType, sObjName);
-      if (jsonColInfo != "") {
-        var objColInfo = JSON.parse(jsonColInfo);
-        treeBrowse.adjustColumns(objColInfo);
+
+      if (bBrowseObjectChanged) {
+        treeBrowse.createColumns(columns, iRetVal, this.maSortInfo);
+
+        var jsonColInfo = smExtManager.getBrowseTreeColState(sObjType, sObjName);
+        var objColInfo = {};
+        if (jsonColInfo != "") {
+          objColInfo = JSON.parse(jsonColInfo);
+          treeBrowse.adjustColumns(objColInfo);
+        }
+
+        treeBrowse.PopulateTableData(records, columns, types);
+        treeBrowse.ShowTable(true);
+
+        //scrollToHorizontalPosition works only after PopulateTableData
+        //also it does not work without some alert in between
+        //it appears we need some time delay; why, I do not know.
+        if (objColInfo.horizontalPosition) {
+          //window.setTimeout(function() { $$("browse-tree").treeBoxObject.scrollToHorizontalPosition(objColInfo.horizontalPosition);}, 5000);
+
+          $$("browse-tree").treeBoxObject.scrollToHorizontalPosition(objColInfo.horizontalPosition);
+        }
       }
-      treeBrowse.PopulateTableData(records, columns, types);
+      else {
+        treeBrowse.PopulateTableData(records, columns, types);
+      }
     }
     return true;
   },
-  //Issue #378
+
+  //TODO: Issue #378
   copyColumnName: function(ctrl) {
     alert(ctrl.tagName);
     alert(ctrl.parentNode.tagName);
@@ -1285,8 +1305,9 @@ var SQLiteManager = {
     this.setQueryView("table");
     treeExecute.ShowTable(false);
     if (bRet && queries.length == 1) {
-      treeExecute.createColumns(aColumns, 0, [], null);
+      treeExecute.createColumns(aColumns, 0, []);
       treeExecute.PopulateTableData(aData, aColumns, aTypes);
+      treeExecute.ShowTable(true);
     }
   },
 
@@ -1581,7 +1602,7 @@ var SQLiteManager = {
      if (aRetVals.ok) {
       this.mDb.confirmAndExecute([aRetVals.createQuery], sm_getLFStr("sqlm.confirm.createTable", [aRetVals.tableName]), "confirm.create");
       this.refreshDbStructure();
-       this.loadTabBrowse();
+      this.loadTabBrowse();
     }
   },
 
@@ -1600,7 +1621,7 @@ var SQLiteManager = {
       if (aRetVals.ok) {
         this.mDb.confirmAndExecute(aRetVals.queries, sm_getLFStr("sqlm.confirm.createObj", [sObjectType, aRetVals.objectName]), "confirm.create");
         this.refreshDbStructure();
-         this.loadTabBrowse();
+        this.loadTabBrowse();
       }
     }
     else
@@ -1625,7 +1646,7 @@ var SQLiteManager = {
     if (aRetVals.ok) {
       this.mDb.confirmAndExecute(aRetVals.queries, sm_getLFStr("sqlm.confirm.modifyView", [aRetVals.objectName]), "confirm.create");
       this.refreshDbStructure();
-       this.loadTabBrowse();
+      this.loadTabBrowse();
     }
   },
 
@@ -2459,6 +2480,7 @@ var SQLiteManager = {
       objColInfo.arrId = aId;
       objColInfo.sObjType = aElt.getAttribute("smObjType");
       objColInfo.sObjName = aElt.getAttribute("smObjName");
+      objColInfo.horizontalPosition = aElt.treeBoxObject.horizontalPosition;
       var jsonObjColInfo = JSON.stringify(objColInfo);
       smExtManager.saveBrowseTreeColState(objColInfo.sObjType, objColInfo.sObjName, jsonObjColInfo);
 //      alert(jsonObjColInfo);

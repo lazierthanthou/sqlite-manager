@@ -121,6 +121,22 @@ installXR () {
   sudo ln -s $smappini ~/sm_app.ini
 }
 
+installXPI () {
+  loc1=/home/user/.mozilla/firefox/8tk8ecqd.localhost/extensions/SQLiteManager@mrinalkant.blogspot.com.xpi
+  loc2=/home/user/.mozilla/firefox/vxs9kov2.default/extensions/SQLiteManager@mrinalkant.blogspot.com.xpi
+
+  echo "Installing .xpi file from release:"
+  ls -l $releaseDir/$xpiFile
+
+  echo "Installing .xpi files for firefox4 profiles"
+  cp --preserve $releaseDir/$xpiFile $loc1
+  cp --preserve $releaseDir/$xpiFile $loc2
+
+  echo "Listing the installed files:"
+  ls -l $loc1
+  ls -l $loc2
+}
+
 createLangFile () {
   locale=$1
   translator=$2
@@ -181,6 +197,11 @@ buildWithVersion () {
 
   createXpiFile
   createXRFile
+
+  echo "-------------------------------------------------"
+  echo "Listing the created files:"
+  ls -l $releaseDir/$xpiFile
+  ls -l $releaseDir/$xrFile
 }
 
 buildWithLanguage () {
@@ -205,11 +226,14 @@ buildWithLanguage () {
 userOption="z"
 
 while [ ! $userOption = "x" ]; do
+    echo "======================================================="
     echo "Please choose one of these options:"
     echo "----"
     echo "b : build & install extension"
     echo "c : build with language"
     echo "i : install xulrunner app"
+    echo "j : install .xpi for firefox4 profiles"
+    echo "----"
     echo "u : upload to code.google.com"
     echo "----"
     echo "l : make localization packs"
@@ -228,6 +252,9 @@ while [ ! $userOption = "x" ]; do
 
     if [ $userOption = "i" ]; then
       installXR
+    fi
+    if [ $userOption = "j" ]; then
+      installXPI
     fi
 
     if [ $userOption = "u" ]; then

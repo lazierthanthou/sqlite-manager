@@ -104,7 +104,8 @@ SQLiteHandler.prototype = {
           this.dbConn = this.openSpecialProfileDatabase(nsIFile);
         }
         catch (e) {
-          this.onSqlError(e, "Error in opening file " + nsIFile.leafName + " - perhaps this is not an sqlite db file", null, true);
+          var msg = this.onSqlError(e, "Error in opening file " + nsIFile.leafName + " - perhaps this is not an sqlite db file", null, true);
+          Cu.reportError(msg);
           return false;
         }
       }
@@ -141,7 +142,8 @@ SQLiteHandler.prototype = {
       this.dbConn = this.storageService.openSpecialDatabase(sSpecialName);
     }
     catch (e) {
-      this.onSqlError(e, "Error in opening in memory database", null, true);
+      var msg = this.onSqlError(e, "Error in opening in memory database", null, true);
+      Cu.reportError(msg);
       return false;
     }
 
@@ -188,7 +190,8 @@ SQLiteHandler.prototype = {
       this.dbConn.createFunction(fnName, argLength, fnObject);
     } catch (e) {
       var msg = "Failed to create storage function: " + fnName + "\nA function by this name may already have been created.";
-      this.onSqlError(e, msg, null, false);
+      var msg = this.onSqlError(e, msg, null, false);
+      Cu.reportError(msg);
       return false;
     }
 
@@ -207,7 +210,8 @@ SQLiteHandler.prototype = {
       this.dbConn.createAggregateFunction(fnName, argLength, fnObject);
     } catch (e) {
       var msg = "Failed to create storage function: " + fnName + "\nA function by this name may already have been created.";
-      this.onSqlError(e, msg, null, false);
+      var msg = this.onSqlError(e, msg, null, false);
+      Cu.reportError(msg);
       return false;
     }
 
@@ -230,7 +234,8 @@ SQLiteHandler.prototype = {
         this.maAddedFunctions.splice(i, 1);
       } catch (e) {
         i++;
-        this.onSqlError(e, "removeAllFunctions: Failed while attempting to remove storage function: " + fnName + '\nstep: ' + step, null, false);
+        var msg = this.onSqlError(e, "removeAllFunctions: Failed while attempting to remove storage function: " + fnName + '\nstep: ' + step, null, false);
+        Cu.reportError(msg);
       }
     }
   },
@@ -419,17 +424,23 @@ SQLiteHandler.prototype = {
     var sMaster = this.getPrefixedMasterName(sDb);
     var sQuery = "SELECT type, count(*) AS cnt FROM " + sMaster + " WHERE tbl_name = '" + sTable + "' AND type IN ('index', 'trigger') GROUP BY type";
 
-    var stmt = this.dbConn.createStatement(sQuery);
     var oRow = {indexCount: 0, triggerCount: 0};
     try {
+      var stmt = this.dbConn.createStatement(sQuery);
+      Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         if (stmt.row.type == 'index')
           oRow.indexCount = stmt.row.cnt;
         if (stmt.row.type == 'trigger')
           oRow.triggerCount = stmt.row.cnt;
       }
-    } finally {
-      stmt.reset();
+      stmt.finalize();
+      Cu.reportError("finalize");
+    }
+    catch (e) {
+      var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
+      Cu.reportError(msg);
+      this.setErrorString();
     }
     return oRow;
   },
@@ -580,10 +591,12 @@ SQLiteHandler.prototype = {
     var timeStart = Date.now();
     try { // mozIStorageStatement
       var stmt = this.dbConn.createStatement(sQuery);
+      Cu.reportError("createStatement");
     }
     catch (e) {
       // statement will be undefined because it throws error);
-      this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
+      var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
+      Cu.reportError(msg);
       this.setErrorString();
       return false;
     }
@@ -600,8 +613,11 @@ SQLiteHandler.prototype = {
         aTemp = [colName, iType];
         this.aColumns.push(aTemp);  
       }
-    } catch (e) { 
-      this.onSqlError(e, "Error while fetching column name: " + colName, null, true);
+    } catch (e) {
+      stmt.finalize();
+      Cu.reportError("finalize");
+      var msg = this.onSqlError(e, "Error while fetching column name: " + colName, null, true);
+      Cu.reportError(msg);
       this.setErrorString();
       return false;
     }
@@ -663,13 +679,16 @@ SQLiteHandler.prototype = {
         bFirstRow = false;
       }
       this.miTime = Date.now() - timeStart;
-    } catch (e) { 
-      this.onSqlError(e, "Query: " + sQuery + " - executeStep failed", null, true);
+    } catch (e) {
+      stmt.finalize();
+      Cu.reportError("finalize");
+      var msg = this.onSqlError(e, "Query: " + sQuery + " - executeStep failed", null, true);
+      Cu.reportError(msg);
       this.setErrorString();
       return false;
-    } finally {
-      stmt.reset();
     }
+    stmt.finalize();
+    Cu.reportError("finalize");
     this.setErrorString();
     return true;
   },
@@ -698,10 +717,12 @@ SQLiteHandler.prototype = {
     var sQuery = ["SELECT", SQLiteFn.quoteIdentifier(sField), "FROM", this.getPrefixedName(sTable, ""), "WHERE", sWhere].join(' ');
     try { // mozIStorageStatement
       var stmt = this.dbConn.createStatement(sQuery);
+      Cu.reportError("createStatement");
     }
     catch (e) {
       // statement will be undefined because it throws error);
-      this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
+      var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
+      Cu.reportError(msg);
       this.setErrorString();
       return false;
     }
@@ -721,12 +742,13 @@ SQLiteHandler.prototype = {
       cell = "BLOB (Size: " + iDataSize.value + ")";
       //return [iDataSize.value, aData.value];
       return aData.value;
-    } catch (e) { 
-      this.onSqlError(e, "Query: " + sQuery + " - executeStep failed", null, true);
+    } catch (e) {
+      stmt.finalize();
+      Cu.reportError("finalize");
+      var msg = this.onSqlError(e, "Query: " + sQuery + " - executeStep failed", null, true);
+      Cu.reportError(msg);
       this.setErrorString();
       return false;
-    } finally {
-      stmt.reset();
     }
     this.setErrorString();
     return true;
@@ -789,6 +811,7 @@ SQLiteHandler.prototype = {
       this.dbConn.beginTransactionAs(this.dbConn.TRANSACTION_DEFERRED);
     }
     var statement = this.dbConn.createStatement(sql);
+    Cu.reportError("createStatement");
     if (param) {
       for (var m = 2, arg = null; arg = arguments[m]; m++) 
         statement.bindUTF8StringParameter(m-2, arg);
@@ -805,12 +828,13 @@ SQLiteHandler.prototype = {
       // return dataset;
     }
     finally {
-      statement.reset();
+      statement.finalize();
+      Cu.reportError("finalize");
     }
     if (ourTransaction) {
       this.dbConn.commitTransaction();
     }
-        return dataset;
+    return dataset;
   },
 
   executeAsync: function(aQueries) {
@@ -820,12 +844,16 @@ SQLiteHandler.prototype = {
     for(var i = 0; i < aQueries.length; i++) {
       try {
         stmt = this.dbConn.createStatement(aQueries[i]);
+        Cu.reportError("createStatement");
         aStmt.push(stmt);
         //stmt.executeAsync(stmtCallback);
       }
       catch (e) {
+        stmt.finalize();
+        Cu.reportError("finalize");
         this.setErrorString();
-        this.onSqlError(e, "Error in createStatement: " + aQueries[i], this.dbConn.lastErrorString, true);
+        var msg = this.onSqlError(e, "Error in createStatement: " + aQueries[i], this.dbConn.lastErrorString, true);
+        Cu.reportError(msg);
         return false;
       }
     }
@@ -851,12 +879,16 @@ SQLiteHandler.prototype = {
     for(var i = 0; i < aQueries.length; i++) {
       try {
         var statement = this.dbConn.createStatement(aQueries[i]);
+        Cu.reportError("createStatement");
         statement.execute();
       }
       catch (e) {
+        statement.finalize();
+        Cu.reportError("finalize");
         this.setErrorString();
         // statement will be undefined because it throws error);
-        this.onSqlError(e, "Likely SQL syntax error: " + aQueries[i], this.dbConn.lastErrorString, true);
+        var msg = this.onSqlError(e, "Likely SQL syntax error: " + aQueries[i], this.dbConn.lastErrorString, true);
+        Cu.reportError(msg);
         this.setErrorString();
         if (this.dbConn.transactionInProgress) {
           this.dbConn.rollbackTransaction();
@@ -864,7 +896,8 @@ SQLiteHandler.prototype = {
         return false;
       }
       finally {
-        statement.reset();
+        statement.finalize();
+        Cu.reportError("finalize");
       }
     }
     //commit transaction, if reached here
@@ -880,8 +913,10 @@ SQLiteHandler.prototype = {
     //create the statement
     try {
       var stmt = this.dbConn.createStatement(sQuery);
+      Cu.reportError("createStatement");
     } catch (e) {
-      this.onSqlError(e, "Create statement failed (executeWithParams): " + sQuery, this.dbConn.lastErrorString, true);
+      var msg = this.onSqlError(e, "Create statement failed (executeWithParams): " + sQuery, this.dbConn.lastErrorString, true);
+      Cu.reportError(msg);
       this.setErrorString();
       return false;
     }
@@ -910,8 +945,10 @@ SQLiteHandler.prototype = {
         }
       }
     } catch (e) {
-      Cu.reportError("Binding failed for parameter: " + aData[0] + ". data length = " + aData[1].length);
-      this.onSqlError(e, "Binding failed for parameter: " + aData[0] + ". data length = " + aData[1].length, this.dbConn.lastErrorString, true);
+      stmt.finalize();
+      Cu.reportError("finalize");
+      var msg = this.onSqlError(e, "Binding failed for parameter: " + aData[0] + ". data length = " + aData[1].length, this.dbConn.lastErrorString, true);
+      Cu.reportError(msg);
       this.setErrorString();
       return false;
     }
@@ -919,31 +956,39 @@ SQLiteHandler.prototype = {
     try {
       stmt.execute();
     } catch (e) {
-      this.onSqlError(e, "Execute failed: " + sQuery, this.dbConn.lastErrorString, true);
+      stmt.finalize();
+      Cu.reportError("finalize");
+      var msg = this.onSqlError(e, "Execute failed: " + sQuery, this.dbConn.lastErrorString, true);
+      Cu.reportError(msg);
       this.setErrorString();
       return false;
     }
 
     try {
-      stmt.reset();
       stmt.finalize();
+      Cu.reportError("finalize");
     } catch (e) {
-        this.onSqlError(e, "Failed to reset/finalize", this.dbConn.lastErrorString, true);
-        this.setErrorString();
-        return false;
+      var msg = this.onSqlError(e, "Failed to reset/finalize", this.dbConn.lastErrorString, true);
+      Cu.reportError(msg);
+      this.setErrorString();
+      return false;
     }
     return true;
   },
 
   blobToHex: function(aData) {
     var sQuery = "SELECT quote(" + aData + ") AS outstr";
-    var stmt = this.dbConn.createStatement(sQuery);
     try {
+      var stmt = this.dbConn.createStatement(sQuery);
+      Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         return stmt.row.outstr;
       }
+      stmt.finalize();
+      Cu.reportError("finalize");
     } catch (e) {
-      this.onSqlError(e, "", null, false);
+      var msg = this.onSqlError(e, "", null, false);
+      Cu.reportError(msg);
     }
   },
 
@@ -953,11 +998,15 @@ SQLiteHandler.prototype = {
       var sQuery = "SELECT hex(" + sData + ") AS outhex";
       try {
         var stmt = this.dbConn.createStatement(sQuery);
+        Cu.reportError("createStatement");
         while (stmt.executeStep()) {
           sHex = stmt.row.outhex;
         }
+        stmt.finalize();
+        Cu.reportError("finalize");
       } catch (e) {
-        this.onSqlError(e, "textToBlob: " + sQuery, null, false);
+        var msg = this.onSqlError(e, "textToBlob: " + sQuery, null, false);
+        Cu.reportError(msg);
         //if failed, sData must be passed as a string
         return this.textToBlob(SQLiteFn.quote(sData));
       }
@@ -1015,8 +1064,7 @@ SQLiteHandler.prototype = {
 
     if (bAlert)
       this.alert(msg);
-    Cu.reportError(msg);
-    return true;
+    return msg;
   },
 
   alert: function(sMsg) {
@@ -1030,9 +1078,10 @@ SQLiteHandler.prototype = {
   getMasterInfo: function(sObjName, sDbName) {
     var sTable = this.getPrefixedMasterName(sDbName);
     var sQuery = "SELECT * FROM " + sTable + " WHERE name = '" + sObjName + "'";
-    var stmt = this.dbConn.createStatement(sQuery);
     var aRows = [];
     try {
+      var stmt = this.dbConn.createStatement(sQuery);
+      Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         var oRow = {};
 
@@ -1044,8 +1093,13 @@ SQLiteHandler.prototype = {
 
         aRows.push(oRow);
       }
-    } finally {
-      stmt.reset();
+      stmt.finalize();
+      Cu.reportError("finalize");
+    }
+    catch (e) {
+      var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
+      Cu.reportError(msg);
+      this.setErrorString();
     }
     if (aRows.length > 0)
       return aRows[0];
@@ -1061,9 +1115,10 @@ SQLiteHandler.prototype = {
 //returns all columns
   getAttachedDbList: function() {
     var sQuery = "PRAGMA database_list";
-    var stmt = this.dbConn.createStatement(sQuery);
     var aRows = [];
     try {
+      var stmt = this.dbConn.createStatement(sQuery);
+      Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         if (stmt.row.seq > 1) {//excludes main & temp
           var oRow = {};
@@ -1075,8 +1130,13 @@ SQLiteHandler.prototype = {
           aRows.push(oRow);
         }
       }
-    } finally {
-      stmt.reset();
+      stmt.finalize();
+      Cu.reportError("finalize");
+    }
+    catch (e) {
+      var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
+      Cu.reportError(msg);
+      this.setErrorString();
     }
     return aRows;
   },
@@ -1085,24 +1145,31 @@ SQLiteHandler.prototype = {
 //returns only name, not file
   getDatabaseList: function() {
     var sQuery = "PRAGMA database_list";
-    var stmt = this.dbConn.createStatement(sQuery);
     var aRows = ["main", "temp"];
     try {
+      var stmt = this.dbConn.createStatement(sQuery);
+      Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         if (stmt.row.seq > 1) //sometimes, temp is not returned
           aRows.push(stmt.row.name);
       }
-    } finally {
-      stmt.reset();
+      stmt.finalize();
+      Cu.reportError("finalize");
+    }
+    catch (e) {
+      var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
+      Cu.reportError(msg);
+      this.setErrorString();
     }
     return aRows;
   },
 
   getForeignKeyList: function(sTableName, sDbName) {
     var sQuery = this.getPragmaSchemaQuery("foreign_key_list", sTableName, sDbName);
-    var stmt = this.dbConn.createStatement(sQuery);
     var aRows = [];
     try {
+      var stmt = this.dbConn.createStatement(sQuery);
+      Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         var oRow = {};
 
@@ -1117,17 +1184,23 @@ SQLiteHandler.prototype = {
 
         aRows.push(oRow);
       }
-    } finally {
-      stmt.reset();
+      stmt.finalize();
+      Cu.reportError("finalize");
+    }
+    catch (e) {
+      var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
+      Cu.reportError(msg);
+      this.setErrorString();
     }
     return aRows;
   },
 
   getTableInfo: function(sTableName, sDbName) {
     var sQuery = this.getPragmaSchemaQuery("table_info", sTableName, sDbName);
-    var stmt = this.dbConn.createStatement(sQuery);
     var aRows = [];
     try {
+      var stmt = this.dbConn.createStatement(sQuery);
+      Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         var oRow = {};
 
@@ -1140,17 +1213,23 @@ SQLiteHandler.prototype = {
 
         aRows.push(oRow);
       }
-    } finally {
-      stmt.reset();
+      stmt.finalize();
+      Cu.reportError("finalize");
+    }
+    catch (e) {
+      var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
+      Cu.reportError(msg);
+      this.setErrorString();
     }
     return aRows;
   },
 
   getIndexList: function(sTableName, sDbName) {
     var sQuery = this.getPragmaSchemaQuery("index_list", sTableName, sDbName);
-    var stmt = this.dbConn.createStatement(sQuery);
     var aRows = [];
     try {
+      var stmt = this.dbConn.createStatement(sQuery);
+      Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         var oRow = {};
 
@@ -1160,17 +1239,23 @@ SQLiteHandler.prototype = {
 
         aRows.push(oRow);
       }
-    } finally {
-      stmt.reset();
+      stmt.finalize();
+      Cu.reportError("finalize");
+    }
+    catch (e) {
+      var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
+      Cu.reportError(msg);
+      this.setErrorString();
     }
     return aRows;
   },
 
   getIndexInfo: function(sIndexName, sDbName) {
     var sQuery = this.getPragmaSchemaQuery("index_info", sIndexName, sDbName);
-    var stmt = this.dbConn.createStatement(sQuery);
     var aRows = [];
     try {
+      var stmt = this.dbConn.createStatement(sQuery);
+      Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         var oRow = {};
 
@@ -1180,17 +1265,23 @@ SQLiteHandler.prototype = {
 
         aRows.push(oRow);
       }
-    } finally {
-      stmt.reset();
+      stmt.finalize();
+      Cu.reportError("finalize");
+    }
+    catch (e) {
+      var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
+      Cu.reportError(msg);
+      this.setErrorString();
     }
     return aRows;
   },
 
   getCollationList: function(sIndexName, sDbName) {
     var sQuery = "PRAGMA collation_list";
-    var stmt = this.dbConn.createStatement(sQuery);
     var aRows = [];
     try {
+      var stmt = this.dbConn.createStatement(sQuery);
+      Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         var oRow = {};
 
@@ -1199,8 +1290,13 @@ SQLiteHandler.prototype = {
 
         aRows.push(oRow);
       }
-    } finally {
-      stmt.reset();
+      stmt.finalize();
+      Cu.reportError("finalize");
+    }
+    catch (e) {
+      var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
+      Cu.reportError(msg);
+      this.setErrorString();
     }
     return aRows;
   },
@@ -1212,6 +1308,7 @@ SQLiteHandler.prototype = {
     var sQuery = "SELECT typeof(" + str + ") AS ttt";
     try {
       var stmt = this.dbConn.createStatement(sQuery);
+      Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         sTypeof = stmt.row.ttt;
       }

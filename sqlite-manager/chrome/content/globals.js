@@ -31,7 +31,6 @@ var SmGlobals = {
   appInfo: null,
   extVersion: "",
   extCreator: "",
-  extLocation: "",
 
   dialogFeatures: "chrome,resizable,centerscreen,modal,dialog",
 
@@ -44,9 +43,6 @@ var SmGlobals = {
     if (this.appInfo.ID == extId) {
       this.extVersion = this.appInfo.version;
       this.extCreator = this.appInfo.vendor;
-
-      //TODO: why not resource:app instead of CurProcD?
-      this.extLocation = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties).get('CurProcD', Ci.nsIFile).path;
     }
     else {
       try {
@@ -54,14 +50,12 @@ var SmGlobals = {
         AddonManager.getAddonByID(extId, function(addon) {
           SmGlobals.extVersion = addon.version;
           SmGlobals.extCreator = addon.creator;
-          //SmGlobals.extLocation = addon.;
         });      
       }
       catch (ex) {
         var extInfo = Cc["@mozilla.org/extensions/manager;1"].getService(Ci.nsIExtensionManager).getItemForID(extId);
         this.extVersion = extInfo.version;
         this.extCreator = "Mrinal Kant";
-        this.extLocation = Cc["@mozilla.org/extensions/manager;1"].getService(Ci.nsIExtensionManager).getInstallLocation(extId).getItemFile(extId, '').path;
       }
     }
   },

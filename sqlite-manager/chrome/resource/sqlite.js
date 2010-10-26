@@ -427,7 +427,7 @@ SQLiteHandler.prototype = {
     var oRow = {indexCount: 0, triggerCount: 0};
     try {
       var stmt = this.dbConn.createStatement(sQuery);
-      Cu.reportError("createStatement");
+      //Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         if (stmt.row.type == 'index')
           oRow.indexCount = stmt.row.cnt;
@@ -435,7 +435,7 @@ SQLiteHandler.prototype = {
           oRow.triggerCount = stmt.row.cnt;
       }
       stmt.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
     }
     catch (e) {
       var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
@@ -591,7 +591,7 @@ SQLiteHandler.prototype = {
     var timeStart = Date.now();
     try { // mozIStorageStatement
       var stmt = this.dbConn.createStatement(sQuery);
-      Cu.reportError("createStatement");
+      //Cu.reportError("createStatement");
     }
     catch (e) {
       // statement will be undefined because it throws error);
@@ -615,7 +615,7 @@ SQLiteHandler.prototype = {
       }
     } catch (e) {
       stmt.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
       var msg = this.onSqlError(e, "Error while fetching column name: " + colName, null, true);
       Cu.reportError(msg);
       this.setErrorString();
@@ -681,14 +681,14 @@ SQLiteHandler.prototype = {
       this.miTime = Date.now() - timeStart;
     } catch (e) {
       stmt.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
       var msg = this.onSqlError(e, "Query: " + sQuery + " - executeStep failed", null, true);
       Cu.reportError(msg);
       this.setErrorString();
       return false;
     }
     stmt.finalize();
-    Cu.reportError("finalize");
+    //Cu.reportError("finalize");
     this.setErrorString();
     return true;
   },
@@ -717,7 +717,7 @@ SQLiteHandler.prototype = {
     var sQuery = ["SELECT", SQLiteFn.quoteIdentifier(sField), "FROM", this.getPrefixedName(sTable, ""), "WHERE", sWhere].join(' ');
     try { // mozIStorageStatement
       var stmt = this.dbConn.createStatement(sQuery);
-      Cu.reportError("createStatement");
+      //Cu.reportError("createStatement");
     }
     catch (e) {
       // statement will be undefined because it throws error);
@@ -744,7 +744,7 @@ SQLiteHandler.prototype = {
       return aData.value;
     } catch (e) {
       stmt.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
       var msg = this.onSqlError(e, "Query: " + sQuery + " - executeStep failed", null, true);
       Cu.reportError(msg);
       this.setErrorString();
@@ -811,7 +811,7 @@ SQLiteHandler.prototype = {
       this.dbConn.beginTransactionAs(this.dbConn.TRANSACTION_DEFERRED);
     }
     var statement = this.dbConn.createStatement(sql);
-    Cu.reportError("createStatement");
+    //Cu.reportError("createStatement");
     if (param) {
       for (var m = 2, arg = null; arg = arguments[m]; m++) 
         statement.bindUTF8StringParameter(m-2, arg);
@@ -829,7 +829,7 @@ SQLiteHandler.prototype = {
     }
     finally {
       statement.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
     }
     if (ourTransaction) {
       this.dbConn.commitTransaction();
@@ -844,13 +844,13 @@ SQLiteHandler.prototype = {
     for(var i = 0; i < aQueries.length; i++) {
       try {
         stmt = this.dbConn.createStatement(aQueries[i]);
-        Cu.reportError("createStatement");
+        //Cu.reportError("createStatement");
         aStmt.push(stmt);
         //stmt.executeAsync(stmtCallback);
       }
       catch (e) {
         stmt.finalize();
-        Cu.reportError("finalize");
+        //Cu.reportError("finalize");
         this.setErrorString();
         var msg = this.onSqlError(e, "Error in createStatement: " + aQueries[i], this.dbConn.lastErrorString, true);
         Cu.reportError(msg);
@@ -879,12 +879,12 @@ SQLiteHandler.prototype = {
     for(var i = 0; i < aQueries.length; i++) {
       try {
         var statement = this.dbConn.createStatement(aQueries[i]);
-        Cu.reportError("createStatement");
+        //Cu.reportError("createStatement");
         statement.execute();
       }
       catch (e) {
         statement.finalize();
-        Cu.reportError("finalize");
+        //Cu.reportError("finalize");
         this.setErrorString();
         // statement will be undefined because it throws error);
         var msg = this.onSqlError(e, "Likely SQL syntax error: " + aQueries[i], this.dbConn.lastErrorString, true);
@@ -897,7 +897,7 @@ SQLiteHandler.prototype = {
       }
       finally {
         statement.finalize();
-        Cu.reportError("finalize");
+        //Cu.reportError("finalize");
       }
     }
     //commit transaction, if reached here
@@ -913,7 +913,7 @@ SQLiteHandler.prototype = {
     //create the statement
     try {
       var stmt = this.dbConn.createStatement(sQuery);
-      Cu.reportError("createStatement");
+      //Cu.reportError("createStatement");
     } catch (e) {
       var msg = this.onSqlError(e, "Create statement failed (executeWithParams): " + sQuery, this.dbConn.lastErrorString, true);
       Cu.reportError(msg);
@@ -946,7 +946,7 @@ SQLiteHandler.prototype = {
       }
     } catch (e) {
       stmt.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
       var msg = this.onSqlError(e, "Binding failed for parameter: " + aData[0] + ". data length = " + aData[1].length, this.dbConn.lastErrorString, true);
       Cu.reportError(msg);
       this.setErrorString();
@@ -957,7 +957,7 @@ SQLiteHandler.prototype = {
       stmt.execute();
     } catch (e) {
       stmt.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
       var msg = this.onSqlError(e, "Execute failed: " + sQuery, this.dbConn.lastErrorString, true);
       Cu.reportError(msg);
       this.setErrorString();
@@ -966,7 +966,7 @@ SQLiteHandler.prototype = {
 
     try {
       stmt.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
     } catch (e) {
       var msg = this.onSqlError(e, "Failed to reset/finalize", this.dbConn.lastErrorString, true);
       Cu.reportError(msg);
@@ -980,12 +980,12 @@ SQLiteHandler.prototype = {
     var sQuery = "SELECT quote(" + aData + ") AS outstr";
     try {
       var stmt = this.dbConn.createStatement(sQuery);
-      Cu.reportError("createStatement");
+      //Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         return stmt.row.outstr;
       }
       stmt.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
     } catch (e) {
       var msg = this.onSqlError(e, "", null, false);
       Cu.reportError(msg);
@@ -998,12 +998,12 @@ SQLiteHandler.prototype = {
       var sQuery = "SELECT hex(" + sData + ") AS outhex";
       try {
         var stmt = this.dbConn.createStatement(sQuery);
-        Cu.reportError("createStatement");
+        //Cu.reportError("createStatement");
         while (stmt.executeStep()) {
           sHex = stmt.row.outhex;
         }
         stmt.finalize();
-        Cu.reportError("finalize");
+        //Cu.reportError("finalize");
       } catch (e) {
         var msg = this.onSqlError(e, "textToBlob: " + sQuery, null, false);
         Cu.reportError(msg);
@@ -1081,7 +1081,7 @@ SQLiteHandler.prototype = {
     var aRows = [];
     try {
       var stmt = this.dbConn.createStatement(sQuery);
-      Cu.reportError("createStatement");
+      //Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         var oRow = {};
 
@@ -1094,7 +1094,7 @@ SQLiteHandler.prototype = {
         aRows.push(oRow);
       }
       stmt.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
     }
     catch (e) {
       var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
@@ -1118,7 +1118,7 @@ SQLiteHandler.prototype = {
     var aRows = [];
     try {
       var stmt = this.dbConn.createStatement(sQuery);
-      Cu.reportError("createStatement");
+      //Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         if (stmt.row.seq > 1) {//excludes main & temp
           var oRow = {};
@@ -1131,7 +1131,7 @@ SQLiteHandler.prototype = {
         }
       }
       stmt.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
     }
     catch (e) {
       var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
@@ -1148,13 +1148,13 @@ SQLiteHandler.prototype = {
     var aRows = ["main", "temp"];
     try {
       var stmt = this.dbConn.createStatement(sQuery);
-      Cu.reportError("createStatement");
+      //Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         if (stmt.row.seq > 1) //sometimes, temp is not returned
           aRows.push(stmt.row.name);
       }
       stmt.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
     }
     catch (e) {
       var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
@@ -1169,7 +1169,7 @@ SQLiteHandler.prototype = {
     var aRows = [];
     try {
       var stmt = this.dbConn.createStatement(sQuery);
-      Cu.reportError("createStatement");
+      //Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         var oRow = {};
 
@@ -1185,7 +1185,7 @@ SQLiteHandler.prototype = {
         aRows.push(oRow);
       }
       stmt.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
     }
     catch (e) {
       var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
@@ -1200,7 +1200,7 @@ SQLiteHandler.prototype = {
     var aRows = [];
     try {
       var stmt = this.dbConn.createStatement(sQuery);
-      Cu.reportError("createStatement");
+      //Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         var oRow = {};
 
@@ -1214,7 +1214,7 @@ SQLiteHandler.prototype = {
         aRows.push(oRow);
       }
       stmt.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
     }
     catch (e) {
       var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
@@ -1229,7 +1229,7 @@ SQLiteHandler.prototype = {
     var aRows = [];
     try {
       var stmt = this.dbConn.createStatement(sQuery);
-      Cu.reportError("createStatement");
+      //Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         var oRow = {};
 
@@ -1240,7 +1240,7 @@ SQLiteHandler.prototype = {
         aRows.push(oRow);
       }
       stmt.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
     }
     catch (e) {
       var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
@@ -1255,7 +1255,7 @@ SQLiteHandler.prototype = {
     var aRows = [];
     try {
       var stmt = this.dbConn.createStatement(sQuery);
-      Cu.reportError("createStatement");
+      //Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         var oRow = {};
 
@@ -1266,7 +1266,7 @@ SQLiteHandler.prototype = {
         aRows.push(oRow);
       }
       stmt.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
     }
     catch (e) {
       var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
@@ -1281,7 +1281,7 @@ SQLiteHandler.prototype = {
     var aRows = [];
     try {
       var stmt = this.dbConn.createStatement(sQuery);
-      Cu.reportError("createStatement");
+      //Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         var oRow = {};
 
@@ -1291,7 +1291,7 @@ SQLiteHandler.prototype = {
         aRows.push(oRow);
       }
       stmt.finalize();
-      Cu.reportError("finalize");
+      //Cu.reportError("finalize");
     }
     catch (e) {
       var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
@@ -1308,7 +1308,7 @@ SQLiteHandler.prototype = {
     var sQuery = "SELECT typeof(" + str + ") AS ttt";
     try {
       var stmt = this.dbConn.createStatement(sQuery);
-      Cu.reportError("createStatement");
+      //Cu.reportError("createStatement");
       while (stmt.executeStep()) {
         sTypeof = stmt.row.ttt;
       }

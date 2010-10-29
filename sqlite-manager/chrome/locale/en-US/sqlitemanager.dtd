@@ -137,6 +137,7 @@
 <!ENTITY	tab.execute "Execute SQL">
 <!ENTITY	tab.dbinfo "DB Settings">
 <!ENTITY	tab.udf "User-defined Functions">
+<!ENTITY	tab.connectSql "On-connect SQL">
 
 <!ENTITY	btn.search "Search">
 <!ENTITY	btn.search.ak "h">

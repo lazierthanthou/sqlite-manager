@@ -1130,13 +1130,17 @@ var SQLiteManager = {
         $$(sId).collapsed = false;
         $$("sm-tabs").selectedItem = $$(sId);
         break;
+      case "tab-connectSql":
+        $$(sId).collapsed = false;
+        $$("sm-tabs").selectedItem = $$(sId);
+        break;
     }
-    //closebutton should be shown if exim or udf tab is displayed
-    if (this.getSelectedTabId() != "tab-exim" && this.getSelectedTabId() != "tab-udf" ) {
-      $$("sm-tabs").setAttribute("closebutton", false);
+    //closebutton should be shown if exim/udf/connectSql tab is displayed
+    if (this.getSelectedTabId() == "tab-exim" || this.getSelectedTabId() == "tab-udf" || this.getSelectedTabId() == "tab-connectSql") {
+      $$("sm-tabs").setAttribute("closebutton", true);
     }
     else {
-      $$("sm-tabs").setAttribute("closebutton", true);
+      $$("sm-tabs").setAttribute("closebutton", false);
     }
     return true;
   },
@@ -1152,6 +1156,7 @@ var SQLiteManager = {
         break;
       case "tab-exim":
       case "tab-udf":
+      case "tab-connectSql":
         $$(sId).collapsed = true;
         break;
     }
@@ -1596,6 +1601,11 @@ var SQLiteManager = {
   openUdfTab: function() {
     this.loadTabWithId("tab-udf");
     SmUdf.loadTab();
+  },
+
+  openConnectSqlTab: function() {
+    this.loadTabWithId("tab-connectSql");
+    SmConnectSql.loadTab();
   },
 
   createTable: function() {        

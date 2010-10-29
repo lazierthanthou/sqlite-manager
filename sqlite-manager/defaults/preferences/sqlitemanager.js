@@ -78,6 +78,9 @@ pref("extensions.sqlitemanager.notificationDuration", 4);
 //stores JSON object for MRU
 pref("extensions.sqlitemanager.jsonMruData", '{"meta":{"version":"1"},"size":10,"list":[]}');
 
+//stores SQL statements to run when a connection is made to a database
+pref("extensions.sqlitemanager.onConnectSql", '');
+
 //stores JSON object for data tree style.
 pref("extensions.sqlitemanager.jsonDataTreeStyle", '{"meta":{"version":"2"},"setting":"default","nullvalue":{"unselected":{"background-color":"#ffcccc","color":"#000000"},"selected":{"background-color":"#ff6666","color":"#ffffff"}},"integervalue":{"unselected":{"background-color":"#ccffcc","color":"#000000"},"selected":{"background-color":"#339933","color":"#ffffff"}},"floatvalue":{"unselected":{"background-color":"#66ff66","color":"#000000"},"selected":{"background-color":"#00cc00","color":"#ffffff"}},"textvalue":{"unselected":{"background-color":"#ccffff","color":"#000000"},"selected":{"background-color":"#000066","color":"#ffffff"}},"blobvalue":{"unselected":{"background-color":"#ccccff","color":"#000000"},"selected":{"background-color":"#333399","color":"#ffffff"}},"textFont":{"unselected":{"font-size":100,"font-family":""}},"rowHeight":0}');
 //stores JSON object for export/import settings.

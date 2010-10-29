@@ -8,6 +8,7 @@
 <?xul-overlay href="chrome://sqlitemanager/content/tabDbInfo.xul"?>
 <?xul-overlay href="chrome://sqlitemanager/content/exim.xul"?>
 <?xul-overlay href="chrome://sqlitemanager/content/udf.xul"?>
+<?xul-overlay href="chrome://sqlitemanager/content/connectSql.xul"?>
 
 <!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
  
@@ -35,12 +36,14 @@
   <script type="application/x-javascript" src="createManager.js"/>
   <script type="application/x-javascript" src="sqlitemanager.js"/>
   <script type="application/x-javascript" src="extManager.js"/>
+  <script type="application/x-javascript" src="connectSql.js"/>
 
   <commandset id="sm-cmdset">
     <command id="smc-newDb" oncommand="SQLiteManager.newDatabase()" tooltiptext="&menu.db.new;"/>
     <command id="smc-openDb" oncommand="SQLiteManager.openDatabase()" tooltiptext="&menu.db.connect;"/>
     <command id="smc-import" oncommand="SQLiteManager.importFromFile()" tooltiptext="&import;" observes="bc-dbOpen"/>
     <command id="smc-udf" oncommand="SQLiteManager.openUdfTab()" tooltiptext="User-defined functions"/>
+    <command id="smc-connectSql" oncommand="SQLiteManager.openConnectSqlTab()" tooltiptext="On-Connect SQL Statements"/>
 
     <!-- commands for tables -->
     <command id="smc-createTable" oncommand="SQLiteManager.createTable()" tooltiptext="&createTable;" observes="bc-dbOpen"/>
@@ -247,12 +250,12 @@
         </menu> 
         <menu id="menu-tools" label="&menu.tools;" accesskey="&menu.tools.ak;">
           <menupopup id="sm_menu_tools_popup">
-          <menuitem label="&mi.options;" accesskey="&mi.options.ak;" command="smc-options"/>
-          <!-- Issue #149: default state of the following menuitem should be unchecked -->
-          <menuitem id="menu-general-sharedPagerCache" label="&mi.sharedPagerCache;"  accesskey="&mi.sharedPagerCache.ak;" type="checkbox"/>
-          <menuitem id="menu-general-extensionTable" type="checkbox" label="&mi.extensionTable;" accesskey="&mi.extensionTable.ak;" oncommand="SQLiteManager.useExtensionManagementTable(this.hasAttribute('checked'),false);" observes="bc-dbOpen"/>
-
+            <menuitem label="&mi.options;" accesskey="&mi.options.ak;" command="smc-options"/>
+            <!-- Issue #149: default state of the following menuitem should be unchecked -->
+            <menuitem id="menu-general-sharedPagerCache" label="&mi.sharedPagerCache;"  accesskey="&mi.sharedPagerCache.ak;" type="checkbox"/>
+            <menuitem id="menu-general-extensionTable" type="checkbox" label="&mi.extensionTable;" accesskey="&mi.extensionTable.ak;" oncommand="SQLiteManager.useExtensionManagementTable(this.hasAttribute('checked'),false);" observes="bc-dbOpen"/>
             <menuitem id="experiment" label="Experiment" oncommand="SQLiteManager.experiment()" hidden="true" />
+            <menuitem id="experiment" label="open connect sql tab" command="smc-connectSql" hidden="false" />
           </menupopup>
         </menu>
         <menu id="menu-help" label="&menu.help;">
@@ -353,6 +356,7 @@
         <tab id="tab-dbinfo" linkedpanel="dbInfoTab" label="&tab.dbinfo;" persist="selected"/>
         <tab id="tab-exim" linkedpanel="eximTabpanel" collapsed="true"/>
         <tab id="tab-udf" linkedpanel="udfTabpanel" label="&tab.udf;" collapsed="true"/>
+        <tab id="tab-connectSql" linkedpanel="connectSqlTabpanel" label="&tab.connectSql;" collapsed="true"/>
       </tabs>
 
       <tabpanels id="sm-tabpanels" flex="1">
@@ -638,6 +642,7 @@
         <tabpanel id="dbInfoTab"/>
         <tabpanel id="eximTabpanel"/>
         <tabpanel id="udfTabpanel"/>
+        <tabpanel id="connectSqlTabpanel"/>
       </tabpanels>
     </tabbox>
     </vbox>

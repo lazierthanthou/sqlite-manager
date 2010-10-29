@@ -510,17 +510,11 @@ var SmUdf = {
   showHelp: function(sArg) {
     switch (sArg) {
       case 'newFunctionArgLength':
-        smPrompt.alert(null, sm_getLStr("extName"), 'The number of arguments that the function will accept should be an integer.\n-1 means unlimited number of arguments.');
-        break;
       case 'newFunctionBody':
-        smPrompt.alert(null, sm_getLStr("extName"), 'Write the function body without braces.\nThe argument to the function is "aValues" which can be used within the function body as in the example functions which you can see under the Simple Functions tab.');
-        break;
       case 'newFunctionOnStepBody':
-        smPrompt.alert(null, sm_getLStr("extName"), 'Write the function body without braces.\nThe argument to the function is "aValues" which can be used within the function body as in the example functions which you can see under the Aggregate Functions tab.\nAny values you need to store for use in onFinal() can be stored in this._store which is initialized as an empty array');
-        break;
       case 'newFunctionOnFinalBody':
-        smPrompt.alert(null, sm_getLStr("extName"), 'Write the function body without braces.\nThis function takes no arguments. See an example under the Aggregate Functions tab.\nYou can use this._store for computation in this function after you have stored values in it in the onStep() function.');
+        smPrompt.alert(null, sm_getLStr("extName"), sm_getLStr('udf.' + sArg));
         break;
     }
-  },
+  }
 };

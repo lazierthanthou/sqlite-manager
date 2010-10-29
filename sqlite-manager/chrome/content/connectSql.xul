@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://sqlitemanager/skin/sqlitemanager.css" type="text/css"?>
+ 
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/connectSql.dtd">
+<!-- all id should begin with connectSql -->
+<overlay id="connectSqlOverlay"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<tabpanel id="connectSqlTabpanel" flex="1">
+  <notificationbox id="connectSqlNotifyBox" flex="1">
+  <hbox id="connectSqlStatus" hidden="true">
+    <label id="connectSqlStatusLabel" style="background-color: #ffff66;padding-top:2px;"/>
+    <button label="Cancel Operation" oncommand="SmConnectSql.handleImportCompletion(0);"/>
+  </hbox>
+  <vbox flex="1">
+    <hbox>
+      <button id="connectSqlReloadButton" label="&connectSql.reloadFunctions;" oncommand="SmConnectSql.loadTab();"/>
+      <button label="&connectSql.closeTab;" style="color:red;" oncommand="SQLiteManager.closeTab();"/>
+    </hbox>
+
+    <hbox>
+      <label class="forControl" value="&connectSql.sqlForAllDb;"/>
+      <toolbarbutton class="tbb_questionmark" oncommand="SmConnectSql.showHelp('forAllDb')"/>
+    </hbox>
+    <hbox>
+      <textbox id="connectSqlTbAll" multiline="true" rows="10" flex="1"/>
+    </hbox>
+    <hbox>
+      <button label="&connectSql.cancel;" oncommand="SmConnectSql.cancelEditAll();"/>
+      <button label="&connectSql.save;" oncommand="SmConnectSql.saveSqlAll();"/>
+    </hbox>
+
+    <hbox>
+      <label class="forControl" value="&connectSql.sqlForThisDb;"/>
+      <toolbarbutton class="tbb_questionmark" oncommand="SmConnectSql.showHelp('forThisDb')"/>
+    </hbox>
+    <hbox>
+      <textbox id="connectSqlTbDb" multiline="true" rows="10" flex="1"/>
+    </hbox>
+    <hbox>
+      <button label="&connectSql.cancel;" oncommand="SmConnectSql.cancelEditDb();"/>
+      <button label="&connectSql.save;" oncommand="SmConnectSql.saveSqlDb();"/>
+    </hbox>
+  </vbox>
+</notificationbox>
+</tabpanel>
+</overlay>

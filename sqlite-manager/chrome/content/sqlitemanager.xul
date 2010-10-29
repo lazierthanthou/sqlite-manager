@@ -82,10 +82,14 @@
 
     <!-- for commands under execute tab-->
     <command id="smc-runQuery" oncommand="SQLiteManager.runSqlStatement('select')" />
+
+    <!-- for other commands -->
+    <command id="smc-toggleSidebar" oncommand="SQLiteManager.toggleSidebar()" />
   </commandset>
 
   <keyset id="smKeyset">
     <key id="refresh-key" modifiers="shift" keycode="VK_F5" command="smc-refresh"/>
+    <key id="sidebar-key" keycode="VK_F9" command="smc-toggleSidebar"/>
     <key id="key-selectAllRecords" modifiers="accel shift" key="A" command="smc-selectAllRecords"/>
     <key id="key-runQuery" modifiers="accel" key=";" command="smc-runQuery"/>
     <key modifiers="control" keycode="VK_F12" command="smc-runQuery"/>

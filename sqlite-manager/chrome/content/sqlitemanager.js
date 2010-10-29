@@ -272,6 +272,13 @@ var SQLiteManager = {
     sm_notify("boxNotifyDbInfo", sMessage, "info");
   },
 
+  toggleSidebar: function() {
+    if ($$("localsplitter").getAttribute("state") == "collapsed")
+      $$("localsplitter").setAttribute("state", "open");
+    else
+      $$("localsplitter").setAttribute("state", "collapsed");
+  },
+
   //mainly to remove use of Database from treeDbStructure.js
   getTableInfo: function(sTable, sLogicalDb) {
     return this.mDb.getTableInfo(sTable, sLogicalDb);

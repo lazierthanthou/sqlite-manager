@@ -10,6 +10,8 @@
 <!ENTITY mi.sharedPagerCache.ak "S">
 <!ENTITY mi.extensionTable "Use Table for Extension Data">
 <!ENTITY mi.extensionTable.ak "E">
+<!ENTITY mi.openOnConnectSqlTab "Open On-Connect SQL Tab">
+<!ENTITY mi.openOnConnectSqlTab.ak "Q">
 
 <!ENTITY mi.console			"Error Console">
 <!ENTITY mi.console.ak "C">

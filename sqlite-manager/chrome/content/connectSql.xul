@@ -13,7 +13,7 @@
     <label id="connectSqlStatusLabel" style="background-color: #ffff66;padding-top:2px;"/>
     <button label="Cancel Operation" oncommand="SmConnectSql.handleImportCompletion(0);"/>
   </hbox>
-  <vbox flex="1">
+  <vbox flex="1" style="overflow:auto">
     <hbox>
       <button id="connectSqlReloadButton" label="&connectSql.reloadFunctions;" oncommand="SmConnectSql.loadTab();"/>
       <button label="&connectSql.closeTab;" style="color:red;" oncommand="SQLiteManager.closeTab();"/>
@@ -24,11 +24,11 @@
       <toolbarbutton class="tbb_questionmark" oncommand="SmConnectSql.showHelp('forAllDb')"/>
     </hbox>
     <hbox>
-      <textbox id="connectSqlTbAll" multiline="true" rows="10" flex="1"/>
+      <textbox id="connectSqlTbAllDb" multiline="true" rows="8" flex="1"/>
     </hbox>
     <hbox>
-      <button label="&connectSql.cancel;" oncommand="SmConnectSql.cancelEditAll();"/>
-      <button label="&connectSql.save;" oncommand="SmConnectSql.saveSqlAll();"/>
+      <button label="&connectSql.cancel;" oncommand="SmConnectSql.cancelEditAllDb();"/>
+      <button label="&connectSql.save;" oncommand="SmConnectSql.saveSqlAllDb();"/>
     </hbox>
 
     <hbox>
@@ -36,11 +36,11 @@
       <toolbarbutton class="tbb_questionmark" oncommand="SmConnectSql.showHelp('forThisDb')"/>
     </hbox>
     <hbox>
-      <textbox id="connectSqlTbDb" multiline="true" rows="10" flex="1"/>
+      <textbox id="connectSqlTbThisDb" multiline="true" rows="8" flex="1"/>
     </hbox>
     <hbox>
-      <button label="&connectSql.cancel;" oncommand="SmConnectSql.cancelEditDb();"/>
-      <button label="&connectSql.save;" oncommand="SmConnectSql.saveSqlDb();"/>
+      <button id="connectSqlBtnSaveThisDb" label="&connectSql.cancel;" oncommand="SmConnectSql.cancelEditThisDb();"/>
+      <button id="connectSqlBtnCancelThisDb" label="&connectSql.save;" oncommand="SmConnectSql.saveSqlThisDb();"/>
     </hbox>
   </vbox>
 </notificationbox>

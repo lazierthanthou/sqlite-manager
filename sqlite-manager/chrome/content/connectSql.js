@@ -1,42 +1,68 @@
 Components.utils.import("resource://sqlitemanager/fileIO.js");
 
 var SmConnectSql = {
-  close: function() {
-    var answer = confirm('Are you sure you have saved the changes?\nIf not, please press/click on No/Cancel button and save changes before closing this tab.');
-    if (answer) {
-      return false;
+  //smExtManager can be null if we are not connected to a db at all
+  //so, all statements involving smExtManager should be handled in try ... catch blocks
+  loadTab: function() {
+    this.populateSqlAllDb();
+
+    //for on-connect sql specific to this db, check whether smExtManager is in use
+    //if not, disable the controls too
+    var bExtManagerEnabled = false;
+    try {
+      bExtManagerEnabled = smExtManager.getUsage();
+    } catch (e) {
+      Components.utils.reportError('in function SmConnectSql.loadTab - ' + e);
     }
 
-    return true;
-  },
-  
-  loadTab: function() {
-    this.populateSqlAll();
-    this.populateSqlDb();
+    if (bExtManagerEnabled) {
+      this.populateSqlThisDb();
+
+      $$("connectSqlTbThisDb").removeAttribute('disabled');
+      $$("connectSqlBtnSaveThisDb").removeAttribute('disabled');
+      $$("connectSqlBtnCancelThisDb").removeAttribute('disabled');
+    }
+    else {
+      $$("connectSqlTbThisDb").value = '';
+
+      $$("connectSqlTbThisDb").setAttribute('disabled', true);
+      $$("connectSqlBtnSaveThisDb").setAttribute('disabled', true);
+      $$("connectSqlBtnCancelThisDb").setAttribute('disabled', true);
+    }
   },
 
-  populateSqlAll: function() {
+  populateSqlAllDb: function() {
     var txtOnConnectSql = sm_prefsBranch.getComplexValue("onConnectSql", Ci.nsISupportsString).data;
-    $$("connectSqlTbAll").value = txtOnConnectSql;
+    $$("connectSqlTbAllDb").value = txtOnConnectSql;
   },
 
-  populateSqlDb: function() {
+  populateSqlThisDb: function() {
+    var txtOnConnectSql = '';
+    try {
+      txtOnConnectSql = smExtManager.getOnConnectSql();
+    } catch (e) {
+      Components.utils.reportError('in function SmConnectSql.populateSqlThisDb - ' + e);
+    }
+
+    $$("connectSqlTbThisDb").value = txtOnConnectSql;
   },
 
-  saveSqlAll: function() {
-    var txtOnConnectSql = $$("connectSqlTbAll").value;
+  saveSqlAllDb: function() {
+    var txtOnConnectSql = $$("connectSqlTbAllDb").value;
     sm_setUnicodePref("onConnectSql", txtOnConnectSql);
   },
 
-  saveSqlDb: function() {
+  saveSqlThisDb: function() {
+    var txtOnConnectSql = $$("connectSqlTbThisDb").value;
+    smExtManager.setOnConnectSql(txtOnConnectSql);
   },
 
-  cancelEditAll: function() {
-    this.populateSqlAll();
+  cancelEditAllDb: function() {
+    this.populateSqlAllDb();
   },
 
-  cancelEditDb: function() {
-    this.populateSqlDb();
+  cancelEditThisDb: function() {
+    this.populateSqlThisDb();
   },
 
   showHelp: function(sArg) {

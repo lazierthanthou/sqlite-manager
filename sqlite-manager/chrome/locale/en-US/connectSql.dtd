@@ -1,4 +1,4 @@
-<!ENTITY connectSql.reloadFunctions    "Reload SQL Statements">
+<!ENTITY connectSql.reloadFunctions    "Reload Tab">
 <!ENTITY connectSql.closeTab    "Close Tab">
 
 <!ENTITY connectSql.cancel     "Cancel">

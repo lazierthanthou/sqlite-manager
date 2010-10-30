@@ -2366,10 +2366,12 @@ var SQLiteManager = {
 
         this.emptyTabStructure();
         smHide(["vb-structureTab", "vb-browseTab", "vb-executeTab", "vb-dbInfoTab"]);
-        this.useExtensionManagementTable(false, true);
+        smExtManager = null; //appropriate coz' we are closing db
+        SmConnectSql.loadTab();
       }
     }
     catch (e)  {
+      Components.utils.reportError('in function setDatabase - ' + e);
       sm_message("Connect to '" + nsiFileObj.path + "' failed: " + e, 0x3);
       return;
     }
@@ -2394,6 +2396,15 @@ var SQLiteManager = {
       //extension related mgmt info
       smExtManager = new SMExtensionManager();
       this.useExtensionManagementTable(smExtManager.getUsage(), true);
+
+      //here, execute the on-connect sql statements
+      //first, those statements which are for all database
+      this.runOnConnectSqlForAllDb();
+      //then, those statements which are for this db only. These statements must be fetched from ExtensionManagementTable and, hence, this must be done after initializing smExtManager
+      this.runOnConnectSqlForThisDb();
+
+      //load this tab so that the db specific section can be enabled if possible
+      SmConnectSql.loadTab();
 
       //init the db menulist with main, temp & attached db
       this.initDbListMenu(leafName, path);
@@ -2442,6 +2453,18 @@ var SQLiteManager = {
       if (this.mDb.createAggregateFunction(udf[fn].fName, udf[fn].fLength, udf[fn].objFunc))
         sm_log("Loaded user-defined aggregate function: " + udf[fn].fName + ", args.length = " + udf[fn].fLength);
     }
+  },
+
+  runOnConnectSqlForAllDb: function() {
+    var txtOnConnectSql = sm_prefsBranch.getComplexValue("onConnectSql", Ci.nsISupportsString).data;
+    var queries = sql_tokenizer(txtOnConnectSql);
+    this.mDb.executeSimpleSQLs(queries);
+  },
+
+  runOnConnectSqlForThisDb: function() {
+    var txtOnConnectSql = smExtManager.getOnConnectSql();
+    var queries = sql_tokenizer(txtOnConnectSql);
+    this.mDb.executeSimpleSQLs(queries);
   },
 
   selectAllRecords: function() {

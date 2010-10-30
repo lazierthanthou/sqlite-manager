@@ -50,7 +50,12 @@ SMExtensionManager.prototype = {
     }
   },
 
+  //TODO - why should we not use just one of the getUsage and m_bUseConfig
   getUsage: function() {
+    //if we are not connected to db at all
+    if(SQLiteManager.mDb == null)
+      return false;
+
     //check for the table and enable type = 1 to return true;
     if(SQLiteManager.mDb.tableExists(this.m_tbl)) {
       SQLiteManager.mDb.selectQuery("select value from " + this.m_tbl + " where type = 'Enabled'");
@@ -264,5 +269,32 @@ SMExtensionManager.prototype = {
     var q1 = "delete from " + this.m_tbl + " where type = '" + sEc + "'";
     var q2 = "insert into " + this.m_tbl + "(type, value) values('" + sEc + "', '" + JSON.stringify(aAttached) + "')";
     SQLiteManager.mDb.executeTransaction([q1,q2]);
+  },
+
+  getOnConnectSql: function() {
+    if (!this.m_bUseConfig)
+      return '';
+
+    var sEc = "OnConnectSql";
+
+    SQLiteManager.mDb.selectQuery('select "value" from ' + this.m_tbl + " where type = '" + sEc + "'");
+    var aData = SQLiteManager.mDb.getRecords();
+    if (aData.length > 0) {
+      if (typeof aData[0][0] == 'string')
+        return aData[0][0];
+    }
+
+    return '';
+  },
+
+  setOnConnectSql: function(sSql) {
+    if (!this.m_bUseConfig)
+      return false;
+
+    var sEc = "OnConnectSql";
+
+    var q1 = "delete from " + this.m_tbl + " where type = '" + sEc + "'";
+    var q2 = "insert into " + this.m_tbl + "(type, value) values('" + sEc + "', " + SQLiteFn.quote(sSql) + ")";
+    return SQLiteManager.mDb.executeTransaction([q1,q2]);
   }
 };

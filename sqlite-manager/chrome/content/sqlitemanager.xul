@@ -254,9 +254,10 @@
             <!-- Issue #149: default state of the following menuitem should be unchecked -->
             <menuitem id="menu-general-sharedPagerCache" label="&mi.sharedPagerCache;"  accesskey="&mi.sharedPagerCache.ak;" type="checkbox"/>
             <menuitem id="menu-general-extensionTable" type="checkbox" label="&mi.extensionTable;" accesskey="&mi.extensionTable.ak;" oncommand="SQLiteManager.useExtensionManagementTable(this.hasAttribute('checked'),false);" observes="bc-dbOpen"/>
+            <menuitem id="menu-general-openOnConnectSqlTab" label="&mi.openOnConnectSqlTab;" accesskey="&mi.openOnConnectSqlTab.ak;" command="smc-connectSql" observes="bc-dbOpen"/>
+
             <menuitem id="experiment" label="Experiment" oncommand="SQLiteManager.experiment()" hidden="true" />
-            <menuitem id="experiment" label="open connect sql tab" command="smc-connectSql" hidden="false" />
-          </menupopup>
+           </menupopup>
         </menu>
         <menu id="menu-help" label="&menu.help;">
           <menupopup>

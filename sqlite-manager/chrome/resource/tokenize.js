@@ -24,6 +24,12 @@ var trans = [
   ];
 
 function sql_tokenizer(input) {
+  //Issue 537 - let us avoid proceeding with invalid input
+  if (typeof input != 'string')
+    return [];
+  if (input == '') //issue 537 was observed in this case
+    return [];
+
   var re_comment_oneline = /--[^\n]*/
   var re_comment_multiline = /\/\*(?:.|[\n\r])*?\*\//
 

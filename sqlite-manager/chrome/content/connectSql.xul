@@ -24,7 +24,7 @@
       <toolbarbutton class="tbb_questionmark" oncommand="SmConnectSql.showHelp('forAllDb')"/>
     </hbox>
     <hbox>
-      <textbox id="connectSqlTbAllDb" multiline="true" rows="8" flex="1"/>
+      <textbox id="connectSqlTbAllDb" multiline="true" rows="6" flex="1"/>
     </hbox>
     <hbox>
       <button label="&connectSql.cancel;" oncommand="SmConnectSql.cancelEditAllDb();"/>
@@ -36,7 +36,7 @@
       <toolbarbutton class="tbb_questionmark" oncommand="SmConnectSql.showHelp('forThisDb')"/>
     </hbox>
     <hbox>
-      <textbox id="connectSqlTbThisDb" multiline="true" rows="8" flex="1"/>
+      <textbox id="connectSqlTbThisDb" multiline="true" rows="6" flex="1"/>
     </hbox>
     <hbox>
       <button id="connectSqlBtnSaveThisDb" label="&connectSql.cancel;" oncommand="SmConnectSql.cancelEditThisDb();"/>

@@ -42,8 +42,8 @@ var SmConnectSql = {
       txtOnConnectSql = smExtManager.getOnConnectSql();
     } catch (e) {
       Components.utils.reportError('in function SmConnectSql.populateSqlThisDb - ' + e);
+      this.loadTab();
     }
-
     $$("connectSqlTbThisDb").value = txtOnConnectSql;
   },
 
@@ -54,7 +54,12 @@ var SmConnectSql = {
 
   saveSqlThisDb: function() {
     var txtOnConnectSql = $$("connectSqlTbThisDb").value;
-    smExtManager.setOnConnectSql(txtOnConnectSql);
+    try {
+      smExtManager.setOnConnectSql(txtOnConnectSql);
+    } catch (e) {
+      Components.utils.reportError('in function SmConnectSql.saveSqlThisDb - ' + e);
+      this.loadTab();
+    }
   },
 
   cancelEditAllDb: function() {

@@ -28,11 +28,14 @@ var RowOperations = {
       ["<=", "<=", ""],
       [">", ">", ""],
       [">=", ">=", ""],
-      ["contains", 'like "%', '%"'],
-      ["begins with", 'like "', '%"'],
-      ["ends with", 'like "%', '"'],
+      ["LIKE", "LIKE '", "'"],
+      ["contains", "LIKE '%", "%'"],
+      ["begins with", "LIKE '", "%'"],
+      ["ends with", "LIKE '%", "'"],
       ["IS NULL", "", ""],
-      ["IS NOT NULL", "", ""]
+      ["IS NOT NULL", "", ""],
+      ["IN", "IN (", ")"],
+      ["custom", "", ""]
     ],
 
   loadDialog: function () {
@@ -906,6 +909,12 @@ var RowOperations = {
           break;
         case "IS NOT NULL":
           inpval = " NOTNULL ";
+          break;
+        case "IN":
+          inpval = this.aOps[opval][1] + inpval + this.aOps[opval][2];
+          break;
+        case "custom":
+          inpval = this.aOps[opval][1] + inpval + this.aOps[opval][2];
           break;
         default:
           if (this.aOps[opval][2] != "") {

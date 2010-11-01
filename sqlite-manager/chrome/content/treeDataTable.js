@@ -264,6 +264,8 @@ TreeDataTable.prototype = {
       var obj = JSON.parse(sPrefVal);
 
       var cSeparator = obj.csv.export.separator;
+      if(cSeparator == "tab")
+        cSeparator = "\t";
       //var cEncloser = obj.csv.export.encloser;
       //var bColNames = obj.csv.export.includeColNames;
 

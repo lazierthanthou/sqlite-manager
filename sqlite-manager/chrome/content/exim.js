@@ -2,6 +2,10 @@ Components.utils.import("resource://sqlitemanager/fileIO.js");
 Components.utils.import("resource://sqlitemanager/tokenize.js");
 
 var SmExim = {
+  //boolean to tell whether exim tab loaded for the first time
+  mbFirstLoad: true,
+  mSettings: {},
+
   importWorker: null, //for worker thread
 
   sExpType: "",
@@ -15,6 +19,12 @@ var SmExim = {
   mPrevTabId: null,
 
   init: function() {
+    if (this.mbFirstLoad) {
+      var sPrefVal = sm_prefsBranch.getCharPref("jsonEximSettings");
+      this.mSettings = JSON.parse(sPrefVal);
+      this.mbFirstLoad = false;
+    }
+
     this.msDbName = null;
     this.sObjectType = null;
     this.sObjectName = null;
@@ -31,29 +41,32 @@ var SmExim = {
     listbox.selectedIndex = 0;
   },
 
+  mExpControls: ["exim-exp-ok", "eximSql-create-statement", "eximObjectSelection", "eximCsv-expSaveSetting", "eximCsv-expUseSetting"],
+  mImpControls: ["exim-imp-ok", "eximFileSelection", "eximCsvTableNameLbl", "eximCsvTableName", "eximCsv_ignoreTrailingDelimiter", "eximCsv-likeExcel", "eximCsv-impSaveSetting", "eximCsv-impUseSetting"],
+
   loadDialog: function(sOpType, sObjectType, sObjectName) {
     this.init();
     this.msDbName = SQLiteManager.mDb.logicalDbName;
 
     if (sOpType == "import") {
+      this.useCsvImportSetting(false);
       $$("tab-exim").label = sm_getLStr("eximTab.import.label");
 
-      smShow(["exim-imp-ok", "eximFileSelection", "eximCsvTableNameLbl", "eximCsvTableName", "eximCsv_ignoreTrailingDelimiter", "eximCsv-likeExcel"]);
-
-      smHide(["exim-exp-ok", "eximSql-create-statement", "eximObjectSelection", "eximCsv-expSaveSetting"]);
+      smShow(this.mImpControls);
+      smHide(this.mExpControls);
 
       $$("eximFilename").value = "";
       this.loadCharsetMenu();
       return;
     }
     if (sOpType == "export") {
+      this.useCsvExportSetting(false);
       this.sObjectType = sObjectType;
       this.sObjectName = sObjectName;
       $$("tab-exim").label = sm_getLStr("eximTab.export.label");
 //      $$("eximSubtitle").value = sm_getLFStr("eximTab.export.subtitle", [sObjectType], 1) + this.sObjectName;
-      smHide(["exim-imp-ok", "eximFileSelection", "eximCsvTableNameLbl", "eximCsvTableName", "eximCsv_ignoreTrailingDelimiter", "eximCsv-likeExcel"]);
-
-      smShow(["exim-exp-ok", "eximSql-create-statement", "eximObjectSelection", "eximCsv-expSaveSetting"]);
+      smHide(this.mImpControls);
+      smShow(this.mExpControls);
 
       this.loadDbNames("eximDbName", SQLiteManager.mDb.logicalDbName);
       this.loadObjectNames("eximObjectNames", this.sObjectName, sObjectType);
@@ -153,7 +166,7 @@ var SmExim = {
         var cSeparator = $$("eximCsv_separator").value;
         if(cSeparator == "other")
           cSeparator = $$("eximCsv_separator-text").value;
-        else if(cSeparator == "\\t")
+        else if(cSeparator == "tab")
           cSeparator = "\t";
         //encloser
         var cEncloser = $$("eximCsv_encloser").value;
@@ -163,6 +176,8 @@ var SmExim = {
           cEncloser = "";
         //colnames needed or not
         var bColNames = $$("eximCsv_column-names").checked;
+
+        this.saveCsvExportSetting(false);
 
         iExportNum = this.writeCsvContent(os, sQuery, cSeparator, cEncloser, bColNames);
         break;
@@ -386,6 +401,7 @@ var SmExim = {
       case "csv":
         $$("eximStatus").hidden = false;
         var csvParams = this.populateCsvParams();
+        this.saveCsvImportSetting(false);
         if (csvParams.file)
           this.readCsvContent(csvParams, SmExim.handleImportCompletion, true);
         return;
@@ -454,7 +470,7 @@ var SmExim = {
     var cSeparator = $$("eximCsv_separator").value;
     if(cSeparator == "other")
       cSeparator = $$("eximCsv_separator-text").value;
-    else if(cSeparator == "\\t")
+    else if(cSeparator == "tab")
       cSeparator = "\t";
 
     csvParams.separator = cSeparator;
@@ -709,13 +725,12 @@ var SmExim = {
     return {error: false, query: sQuery, tableName: sTabName};
   },
 
-  saveCsvExportSetting: function() {
+  //bSaved == true means store in preference else store in this.mSettings
+  saveCsvExportSetting: function(bSaved) {
    //separator
     var cSeparator = $$("eximCsv_separator").value;
     if(cSeparator == "other")
       cSeparator = $$("eximCsv_separator-text").value;
-    else if(cSeparator == "\\t")
-      cSeparator = "\t";
     //encloser
     var cEncloser = $$("eximCsv_encloser").value;
     if(cEncloser == "other")
@@ -723,15 +738,60 @@ var SmExim = {
     //colnames needed or not
     var bColNames = $$("eximCsv_column-names").checked;
 
+    this.mSettings.csv.export.separator = cSeparator;
+    this.mSettings.csv.export.encloser = cEncloser;
+    this.mSettings.csv.export.includeColNames = bColNames;
 
-    var sPrefVal = sm_prefsBranch.getCharPref("jsonEximSettings");
-    var obj = JSON.parse(sPrefVal);
+    if (bSaved) {
+      var sPrefVal = JSON.stringify(this.mSettings);
+      sm_prefsBranch.setCharPref("jsonEximSettings", sPrefVal);
+    }
+  },
 
-    obj.csv.export.separator = cSeparator;
-    obj.csv.export.encloser = cEncloser;
-    obj.csv.export.includeColNames = bColNames;
+  //bSaved == true means store in preference else store in this.mSettings
+  saveCsvImportSetting: function(bSaved) {
+   //separator
+    var cSeparator = $$("eximCsv_separator").value;
+    if(cSeparator == "other")
+      cSeparator = $$("eximCsv_separator-text").value;
+    //encloser
+    var cEncloser = $$("eximCsv_encloser").value;
+    if(cEncloser == "other")
+     cEncloser = $$("eximCsv_encloser-text").value;
+    //colnames needed or not
+    var bColNames = $$("eximCsv_column-names").checked;
 
-    sPrefVal = JSON.stringify(obj);
-    sm_prefsBranch.setCharPref("jsonEximSettings", sPrefVal);
+    this.mSettings.csv.import.separator = cSeparator;
+    this.mSettings.csv.import.encloser = cEncloser;
+    this.mSettings.csv.import.includeColNames = bColNames;
+
+    if (bSaved) {
+      var sPrefVal = JSON.stringify(this.mSettings);
+      sm_prefsBranch.setCharPref("jsonEximSettings", sPrefVal);
+    }
+  },
+
+  //bSaved == true means use saved settings else use current settings
+  useCsvExportSetting: function(bSaved) {
+    if (bSaved) {
+      var sPrefVal = sm_prefsBranch.getCharPref("jsonEximSettings");
+      this.mSettings = JSON.parse(sPrefVal);
+    }
+
+    $$("eximCsv_separator").value = this.mSettings.csv.export.separator
+    $$("eximCsv_encloser").value = this.mSettings.csv.export.encloser;
+    $$("eximCsv_column-names").checked = this.mSettings.csv.export.includeColNames;
+  },
+
+  //bSaved == true means use saved settings else use current settings
+  useCsvImportSetting: function(bSaved) {
+    if (bSaved) {
+      var sPrefVal = sm_prefsBranch.getCharPref("jsonEximSettings");
+      this.mSettings = JSON.parse(sPrefVal);
+    }
+
+    $$("eximCsv_separator").value = this.mSettings.csv.import.separator
+    $$("eximCsv_encloser").value = this.mSettings.csv.import.encloser;
+    $$("eximCsv_column-names").checked = this.mSettings.csv.import.includeColNames;
   }
 };

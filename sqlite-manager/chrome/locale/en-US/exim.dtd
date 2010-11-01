@@ -41,6 +41,10 @@
 <!ENTITY eximCsv_encloser.other        "Other">
 <!ENTITY eximCsv-expSaveSetting        "Save CSV Export Settings">
 <!ENTITY eximCsv-expSaveSetting-tooltiptext "You can save these settings if you want 'Copy Rows as CSV' operations to use these settings.">
+<!ENTITY eximCsv-impSaveSetting        "Save CSV Import Settings">
+<!ENTITY eximCsv-impSaveSetting-tooltiptext "Save CSV Import Settings">
+<!ENTITY eximCsv-expUseSetting        "Use Saved Settings">
+<!ENTITY eximCsv-impUseSetting        "Use Saved Settings">
 
 <!ENTITY eximXml_root-element          "Name of Root Element:">
 <!ENTITY eximXml_prefix-table-element  "Prefix this to Table Element:">

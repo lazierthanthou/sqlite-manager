@@ -65,7 +65,7 @@
             <radio label="&Comma; (,)" value="," accesskey="&Comma.ak;" selected="true"/>
             <radio label="&Semicolon; (;)" value=";"/>
             <radio label="&Pipe; (|)" value="|"/>
-            <radio label="&Tab;" value="\t"/>
+            <radio label="&Tab;" value="tab"/>
           </hbox>
           </radiogroup>
           <checkbox id="eximCsv_ignoreTrailingDelimiter" label="Ignore Trailing Separator/Delimiter"/>
@@ -96,7 +96,10 @@
           </radiogroup>
           </groupbox>
           <hbox>
-            <button id="eximCsv-expSaveSetting" label="&eximCsv-expSaveSetting;" tooltiptext="&eximCsv-expSaveSetting-tooltiptext;" hidden="true" oncommand="SmExim.saveCsvExportSetting();"/>
+            <button id="eximCsv-expSaveSetting" label="&eximCsv-expSaveSetting;" tooltiptext="&eximCsv-expSaveSetting-tooltiptext;" hidden="true" oncommand="SmExim.saveCsvExportSetting(true);"/>
+            <button id="eximCsv-expUseSetting" label="&eximCsv-expUseSetting;" hidden="true" oncommand="SmExim.useCsvExportSetting(true);"/>
+            <button id="eximCsv-impSaveSetting" label="&eximCsv-impSaveSetting;" tooltiptext="&eximCsv-impSaveSetting-tooltiptext;" hidden="true" oncommand="SmExim.saveCsvImportSetting(true);"/>
+            <button id="eximCsv-impUseSetting" label="&eximCsv-impUseSetting;" hidden="true" oncommand="SmExim.useCsvImportSetting(true);"/>
           </hbox>
           </vbox>
         </tabpanel>

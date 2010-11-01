@@ -79,11 +79,12 @@ cd $buildDir
 
 read -p "Upload files $xpiFile and $xrFile (y/n): " -r choice
 if [ $choice = "y" ]; then
-  summary=$summaryXpi
-  ./googlecode_upload.py -s "$summary" -p $project -u $guser -w $gpass -l $labels $releaseDir/$xpiFile
-
+#upload .xpi later so that it appears on top in downloads tab at sqlite-manager.googlecode.com
   summary=$summaryXr
   ./googlecode_upload.py -s "$summary" -p $project -u $guser -w $gpass -l $labels $releaseDir/$xrFile
+
+  summary=$summaryXpi
+  ./googlecode_upload.py -s "$summary" -p $project -u $guser -w $gpass -l $labels $releaseDir/$xpiFile
 fi
 
 echo "Press any key to exit..."

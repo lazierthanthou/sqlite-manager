@@ -223,6 +223,9 @@ buildWithLanguage () {
   done < $fileTranslators
 }
 
+runDbWithXrApp () {
+  /usr/bin/sqlite-manager -f ~/Desktop/csvtrial.sqlite
+}
 userOption="z"
 
 while [ ! $userOption = "x" ]; do
@@ -232,6 +235,7 @@ while [ ! $userOption = "x" ]; do
     echo "b : build & install extension"
     echo "c : build with language"
     echo "i : install xulrunner app"
+    echo "r : run the xulrunner app (option to speed up testing)"
     echo "j : install .xpi for firefox4 profiles"
     echo "----"
     echo "u : upload to code.google.com"
@@ -252,6 +256,9 @@ while [ ! $userOption = "x" ]; do
 
     if [ $userOption = "i" ]; then
       installXR
+    fi
+    if [ $userOption = "r" ]; then
+      runDbWithXrApp
     fi
     if [ $userOption = "j" ]; then
       installXPI

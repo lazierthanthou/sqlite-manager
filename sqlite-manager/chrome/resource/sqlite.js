@@ -344,6 +344,15 @@ SQLiteHandler.prototype = {
     return false;
   },
 
+  // Type = table|index|view|trigger,
+  objectExists: function(sType, sObjName) {
+    var aList = this.getObjectList(sType, "");
+    if (aList.indexOf(sObjName) >= 0)
+      return true;
+
+    return false;
+  },
+
   //getObjectList: must return an array of names of type=argument 
   // Type = master|table|index|view|trigger,
   //empty array if no object found

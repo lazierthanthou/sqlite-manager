@@ -385,7 +385,7 @@ SQLiteHandler.prototype = {
   loadTableData: function(sObjType, sObjName, aArgs) {
     if (sObjType != "master" && sObjType != "table" && sObjType != "view")
       return -1;
-      
+
     var sCondition = aArgs.sWhere?aArgs.sWhere:"";
     var iLimit = aArgs.iLimit?aArgs.iLimit:-1;
     var iOffset = aArgs.iOffset?aArgs.iOffset:0;

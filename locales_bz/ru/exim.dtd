@@ -29,10 +29,16 @@
 <!ENTITY eximCsv_encloser.doublequotes.standard "двойные кавычки (&quot;), в случае необходимости (Стандарт)">
 <!ENTITY eximCsv_encloser.doublequotes.standard.ak "д">
 <!ENTITY eximCsv_encloser.doublequotes.always "двойные кавычки (&quot;) всегда">
+<!ENTITY eximCsv_encloser.doublequotes.likeExcel "Как  MSExcel (двойные кавычки, если поле содержит &quot; или разделители)">
 <!ENTITY eximCsv_encloser.singlequotes "одиночные кавычки (')">
+<!ENTITY eximCsv_encloser.none "нет">
 <!ENTITY eximCsv_encloser.other "другое">
 <!ENTITY eximCsv-expSaveSetting "Сохранить настройки экспорта в CSV">
 <!ENTITY eximCsv-expSaveSetting-tooltiptext "Вы можете сохранить эти настройки, если хотите, чтобы операции «Копировать строки в CSV» использовали эти параметры настройки.">
+<!ENTITY eximCsv-impSaveSetting "Сохранить настройки импорта CSV">
+<!ENTITY eximCsv-impSaveSetting-tooltiptext "Сохраняет настройки для импортирования CSV">
+<!ENTITY eximCsv-expUseSetting "Использовать сохранённые настройки">
+<!ENTITY eximCsv-impUseSetting "Использовать сохранённые настройки">
 <!ENTITY eximXml_root-element "Имя корневого элемента:">
 <!ENTITY eximXml_prefix-table-element "Префикс this для элемента таблицы:">
 <!ENTITY exim-exp-ok "OK">

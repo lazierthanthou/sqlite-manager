@@ -1,0 +1,292 @@
+<!ENTITY window.title "SQLite-hanteraren">
+<!ENTITY menu.tools "Verktyg">
+<!ENTITY menu.tools.ak "y">
+<!ENTITY sqliteVersion "SQLite-version">
+<!ENTITY sqliteVersion.ak "S">
+<!ENTITY mi.options "Inställningar">
+<!ENTITY mi.options.ak "I">
+<!ENTITY mi.sharedPagerCache "Delad sidindelningscache">
+<!ENTITY mi.sharedPagerCache.ak "D">
+<!ENTITY mi.extensionTable "Använd tabell för tilläggsdata">
+<!ENTITY mi.extensionTable.ak "A">
+<!ENTITY mi.openOnConnectSqlTab "Öppna On-connect SQL-fliken">
+<!ENTITY mi.openOnConnectSqlTab.ak "Q">
+<!ENTITY mi.console "Felkonsol">
+<!ENTITY mi.console.ak "k">
+<!ENTITY mi.aboutconfig "about:config">
+<!ENTITY mi.aboutconfig.ak "b">
+<!ENTITY menu.db "Databas">
+<!ENTITY menu.db.ak "D">
+<!ENTITY menu.db.new "Ny databas">
+<!ENTITY menu.db.new.ak "N">
+<!ENTITY menu.db.newMemory "Ny RAM-baserad databas">
+<!ENTITY menu.db.newMemory.ak "M">
+<!ENTITY menu.db.connect "Anslut databas">
+<!ENTITY menu.db.connect.ak "t">
+<!ENTITY menu.db.connectADS "Anslut till ADS-databas">
+<!ENTITY menu.db.attach "Bifoga databas">
+<!ENTITY menu.db.attach.ak "B">
+<!ENTITY menu.db.detach "Koppla bort databas">
+<!ENTITY menu.db.detach.ak "o">
+<!ENTITY menu.db.close "Stäng databas">
+<!ENTITY menu.db.close.ak "S">
+<!ENTITY menu.db.mru "Nyligen använda">
+<!ENTITY menu.db.mru.ak "y">
+<!ENTITY menu.db.copy "Kopiera databas">
+<!ENTITY menu.db.copy.ak "p">
+<!ENTITY menu.db.compact "Komprimera databas">
+<!ENTITY menu.db.compact.ak "m">
+<!ENTITY menu.db.analyze "Analysera databas">
+<!ENTITY menu.db.analyze.ak "A">
+<!ENTITY menu.db.check "Kontrollera integritet">
+<!ENTITY menu.db.check.ak "K">
+<!ENTITY exportAll "Exportera alla tabeller">
+<!ENTITY exportAll.ak "x">
+<!ENTITY exportDb "Exportera databas">
+<!ENTITY exportDb.ak "b">
+<!ENTITY exportDbStr "Exportera databasstruktur">
+<!ENTITY exportDbStr.ak "u">
+<!ENTITY import "Importera">
+<!ENTITY import.ak "I">
+<!ENTITY refresh "Uppdatera">
+<!ENTITY refresh.ak "U">
+<!ENTITY reconnect "Återanslut">
+<!ENTITY reconnect.ak "e">
+<!ENTITY refreshDirection "Tryck Skift+F5 för att uppdatera">
+<!ENTITY exit "Avsluta">
+<!ENTITY exit.ak "A">
+<!ENTITY createTable "Skapa tabell">
+<!ENTITY dropTable "Ta bort tabell">
+<!ENTITY modifyTable "Ändra tabell">
+<!ENTITY emptyTable "Töm tabell">
+<!ENTITY reindexTable "Indexera om tabell">
+<!ENTITY renameTable "Byt namn på tabell">
+<!ENTITY copyTable "Kopiera tabell">
+<!ENTITY exportTable "Exportera tabell">
+<!ENTITY createIndex "Skapa index">
+<!ENTITY dropIndex "Ta bort index">
+<!ENTITY reindexIndex "Indexera om index">
+<!ENTITY createView "Skapa vy">
+<!ENTITY dropView "Ta bort vy">
+<!ENTITY renameView "Byt namn på vy">
+<!ENTITY modifyView "Ändra vy">
+<!ENTITY exportView "Exportera vy">
+<!ENTITY createTrigger "Skapa utlösare">
+<!ENTITY dropTrigger "Ta bort utlösare">
+<!ENTITY renameTrigger "Byt namn på utlösare">
+<!ENTITY menu.table "Tabell">
+<!ENTITY menu.table.ak "T">
+<!ENTITY menu.index "Index">
+<!ENTITY menu.index.ak "I">
+<!ENTITY menu.view "Vy">
+<!ENTITY menu.view.ak "V">
+<!ENTITY menu.trigger "Utlösare">
+<!ENTITY menu.trigger.ak "l">
+<!ENTITY create "Skapa">
+<!ENTITY create.ak "p">
+<!ENTITY drop "Ta bort">
+<!ENTITY drop.ak "b">
+<!ENTITY export "Exportera">
+<!ENTITY export.ak "x">
+<!ENTITY empty "Töm">
+<!ENTITY empty.ak "T">
+<!ENTITY rename "Byt namn">
+<!ENTITY rename.ak "y">
+<!ENTITY modify "Ändra">
+<!ENTITY modify.ak "Ä">
+<!ENTITY copy "Kopiera">
+<!ENTITY copy.ak "p">
+<!ENTITY reindex "Indexera om">
+<!ENTITY reindex.ak "I">
+<!ENTITY analyze "Analysera">
+<!ENTITY analyze.ak "A">
+<!ENTITY menu.help "Hjälp">
+<!ENTITY menu.help.ak "H">
+<!ENTITY menu.help.reportProblem "Rapportera ett problem">
+<!ENTITY menu.help.reportProblem.ak "R">
+<!ENTITY menu.help.faq "Vanliga frågor och svar">
+<!ENTITY menu.help.faq.ak "f">
+<!ENTITY menu.help.sqlitehome "SQLites webbplats">
+<!ENTITY menu.help.sqlitehome.ak "Q">
+<!ENTITY menu.help.sqlitesyntax "Syntaxhjälp för SQLite">
+<!ENTITY menu.help.sqlitesyntax.ak "S">
+<!ENTITY menu.help.extensionhome "Tilläggets webbplats">
+<!ENTITY menu.help.extensionhome.ak "T">
+<!ENTITY menu.help.aboutextension "Om SQLite-hanteraren">
+<!ENTITY menu.help.aboutextension.ak "O">
+<!ENTITY profile.dblist.select "(Välj profildatabas)">
+<!ENTITY profile.dblist.buttonlabel "Gå">
+<!ENTITY string.enterSql "Ange SQL">
+<!ENTITY string.enterSql.ak "S">
+<!ENTITY tab.structure "Struktur">
+<!ENTITY tab.browse "Bläddra &amp; Sök">
+<!ENTITY tab.execute "Kör SQL">
+<!ENTITY tab.dbinfo "Databasinställningar">
+<!ENTITY tab.udf "Användardef. funktioner">
+<!ENTITY tab.connectSql "On-connect SQL">
+<!ENTITY btn.search "Sök">
+<!ENTITY btn.search.ak "ö">
+<!ENTITY btn.showAll "Visa alla">
+<!ENTITY btn.showAll.ak "">
+<!ENTITY btn.exporttable "Exportera">
+<!ENTITY btn.exporttable.ak "">
+<!ENTITY btn.addcol "Lägg till kolumn">
+<!ENTITY btn.addrecord "Lägg till">
+<!ENTITY btn.addrecord.ak "L">
+<!ENTITY menu.editSelected "Redigera">
+<!ENTITY menu.editSelected.ak "R">
+<!ENTITY menu.deleteSelected "Ta bort">
+<!ENTITY menu.deleteSelected.ak "b">
+<!ENTITY menu.duplicateRecord "Duplicera">
+<!ENTITY menu.duplicateRecord.ak "p">
+<!ENTITY menu.copyColName "Kopiera kolumnnamn">
+<!ENTITY menu.copyColName.ak "K">
+<!ENTITY menu.copyCell "Kopiera cell">
+<!ENTITY menu.copyCell.ak "c">
+<!ENTITY menu.copyRows "Kopiera rad(er) som CSV">
+<!ENTITY menu.copyRows.ak "r">
+<!ENTITY menu.copyRowsForExcel "Kopiera rad(er) som CSV (MSExcel-kompatibelt)">
+<!ENTITY menu.copyRowsAsSql "Kopiera rad(er) som SQL">
+<!ENTITY menu.copyRowsAsSql.ak "Q">
+<!ENTITY menu.editColumn "Redigera kolumn">
+<!ENTITY menu.editColumn.ak "R">
+<!ENTITY menu.dropColumn "Ta bort kolumn">
+<!ENTITY menu.dropColumn.ak "b">
+<!ENTITY btn.runsql "Kör SQL">
+<!ENTITY btn.runsql.ak "K">
+<!ENTITY btn.runsql.tooltiptext "Använd &quot;Ctrl + ;&quot; för att köra frågan.">
+<!ENTITY buttonRun "Kör SQL-sats (med resultat)">
+<!ENTITY buttonRun.ak "K">
+<!ENTITY buttonExecute "Kör sats (inga resultat)">
+<!ENTITY buttonExecute.ak "K">
+<!ENTITY label.sqlLastError "Senaste felet">
+<!ENTITY mb.queryActions "Åtgärder">
+<!ENTITY mi.viewQueryAsTable "Granska tabell">
+<!ENTITY mi.viewQueryAsTable.ak "t">
+<!ENTITY mi.viewQueryAsCsv "Granska CSV">
+<!ENTITY mi.viewQueryAsCsv.ak "C">
+<!ENTITY mi.saveQueryAsCsv "Spara resultat (CSV) till fil">
+<!ENTITY mi.saveQueryAsCsv.ak "S">
+<!ENTITY label.resultOfQuery "Resultat för frågan">
+<!ENTITY label.resultOfQuery.ak "R">
+<!ENTITY btn.prevSql "Föregående SQL i historiken">
+<!ENTITY btn.nextSql "Nästa SQL i historiken">
+<!ENTITY btn.saveQuery "Spara fråga efter namn">
+<!ENTITY btn.clearHistory "Rensa frågehistoriken">
+<!ENTITY sbp.db "Db">
+<!ENTITY masterinfo.tbl_name "Associerad med tabell">
+<!ENTITY masterinfo.rootpage "Rotsida">
+<!ENTITY masterinfo.sql "Skapa sats">
+<!ENTITY table "Tabell">
+<!ENTITY index "Index">
+<!ENTITY view "Vy">
+<!ENTITY trigger "Utlösare">
+<!ENTITY first "Första">
+<!ENTITY previous "Föregående">
+<!ENTITY next "Nästa">
+<!ENTITY last "Sista">
+<!ENTITY to "till">
+<!ENTITY of "av">
+<!ENTITY about "Om">
+<!ENTITY version "Version">
+<!ENTITY author "Skapat av">
+<!ENTITY license "Licens">
+<!ENTITY license.mpl "Mozilla Public License Version 1.1">
+<!ENTITY dir "Mapp">
+<!ENTITY profileDir "Profilmapp">
+<!ENTITY userDir "Användarens standardmapp">
+<!ENTITY selectUserDir "Välj standardmapp">
+<!ENTITY infoFromMaster "Information från huvudtabell">
+<!ENTITY moreInfo "Mer info">
+<!ENTITY numColumns "Antal kolumner">
+<!ENTITY numIndexes "Antal index">
+<!ENTITY numTriggers "Antal utlösare">
+<!ENTITY numRecords "Antal poster">
+<!ENTITY Columns "Kolumner">
+<!ENTITY name "Namn">
+<!ENTITY type "Typ">
+<!ENTITY pKey "Pr.nyckel ">
+<!ENTITY notNull "Inte null">
+<!ENTITY default "Standard">
+<!ENTITY indexProp "Indexegenskaper">
+<!ENTITY indexedTable "Indexerad tabell">
+<!ENTITY indexedFields "Indexerade fält">
+<!ENTITY indexDuplicate "Duplicera värden">
+<!ENTITY selectAllRecords "Markera alla poster">
+<!ENTITY selectAllRecords.ak "a">
+<!-- copyTable.xul -->
+<!ENTITY From "Från">
+<!ENTITY To "Till">
+<!ENTITY Database "Databas">
+<!ENTITY Database.ak "D">
+<!ENTITY Table "Tabell">
+<!ENTITY onlyStructure "Endast struktur (data kommer inte att kopieras)">
+<!ENTITY enterNewTable "Ange namnet på den nya tabellen">
+<!ENTITY enterNewTable.ak "t">
+<!-- create dialogs -->
+<!ENTITY Name.ak "N">
+<!ENTITY ViewName "Granska namn">
+<!ENTITY Temporary "Temporär">
+<!ENTITY Temporary.ak "T">
+<!ENTITY ifNotExists "IF NOT EXISTS">
+<!ENTITY ifNotExists.ak "I">
+<!ENTITY SelectStatement "Välj sats">
+<!ENTITY SelectStatement.ak "s">
+<!ENTITY createIndex.dbName "Databas:">
+<!ENTITY createIndex.indexname "Indexnamn:">
+<!ENTITY createIndex.indexproperties "Definiera indexegenskaper">
+<!ENTITY createIndex.tabletoindex "Tabell till index:">
+<!ENTITY createIndex.loading "(läser in)">
+<!ENTITY createIndex.duplicatevalues "Duplicera värden:">
+<!ENTITY createIndex.allowed "Tillåten">
+<!ENTITY createIndex.notallowed "Inte tillåten">
+<!ENTITY createIndex.indexcolumns "Definiera indexkolumner">
+<!ENTITY createTable.dbName "Databas:">
+<!ENTITY createTable.tablename "Tabellnamn:">
+<!ENTITY createTable.temptable "Temporär tabell">
+<!ENTITY createTable.temptable.ak "T">
+<!ENTITY createTable.ifnotexists "IF NOT EXISTS">
+<!ENTITY createTable.ifnotexists.ak "I">
+<!ENTITY createTable.tablecolumns "Definiera kolumner">
+<!ENTITY createTable.colname "Kolumnnamn">
+<!ENTITY createTable.datatype "Datatyp">
+<!ENTITY createTable.primarykey "Primärnyckel?">
+<!ENTITY createTable.autoincrement "Autostegning?">
+<!ENTITY createTable.allownull "Tillåt null?">
+<!ENTITY createTable.default "Standardvärde">
+<!ENTITY createTable.unique "Unik?">
+<!ENTITY createTable.primarykey.yes "Ja">
+<!ENTITY createTable.autoincrement.yes "Ja">
+<!ENTITY createTable.autoincrement.tooltip "Autostegning (AUTOINCREMENT) är endast tillåtet på en INTEGER-primärnyckel">
+<!ENTITY createTable.allownull.yes "Ja">
+<!ENTITY createTable.unique.column "Unik kolumn">
+<!ENTITY createTable.unique.columnlist "Unik kolumn-lista">
+<!ENTITY createTrigger.dbName "Databas:">
+<!ENTITY createTrigger.triggername "Utlösarnamn:">
+<!ENTITY createTrigger.tabletoindex "på tabellen:">
+<!ENTITY createTrigger.loading "(läser in)">
+<!ENTITY createTrigger.tempObject "Temporär">
+<!ENTITY createTrigger.tempObject.ak "T">
+<!ENTITY createTrigger.ifnotexists "IF NOT EXISTS">
+<!ENTITY createTrigger.ifnotexists.ak "I">
+<!ENTITY createTrigger.databaseevent "Databashändelse">
+<!ENTITY createTrigger.triggerTime "Före/Efter:">
+<!ENTITY createTrigger.triggerTime.ak "F">
+<!ENTITY createTrigger.dbEvent "Händelse:">
+<!ENTITY createTrigger.dbEvent.ak "H">
+<!ENTITY createTrigger.triggeraction "Utlösaråtgärd">
+<!ENTITY createTrigger.foreachrow "För varje rad">
+<!ENTITY createTrigger.foreachrow.ak "r">
+<!ENTITY createTrigger.txtWhenExpression "WHEN-uttryck (skriv uttrycket utan &quot;WHEN&quot;):">
+<!ENTITY createTrigger.txtWhenExpression.ak "W">
+<!ENTITY createTrigger.txtTriggerSteps "Utlösarsteg (avslutas med semikolon):">
+<!ENTITY createTrigger.txtTriggerSteps.ak "U">
+<!-- confirm dialog -->
+<!ENTITY confirm.button.accept "Ja">
+<!ENTITY confirm.button.cancel "Nej">
+<!-- RowOperations.xul -->
+<!ENTITY rowOperations.tablenames "Tabellnamn:">
+<!ENTITY rowOperations.tablenames.ak "n">
+<!ENTITY rowOperations.loading "(läser in)">
+<!ENTITY oldValues "Gamla värden">
+<!ENTITY newValues "Nya värden">

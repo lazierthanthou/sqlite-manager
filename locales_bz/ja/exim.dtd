@@ -29,10 +29,16 @@
 <!ENTITY eximCsv_encloser.doublequotes.standard "必要であればダブルクォート (&quot;)(標準)">
 <!ENTITY eximCsv_encloser.doublequotes.standard.ak "q">
 <!ENTITY eximCsv_encloser.doublequotes.always "常にダブルクォート (&quot;)">
+<!ENTITY eximCsv_encloser.doublequotes.likeExcel "Like MSExcel (double quotes if field contains &quot; or separator)">
 <!ENTITY eximCsv_encloser.singlequotes "シングルクォート (')">
+<!ENTITY eximCsv_encloser.none "None">
 <!ENTITY eximCsv_encloser.other "その他">
 <!ENTITY eximCsv-expSaveSetting "CSV 書き出し設定を保存">
 <!ENTITY eximCsv-expSaveSetting-tooltiptext "You can save these settings if you want 'Copy Rows as CSV' operations to use these settings.">
+<!ENTITY eximCsv-impSaveSetting "Save CSV Import Settings">
+<!ENTITY eximCsv-impSaveSetting-tooltiptext "Save CSV Import Settings">
+<!ENTITY eximCsv-expUseSetting "Use Saved Settings">
+<!ENTITY eximCsv-impUseSetting "Use Saved Settings">
 <!ENTITY eximXml_root-element "ルート要素の名前:">
 <!ENTITY eximXml_prefix-table-element "Prefix this to Table Element:">
 <!ENTITY exim-exp-ok "OK">

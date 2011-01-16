@@ -7,8 +7,10 @@
 <!ENTITY mi.options.ak "с">
 <!ENTITY mi.sharedPagerCache "Разделяемый кэш программы постраничного вывода">
 <!ENTITY mi.sharedPagerCache.ak "Р">
-<!ENTITY mi.extensionTable "Использовать таблицу для расширения данных">
+<!ENTITY mi.extensionTable "Использовать таблицу для данных расширения">
 <!ENTITY mi.extensionTable.ak "п">
+<!ENTITY mi.openOnConnectSqlTab "Открыть вкладку «Запрос при подключении»">
+<!ENTITY mi.openOnConnectSqlTab.ak "т">
 <!ENTITY mi.console "Консоль ошибок">
 <!ENTITY mi.console.ak "К">
 <!ENTITY mi.aboutconfig "about:config">
@@ -121,6 +123,7 @@
 <!ENTITY tab.execute "Выполнить запрос">
 <!ENTITY tab.dbinfo "Настройки БД">
 <!ENTITY tab.udf "Определённые пользователем функции">
+<!ENTITY tab.connectSql "Запрос при подключении">
 <!ENTITY btn.search "Поиск">
 <!ENTITY btn.search.ak "к">
 <!ENTITY btn.showAll "Показать всё">
@@ -157,6 +160,13 @@
 <!ENTITY buttonExecute "Выполнить оператор (без результатов)">
 <!ENTITY buttonExecute.ak "п">
 <!ENTITY label.sqlLastError "Последняя ошибка">
+<!ENTITY mb.queryActions "Действия">
+<!ENTITY mi.viewQueryAsTable "Просмотр таблицы">
+<!ENTITY mi.viewQueryAsTable.ak "т">
+<!ENTITY mi.viewQueryAsCsv "Просмотр CSV">
+<!ENTITY mi.viewQueryAsCsv.ak "р">
+<!ENTITY mi.saveQueryAsCsv "Сохранить результаты (CSV) в файл">
+<!ENTITY mi.saveQueryAsCsv.ak "С">
 <!ENTITY label.resultOfQuery "Результаты запроса">
 <!ENTITY label.resultOfQuery.ak "Р">
 <!ENTITY btn.prevSql "Предыдущий запрос">
@@ -278,3 +288,5 @@
 <!ENTITY rowOperations.tablenames "Имя таблицы:">
 <!ENTITY rowOperations.tablenames.ak "м">
 <!ENTITY rowOperations.loading "(загрузка)">
+<!ENTITY oldValues "Прежнее значение">
+<!ENTITY newValues "Новое значение">

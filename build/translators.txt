@@ -3,6 +3,7 @@ de|German|Dryopteris,Team erweiterungen.de,Tobbi
 ja|Japanese|drry
 fr|French|Danny B.,Goofy,myahoo
 es-ES|Spanish (Spain)|danyaljim
+sv-SE|Swedish|Lakrits
 finished
 
 #xxx marks the end of list for which langpacks should be created

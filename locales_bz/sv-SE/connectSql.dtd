@@ -1,0 +1,6 @@
+<!ENTITY connectSql.reloadFunctions "Uppdatera flik">
+<!ENTITY connectSql.closeTab "Stäng flik">
+<!ENTITY connectSql.cancel "Avbryt">
+<!ENTITY connectSql.save "Spara">
+<!ENTITY connectSql.sqlForAllDb "On-connect SQL-satser för ALLA databaser">
+<!ENTITY connectSql.sqlForThisDb "On-connect SQL-satser för DENNA databas">

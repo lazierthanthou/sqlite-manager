@@ -9,6 +9,8 @@
 <!ENTITY mi.sharedPagerCache.ak "S">
 <!ENTITY mi.extensionTable "Tabelle für Erweiterungsdaten benutzen">
 <!ENTITY mi.extensionTable.ak "T">
+<!ENTITY mi.openOnConnectSqlTab "Open On-Connect SQL Tab">
+<!ENTITY mi.openOnConnectSqlTab.ak "Q">
 <!ENTITY mi.console "Fehlerkonsole">
 <!ENTITY mi.console.ak "k">
 <!ENTITY mi.aboutconfig "about:config">
@@ -121,6 +123,7 @@
 <!ENTITY tab.execute "SQL ausführen">
 <!ENTITY tab.dbinfo "DB-Einstellungen">
 <!ENTITY tab.udf "Benutzerdefinierte Funktionen">
+<!ENTITY tab.connectSql "On-connect SQL">
 <!ENTITY btn.search "Suchen">
 <!ENTITY btn.search.ak "h">
 <!ENTITY btn.showAll "Alle einblenden">
@@ -157,6 +160,13 @@
 <!ENTITY buttonExecute "Statement ausführen (keine Ergebnisse)">
 <!ENTITY buttonExecute.ak "e">
 <!ENTITY label.sqlLastError "Letzter Fehler">
+<!ENTITY mb.queryActions "Aktionen">
+<!ENTITY mi.viewQueryAsTable "Tabelle anzeigen">
+<!ENTITY mi.viewQueryAsTable.ak "T">
+<!ENTITY mi.viewQueryAsCsv "CSV anzeigen">
+<!ENTITY mi.viewQueryAsCsv.ak "C">
+<!ENTITY mi.saveQueryAsCsv "Ergebnis (CSV) in Datei speichern">
+<!ENTITY mi.saveQueryAsCsv.ak "s">
 <!ENTITY label.resultOfQuery "Ergebnis der Abfrage">
 <!ENTITY label.resultOfQuery.ak "b">
 <!ENTITY btn.prevSql "Voriges SQL aus Chronik">
@@ -278,3 +288,5 @@
 <!ENTITY rowOperations.tablenames "Tabellenname">
 <!ENTITY rowOperations.tablenames.ak "n">
 <!ENTITY rowOperations.loading "(laden)">
+<!ENTITY oldValues "Old Values">
+<!ENTITY newValues "New Values">

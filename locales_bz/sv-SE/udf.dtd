@@ -1,0 +1,16 @@
+<!ENTITY udf.selectDir "Välj UDF-databasmapp">
+<!ENTITY udf.selectDir.ak "V">
+<!ENTITY udf.reloadFunctions "Läs in funktioner igen">
+<!ENTITY udf.viewFunction "Visa">
+<!ENTITY udf.editFunction "Redigera">
+<!ENTITY udf.deleteFunction "Ta bort">
+<!ENTITY udf.addFunction "Nytt">
+<!ENTITY udf.saveFunction "Spara">
+<!ENTITY udf.closeTab "Stäng flik">
+<!ENTITY udf.simpleFunctions "Enkla funktioner">
+<!ENTITY udf.aggFunctions "Mängdfunktioner">
+<!ENTITY udf.funcName "Funktionsnamn">
+<!ENTITY udf.funcArgLength "Antal argument">
+<!ENTITY udf.funcBody "Funktionsbrödtext: ">
+<!ENTITY udf.funcOnStepBody "Funktionsbrödtext (för onStep): ">
+<!ENTITY udf.funcOnFinalBody "Funktionsbrödtext (för onFinal): ">

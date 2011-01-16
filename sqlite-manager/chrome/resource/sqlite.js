@@ -888,15 +888,14 @@ SQLiteHandler.prototype = {
     for(var i = 0; i < aQueries.length; i++) {
       try {
         var statement = this.dbConn.createStatement(aQueries[i]);
-        //Cu.reportError("createStatement");
         statement.execute();
       }
       catch (e) {
-        statement.finalize();
-        //Cu.reportError("finalize");
+        if (statement != undefined)
+          statement.finalize();
+
         this.setErrorString();
-        // statement will be undefined because it throws error);
-        var msg = this.onSqlError(e, "Likely SQL syntax error: " + aQueries[i], this.dbConn.lastErrorString, true);
+        var msg = this.onSqlError(e, aQueries[i], this.dbConn.lastErrorString, true);
         Cu.reportError(msg);
         this.setErrorString();
         if (this.dbConn.transactionInProgress) {
@@ -905,8 +904,8 @@ SQLiteHandler.prototype = {
         return false;
       }
       finally {
-        statement.finalize();
-        //Cu.reportError("finalize");
+        if (statement != undefined)
+          statement.finalize();
       }
     }
     //commit transaction, if reached here
@@ -1529,10 +1528,10 @@ function getCsvRowFromArray(arrRow, arrTypes, oCsv) {
   return arrRow.join(strDelimiter);
 }
 
-//arrays populated on 2009-09-13
+//arrays populated on 2011-01-16
 //SQLite Core Functions
 //http://sqlite.org/lang_corefunc.html
-var funcNamesCore = ['abs', 'changes', 'coalesce', 'glob', 'ifnull', 'hex', 'last_insert_rowid', 'length', 'like', 'load_extension', 'lower', 'ltrim', 'max', 'min', 'quote', 'random', 'replace', 'round', 'rtrim', 'soundex', 'sqlite_source_id', 'sqlite_version', 'substr', 'total_changes', 'trim', 'typeof', 'upper', 'zeroblob'];
+var funcNamesCore = ['abs', 'changes', 'coalesce', 'glob', 'ifnull', 'hex', 'last_insert_rowid', 'length', 'like', 'load_extension', 'lower', 'ltrim', 'max', 'min', 'nullif', 'quote', 'random', 'randomblob', 'replace', 'round', 'rtrim', 'soundex', 'sqlite_compileoption_get', 'sqlite_compileoption_used', 'sqlite_source_id', 'sqlite_version', 'substr', 'total_changes', 'trim', 'typeof', 'upper', 'zeroblob'];
 
 //SQLite Aggregate Functions
 //http://sqlite.org/lang_aggfunc.html

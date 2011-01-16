@@ -81,6 +81,7 @@ function processCsvData(whichReader) {
     tempStore.columns = tempStore.csvRecords[0];
     //if col names are enclosed in quotes, remove them from both ends
     for (var c = 0; c < tempStore.columns.length; c++) {
+      tempStore.columns[c] = tempStore.columns[c].trim();
       if (tempStore.columns[c][0] == "'" ||
         tempStore.columns[c][0] == '"') {
         var len = tempStore.columns[c].length;

@@ -127,9 +127,9 @@
 <!ENTITY btn.search "Sök">
 <!ENTITY btn.search.ak "ö">
 <!ENTITY btn.showAll "Visa alla">
-<!ENTITY btn.showAll.ak "">
+<!ENTITY btn.showAll.ak "V">
 <!ENTITY btn.exporttable "Exportera">
-<!ENTITY btn.exporttable.ak "">
+<!ENTITY btn.exporttable.ak "E">
 <!ENTITY btn.addcol "Lägg till kolumn">
 <!ENTITY btn.addrecord "Lägg till">
 <!ENTITY btn.addrecord.ak "L">

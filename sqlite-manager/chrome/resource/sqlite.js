@@ -100,42 +100,44 @@ SQLiteHandler.prototype = {
         // this.dbConn.lastErrorString returns "not an error"
       }
       catch (e) {
-        try {
-          this.dbConn = this.openSpecialProfileDatabase(nsIFile);
-        }
-        catch (e) {
-          var msg = this.onSqlError(e, "Error in opening file " + nsIFile.leafName + " - perhaps this is not an sqlite db file", null, true);
-          Cu.reportError(msg);
-          return false;
-        }
+        var msg = this.onSqlError(e, "Error in opening file " + nsIFile.leafName + " - either the file is encrypted or corrupt", null, true);
+        Cu.reportError(msg);
+        return false;
       }
     }
-    
+
     if(this.dbConn == null)
       return false;
+
     this.mOpenStatus = this.mbShared?"Shared":"Exclusive";
     return true;
   },
 
+  //for places.sqlite
   openSpecialProfileDatabase: function(nsIFile) {
-    var DirectoryService = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties);
-    var profD = DirectoryService.get('ProfD', Ci.nsIFile);
-    if (nsIFile.parent.equals(profD)) {
-      switch (nsIFile.leafName.toLowerCase()) {
-        case "places.sqlite":
-          if ('nsPIPlacesDatabase' in Ci) {
-            this.mbPlacesDb = true;
-            return Cc["@mozilla.org/browser/nav-history-service;1"].getService(Ci.nsINavHistoryService).QueryInterface(Ci.nsPIPlacesDatabase).DBConnection;
-          }
-          break;
-      }
+    this.closeConnection();
+
+    try {
+      this.dbConn = Cc["@mozilla.org/browser/nav-history-service;1"].getService(Ci.nsINavHistoryService).QueryInterface(Ci.nsPIPlacesDatabase).DBConnection;
     }
-    return null;
+    catch (e) {
+      var msg = this.onSqlError(e, "Error in opening places.sqlite", null, true);
+      Cu.reportError(msg);
+      return false;
+    }
+
+    if(this.dbConn == null)
+      return false;
+
+    this.mbPlacesDb = true;
+    this.mOpenStatus = "Shared";
+    return true;
   },
 
   openSpecialDatabase: function(sSpecialName) {
     if (sSpecialName != "memory")
       return false;
+
     this.closeConnection();
 
     try {
@@ -149,6 +151,7 @@ SQLiteHandler.prototype = {
 
     if(this.dbConn == null)
       return false;
+
     this.mOpenStatus = "Memory";
     return true;
   },

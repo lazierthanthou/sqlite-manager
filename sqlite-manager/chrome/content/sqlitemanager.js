@@ -74,6 +74,8 @@ var SQLiteManager = {
     catch (e) {
     }
 
+    this.mProfileDir = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties).get('ProfD', Ci.nsIFile);
+
     this.mDb = new SQLiteHandler();
     this.mDb.setFuncConfirm(SmGlobals.confirmBeforeExecuting);
 
@@ -2346,6 +2348,9 @@ var SQLiteManager = {
       if(nsiFileObj != null) {
         if (nsiFileObj == "memory") {
           bConnected = this.mDb.openSpecialDatabase("memory");
+        }
+        else if (('nsPIPlacesDatabase' in Ci) && (nsiFileObj.parent.equals(this.mProfileDir)) && (nsiFileObj.leafName.toLowerCase() == "places.sqlite")) {
+          bConnected = this.mDb.openSpecialProfileDatabase(nsiFileObj);
         }
         else {
          //create backup before opening

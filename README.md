@@ -1,6 +1,18 @@
-You can download the extension in [other languages](https://code.google.com/p/sqlite-manager/wiki/OtherLanguages) too.
+Please report issues at [https://code.google.com/p/sqlite-manager/issues/list](https://code.google.com/p/sqlite-manager/issues/list).
 
-You can also download from [Mozilla Addons site](https://addons.mozilla.org/en-US/firefox/addon/5817).
+###Downloads
+
+- Downloads are available at the [project homepage](https://code.google.com/p/sqlite-manager/).
+- SQLite Manager is available as a XULRunner application too. The file with XR in its name is the zip of the XULRunner application. [Read More...](https://code.google.com/p/sqlite-manager/wiki/XulrunnerApplication)
+- You can download the extension in [other languages](https://code.google.com/p/sqlite-manager/wiki/OtherLanguages) too.
+- You can also download from [Mozilla Addons site](https://addons.mozilla.org/addon/sqlite-manager).
+
+###SQLite Manager for other applications
+
+- Songbird: http://addons.songbirdnest.com/addon/1711
+- Komodo: http://community.activestate.com/xpi/sqlite-manager
+- Firefox 3.5: http://sqlite-manager.googlecode.com/files/sqlitemanager-0.5.17.xpi
+- Firefox 3.0: http://sqlite-manager.googlecode.com/files/SQLiteManager_0.4.8.xpi
 
 ### Features
 

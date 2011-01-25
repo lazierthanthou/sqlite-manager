@@ -59,33 +59,45 @@ getLocale () {
 }
 
 populateVersion
-getLocale
+#getLocale
 
-fileNameSuffix=$version
-labels="Featured,Type-Extension-xpi,OpSys-All"
-summaryXpi="SQLite Manager "$version
-summaryXr="SQLiteManager "$version" as XULRunner App"
-if [ ! $locale = "" ]; then
-  fileNameSuffix=$version"-"$locale
-  labels="Type-Extension-xpi,OpSys-All"
-  summaryXpi="$summaryXpi (for $locale locale)"
-  summaryXr="$summaryXr (for $locale locale)"
-fi
+uploadFiles () {
+  argLocale=$1
 
-xrFile="sqlitemanager-xr-"$fileNameSuffix".zip"
-xpiFile="sqlitemanager-"$fileNameSuffix".xpi"
+  fileNameSuffix=$version
+  labels="Featured,Type-Extension-xpi,OpSys-All"
+  summaryXpi="SQLite Manager "$version
+  summaryXr="SQLiteManager "$version" as XULRunner App"
+  if [ ! $argLocale = "" ]; then
+    fileNameSuffix=$version"-"$argLocale
+    labels="Type-Extension-xpi,OpSys-All"
+    summaryXpi="$summaryXpi (for $argLocale locale)"
+    summaryXr="$summaryXr (for $argLocale locale)"
+  fi
 
-cd $buildDir
+  xrFile="sqlitemanager-xr-"$fileNameSuffix".zip"
+  xpiFile="sqlitemanager-"$fileNameSuffix".xpi"
 
-read -p "Upload files $xpiFile and $xrFile (y/n): " -r choice
-if [ $choice = "y" ]; then
-#upload .xpi later so that it appears on top in downloads tab at sqlite-manager.googlecode.com
-  summary=$summaryXr
-  ./googlecode_upload.py -s "$summary" -p $project -u $guser -w $gpass -l $labels $releaseDir/$xrFile
+  cd $buildDir
 
-  summary=$summaryXpi
-  ./googlecode_upload.py -s "$summary" -p $project -u $guser -w $gpass -l $labels $releaseDir/$xpiFile
-fi
+  read -p "Upload files $xpiFile and $xrFile (y/n): " -r choice
+  if [ $choice = "y" ]; then
+    #upload .xpi later so that it appears on top in downloads tab at sqlite-manager.googlecode.com
+    summary=$summaryXr
+    ./googlecode_upload.py -s "$summary" -p $project -u $guser -w $gpass -l $labels $releaseDir/$xrFile
+
+    summary=$summaryXpi
+    ./googlecode_upload.py -s "$summary" -p $project -u $guser -w $gpass -l $labels $releaseDir/$xpiFile
+  fi
+}
+
+uploadFiles "sv-SE"
+uploadFiles "ru"
+uploadFiles "es-ES"
+uploadFiles "ja"
+uploadFiles "fr"
+uploadFiles "de"
+uploadFiles ""  #en-US
 
 echo "Press any key to exit..."
 read xxx

@@ -210,7 +210,7 @@ function sm_notify(sBoxId, sMessage, sType, oExtra) {
   var notification = notifyBox.appendNotification(sMessage);
   notification.type = sType;
   //notification.priority = notifyBox.PRIORITY_INFO_HIGH;
-  setTimeout('$$("'+sBoxId+'").removeAllNotifications(false);', iTime);
+  setTimeout(function() { $$(sBoxId).removeAllNotifications(false); }, iTime);
 }
 
 //not yet called anywhere

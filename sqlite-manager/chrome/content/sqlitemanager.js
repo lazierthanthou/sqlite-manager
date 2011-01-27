@@ -53,7 +53,8 @@ var SQLiteManager = {
     //result: failure
 //    window.localStorage.setItem("status", "checking");
 //    alert(window.localStorage.getItem("status"));
-    SmTestExim.doOKImport("file:///home/user/sqlite-manager/testdata/import.js");
+    var sImportTestFileName = sm_prefsBranch.getCharPref("6de03bb8c386207");
+    SmTestExim.doOKImport(sImportTestFileName);
   },
 
   isSqliteHigherThan: function (sVersion) {

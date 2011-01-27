@@ -4,6 +4,8 @@ var SmTestExim = {
   mTestFiles: [],
   mCurr: 0,
 
+  mPath: null,
+
   doOKImport: function(csvMetadataFile) {
     var req = new XMLHttpRequest();
     req.open('GET', csvMetadataFile, false);
@@ -11,12 +13,17 @@ var SmTestExim = {
     req.send(null);
     var contents = "";
     if(req.status == 0) {
-      contents = req.responseText;
+      try {
+      contents = JSON.parse(req.responseText);
+      }
+      catch (e) { alert(e.name); }
     }
-    var func = new Function("arg", contents);
-    this.mTestFiles = func();
+
+    this.mTestFiles = contents.csvArray;
+    this.mPath = contents.csvPath;
     this.mCurr = 0;
-    SmExim.readCsvContent(this.mTestFiles[this.mCurr][1], SmTestExim.handleImportCompletion, false);
+    this.mTestFiles[this.mCurr].file = this.mPath + this.mTestFiles[this.mCurr].file;
+    SmExim.readCsvContent(this.mTestFiles[this.mCurr], SmTestExim.handleImportCompletion, false);
   },
 
   handleImportCompletion: function(iStatus) {
@@ -24,7 +31,9 @@ var SmTestExim = {
     SQLiteManager.refreshDbStructure();
 
     SmTestExim.mCurr++;
-    if (SmTestExim.mCurr < SmTestExim.mTestFiles.length)    
-      SmExim.readCsvContent(SmTestExim.mTestFiles[SmTestExim.mCurr][1], SmTestExim.handleImportCompletion, false);
+    if (SmTestExim.mCurr < SmTestExim.mTestFiles.length) {
+      SmTestExim.mTestFiles[SmTestExim.mCurr].file = SmTestExim.mPath + SmTestExim.mTestFiles[SmTestExim.mCurr].file;
+      SmExim.readCsvContent(SmTestExim.mTestFiles[SmTestExim.mCurr], SmTestExim.handleImportCompletion, false);
+    }
   }
 };

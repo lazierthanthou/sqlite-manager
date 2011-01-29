@@ -9,7 +9,7 @@ releaseDir=$rootDir/release
 sourceDir=$rootDir/sqlite-manager
 outDir=$rootDir/out
 workDir=$outDir/workhere
-babelDir=$rootDir/locales_bz
+babelDir=$rootDir/locales/locales_replaced
 
 mkdir -p $releaseDir
 mkdir -p $outDir
@@ -111,8 +111,9 @@ createXpiFile () {
 
 ####################################################
 installXR () {
+  xrAllLocales="sqlitemanager-xr-"$version"-all.zip"
   echo "Installing xulrunner app"
-  sudo xulrunner --install-app $releaseDir/$xrFile
+  sudo xulrunner --install-app $releaseDir/$xrAllLocales
   executable=/usr/lib/mrinalkant/sqlite-manager/sqlite-manager
   smappini=/usr/lib/mrinalkant/sqlite-manager/application.ini
   echo "Creating shortcut for executable in /usr/bin/"
@@ -122,19 +123,18 @@ installXR () {
 }
 
 installXPI () {
-  loc1=/home/user/.mozilla/firefox/8tk8ecqd.localhost/extensions/SQLiteManager@mrinalkant.blogspot.com.xpi
-  loc2=/home/user/.mozilla/firefox/vxs9kov2.default/extensions/SQLiteManager@mrinalkant.blogspot.com.xpi
+  xpiAllLocales="sqlitemanager-"$version"-all.xpi"
+
+  loc=/home/user/.mozilla/firefox/$1/extensions/SQLiteManager@mrinalkant.blogspot.com.xpi
 
   echo "Installing .xpi file from release:"
-  ls -l $releaseDir/$xpiFile
+  ls -l $releaseDir/$xpiAllLocales
 
   echo "Installing .xpi files for firefox4 profiles"
-  cp --preserve $releaseDir/$xpiFile $loc1
-  cp --preserve $releaseDir/$xpiFile $loc2
+  cp --preserve $releaseDir/$xpiAllLocales $loc
 
   echo "Listing the installed files:"
-  ls -l $loc1
-  ls -l $loc2
+  ls -l $loc
 }
 
 createLangFile () {
@@ -211,16 +211,76 @@ buildWithLanguage () {
   xrFile="sqlitemanager-xr-"$version".zip"
   xpiFile="sqlitemanager-"$version".xpi"
 
-  while IFS='|' read locale language translator; do
-    if [ $locale = "finished" ]; then
-      break
+  while IFS='|' read relflag locale language translator; do
+    if [ $relflag = "rel" ]; then
+      xrLangFile="sqlitemanager-xr-"$version"-"$locale".zip"
+      xpiLangFile="sqlitemanager-"$version"-"$locale".xpi"
+      #use quotes because some variables may have spaces
+      createLangFile $locale "$translator" "$language" "xpi"
+      createLangFile $locale "$translator" "$language" "xr"
     fi
-    xrLangFile="sqlitemanager-xr-"$version"-"$locale".zip"
-    xpiLangFile="sqlitemanager-"$version"-"$locale".xpi"
-    #use quotes because some variables may have spaces
-    createLangFile $locale "$translator" "$language" "xpi"
-    createLangFile $locale "$translator" "$language" "xr"
   done < $fileTranslators
+}
+
+buildWithAllLanguages () {
+  filetype=$1
+
+  getNewVersion
+  getNewBuildId
+
+  xrFile="sqlitemanager-xr-"$version".zip"
+  xpiFile="sqlitemanager-"$version".xpi"
+
+  xrLangFile="sqlitemanager-xr-"$version"-all.zip"
+  xpiLangFile="sqlitemanager-"$version"-all.xpi"
+
+  cd $rootDir
+  rm -r $workDir
+  mkdir -p $workDir
+  cd $workDir
+
+  workFile=""
+  newFile=""
+  if [ $filetype = "xpi" ]; then
+    workFile=$xpiFile
+    newFile=$xpiLangFile
+  fi
+  if [ $filetype = "xr" ]; then
+    workFile=$xrFile
+    newFile=$xrLangFile
+  fi
+  
+  echo "Extracting the en-US only version: "$workFile
+  unzip -o $releaseDir/$workFile
+
+  while IFS='|' read relflag locale language translator; do
+    if [ $relflag = "rel" ]; then
+      echo "Copying the locale dir: "$babelDir/$locale
+      cp -r $babelDir/$locale $workDir/chrome/locale/
+
+      echo "Adding locale entry in chrome.manifest..."
+      if [ $filetype = "xpi" ]; then
+        chrome=$workDir/chrome.manifest
+        echo "locale sqlitemanager $locale chrome/locale/$locale/" >> $chrome
+
+        #modify install.rdf
+        transEntry="<em:translator>$translator ($language)</em:translator>"
+        sed -i "/em:creator/a $transEntry" $workDir/install.rdf
+      fi
+      if [ $filetype = "xr" ]; then
+        chrome=$workDir/chrome/chrome.manifest
+        echo "locale sqlitemanager $locale file:locale/$locale/" >> $chrome
+      fi
+    fi
+  done < $fileTranslators
+
+  echo "Creating file: "$newFile
+  zip -r $newFile ./ >> $logFile
+  echo "Moving file $newFile to $releaseDir/"
+  mv $newFile $releaseDir/
+
+  cd $rootDir
+  rm -r $workDir
 }
 
 runDbWithXrApp () {
@@ -251,7 +311,9 @@ while [ ! $userOption = "x" ]; do
     fi
 
     if [ $userOption = "c" ]; then
-      buildWithLanguage
+      buildWithAllLanguages xpi
+      buildWithAllLanguages xr
+      #buildWithLanguage
     fi
 
     if [ $userOption = "i" ]; then
@@ -261,7 +323,8 @@ while [ ! $userOption = "x" ]; do
       runDbWithXrApp
     fi
     if [ $userOption = "j" ]; then
-      installXPI
+      installXPI "vxs9kov2.default"
+      installXPI "8tk8ecqd.localhost"
     fi
 
     if [ $userOption = "u" ]; then

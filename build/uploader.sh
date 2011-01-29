@@ -63,17 +63,31 @@ populateVersion
 
 uploadFiles () {
   argLocale=$1
+  comment=$2
 
-  fileNameSuffix=$version
-  labels="Featured,Type-Extension-xpi,OpSys-All"
-  summaryXpi="SQLite Manager "$version
-  summaryXr="SQLiteManager "$version" as XULRunner App"
+  summaryXpiPrefix="SQLite Manager "$version
+  summaryXrPrefix="SQLiteManager "$version" as XULRunner App"
+
+  if [ $argLocale = "" ]; then
+    fileNameSuffix=$version
+    labelsXr="Featured,OpSys-All"
+    summaryXpi=$summaryXpiPrefix
+    summaryXr=$summaryXrPrefix
+  fi
   if [ ! $argLocale = "" ]; then
     fileNameSuffix=$version"-"$argLocale
-    labels="Type-Extension-xpi,OpSys-All"
-    summaryXpi="$summaryXpi (for $argLocale locale)"
-    summaryXr="$summaryXr (for $argLocale locale)"
+    labelsXr="OpSys-All"
+    summaryXpi="$summaryXpiPrefix (for $2 locale)"
+    summaryXr="$summaryXrPrefix (for $2 locale)"
   fi
+  if [ $argLocale = "all" ]; then
+    fileNameSuffix=$version"-"$argLocale
+    labelsXr="Featured,OpSys-All"
+    summaryXpi="$summaryXpiPrefix (includes $2 locales)"
+    summaryXr="$summaryXrPrefix (includes $2 locales)"
+  fi
+
+  labelsXpi=$labelsXr",Type-Extension-xpi"
 
   xrFile="sqlitemanager-xr-"$fileNameSuffix".zip"
   xpiFile="sqlitemanager-"$fileNameSuffix".xpi"
@@ -83,21 +97,21 @@ uploadFiles () {
   read -p "Upload files $xpiFile and $xrFile (y/n): " -r choice
   if [ $choice = "y" ]; then
     #upload .xpi later so that it appears on top in downloads tab at sqlite-manager.googlecode.com
-    summary=$summaryXr
-    ./googlecode_upload.py -s "$summary" -p $project -u $guser -w $gpass -l $labels $releaseDir/$xrFile
+    ./googlecode_upload.py -s "$summaryXr" -p $project -u $guser -w $gpass -l $labelsXr $releaseDir/$xrFile
 
-    summary=$summaryXpi
-    ./googlecode_upload.py -s "$summary" -p $project -u $guser -w $gpass -l $labels $releaseDir/$xpiFile
+    ./googlecode_upload.py -s "$summaryXpi" -p $project -u $guser -w $gpass -l $labelsXpi $releaseDir/$xpiFile
   fi
 }
 
-uploadFiles "sv-SE"
-uploadFiles "ru"
-uploadFiles "es-ES"
-uploadFiles "ja"
-uploadFiles "fr"
-uploadFiles "de"
-uploadFiles ""  #en-US
+#uploadFiles localeName commentForLocale
+#uploadFiles "sv-SE" "Swedish"
+#uploadFiles "ru" "Russian"
+#uploadFiles "es-ES" "Spanish"
+#uploadFiles "ja" "Japanese"
+#uploadFiles "fr" "French"
+#uploadFiles "de" "German"
+#uploadFiles "" "" #en-US
+uploadFiles "all" "English, German, Japanese, French, Spanish, Russian, Swedish"
 
 echo "Press any key to exit..."
 read xxx

@@ -1,19 +1,15 @@
-ru|Russian|Пирятинский Виталий
-de|German|Dryopteris,Team erweiterungen.de,Tobbi
-ja|Japanese|drry
-fr|French|Danny B.,Goofy,myahoo
-es-ES|Spanish (Spain)|danyaljim
-sv-SE|Swedish|Lakrits
-finished
-
-#xxx marks the end of list for which langpacks should be created
-#following list in order of locale usage
-
-cs-CZ|Czech|DannyB.
-da-DK|Danish|team
-hi-IN|Hindi|team
-pl-PL|Polish|WacławJacek
-pt-BR|Portuguese(Brazil)|AlbertoEidh
-tr-TR|Turk|Celikbas
-zh-CN|Chinese|Cye3s
-zh-TW|Chinese|Greener
+beta|cs-CZ|Czech|DannyB.
+beta|da|Danish|team
+rel|de|German|Dryopteris,Team erweiterungen.de,Tobbi
+rel|es-ES|Spanish (Spain)|danyaljim
+rel|fr|French|Danny B.,Goofy,myahoo
+beta|hi-IN|Hindi|team
+rel|ja|Japanese|drry
+beta|pl|Polish|WacławJacek
+beta|pt-BR|Portuguese(Brazil)|AlbertoEidh
+rel|ru|Russian|Пирятинский Виталий
+rel|sv-SE|Swedish|Mikael Hiort af Ornäs
+beta|tr-TR|Turk|Celikbas
+beta|uk-UA|Ukrainian|staskond
+beta|zh-CN|Chinese|Cye3s
+beta|zh-TW|Chinese|Greener

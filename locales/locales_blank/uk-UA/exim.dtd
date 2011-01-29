@@ -1,0 +1,46 @@
+<!ENTITY tablename "Ім'я таблиці:">
+<!ENTITY tablename.ak "N">
+<!ENTITY CSV "CSV">
+<!ENTITY SQL "">
+<!ENTITY XML "XML">
+<!ENTITY csv.tableName "">
+<!ENTITY Comma "">
+<!ENTITY Comma.ak "C">
+<!ENTITY Semicolon "">
+<!ENTITY Pipe "">
+<!ENTITY Tab "">
+<!ENTITY csv.firstrow "">
+<!ENTITY csv.separate "">
+<!ENTITY csv.enclose "">
+<!ENTITY sql.settings "Налаштування SQL">
+<!ENTITY sql.create "">
+<!ENTITY sql.transaction "">
+<!ENTITY sql.transaction.desc "">
+<!ENTITY xml.type "">
+<!ENTITY xml.type.desc "">
+<!ENTITY importWizard "Майстер імпорту:">
+<!ENTITY eximDbName "База даних:">
+<!ENTITY eximDbName.ak "D">
+<!ENTITY loading "(завантаження)">
+<!ENTITY eximFilename "">
+<!ENTITY eximFilename.ak "S">
+<!ENTITY eximFileCharSet "Кодування символів">
+<!ENTITY eximFileCharSet.ak "h">
+<!ENTITY eximCsv_encloser.doublequotes.standard "">
+<!ENTITY eximCsv_encloser.doublequotes.standard.ak "q">
+<!ENTITY eximCsv_encloser.doublequotes.always "">
+<!ENTITY eximCsv_encloser.doublequotes.likeExcel "">
+<!ENTITY eximCsv_encloser.singlequotes "">
+<!ENTITY eximCsv_encloser.none "">
+<!ENTITY eximCsv_encloser.other "Інше">
+<!ENTITY eximCsv-expSaveSetting "">
+<!ENTITY eximCsv-expSaveSetting-tooltiptext "">
+<!ENTITY eximCsv-impSaveSetting "">
+<!ENTITY eximCsv-impSaveSetting-tooltiptext "">
+<!ENTITY eximCsv-expUseSetting "">
+<!ENTITY eximCsv-impUseSetting "">
+<!ENTITY eximXml_root-element "">
+<!ENTITY eximXml_prefix-table-element "">
+<!ENTITY exim-exp-ok "ОК">
+<!ENTITY exim-imp-ok "ОК">
+<!ENTITY exim-cancel "Закрити майстер">

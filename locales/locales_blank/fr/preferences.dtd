@@ -1,0 +1,78 @@
+<!ENTITY prefwinTitle "Options du gestionnaire SQLite">
+<!ENTITY paneMain.title "Principal">
+<!ENTITY pref-openMode.label "Démarrer le gestionnaire SQLite">
+<!ENTITY pref-openMode-win "dans une nouvelle fenêtre">
+<!ENTITY pref-openMode-win.ak "f">
+<!ENTITY pref-openMode-tab "dans un nouvel onglet">
+<!ENTITY pref-openADS.label "">
+<!ENTITY disable "">
+<!ENTITY enable "">
+<!ENTITY whenSMStarts "Lorsque le gestionnaire SQLite démarre">
+<!ENTITY pref-openWithLastDb.label "Ouvrir la dernière base de données utilisée">
+<!ENTITY pref-openWithLastDb.ak "O">
+<!ENTITY pref-promptForLastDb.label "Toujours confirmer lors de l&apos;ouverture de la dernière base de données utilisée">
+<!ENTITY pref-promptForLastDb.ak "T">
+<!ENTITY pref-autoBackup.label "">
+<!ENTITY pref-autoBackup.ak "">
+<!ENTITY pref-autoBackup.on "">
+<!ENTITY pref-autoBackup.off "">
+<!ENTITY pref-autoBackup.prompt "">
+<!ENTITY pref-sqliteFileExtensions.label "Extension par défaut pour les fichiers SQLite">
+<!ENTITY pref-sqliteFileExtensions.ak "E">
+<!ENTITY pref-tableForExtensionManagement.label "Nom de la table de sauvegarde des données de gestion des extensions">
+<!ENTITY pref-tableForExtensionManagement.ak "N">
+<!ENTITY panePrompts.title "Confirmation">
+<!ENTITY confirmBeforeExecute "Confirmer avant d&apos;exécuter les tâches suivantes">
+<!ENTITY pref-confirm.records.label "Avant de rajouter ou d&apos;éditer une entrée">
+<!ENTITY pref-confirm.create.label "Avant de créer un table, un index, une vue, un déclencheur">
+<!ENTITY pref-confirm.otherSql.label "Tout autre opération sur une table">
+<!ENTITY paneInterface.title "Interface utilisateur">
+<!ENTITY toolbar.caption "Configuration de la barre d&apos;outils">
+<!ENTITY pref-hideMainToolbar.label "Cacher toutes les barres d&apos;outils">
+<!ENTITY pref-showMainToolbarDatabase.label "Afficher la barre d&apos;outils des bases de données">
+<!ENTITY pref-showMainToolbarIndex.label "Afficher la barre d&apos;outils des index">
+<!ENTITY pref-showMainToolbarTable.label "Afficher la barre d&apos;outils des tables">
+<!ENTITY pref-showMainToolbarDebug.label "">
+<!ENTITY pref-notificationDuration.label "">
+<!ENTITY pref-notificationDuration.ak "">
+<!ENTITY pref-displayNumRecords.label "Nombre d&apos;entrées à afficher (onglet de recherche)">
+<!ENTITY pref-displayNumRecords.ak "E">
+<!ENTITY pref-sqlTextboxRows.label "Nombre de lignes dans la zone de texte pour entrer du SQL (onglet « Exécution SQL »)">
+<!ENTITY pref-sqlTextboxRows.ak "S">
+<!ENTITY pref-maxColumnsInTable.label "Nombre maximal de colonnes dans la fenêtre de création de table">
+<!ENTITY pref-maxColumnsInTable.ak "x">
+<!ENTITY blobDisplay.caption "">
+<!ENTITY pref-textForBlob.label "Texte à afficher pour la valeur BLOB">
+<!ENTITY pref-textForBlob.ak "B">
+<!ENTITY pref-showBlobSize.label "Afficher la taille des données BLOB">
+<!ENTITY pref-maxSizeToShowBlobData.label "">
+<!ENTITY pref-maxSizeToShowBlobData.ak "">
+<!ENTITY pref-displayDataAs.label "">
+<!ENTITY pref-displayDataAs-hex "">
+<!ENTITY pref-displayDataAs-string "">
+<!ENTITY pref-whenInsertingShow.label "">
+<!ENTITY pref-whenInsertingShow.ak "">
+<!ENTITY pref-whenInsertingShow-previous "">
+<!ENTITY pref-whenInsertingShow-default "">
+<!ENTITY pref-identifierQuoteChar.label "">
+<!ENTITY pref-identifierQuoteChar-doublequotes "">
+<!ENTITY pref-identifierQuoteChar-squarebrackets "">
+<!ENTITY pref-identifierQuoteChar-graveaccents "">
+<!ENTITY paneDatatree.title "">
+<!ENTITY paneDatatree.datatype "">
+<!ENTITY paneDatatree.property "">
+<!ENTITY paneDatatree.unselected "">
+<!ENTITY paneDatatree.selected "">
+<!ENTITY paneDatatree.typeNull "">
+<!ENTITY paneDatatree.typeInteger "">
+<!ENTITY paneDatatree.typeReal "">
+<!ENTITY paneDatatree.typeText "">
+<!ENTITY paneDatatree.typeBlob "">
+<!ENTITY paneDatatree.textColor "">
+<!ENTITY paneDatatree.backgroundColor "">
+<!ENTITY paneDatatree.fontSize "">
+<!ENTITY paneDatatree.fontFamily "">
+<!ENTITY paneDatatree.rowHeight "">
+<!ENTITY paneDatatree.btnSetDefault "">
+<!ENTITY paneDatatree.btnApply "">
+<!ENTITY paneDatatree.btnNone "">

@@ -1,0 +1,35 @@
+<!ENTITY prefwinTitle "SQLiteManager Seçenekleri">
+<!ENTITY paneMain.title "Ana">
+<!ENTITY pref-openMode.label "SQLiteManager Yöneticisini Başlat">
+<!ENTITY pref-openMode-win "yeni bir pencerede">
+<!ENTITY pref-openMode-win.ak "w">
+<!ENTITY pref-openMode-tab "yeni bir sekmede">
+<!ENTITY whenSMStarts "SQLiteManager başladığında">
+<!ENTITY pref-openWithLastDb.label "son kullanılan veritabanını aç">
+<!ENTITY pref-openWithLastDb.ak "O">
+<!ENTITY pref-promptForLastDb.label "Son kullanılan veritabanı açıldığında herzaman onay iste">
+<!ENTITY pref-promptForLastDb.ak "A">
+<!ENTITY pref-sqliteFileExtensions.label "SQLite dosyaları için varsayılan uzantı">
+<!ENTITY pref-sqliteFileExtensions.ak "S">
+<!ENTITY pref-tableForExtensionManagement.label "Eklenti yönetim verilerinin saklanacağı tablonun adı">
+<!ENTITY pref-tableForExtensionManagement.ak "m">
+<!ENTITY panePrompts.title "İstemler">
+<!ENTITY confirmBeforeExecute "aşağıdakini çalıştırmadan önce onay iste">
+<!ENTITY pref-confirm.records.label "Bir kaydın ekle/düzenlemeden önce">
+<!ENTITY pref-confirm.create.label "Bir tablo/index/view/trigger yaratmadan önce">
+<!ENTITY pref-confirm.otherSql.label "Tabloda başka bir işlem yapmadan önce">
+<!ENTITY paneInterface.title "Kullanıcı Arabirimi">
+<!ENTITY toolbar.caption "Araç Çubuğu Ayarları">
+<!ENTITY pref-hideMainToolbar.label "Tüm araç çubuklarını gizle">
+<!ENTITY pref-showMainToolbarDatabase.label "Veritabanı araç çubulğunu göster">
+<!ENTITY pref-showMainToolbarIndex.label "Index araç çubuğunu göster">
+<!ENTITY pref-showMainToolbarTable.label "Tablo araç çubuğunu göster">
+<!ENTITY pref-displayNumRecords.label "Gösterilecek kayıt sayısı (Listelere &amp; Arama sekmesi)">
+<!ENTITY pref-displayNumRecords.ak "N">
+<!ENTITY pref-sqlTextboxRows.label "Sql yazılan metin kutusundaki satır sayısı (SQL Çalıştırma sekmesi)">
+<!ENTITY pref-sqlTextboxRows.ak "R">
+<!ENTITY pref-maxColumnsInTable.label "Tablo Yarat penceresinde en fazla sütün sayısı">
+<!ENTITY pref-maxColumnsInTable.ak "M">
+<!ENTITY pref-textForBlob.label "BLOB değer için gösterilecek metin">
+<!ENTITY pref-textForBlob.ak "B">
+<!ENTITY pref-showBlobSize.label "Blob verinin boyutunu göster">

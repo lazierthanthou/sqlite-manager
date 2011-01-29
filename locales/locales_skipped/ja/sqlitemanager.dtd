@@ -1,0 +1,195 @@
+<!ENTITY window.title "SQLite Manager">
+<!ENTITY menu.tools "ツール">
+<!ENTITY menu.tools.ak "o">
+<!ENTITY sqliteVersion "SQLite バージョン">
+<!ENTITY sqliteVersion.ak "S">
+<!ENTITY mi.options "オプション">
+<!ENTITY mi.options.ak "O">
+<!ENTITY mi.sharedPagerCache "ページャキャッシュを共有する">
+<!ENTITY mi.sharedPagerCache.ak "S">
+<!ENTITY mi.extensionTable "拡張機能データのためにテーブルを利用する">
+<!ENTITY mi.extensionTable.ak "E">
+<!ENTITY mi.console "エラーコンソール">
+<!ENTITY mi.console.ak "C">
+<!ENTITY mi.aboutconfig "about:config">
+<!ENTITY mi.aboutconfig.ak "b">
+<!ENTITY menu.db "データベース">
+<!ENTITY menu.db.ak "D">
+<!ENTITY menu.db.new "新しいデータベース">
+<!ENTITY menu.db.new.ak "N">
+<!ENTITY menu.db.newMemory "新しいメモリ上のデータベース">
+<!ENTITY menu.db.newMemory.ak "M">
+<!ENTITY menu.db.connect "データベースに接続">
+<!ENTITY menu.db.connect.ak "o">
+<!ENTITY menu.db.connectADS "ADS データベースに接続">
+<!ENTITY menu.db.attach.ak "h">
+<!ENTITY menu.db.close "データベースを閉じる">
+<!ENTITY menu.db.close.ak "C">
+<!ENTITY menu.db.mru "最近の利用">
+<!ENTITY menu.db.mru.ak "U">
+<!ENTITY menu.db.copy "データベースを複製">
+<!ENTITY menu.db.copy.ak "p">
+<!ENTITY menu.db.compact "データベースを圧縮">
+<!ENTITY menu.db.compact.ak "m">
+<!ENTITY menu.db.analyze "データベースを分析">
+<!ENTITY menu.db.analyze.ak "A">
+<!ENTITY menu.db.check "整合性を確認">
+<!ENTITY menu.db.check.ak "k">
+<!ENTITY exportAll "すべてのテーブルを書き出す">
+<!ENTITY exportAll.ak "x">
+<!ENTITY exportDb "データベースを書き出す">
+<!ENTITY exportDb.ak "b">
+<!ENTITY exportDbStr "データベース構造を書き出す">
+<!ENTITY exportDbStr.ak "u">
+<!ENTITY import "取り込み">
+<!ENTITY import.ak "I">
+<!ENTITY refresh "最新の状態に更新">
+<!ENTITY refresh.ak "R">
+<!ENTITY reconnect "再接続">
+<!ENTITY reconnect.ak "e">
+<!ENTITY refreshDirection "Shift+F5 を押して最新の状態に更新します">
+<!ENTITY exit "終了">
+<!ENTITY exit.ak "x">
+<!ENTITY createTable "テーブルを作成">
+<!ENTITY dropTable "テーブルを削除">
+<!ENTITY emptyTable "テーブルを空にする">
+<!ENTITY reindexTable "テーブルを再インデックス">
+<!ENTITY renameTable "テーブルの名前を変更">
+<!ENTITY copyTable "テーブルを複製">
+<!ENTITY exportTable "テーブルを書き出す">
+<!ENTITY createIndex "インデックスを作成">
+<!ENTITY dropIndex "インデックスを削除">
+<!ENTITY reindexIndex "インデックスを再インデックス">
+<!ENTITY createView "ビューを作成">
+<!ENTITY dropView "ビューを削除">
+<!ENTITY exportView "ビューを書き出す">
+<!ENTITY createTrigger "トリガを作成">
+<!ENTITY dropTrigger "トリガを削除">
+<!ENTITY menu.table "テーブル">
+<!ENTITY menu.table.ak "T">
+<!ENTITY menu.index "インデックス">
+<!ENTITY menu.index.ak "I">
+<!ENTITY menu.view "ビュー">
+<!ENTITY menu.view.ak "V">
+<!ENTITY menu.trigger "トリガ">
+<!ENTITY create "作成">
+<!ENTITY create.ak "C">
+<!ENTITY drop "削除">
+<!ENTITY drop.ak "D">
+<!ENTITY export "書き出し">
+<!ENTITY export.ak "x">
+<!ENTITY empty "空">
+<!ENTITY empty.ak "y">
+<!ENTITY rename "名前を変更">
+<!ENTITY rename.ak "R">
+<!ENTITY modify "修正">
+<!ENTITY modify.ak "M">
+<!ENTITY copy "コピー">
+<!ENTITY copy.ak "p">
+<!ENTITY reindex "再インデックス">
+<!ENTITY reindex.ak "i">
+<!ENTITY analyze "解析">
+<!ENTITY analyze.ak "A">
+<!ENTITY menu.help "ヘルプ">
+<!ENTITY menu.help.ak "H">
+<!ENTITY menu.help.reportProblem "問題を報告する">
+<!ENTITY menu.help.reportProblem.ak "R">
+<!ENTITY menu.help.faq "よくある質問">
+<!ENTITY menu.help.faq.ak "F">
+<!ENTITY menu.help.sqlitehome "SQLite ホームページ">
+<!ENTITY menu.help.sqlitehome.ak "Q">
+<!ENTITY menu.help.sqlitesyntax "SQLite 構文ヘルプ">
+<!ENTITY menu.help.sqlitesyntax.ak "S">
+<!ENTITY menu.help.extensionhome "拡張機能ホームページ">
+<!ENTITY menu.help.extensionhome.ak "E">
+<!ENTITY menu.help.aboutextension "SQLite Manager について">
+<!ENTITY menu.help.aboutextension.ak "A">
+<!ENTITY profile.dblist.buttonlabel "移動">
+<!ENTITY string.enterSql "SQL を入力">
+<!ENTITY string.enterSql.ak "S">
+<!ENTITY tab.structure "構造">
+<!ENTITY tab.browse "参照と検索">
+<!ENTITY tab.execute "SQL 実行">
+<!ENTITY tab.dbinfo "DB 設定">
+<!ENTITY tab.udf "ユーザー定義関数">
+<!ENTITY btn.search "検索">
+<!ENTITY btn.search.ak "h">
+<!ENTITY btn.showAll "すべて表示">
+<!ENTITY btn.exporttable "書き出す">
+<!ENTITY btn.addrecord "追加">
+<!ENTITY btn.addrecord.ak "A">
+<!ENTITY menu.editSelected "編集">
+<!ENTITY menu.editSelected.ak "E">
+<!ENTITY menu.deleteSelected "選択を削除">
+<!ENTITY menu.deleteSelected.ak "l">
+<!ENTITY menu.duplicateRecord.ak "p">
+<!ENTITY menu.copyColName.ak "C">
+<!ENTITY menu.copyCell "セルをコピー">
+<!ENTITY menu.copyCell.ak "C">
+<!ENTITY menu.copyRows "行をコピー">
+<!ENTITY menu.copyRows.ak "R">
+<!ENTITY menu.copyRowsAsSql.ak "q">
+<!ENTITY menu.editColumn.ak "E">
+<!ENTITY menu.dropColumn.ak "D">
+<!ENTITY btn.runsql "SQL を実行">
+<!ENTITY btn.runsql.ak "R">
+<!ENTITY btn.runsql.tooltiptext "クエリを実行するには「Control + ;」を利用します。">
+<!ENTITY buttonRun.ak "R">
+<!ENTITY buttonExecute.ak "E">
+<!ENTITY label.sqlLastError "最後のエラー">
+<!ENTITY label.resultOfQuery "クエリの結果">
+<!ENTITY label.resultOfQuery.ak "Q">
+<!ENTITY btn.prevSql "履歴から前の SQL">
+<!ENTITY btn.nextSql "履歴から次の SQL">
+<!ENTITY btn.saveQuery "クエリーを名前で保存">
+<!ENTITY btn.clearHistory "クエリ履歴を消去">
+<!ENTITY sbp.db "DB">
+<!ENTITY masterinfo.tbl_name "関連テーブル・ビュー">
+<!ENTITY masterinfo.rootpage "ルートページ">
+<!ENTITY masterinfo.sql "このオブジェクトを作成した SQL 文">
+<!ENTITY table "テーブル">
+<!ENTITY index "インデックス">
+<!ENTITY view "ビュー">
+<!ENTITY trigger "トリガ">
+<!ENTITY first "最初">
+<!ENTITY previous "前">
+<!ENTITY next "次">
+<!ENTITY last "最後">
+<!ENTITY to "から">
+<!ENTITY of "全">
+<!ENTITY about "About">
+<!ENTITY version "バージョン">
+<!ENTITY author "作者">
+<!ENTITY license "ライセンス">
+<!ENTITY license.mpl "Mozilla Public License バージョン1.1">
+<!ENTITY dir "ディレクトリ">
+<!ENTITY profileDir "プロファイルディレクトリ">
+<!ENTITY userDir "ユーザー既定ディレクトリ">
+<!ENTITY selectUserDir "既定ディレクトリを選択">
+<!ENTITY name "名前">
+<!ENTITY type "型">
+<!ENTITY pKey "主キー">
+<!ENTITY notNull "Null でない">
+<!ENTITY default "既定">
+<!-- copyTable.xul -->
+<!ENTITY Database.ak "D">
+<!ENTITY enterNewTable.ak "t">
+<!-- create dialogs -->
+<!ENTITY Name.ak "N">
+<!ENTITY Temporary.ak "T">
+<!ENTITY ifNotExists.ak "I">
+<!ENTITY SelectStatement.ak "S">
+<!ENTITY createTable.temptable.ak "T">
+<!ENTITY createTable.ifnotexists.ak "I">
+<!ENTITY createTrigger.tempObject.ak "T">
+<!ENTITY createTrigger.ifnotexists.ak "I">
+<!ENTITY createTrigger.triggerTime.ak "B">
+<!ENTITY createTrigger.dbEvent.ak "v">
+<!ENTITY createTrigger.foreachrow.ak "F">
+<!ENTITY createTrigger.txtWhenExpression.ak "W">
+<!ENTITY createTrigger.txtTriggerSteps.ak "S">
+<!-- confirm dialog -->
+<!-- RowOperations.xul -->
+<!ENTITY rowOperations.tablenames "テーブル名:">
+<!ENTITY rowOperations.tablenames.ak "N">
+<!ENTITY rowOperations.loading "(読み込み中)">

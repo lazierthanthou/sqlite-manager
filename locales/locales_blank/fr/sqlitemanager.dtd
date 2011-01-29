@@ -1,0 +1,292 @@
+<!ENTITY window.title "Gestionnaire SQLite">
+<!ENTITY menu.tools "Outils">
+<!ENTITY menu.tools.ak "O">
+<!ENTITY sqliteVersion "Version de SQLite">
+<!ENTITY sqliteVersion.ak "S">
+<!ENTITY mi.options "Options">
+<!ENTITY mi.options.ak "O">
+<!ENTITY mi.sharedPagerCache "Shared Pager Cache">
+<!ENTITY mi.sharedPagerCache.ak "S">
+<!ENTITY mi.extensionTable "Use Table for Extension Data">
+<!ENTITY mi.extensionTable.ak "E">
+<!ENTITY mi.openOnConnectSqlTab "">
+<!ENTITY mi.openOnConnectSqlTab.ak "">
+<!ENTITY mi.console "">
+<!ENTITY mi.console.ak "">
+<!ENTITY mi.aboutconfig "">
+<!ENTITY mi.aboutconfig.ak "">
+<!ENTITY menu.db "Base de données">
+<!ENTITY menu.db.ak "d">
+<!ENTITY menu.db.new "Nouvelle base de données">
+<!ENTITY menu.db.new.ak "N">
+<!ENTITY menu.db.newMemory "">
+<!ENTITY menu.db.newMemory.ak "">
+<!ENTITY menu.db.connect "Connecter la base de données">
+<!ENTITY menu.db.connect.ak "o">
+<!ENTITY menu.db.connectADS "">
+<!ENTITY menu.db.attach "">
+<!ENTITY menu.db.attach.ak "">
+<!ENTITY menu.db.detach "">
+<!ENTITY menu.db.detach.ak "">
+<!ENTITY menu.db.close "Fermer la base de données">
+<!ENTITY menu.db.close.ak "F">
+<!ENTITY menu.db.mru "Récemment utilisé">
+<!ENTITY menu.db.mru.ak "u">
+<!ENTITY menu.db.copy "Copier la base de données">
+<!ENTITY menu.db.copy.ak "p">
+<!ENTITY menu.db.compact "Compacter une base de données">
+<!ENTITY menu.db.compact.ak "m">
+<!ENTITY menu.db.analyze "Analyser la base de données">
+<!ENTITY menu.db.analyze.ak "A">
+<!ENTITY menu.db.check "Vérifier l&apos;intégrité">
+<!ENTITY menu.db.check.ak "V">
+<!ENTITY exportAll "">
+<!ENTITY exportAll.ak "">
+<!ENTITY exportDb "">
+<!ENTITY exportDb.ak "">
+<!ENTITY exportDbStr "">
+<!ENTITY exportDbStr.ak "">
+<!ENTITY import "Importer">
+<!ENTITY import.ak "I">
+<!ENTITY refresh "Actualiser">
+<!ENTITY refresh.ak "A">
+<!ENTITY reconnect "Reconnecter">
+<!ENTITY reconnect.ak "e">
+<!ENTITY refreshDirection "Appuyez sur Maj+F5 pour actualiser">
+<!ENTITY exit "Quitter">
+<!ENTITY exit.ak "Q">
+<!ENTITY createTable "Créer une table">
+<!ENTITY dropTable "Supprimer une table">
+<!ENTITY modifyTable "">
+<!ENTITY emptyTable "Vider une table">
+<!ENTITY reindexTable "Reconstruire une table">
+<!ENTITY renameTable "Renommer une table">
+<!ENTITY copyTable "Copier une table">
+<!ENTITY exportTable "Exporter une table">
+<!ENTITY createIndex "Créer un index">
+<!ENTITY dropIndex "Supprimer un index">
+<!ENTITY reindexIndex "Reconstruire un index">
+<!ENTITY createView "Créer une vue">
+<!ENTITY dropView "Supprimer une vue">
+<!ENTITY renameView "">
+<!ENTITY modifyView "">
+<!ENTITY exportView "Exporter une vue">
+<!ENTITY createTrigger "Créer un déclencheur">
+<!ENTITY dropTrigger "Supprimer un déclencheur">
+<!ENTITY renameTrigger "">
+<!ENTITY menu.table "Table">
+<!ENTITY menu.table.ak "T">
+<!ENTITY menu.index "Index">
+<!ENTITY menu.index.ak "I">
+<!ENTITY menu.view "Voir">
+<!ENTITY menu.view.ak "V">
+<!ENTITY menu.trigger "Déclencher">
+<!ENTITY menu.trigger.ak "">
+<!ENTITY create "Créer">
+<!ENTITY create.ak "C">
+<!ENTITY drop "Supprimer">
+<!ENTITY drop.ak "S">
+<!ENTITY export "Exporter">
+<!ENTITY export.ak "x">
+<!ENTITY empty "Vider">
+<!ENTITY empty.ak "V">
+<!ENTITY rename "Renommer">
+<!ENTITY rename.ak "R">
+<!ENTITY modify "Modifier">
+<!ENTITY modify.ak "M">
+<!ENTITY copy "Copier">
+<!ENTITY copy.ak "p">
+<!ENTITY reindex "Réindexer">
+<!ENTITY reindex.ak "i">
+<!ENTITY analyze "Analyser">
+<!ENTITY analyze.ak "A">
+<!ENTITY menu.help "Aide">
+<!ENTITY menu.help.ak "i">
+<!ENTITY menu.help.reportProblem "Rapporter un problème">
+<!ENTITY menu.help.reportProblem.ak "R">
+<!ENTITY menu.help.faq "Foire Aux Questions">
+<!ENTITY menu.help.faq.ak "F">
+<!ENTITY menu.help.sqlitehome "Site de SQLite">
+<!ENTITY menu.help.sqlitehome.ak "Q">
+<!ENTITY menu.help.sqlitesyntax "Aide sur la syntaxe SQLite">
+<!ENTITY menu.help.sqlitesyntax.ak "S">
+<!ENTITY menu.help.extensionhome "Page Web de l&apos;extension">
+<!ENTITY menu.help.extensionhome.ak "e">
+<!ENTITY menu.help.aboutextension "À propos du gestionnaire SQLite">
+<!ENTITY menu.help.aboutextension.ak "p">
+<!ENTITY profile.dblist.select "">
+<!ENTITY profile.dblist.buttonlabel "Lancer">
+<!ENTITY string.enterSql "Entrez les commandes SQL">
+<!ENTITY string.enterSql.ak "">
+<!ENTITY tab.structure "Structure">
+<!ENTITY tab.browse "Parcourir &amp; rechercher">
+<!ENTITY tab.execute "Exécuter le SQL">
+<!ENTITY tab.dbinfo "Configuration de la base de données">
+<!ENTITY tab.udf "">
+<!ENTITY tab.connectSql "">
+<!ENTITY btn.search "Recherche">
+<!ENTITY btn.search.ak "h">
+<!ENTITY btn.showAll "Tout voir">
+<!ENTITY btn.showAll.ak "">
+<!ENTITY btn.exporttable "Exporter">
+<!ENTITY btn.exporttable.ak "">
+<!ENTITY btn.addcol "">
+<!ENTITY btn.addrecord "Ajouter une nouvelle entrée">
+<!ENTITY btn.addrecord.ak "A">
+<!ENTITY menu.editSelected "Éditer les entrées sélectionnées">
+<!ENTITY menu.editSelected.ak "d">
+<!ENTITY menu.deleteSelected "Supprimer les entrées sélectionnées">
+<!ENTITY menu.deleteSelected.ak "l">
+<!ENTITY menu.duplicateRecord "">
+<!ENTITY menu.duplicateRecord.ak "">
+<!ENTITY menu.copyColName "">
+<!ENTITY menu.copyColName.ak "">
+<!ENTITY menu.copyCell "Copier la cellule">
+<!ENTITY menu.copyCell.ak "C">
+<!ENTITY menu.copyRows "Copier la ou les lignes">
+<!ENTITY menu.copyRows.ak "g">
+<!ENTITY menu.copyRowsForExcel "">
+<!ENTITY menu.copyRowsAsSql "">
+<!ENTITY menu.copyRowsAsSql.ak "">
+<!ENTITY menu.editColumn "">
+<!ENTITY menu.editColumn.ak "">
+<!ENTITY menu.dropColumn "">
+<!ENTITY menu.dropColumn.ak "">
+<!ENTITY btn.runsql "Exécuter les commandes SQL">
+<!ENTITY btn.runsql.ak "x">
+<!ENTITY btn.runsql.tooltiptext "">
+<!ENTITY buttonRun "">
+<!ENTITY buttonRun.ak "">
+<!ENTITY buttonExecute "">
+<!ENTITY buttonExecute.ak "">
+<!ENTITY label.sqlLastError "Dernière erreur">
+<!ENTITY mb.queryActions "">
+<!ENTITY mi.viewQueryAsTable "">
+<!ENTITY mi.viewQueryAsTable.ak "">
+<!ENTITY mi.viewQueryAsCsv "">
+<!ENTITY mi.viewQueryAsCsv.ak "">
+<!ENTITY mi.saveQueryAsCsv "">
+<!ENTITY mi.saveQueryAsCsv.ak "">
+<!ENTITY label.resultOfQuery "Résultat de la requête">
+<!ENTITY label.resultOfQuery.ak "q">
+<!ENTITY btn.prevSql "Commande SQL précédente à partir de l&apos;historique">
+<!ENTITY btn.nextSql "Commande SQL suivante à partir de l&apos;historique">
+<!ENTITY btn.saveQuery "Enregistrer la requête sous un nom">
+<!ENTITY btn.clearHistory "Vider l&apos;historique des commandes SQL">
+<!ENTITY sbp.db "Base de données">
+<!ENTITY masterinfo.tbl_name "Associé avec la table / vue">
+<!ENTITY masterinfo.rootpage "Page principale">
+<!ENTITY masterinfo.sql "Commande SQL qui a créé cet objet">
+<!ENTITY table "Table">
+<!ENTITY index "Index">
+<!ENTITY view "Vue">
+<!ENTITY trigger "Déclencheur">
+<!ENTITY first "Premier">
+<!ENTITY previous "Précédent">
+<!ENTITY next "Prochain">
+<!ENTITY last "Dernier">
+<!ENTITY to "à">
+<!ENTITY of "de">
+<!ENTITY about "À propos">
+<!ENTITY version "Version">
+<!ENTITY author "Auteur">
+<!ENTITY license "">
+<!ENTITY license.mpl "">
+<!ENTITY dir "">
+<!ENTITY profileDir "">
+<!ENTITY userDir "">
+<!ENTITY selectUserDir "">
+<!ENTITY infoFromMaster "">
+<!ENTITY moreInfo "">
+<!ENTITY numColumns "">
+<!ENTITY numIndexes "">
+<!ENTITY numTriggers "">
+<!ENTITY numRecords "">
+<!ENTITY Columns "">
+<!ENTITY name "">
+<!ENTITY type "">
+<!ENTITY pKey "">
+<!ENTITY notNull "">
+<!ENTITY default "">
+<!ENTITY indexProp "">
+<!ENTITY indexedTable "">
+<!ENTITY indexedFields "">
+<!ENTITY indexDuplicate "">
+<!ENTITY selectAllRecords "">
+<!ENTITY selectAllRecords.ak "">
+<!---->
+<!ENTITY From "">
+<!ENTITY To "">
+<!ENTITY Database "">
+<!ENTITY Database.ak "">
+<!ENTITY Table "">
+<!ENTITY onlyStructure "">
+<!ENTITY enterNewTable "">
+<!ENTITY enterNewTable.ak "">
+<!---->
+<!ENTITY Name.ak "">
+<!ENTITY ViewName "">
+<!ENTITY Temporary "">
+<!ENTITY Temporary.ak "">
+<!ENTITY ifNotExists "">
+<!ENTITY ifNotExists.ak "">
+<!ENTITY SelectStatement "">
+<!ENTITY SelectStatement.ak "">
+<!ENTITY createIndex.dbName "">
+<!ENTITY createIndex.indexname "">
+<!ENTITY createIndex.indexproperties "">
+<!ENTITY createIndex.tabletoindex "">
+<!ENTITY createIndex.loading "">
+<!ENTITY createIndex.duplicatevalues "">
+<!ENTITY createIndex.allowed "">
+<!ENTITY createIndex.notallowed "">
+<!ENTITY createIndex.indexcolumns "">
+<!ENTITY createTable.dbName "">
+<!ENTITY createTable.tablename "">
+<!ENTITY createTable.temptable "">
+<!ENTITY createTable.temptable.ak "">
+<!ENTITY createTable.ifnotexists "">
+<!ENTITY createTable.ifnotexists.ak "">
+<!ENTITY createTable.tablecolumns "">
+<!ENTITY createTable.colname "">
+<!ENTITY createTable.datatype "">
+<!ENTITY createTable.primarykey "">
+<!ENTITY createTable.autoincrement "">
+<!ENTITY createTable.allownull "">
+<!ENTITY createTable.default "">
+<!ENTITY createTable.unique "">
+<!ENTITY createTable.primarykey.yes "">
+<!ENTITY createTable.autoincrement.yes "">
+<!ENTITY createTable.autoincrement.tooltip "">
+<!ENTITY createTable.allownull.yes "">
+<!ENTITY createTable.unique.column "">
+<!ENTITY createTable.unique.columnlist "">
+<!ENTITY createTrigger.dbName "">
+<!ENTITY createTrigger.triggername "">
+<!ENTITY createTrigger.tabletoindex "">
+<!ENTITY createTrigger.loading "">
+<!ENTITY createTrigger.tempObject "">
+<!ENTITY createTrigger.tempObject.ak "">
+<!ENTITY createTrigger.ifnotexists "">
+<!ENTITY createTrigger.ifnotexists.ak "">
+<!ENTITY createTrigger.databaseevent "">
+<!ENTITY createTrigger.triggerTime "">
+<!ENTITY createTrigger.triggerTime.ak "">
+<!ENTITY createTrigger.dbEvent "">
+<!ENTITY createTrigger.dbEvent.ak "">
+<!ENTITY createTrigger.triggeraction "">
+<!ENTITY createTrigger.foreachrow "">
+<!ENTITY createTrigger.foreachrow.ak "">
+<!ENTITY createTrigger.txtWhenExpression "">
+<!ENTITY createTrigger.txtWhenExpression.ak "">
+<!ENTITY createTrigger.txtTriggerSteps "">
+<!ENTITY createTrigger.txtTriggerSteps.ak "">
+<!---->
+<!ENTITY confirm.button.accept "">
+<!ENTITY confirm.button.cancel "">
+<!---->
+<!ENTITY rowOperations.tablenames "">
+<!ENTITY rowOperations.tablenames.ak "">
+<!ENTITY rowOperations.loading "">
+<!ENTITY oldValues "">
+<!ENTITY newValues "">

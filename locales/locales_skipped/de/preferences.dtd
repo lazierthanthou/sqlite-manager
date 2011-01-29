@@ -1,0 +1,78 @@
+<!ENTITY prefwinTitle "SQLite Manager - Einstellungen">
+<!ENTITY paneMain.title "Allgemein">
+<!ENTITY pref-openMode.label "SQLite Manager starten">
+<!ENTITY pref-openMode-win "in einem neuen Fenster">
+<!ENTITY pref-openMode-win.ak "F">
+<!ENTITY pref-openMode-tab "in einem neuen Tab">
+<!ENTITY pref-openADS.label "ADS öffnen (nur Windows/NTFS)">
+<!ENTITY disable "Deaktivieren">
+<!ENTITY enable "Aktivieren">
+<!ENTITY whenSMStarts "Beim Start von SQLite Manager">
+<!ENTITY pref-openWithLastDb.label "Zuletzt verwendete Datenbank öffnen">
+<!ENTITY pref-openWithLastDb.ak "Z">
+<!ENTITY pref-promptForLastDb.label "Immer bestätigen, wenn die zuletzt verwendete Datenbank geöffnet wird">
+<!ENTITY pref-promptForLastDb.ak "I">
+<!ENTITY pref-autoBackup.label "Vor dem Öffnen einer Datenbank eine Sicherungskopie mit Zeitstempel anlegen">
+<!ENTITY pref-autoBackup.ak "V">
+<!ENTITY pref-autoBackup.on "an">
+<!ENTITY pref-autoBackup.off "aus">
+<!ENTITY pref-autoBackup.prompt "fragen">
+<!ENTITY pref-sqliteFileExtensions.label "Standardmäßige Dateiendung für SQLite-Dateien">
+<!ENTITY pref-sqliteFileExtensions.ak "S">
+<!ENTITY pref-tableForExtensionManagement.label "Name der Tabelle, in der Verwaltungsdaten der Erweiterung gespeichert werden">
+<!ENTITY pref-tableForExtensionManagement.ak "m">
+<!ENTITY panePrompts.title "Eingabeaufforderungen">
+<!ENTITY confirmBeforeExecute "Folgende Operationen vor dem Ausführen bestätigen">
+<!ENTITY pref-confirm.records.label "Hinzufügen oder Bearbeiten eines Datensatzes">
+<!ENTITY pref-confirm.create.label "Erstellen einer Tabelle/eines Index/einer Sicht/eines Triggers">
+<!ENTITY pref-confirm.otherSql.label "Jede andere Operation in einer Tabelle">
+<!ENTITY paneInterface.title "Benutzeroberfläche">
+<!ENTITY toolbar.caption "Symbolleisten-Einstellungen">
+<!ENTITY pref-hideMainToolbar.label "Alle Symbolleisten ausblenden">
+<!ENTITY pref-showMainToolbarDatabase.label "Datenbank-Symbolleiste anzeigen">
+<!ENTITY pref-showMainToolbarIndex.label "Index-Symbolleiste anzeigen">
+<!ENTITY pref-showMainToolbarTable.label "Tabellen-Symbolleiste anzeigen">
+<!ENTITY pref-showMainToolbarDebug.label "Debug-Symbolleiste anzeigen">
+<!ENTITY pref-notificationDuration.label "Anzeigedauer (in Sekunden) von Mitteilungen">
+<!ENTITY pref-notificationDuration.ak "d">
+<!ENTITY pref-displayNumRecords.label "Anzahl angezeigter Datensätze (&quot;Durchsuchen&quot;-Tab)">
+<!ENTITY pref-displayNumRecords.ak "A">
+<!ENTITY pref-sqlTextboxRows.label "Anzahl angezeigter Zeilen im Eingabefeld für SQL-Befehle (&quot;SQL-Befehl ausführen&quot;-Tab)">
+<!ENTITY pref-sqlTextboxRows.ak "R">
+<!ENTITY pref-maxColumnsInTable.label "Maximale Anzahl an Zeilen im &quot;Tabelle erstellen&quot;-Dialog">
+<!ENTITY pref-maxColumnsInTable.ak "M">
+<!ENTITY blobDisplay.caption "Wie sollen BLOB-Daten angezeigt werden?">
+<!ENTITY pref-textForBlob.label "Für BLOB-Wert anzuzeigender Text">
+<!ENTITY pref-textForBlob.ak "B">
+<!ENTITY pref-showBlobSize.label "Größe von BLOB-Daten anzeigen">
+<!ENTITY pref-maxSizeToShowBlobData.label "Größe (in Bytes) unter der blob als String angezeigt werden soll">
+<!ENTITY pref-maxSizeToShowBlobData.ak "z">
+<!ENTITY pref-displayDataAs.label "blob-Daten anzeigen als:">
+<!ENTITY pref-displayDataAs-hex "Hexadezimalwert (z.B. X`31323334`)">
+<!ENTITY pref-displayDataAs-string "String">
+<!ENTITY pref-whenInsertingShow.label "Beim Hinzufügen eines neuen Datensatzes zuvor verwendete Werte oder Standardwerte anzeigen">
+<!ENTITY pref-whenInsertingShow.ak "H">
+<!ENTITY pref-whenInsertingShow-previous "Zurück">
+<!ENTITY pref-whenInsertingShow-default "Standard">
+<!ENTITY pref-identifierQuoteChar.label "Zeichen, mit denen die Bezeichner umschlossen werden sollen">
+<!ENTITY pref-identifierQuoteChar-doublequotes "Doppelte Anführungszeichen">
+<!ENTITY pref-identifierQuoteChar-squarebrackets "Eckige Klammern []">
+<!ENTITY pref-identifierQuoteChar-graveaccents "Gravisakzente">
+<!ENTITY paneDatatree.title "Datenbaum-Stil">
+<!ENTITY paneDatatree.datatype "Datentyp">
+<!ENTITY paneDatatree.property "Eigenschaft">
+<!ENTITY paneDatatree.unselected "Nicht ausgewählt">
+<!ENTITY paneDatatree.selected "Ausgewählt">
+<!ENTITY paneDatatree.typeNull "Null">
+<!ENTITY paneDatatree.typeInteger "Integer">
+<!ENTITY paneDatatree.typeReal "Real">
+<!ENTITY paneDatatree.typeText "Text">
+<!ENTITY paneDatatree.typeBlob "Blob">
+<!ENTITY paneDatatree.textColor "Textfarbe">
+<!ENTITY paneDatatree.backgroundColor "Hintergrundfarbe">
+<!ENTITY paneDatatree.fontSize "Schriftgröße (in Prozent)">
+<!ENTITY paneDatatree.fontFamily "Schriftart">
+<!ENTITY paneDatatree.rowHeight "Zeilenhöhe (in Pixeln; 0 bedeutet Standardhöhe)">
+<!ENTITY paneDatatree.btnSetDefault "Standard einstellen">
+<!ENTITY paneDatatree.btnApply "Anwenden">
+<!ENTITY paneDatatree.btnNone "Keine">

@@ -1,0 +1,6 @@
+<!ENTITY connectSql.reloadFunctions "Recharger l'onglet">
+<!ENTITY connectSql.closeTab "Fermer l'onglet">
+<!ENTITY connectSql.cancel "Annuler">
+<!ENTITY connectSql.save "Enregistrer">
+<!ENTITY connectSql.sqlForAllDb "Déclarations On-connect SQL pour TOUTES les bases de données">
+<!ENTITY connectSql.sqlForThisDb "Déclarations On-connect SQL pour CETTE base de données">

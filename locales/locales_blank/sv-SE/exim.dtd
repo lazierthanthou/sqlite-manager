@@ -1,0 +1,46 @@
+<!ENTITY tablename "Tabellens namn:">
+<!ENTITY tablename.ak "n">
+<!ENTITY CSV "CSV">
+<!ENTITY SQL "SQL">
+<!ENTITY XML "XML">
+<!ENTITY csv.tableName "Ange namnet på den tabell till vilken data kommer att importeras:">
+<!ENTITY Comma "Komma">
+<!ENTITY Comma.ak "K">
+<!ENTITY Semicolon "Semikolon">
+<!ENTITY Pipe "Lodrätt streck">
+<!ENTITY Tab "Tabbtecken">
+<!ENTITY csv.firstrow "Första raden innehåller kolumnnamn">
+<!ENTITY csv.separate "Fält avgränsas av">
+<!ENTITY csv.enclose "Fält omsluts av">
+<!ENTITY sql.settings "SQL-inställningar">
+<!ENTITY sql.create "Inkludera CREATE TABLE-sats">
+<!ENTITY sql.transaction "BEGIN TRANSACTION/COMMIT-satser bör användas">
+<!ENTITY sql.transaction.desc "Om det här alternativet är förkryssat antas det, att den första och sista satsen i den valda filen är BEGIN TRANSACTION respektive COMMIT. Tillägget kommer att utesluta dessa och köra alla de kvarvarande satserna i en enda transaktion. Om det finns transaktionsrelaterade satser även däremellan, skall dessa tas bort från filen manuellt innan import påbörjas.">
+<!ENTITY xml.type "Inkludera/Använd typ som ett attribut">
+<!ENTITY xml.type.desc "Avmarkera detta alternativ om du importerar data som inte innehåller det här attributet. Det rekommenderas att använda den här funktionen om du avser att exportera data m.h.a. SQLite-hanteraren. Den extra informationen kan då användas under import för att skilja strängar, null-värden, heltal etc. från varandra.">
+<!ENTITY importWizard "Importguiden">
+<!ENTITY eximDbName "Databas:">
+<!ENTITY eximDbName.ak "D">
+<!ENTITY loading "(läser in)">
+<!ENTITY eximFilename "Välj fil">
+<!ENTITY eximFilename.ak "V">
+<!ENTITY eximFileCharSet "Teckenkodning">
+<!ENTITY eximFileCharSet.ak "e">
+<!ENTITY eximCsv_encloser.doublequotes.standard "Dubbla citationstecken (&quot;), om nödvändigt (Standard)">
+<!ENTITY eximCsv_encloser.doublequotes.standard.ak "C">
+<!ENTITY eximCsv_encloser.doublequotes.always "Dubbla citationstecken (&quot;), alltid">
+<!ENTITY eximCsv_encloser.doublequotes.likeExcel "Som MSExcel (dubbla citationstecken om fält innehåller &quot; eller avgränsare)">
+<!ENTITY eximCsv_encloser.singlequotes "Enkla citationstecken (&apos;)">
+<!ENTITY eximCsv_encloser.none "Inget">
+<!ENTITY eximCsv_encloser.other "Annat">
+<!ENTITY eximCsv-expSaveSetting "Spara CSV-exportinställningar">
+<!ENTITY eximCsv-expSaveSetting-tooltiptext "Du kan spara dessa inställningar om du vill att &quot;Kopiera rader som CSV&quot;-operationer skall använda dem.">
+<!ENTITY eximCsv-impSaveSetting "Spara CSV-importinställningar">
+<!ENTITY eximCsv-impSaveSetting-tooltiptext "Spara CSV-importinställningar">
+<!ENTITY eximCsv-expUseSetting "Använd sparade inställningar">
+<!ENTITY eximCsv-impUseSetting "Använd sparade inställningar">
+<!ENTITY eximXml_root-element "Namn på rotelement:">
+<!ENTITY eximXml_prefix-table-element "Bifoga detta till tabellelement som prefix:">
+<!ENTITY exim-exp-ok "OK">
+<!ENTITY exim-imp-ok "OK">
+<!ENTITY exim-cancel "Stäng guiden">

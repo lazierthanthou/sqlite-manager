@@ -1,0 +1,46 @@
+<!ENTITY tablename "Имя таблицы:">
+<!ENTITY tablename.ak "м">
+<!ENTITY CSV "CSV">
+<!ENTITY SQL "SQL">
+<!ENTITY XML "XML">
+<!ENTITY csv.tableName "Введите имя таблицы в которую будут импортированы данные:">
+<!ENTITY Comma "запятой">
+<!ENTITY Comma.ak "з">
+<!ENTITY Semicolon "точкой с запятой">
+<!ENTITY Pipe "вертикальной чертой">
+<!ENTITY Tab "табуляцией">
+<!ENTITY csv.firstrow "Первая строка содержит названия столбцов">
+<!ENTITY csv.separate "Поля разделяются">
+<!ENTITY csv.enclose "Поля включают">
+<!ENTITY sql.settings "Настройки SQL">
+<!ENTITY sql.create "Включая оператор CREATE TABLE">
+<!ENTITY sql.transaction "Должны использоваться операторы BEGIN TRANSACTION/COMMIT">
+<!ENTITY sql.transaction.desc "Если установлен этот флажок, предполагается, что первым и последним операторами в выбранном файле являются BEGIN TRANSACTION и COMMIT соответственно. Расширение исключит их и выполнит все оставшиеся операторы за одну транзакцию. Если между этими двумя операторами существуют связанные операторы транзакции, они должны быть удалены из файла вручную до импортирования.">
+<!ENTITY xml.type "Включить/Использовать тип как атрибут">
+<!ENTITY xml.type.desc "Снимите этот флажок, если вы импортируете данные не содержащие этого атрибута. Рекомендуется использовать эту функцию, если вы собираетесь экспортировать данные используя SQLite Manager. В этом случае во время импорта будет использоваться дополнительная информация, чтобы отличить строки, пустые указатели, целые числа и т.п. друг от друга.">
+<!ENTITY importWizard "Мастер импорта">
+<!ENTITY eximDbName "База данных:">
+<!ENTITY eximDbName.ak "Б">
+<!ENTITY loading "(загрузка)">
+<!ENTITY eximFilename "Выбрать файл">
+<!ENTITY eximFilename.ak "В">
+<!ENTITY eximFileCharSet "Кодировка символов">
+<!ENTITY eximFileCharSet.ak "К">
+<!ENTITY eximCsv_encloser.doublequotes.standard "двойные кавычки (&quot;), в случае необходимости (Стандарт)">
+<!ENTITY eximCsv_encloser.doublequotes.standard.ak "д">
+<!ENTITY eximCsv_encloser.doublequotes.always "двойные кавычки (&quot;) всегда">
+<!ENTITY eximCsv_encloser.doublequotes.likeExcel "Как  MSExcel (двойные кавычки, если поле содержит &quot; или разделители)">
+<!ENTITY eximCsv_encloser.singlequotes "одиночные кавычки (')">
+<!ENTITY eximCsv_encloser.none "нет">
+<!ENTITY eximCsv_encloser.other "другое">
+<!ENTITY eximCsv-expSaveSetting "Сохранить настройки экспорта в CSV">
+<!ENTITY eximCsv-expSaveSetting-tooltiptext "Вы можете сохранить эти настройки, если хотите, чтобы операции «Копировать строки в CSV» использовали эти параметры настройки.">
+<!ENTITY eximCsv-impSaveSetting "Сохранить настройки импорта CSV">
+<!ENTITY eximCsv-impSaveSetting-tooltiptext "Сохраняет настройки для импортирования CSV">
+<!ENTITY eximCsv-expUseSetting "Использовать сохранённые настройки">
+<!ENTITY eximCsv-impUseSetting "Использовать сохранённые настройки">
+<!ENTITY eximXml_root-element "Имя корневого элемента:">
+<!ENTITY eximXml_prefix-table-element "Префикс this для элемента таблицы:">
+<!ENTITY exim-exp-ok "OK">
+<!ENTITY exim-imp-ok "OK">
+<!ENTITY exim-cancel "Завершить работу мастера">

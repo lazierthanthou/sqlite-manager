@@ -1,0 +1,46 @@
+<!ENTITY tablename "テーブルの名前:">
+<!ENTITY tablename.ak "N">
+<!ENTITY CSV "CSV">
+<!ENTITY SQL "SQL">
+<!ENTITY XML "XML">
+<!ENTITY csv.tableName "データが取り込まれるテーブルの名前を入力:">
+<!ENTITY Comma "コンマ">
+<!ENTITY Comma.ak "C">
+<!ENTITY Semicolon "セミコロン">
+<!ENTITY Pipe "バーティカルバー">
+<!ENTITY Tab "タブ">
+<!ENTITY csv.firstrow "First row contains column names">
+<!ENTITY csv.separate "Fields separated by">
+<!ENTITY csv.enclose "Fields enclosed by">
+<!ENTITY sql.settings "SQL Settings">
+<!ENTITY sql.create "Include CREATE TABLE statement">
+<!ENTITY sql.transaction "BEGIN TRANSACTION/COMMIT statements should be used">
+<!ENTITY sql.transaction.desc "If this option is checked, it is assumed that, in the selected file, the first and last statements are BEGIN TRANSACTION and COMMIT respectively. The extension will exclude these and execute all the remaining statements in a single transaction. If there are transaction related statements in between too these should be manually removed from the file before importing.">
+<!ENTITY xml.type "Include/Use Type as an attribute">
+<!ENTITY xml.type.desc "Uncheck this option if you are importing data which does not contain this attribute. It is recommended to use this feature if you intend to export data using SQLite Manager. The extra information can then be used during import to distinguish strings, nulls, integers, etc. from each other.">
+<!ENTITY importWizard "取り込みウィザード">
+<!ENTITY eximDbName "データベース:">
+<!ENTITY eximDbName.ak "D">
+<!ENTITY loading "(読み込み中)">
+<!ENTITY eximFilename "ファイルを選択">
+<!ENTITY eximFilename.ak "S">
+<!ENTITY eximFileCharSet "文字エンコーディング">
+<!ENTITY eximFileCharSet.ak "h">
+<!ENTITY eximCsv_encloser.doublequotes.standard "必要であればダブルクォート (&quot;)(標準)">
+<!ENTITY eximCsv_encloser.doublequotes.standard.ak "q">
+<!ENTITY eximCsv_encloser.doublequotes.always "常にダブルクォート (&quot;)">
+<!ENTITY eximCsv_encloser.doublequotes.likeExcel "Like MSExcel (double quotes if field contains &quot; or separator)">
+<!ENTITY eximCsv_encloser.singlequotes "シングルクォート (')">
+<!ENTITY eximCsv_encloser.none "None">
+<!ENTITY eximCsv_encloser.other "その他">
+<!ENTITY eximCsv-expSaveSetting "CSV 書き出し設定を保存">
+<!ENTITY eximCsv-expSaveSetting-tooltiptext "You can save these settings if you want 'Copy Rows as CSV' operations to use these settings.">
+<!ENTITY eximCsv-impSaveSetting "Save CSV Import Settings">
+<!ENTITY eximCsv-impSaveSetting-tooltiptext "Save CSV Import Settings">
+<!ENTITY eximCsv-expUseSetting "Use Saved Settings">
+<!ENTITY eximCsv-impUseSetting "Use Saved Settings">
+<!ENTITY eximXml_root-element "ルート要素の名前:">
+<!ENTITY eximXml_prefix-table-element "Prefix this to Table Element:">
+<!ENTITY exim-exp-ok "OK">
+<!ENTITY exim-imp-ok "OK">
+<!ENTITY exim-cancel "ウィザードを閉じる">

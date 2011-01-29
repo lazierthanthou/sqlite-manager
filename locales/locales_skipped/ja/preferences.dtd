@@ -1,0 +1,45 @@
+<!ENTITY prefwinTitle "SQLiteManager オプション">
+<!ENTITY paneMain.title "メイン">
+<!ENTITY pref-openMode.label "SQLite Manager の開始">
+<!ENTITY pref-openMode-win "新しいウィンドウ">
+<!ENTITY pref-openMode-win.ak "w">
+<!ENTITY pref-openMode-tab "新しいタブ">
+<!ENTITY disable "無効">
+<!ENTITY enable "有効">
+<!ENTITY whenSMStarts "SQLite Manager 開始時">
+<!ENTITY pref-openWithLastDb.label "最後に利用したデータベースを開く">
+<!ENTITY pref-openWithLastDb.ak "O">
+<!ENTITY pref-promptForLastDb.label "最後に利用したデータベースを開く場合は常に確認する">
+<!ENTITY pref-promptForLastDb.ak "A">
+<!ENTITY pref-autoBackup.label "データベースを開く前に日時でバックアップを作成する">
+<!ENTITY pref-autoBackup.ak "B">
+<!ENTITY pref-sqliteFileExtensions.label "SQLite ファイルのための既定の拡張子">
+<!ENTITY pref-sqliteFileExtensions.ak "S">
+<!ENTITY pref-tableForExtensionManagement.label "拡張機能管理データを格納するテーブル名">
+<!ENTITY pref-tableForExtensionManagement.ak "m">
+<!ENTITY panePrompts.title "プロンプト">
+<!ENTITY confirmBeforeExecute "以下を実行する前に確認">
+<!ENTITY pref-confirm.records.label "レコードの追加・編集">
+<!ENTITY pref-confirm.create.label "テーブル・インデックス・ビュー・トリガの作成">
+<!ENTITY pref-confirm.otherSql.label "ほかのあらゆるテーブル操作">
+<!ENTITY paneInterface.title "ユーザーインターフェース">
+<!ENTITY toolbar.caption "ツールバー設定">
+<!ENTITY pref-hideMainToolbar.label "すべてのツールバーを非表示にする">
+<!ENTITY pref-showMainToolbarDatabase.label "データベースツールバーを表示する">
+<!ENTITY pref-showMainToolbarIndex.label "インデックスツールバーを表示する">
+<!ENTITY pref-showMainToolbarTable.label "テーブルツールバーを表示する">
+<!ENTITY pref-displayNumRecords.label "表示するレコード数 (参照と検索タブ)">
+<!ENTITY pref-displayNumRecords.ak "N">
+<!ENTITY pref-sqlTextboxRows.label "SQL を入力するテキストボックスの行数 (SQL 実行タブ)">
+<!ENTITY pref-sqlTextboxRows.ak "R">
+<!ENTITY pref-maxColumnsInTable.label "テーブル作成ダイアログでの列の最大数">
+<!ENTITY pref-maxColumnsInTable.ak "M">
+<!ENTITY blobDisplay.caption "BLOB データをどのように表示しますか？">
+<!ENTITY pref-textForBlob.label "BLOB 値に関して表示するテキスト">
+<!ENTITY pref-textForBlob.ak "B">
+<!ENTITY pref-showBlobSize.label "Blob データのサイズを表示する">
+<!ENTITY pref-maxSizeToShowBlobData.ak "z">
+<!ENTITY pref-displayDataAs.label "データ表示形式:">
+<!ENTITY pref-displayDataAs-hex "16進数値 (例えば X`31323334`)">
+<!ENTITY pref-displayDataAs-string "文字列">
+<!ENTITY pref-whenInsertingShow.ak "W">

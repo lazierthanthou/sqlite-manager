@@ -1,0 +1,78 @@
+<!ENTITY prefwinTitle "SQLiteManage選項">
+<!ENTITY paneMain.title "主選單">
+<!ENTITY pref-openMode.label "開啟SQLite Manager">
+<!ENTITY pref-openMode-win "在新的視窗">
+<!ENTITY pref-openMode-win.ak "w">
+<!ENTITY pref-openMode-tab "在新的分頁">
+<!ENTITY pref-openADS.label "Open ADS (Windows/NTFS only)">
+<!ENTITY disable "Disable">
+<!ENTITY enable "Enable">
+<!ENTITY whenSMStarts "當SQLite Manager開始">
+<!ENTITY pref-openWithLastDb.label "開啟上次使用的資料庫">
+<!ENTITY pref-openWithLastDb.ak "O">
+<!ENTITY pref-promptForLastDb.label "當開啟上次所使用資料庫時將要求確認">
+<!ENTITY pref-promptForLastDb.ak "A">
+<!ENTITY pref-autoBackup.label "Create a timestamped Backup before opening a database">
+<!ENTITY pref-autoBackup.ak "B">
+<!ENTITY pref-autoBackup.on "on">
+<!ENTITY pref-autoBackup.off "off">
+<!ENTITY pref-autoBackup.prompt "prompt">
+<!ENTITY pref-sqliteFileExtensions.label "SQLite檔案的預設副檔名">
+<!ENTITY pref-sqliteFileExtensions.ak "S">
+<!ENTITY pref-tableForExtensionManagement.label "儲存額外管理資料之table名稱">
+<!ENTITY pref-tableForExtensionManagement.ak "m">
+<!ENTITY panePrompts.title "提示">
+<!ENTITY confirmBeforeExecute "執行下列動作須先確認">
+<!ENTITY pref-confirm.records.label "在新增/編輯record">
+<!ENTITY pref-confirm.create.label "在新增table/index/view/trigger">
+<!ENTITY pref-confirm.otherSql.label "對於table的任何操作">
+<!ENTITY paneInterface.title "使用者介面">
+<!ENTITY toolbar.caption "工具列設定">
+<!ENTITY pref-hideMainToolbar.label "隱藏所有的工具列">
+<!ENTITY pref-showMainToolbarDatabase.label "顯示Database工具列">
+<!ENTITY pref-showMainToolbarIndex.label "顯示Index工具列">
+<!ENTITY pref-showMainToolbarTable.label "顯示Table工具列">
+<!ENTITY pref-showMainToolbarDebug.label "Show the Debug toolbar">
+<!ENTITY pref-notificationDuration.label "Duration (in seconds) of notification messages">
+<!ENTITY pref-notificationDuration.ak "D">
+<!ENTITY pref-displayNumRecords.label "顯示records的數目 (瀏覽及搜尋標籤)">
+<!ENTITY pref-displayNumRecords.ak "N">
+<!ENTITY pref-sqlTextboxRows.label "輸入sql文字方塊的欄數 (執行SQL標籤)">
+<!ENTITY pref-sqlTextboxRows.ak "R">
+<!ENTITY pref-maxColumnsInTable.label "Create Table對話視窗的最大列數">
+<!ENTITY pref-maxColumnsInTable.ak "M">
+<!ENTITY blobDisplay.caption "How to display BLOB data?">
+<!ENTITY pref-textForBlob.label "BLOB值顯示的文字">
+<!ENTITY pref-textForBlob.ak "B">
+<!ENTITY pref-showBlobSize.label "顯示blob資料的大小">
+<!ENTITY pref-maxSizeToShowBlobData.label "Size (in bytes) below which blob should be displayed as string">
+<!ENTITY pref-maxSizeToShowBlobData.ak "z">
+<!ENTITY pref-displayDataAs.label "Display blob data as:">
+<!ENTITY pref-displayDataAs-hex "Hex value (e.g. X`31323334`)">
+<!ENTITY pref-displayDataAs-string "String">
+<!ENTITY pref-whenInsertingShow.label "When adding new record, show previously added values, or default values">
+<!ENTITY pref-whenInsertingShow.ak "W">
+<!ENTITY pref-whenInsertingShow-previous "Previous">
+<!ENTITY pref-whenInsertingShow-default "Default">
+<!ENTITY pref-identifierQuoteChar.label "Characters to enclose the identifiers with">
+<!ENTITY pref-identifierQuoteChar-doublequotes "Double quotes">
+<!ENTITY pref-identifierQuoteChar-squarebrackets "Square brackets []">
+<!ENTITY pref-identifierQuoteChar-graveaccents "Grave accents ``">
+<!ENTITY paneDatatree.title "Data Tree Style">
+<!ENTITY paneDatatree.datatype "Data type">
+<!ENTITY paneDatatree.property "Property">
+<!ENTITY paneDatatree.unselected "Unselected">
+<!ENTITY paneDatatree.selected "Selected">
+<!ENTITY paneDatatree.typeNull "Null">
+<!ENTITY paneDatatree.typeInteger "Integer">
+<!ENTITY paneDatatree.typeReal "Real">
+<!ENTITY paneDatatree.typeText "Text">
+<!ENTITY paneDatatree.typeBlob "Blob">
+<!ENTITY paneDatatree.textColor "text color">
+<!ENTITY paneDatatree.backgroundColor "background color">
+<!ENTITY paneDatatree.fontSize "Font Size (in percent)">
+<!ENTITY paneDatatree.fontFamily "Font Family">
+<!ENTITY paneDatatree.rowHeight "Row Height (in pixels; 0 means default height)">
+<!ENTITY paneDatatree.btnSetDefault "Set Default">
+<!ENTITY paneDatatree.btnApply "Apply">
+<!ENTITY paneDatatree.btnNone "None">

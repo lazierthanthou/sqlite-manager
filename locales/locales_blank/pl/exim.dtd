@@ -1,0 +1,46 @@
+<!ENTITY tablename "Nazwa tabeli:">
+<!ENTITY tablename.ak "N">
+<!ENTITY CSV "CSV">
+<!ENTITY SQL "SQL">
+<!ENTITY XML "XML">
+<!ENTITY csv.tableName "Wprowadź nazwę tabeli, do której dane mają zostać zaimportowane:">
+<!ENTITY Comma "przecinkiem">
+<!ENTITY Comma.ak "p">
+<!ENTITY Semicolon "średnikiem">
+<!ENTITY Pipe "pionową kreską">
+<!ENTITY Tab "tabulatorem">
+<!ENTITY csv.firstrow "Pierwszy wiersz zawiera nazwy kolumn">
+<!ENTITY csv.separate "Pola oddzielone">
+<!ENTITY csv.enclose "Pola zakończone">
+<!ENTITY sql.settings "Ustawienia SQL">
+<!ENTITY sql.create "Zawrzyj instrukcję CREATE TABLE">
+<!ENTITY sql.transaction "Używaj instrukcji BEGIN TRANSACTION/COMMIT">
+<!ENTITY sql.transaction.desc "Gdy ta opcja jest zaznaczona, rozszerzenie zakłada, że w wybranym pliku pierwsza i ostatnia instrukcje są (kolejno) instrukcjami BEGIN TRANSACTION i COMMIT. Rozszerzenie pominie te instrukcje i wykona wszystkie pozostałe instrukcje w pojedynczej transakcji. Jeżeli inne instrukcje dotyczące transakcji są zawarte pośród pozostałych instrukcji, powinny one zostać ręcznie usunięte z pliku przed wykonaniem importu.">
+<!ENTITY xml.type "Include/Use Type jako artybut">
+<!ENTITY xml.type.desc "Odznacz tę opcję, jeśli importujesz dane, które nie zawierają tego atrybutu. Zalecane jest użycie tej funkcji, jeśli zamierzasz wyeksportować dane korzystając z SQLite Managera - te dodatkowe informacje mogą wówczas zostać użyte podczas importu w celu odróżnienia od siebie ciągów tekstowych, zer (&quot;null&quot;), liczb całkowitych itd.">
+<!ENTITY importWizard "Asystent importu">
+<!ENTITY eximDbName "Baza danych:">
+<!ENTITY eximDbName.ak "B">
+<!ENTITY loading "(wczytywanie)">
+<!ENTITY eximFilename "Wybierz plik">
+<!ENTITY eximFilename.ak "W">
+<!ENTITY eximFileCharSet "Kodowanie znaków">
+<!ENTITY eximFileCharSet.ak "K">
+<!ENTITY eximCsv_encloser.doublequotes.standard "Cudzysłowy (&quot;), jeśli konieczne (standardowo)">
+<!ENTITY eximCsv_encloser.doublequotes.standard.ak "c">
+<!ENTITY eximCsv_encloser.doublequotes.always "Cudzysłowy (&quot;), zawsze">
+<!ENTITY eximCsv_encloser.doublequotes.likeExcel "">
+<!ENTITY eximCsv_encloser.singlequotes "Apostrofy (')">
+<!ENTITY eximCsv_encloser.none "">
+<!ENTITY eximCsv_encloser.other "Inne">
+<!ENTITY eximCsv-expSaveSetting "Zapisz ustawienia eksportu do plików CSV">
+<!ENTITY eximCsv-expSaveSetting-tooltiptext "Możesz zapisać te ustawienia, jeśli chcesz, aby były one używane przez operację 'Kopiuj wiersze jako CSV'.">
+<!ENTITY eximCsv-impSaveSetting "">
+<!ENTITY eximCsv-impSaveSetting-tooltiptext "">
+<!ENTITY eximCsv-expUseSetting "">
+<!ENTITY eximCsv-impUseSetting "">
+<!ENTITY eximXml_root-element "Nazwa elementu-korzenia:">
+<!ENTITY eximXml_prefix-table-element "Ustaw to jako prefiks tabeli">
+<!ENTITY exim-exp-ok "OK">
+<!ENTITY exim-imp-ok "OK">
+<!ENTITY exim-cancel "Zamknij asystenta">

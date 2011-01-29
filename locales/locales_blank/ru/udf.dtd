@@ -1,0 +1,16 @@
+<!ENTITY udf.selectDir "Выбрать каталог UDF БД">
+<!ENTITY udf.selectDir.ak "В">
+<!ENTITY udf.reloadFunctions "Функции перезагрузки">
+<!ENTITY udf.viewFunction "Вид">
+<!ENTITY udf.editFunction "Правка">
+<!ENTITY udf.deleteFunction "Удалить">
+<!ENTITY udf.addFunction "Новая">
+<!ENTITY udf.saveFunction "Сохранить">
+<!ENTITY udf.closeTab "Закрыть вкладку">
+<!ENTITY udf.simpleFunctions "Простые функции">
+<!ENTITY udf.aggFunctions "Сложные функции">
+<!ENTITY udf.funcName "Имя функции">
+<!ENTITY udf.funcArgLength "Количество аргументов">
+<!ENTITY udf.funcBody "Тело функции:">
+<!ENTITY udf.funcOnStepBody "Тело функции (для метода onStep):">
+<!ENTITY udf.funcOnFinalBody "Тело функции (для метода onFinal):">

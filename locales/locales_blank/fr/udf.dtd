@@ -1,0 +1,16 @@
+<!ENTITY udf.selectDir "">
+<!ENTITY udf.selectDir.ak "">
+<!ENTITY udf.reloadFunctions "">
+<!ENTITY udf.viewFunction "Voir">
+<!ENTITY udf.editFunction "">
+<!ENTITY udf.deleteFunction "">
+<!ENTITY udf.addFunction "">
+<!ENTITY udf.saveFunction "">
+<!ENTITY udf.closeTab "">
+<!ENTITY udf.simpleFunctions "">
+<!ENTITY udf.aggFunctions "">
+<!ENTITY udf.funcName "">
+<!ENTITY udf.funcArgLength "">
+<!ENTITY udf.funcBody "">
+<!ENTITY udf.funcOnStepBody "">
+<!ENTITY udf.funcOnFinalBody "">

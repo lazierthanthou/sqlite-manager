@@ -1,0 +1,16 @@
+<!ENTITY udf.selectDir "UDF DB ディレクトリを選択">
+<!ENTITY udf.selectDir.ak "S">
+<!ENTITY udf.reloadFunctions "関数を再読み込み">
+<!ENTITY udf.viewFunction "表示">
+<!ENTITY udf.editFunction "編集">
+<!ENTITY udf.deleteFunction "削除">
+<!ENTITY udf.addFunction "新規">
+<!ENTITY udf.saveFunction "保存">
+<!ENTITY udf.closeTab "タブを閉じる">
+<!ENTITY udf.simpleFunctions "単純関数">
+<!ENTITY udf.aggFunctions "集合関数">
+<!ENTITY udf.funcName "関数名">
+<!ENTITY udf.funcArgLength "引数の数">
+<!ENTITY udf.funcBody "関数本文:">
+<!ENTITY udf.funcOnStepBody "関数本文 (onStep 用):">
+<!ENTITY udf.funcOnFinalBody "関数本文 (onFinal 用):">

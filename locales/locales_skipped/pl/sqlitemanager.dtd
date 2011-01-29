@@ -1,0 +1,141 @@
+<!ENTITY window.title "SQLite Manager">
+<!ENTITY menu.tools "Narzędia">
+<!ENTITY menu.tools.ak "N">
+<!ENTITY sqliteVersion "Wersja SQLite">
+<!ENTITY sqliteVersion.ak "W">
+<!ENTITY mi.options "Opcje">
+<!ENTITY mi.options.ak "O">
+<!ENTITY mi.sharedPagerCache "Współdzielony bufor pagera">
+<!ENTITY mi.sharedPagerCache.ak "W">
+<!ENTITY mi.extensionTable "Przechowuj dane rozszerzenia w tabelach">
+<!ENTITY mi.extensionTable.ak "P">
+<!ENTITY menu.db "Baza danych">
+<!ENTITY menu.db.ak "B">
+<!ENTITY menu.db.new "Nowa baza danych">
+<!ENTITY menu.db.new.ak "N">
+<!ENTITY menu.db.connect "Połącz z bazą danych">
+<!ENTITY menu.db.connect.ak "P">
+<!ENTITY menu.db.close "Zamknij bazę danych">
+<!ENTITY menu.db.close.ak "Z">
+<!ENTITY menu.db.mru "Ostatnio otwierane">
+<!ENTITY menu.db.mru.ak "u">
+<!ENTITY menu.db.copy "Skopiuj bazę danych">
+<!ENTITY menu.db.copy.ak "k">
+<!ENTITY menu.db.compact "Skompresuj bazę danych">
+<!ENTITY menu.db.compact.ak "m">
+<!ENTITY menu.db.analyze "Przeanalizuj bazę danych">
+<!ENTITY menu.db.analyze.ak "a">
+<!ENTITY menu.db.check "Sprawdź integralność">
+<!ENTITY menu.db.check.ak "t">
+<!ENTITY import "Zaimportuj">
+<!ENTITY import.ak "i">
+<!ENTITY refresh "Odśwież">
+<!ENTITY refresh.ak "O">
+<!ENTITY reconnect "Połącz ponownie">
+<!ENTITY reconnect.ak "e">
+<!ENTITY refreshDirection "Wciśnij Shift+F5, aby odświeżyć">
+<!ENTITY exit "Wyjdź">
+<!ENTITY exit.ak "W">
+<!ENTITY createTable "Utwórz tabelę">
+<!ENTITY dropTable "Usuń tabelę">
+<!ENTITY emptyTable "Wyczyść tabelę">
+<!ENTITY reindexTable "Odśwież indeks">
+<!ENTITY renameTable "Zmień nazwę tabeli">
+<!ENTITY copyTable "Skopiuj tabelę">
+<!ENTITY exportTable "Wyeksportuj tabelę">
+<!ENTITY createIndex "Utwórz indeks">
+<!ENTITY dropIndex "Usuń indeks">
+<!ENTITY reindexIndex "Odśwież indeks">
+<!ENTITY createView "Utwórz widok">
+<!ENTITY dropView "Usuń widok">
+<!ENTITY exportView "Wyeksportuj widok">
+<!ENTITY createTrigger "Utwórz wyzwalacz">
+<!ENTITY dropTrigger "Usuń wyzwalacz">
+<!ENTITY menu.table "Tabela">
+<!ENTITY menu.table.ak "T">
+<!ENTITY menu.index "Indeks">
+<!ENTITY menu.index.ak "I">
+<!ENTITY menu.view "Widok">
+<!ENTITY menu.view.ak "W">
+<!ENTITY menu.trigger "Wyzwalacz">
+<!ENTITY menu.trigger.ak "W">
+<!ENTITY create "Utwórz">
+<!ENTITY create.ak "U">
+<!ENTITY drop "Usuń">
+<!ENTITY drop.ak "s">
+<!ENTITY export "Wyeksportuj">
+<!ENTITY export.ak "E">
+<!ENTITY empty "Wyczyść">
+<!ENTITY empty.ak "W">
+<!ENTITY rename "Zmień nazwę">
+<!ENTITY rename.ak "n">
+<!ENTITY modify "Zmodyfikuj">
+<!ENTITY modify.ak "Z">
+<!ENTITY copy "Skopiuj">
+<!ENTITY copy.ak "k">
+<!ENTITY reindex "Odśwież indeks">
+<!ENTITY reindex.ak "O">
+<!ENTITY analyze "Przeanalizuj">
+<!ENTITY analyze.ak "A">
+<!ENTITY menu.help "Pomoc">
+<!ENTITY menu.help.ak "P">
+<!ENTITY menu.help.reportProblem "Zgłoś problem">
+<!ENTITY menu.help.reportProblem.ak "Z">
+<!ENTITY menu.help.faq "Często zadawane pytania">
+<!ENTITY menu.help.faq.ak "C">
+<!ENTITY menu.help.sqlitehome "Strona domowa SQLite">
+<!ENTITY menu.help.sqlitehome.ak "d">
+<!ENTITY menu.help.sqlitesyntax "Pomoc składniowa SQLite">
+<!ENTITY menu.help.sqlitesyntax.ak "s">
+<!ENTITY menu.help.extensionhome "Strona domowa rozszerzenia">
+<!ENTITY menu.help.extensionhome.ak "r">
+<!ENTITY menu.help.aboutextension "O SQLite Managerze">
+<!ENTITY menu.help.aboutextension.ak "O">
+<!ENTITY profile.dblist.buttonlabel "Przejdź">
+<!ENTITY string.enterSql "Wprowadź zapytanie SQL">
+<!ENTITY tab.structure "Struktura">
+<!ENTITY tab.browse "Przeglądanie i wyszukiwanie">
+<!ENTITY tab.execute "Wykonaj zapytanie SQL">
+<!ENTITY tab.dbinfo "Ustawienia bazy danych">
+<!ENTITY btn.search "Wyszukaj">
+<!ENTITY btn.search.ak "W">
+<!ENTITY btn.showAll "Pokaż wszystkie">
+<!ENTITY btn.showAll.ak "P">
+<!ENTITY btn.exporttable "Wyeksportuj">
+<!ENTITY btn.exporttable.ak "e">
+<!ENTITY btn.addrecord "Dodaj nowy rekord">
+<!ENTITY btn.addrecord.ak "D">
+<!ENTITY menu.editSelected "Edytuj wybrany">
+<!ENTITY menu.editSelected.ak "E">
+<!ENTITY menu.deleteSelected "Usuń wybrany">
+<!ENTITY menu.deleteSelected.ak "U">
+<!ENTITY menu.copyCell "Skopiuj komórkę">
+<!ENTITY menu.copyCell.ak "k">
+<!ENTITY menu.copyRows "Skopiuj wiersz">
+<!ENTITY menu.copyRows.ak "w">
+<!ENTITY btn.runsql "Wykonaj zapytanie SQL">
+<!ENTITY btn.runsql.ak "W">
+<!ENTITY label.sqlLastError "Ostatni błąd">
+<!ENTITY label.resultOfQuery "Wynik zapytania">
+<!ENTITY label.resultOfQuery.ak "z">
+<!ENTITY btn.prevSql "Poprzednie zapytanie z historii">
+<!ENTITY btn.nextSql "Następne zapytanie z historii">
+<!ENTITY btn.saveQuery "Zapisz zapytanie pod nazwą">
+<!ENTITY btn.clearHistory "Wyczyść historię zapytań">
+<!ENTITY sbp.db "Baza danych">
+<!ENTITY masterinfo.tbl_name "Związane z tabelą/widokiem">
+<!ENTITY masterinfo.rootpage "Strona główna">
+<!ENTITY masterinfo.sql "Zapytanie SQL, za pomocą którego ten obiekt został utworzony">
+<!ENTITY table "Tabela">
+<!ENTITY index "Indeks">
+<!ENTITY view "Widok">
+<!ENTITY trigger "Wyzwalacz">
+<!ENTITY first "Pierwszy">
+<!ENTITY previous "Poprzedni">
+<!ENTITY next "Następny">
+<!ENTITY last "Ostatni">
+<!ENTITY to "do">
+<!ENTITY of "z">
+<!ENTITY about "O rozszerzeniu">
+<!ENTITY version "Wersja">
+<!ENTITY author "Autor">

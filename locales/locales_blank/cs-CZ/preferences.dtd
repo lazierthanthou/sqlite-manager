@@ -1,0 +1,78 @@
+<!ENTITY prefwinTitle "Možnosti SQLiteManageru">
+<!ENTITY paneMain.title "Hlavní">
+<!ENTITY pref-openMode.label "Spustit SQLite Manager">
+<!ENTITY pref-openMode-win "v novém okně">
+<!ENTITY pref-openMode-win.ak "n">
+<!ENTITY pref-openMode-tab "v nové záložce">
+<!ENTITY pref-openADS.label "">
+<!ENTITY disable "">
+<!ENTITY enable "">
+<!ENTITY whenSMStarts "Když je SQLite Manager spuštěn">
+<!ENTITY pref-openWithLastDb.label "Otevřít naposledy používanou databázi">
+<!ENTITY pref-openWithLastDb.ak "O">
+<!ENTITY pref-promptForLastDb.label "Vždy potvrzovat otevření naposledy použité databáze">
+<!ENTITY pref-promptForLastDb.ak "V">
+<!ENTITY pref-autoBackup.label "">
+<!ENTITY pref-autoBackup.ak "">
+<!ENTITY pref-autoBackup.on "">
+<!ENTITY pref-autoBackup.off "">
+<!ENTITY pref-autoBackup.prompt "">
+<!ENTITY pref-sqliteFileExtensions.label "Výchozí přípona souborů pro SQLite soubory">
+<!ENTITY pref-sqliteFileExtensions.ak "p">
+<!ENTITY pref-tableForExtensionManagement.label "Name of the table to store extension management data">
+<!ENTITY pref-tableForExtensionManagement.ak "m">
+<!ENTITY panePrompts.title "Upozornění">
+<!ENTITY confirmBeforeExecute "Potvrdit před provedením následujících akcí">
+<!ENTITY pref-confirm.records.label "Před přidáním/úpravou záznamu">
+<!ENTITY pref-confirm.create.label "Před vytvořením tabulky/indexu/spouště">
+<!ENTITY pref-confirm.otherSql.label "Jakákoliv jiná operace s tabulkou">
+<!ENTITY paneInterface.title "Uživatelské prostředí">
+<!ENTITY toolbar.caption "Nastavení nástrojových lišt">
+<!ENTITY pref-hideMainToolbar.label "Schovat všechny nástrojové lišty">
+<!ENTITY pref-showMainToolbarDatabase.label "Zobrazit nástrojovou lištu Databáze">
+<!ENTITY pref-showMainToolbarIndex.label "Zobrazit nástrojovou lištu Index">
+<!ENTITY pref-showMainToolbarTable.label "Zobrazit nástrojovou lištu Tabulka">
+<!ENTITY pref-showMainToolbarDebug.label "">
+<!ENTITY pref-notificationDuration.label "">
+<!ENTITY pref-notificationDuration.ak "">
+<!ENTITY pref-displayNumRecords.label "Počet záznamů k zobrazení (záložky Procházet a Najít)">
+<!ENTITY pref-displayNumRecords.ak "Z">
+<!ENTITY pref-sqlTextboxRows.label "Počet řádek v textovém poli k zadání SQL příkazu (záložka Vykonat SQL)">
+<!ENTITY pref-sqlTextboxRows.ak "S">
+<!ENTITY pref-maxColumnsInTable.label "Maximální počet sloupců v dialogu Vytvořit tabulku">
+<!ENTITY pref-maxColumnsInTable.ak "M">
+<!ENTITY blobDisplay.caption "">
+<!ENTITY pref-textForBlob.label "Text to display for BLOB value">
+<!ENTITY pref-textForBlob.ak "B">
+<!ENTITY pref-showBlobSize.label "Display size of blob data">
+<!ENTITY pref-maxSizeToShowBlobData.label "">
+<!ENTITY pref-maxSizeToShowBlobData.ak "">
+<!ENTITY pref-displayDataAs.label "">
+<!ENTITY pref-displayDataAs-hex "">
+<!ENTITY pref-displayDataAs-string "">
+<!ENTITY pref-whenInsertingShow.label "">
+<!ENTITY pref-whenInsertingShow.ak "">
+<!ENTITY pref-whenInsertingShow-previous "">
+<!ENTITY pref-whenInsertingShow-default "">
+<!ENTITY pref-identifierQuoteChar.label "">
+<!ENTITY pref-identifierQuoteChar-doublequotes "">
+<!ENTITY pref-identifierQuoteChar-squarebrackets "">
+<!ENTITY pref-identifierQuoteChar-graveaccents "">
+<!ENTITY paneDatatree.title "">
+<!ENTITY paneDatatree.datatype "">
+<!ENTITY paneDatatree.property "">
+<!ENTITY paneDatatree.unselected "">
+<!ENTITY paneDatatree.selected "">
+<!ENTITY paneDatatree.typeNull "">
+<!ENTITY paneDatatree.typeInteger "">
+<!ENTITY paneDatatree.typeReal "">
+<!ENTITY paneDatatree.typeText "">
+<!ENTITY paneDatatree.typeBlob "">
+<!ENTITY paneDatatree.textColor "">
+<!ENTITY paneDatatree.backgroundColor "">
+<!ENTITY paneDatatree.fontSize "">
+<!ENTITY paneDatatree.fontFamily "">
+<!ENTITY paneDatatree.rowHeight "">
+<!ENTITY paneDatatree.btnSetDefault "">
+<!ENTITY paneDatatree.btnApply "">
+<!ENTITY paneDatatree.btnNone "">

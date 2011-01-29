@@ -1,0 +1,141 @@
+<!ENTITY window.title "SQLite Yöneticisi">
+<!ENTITY menu.tools "Araçlar">
+<!ENTITY menu.tools.ak "o">
+<!ENTITY sqliteVersion "SQLite Sürümü">
+<!ENTITY sqliteVersion.ak "S">
+<!ENTITY mi.options "Seçenekler">
+<!ENTITY mi.options.ak "O">
+<!ENTITY mi.sharedPagerCache "Paylaşılan Sayfa Önbelleği">
+<!ENTITY mi.sharedPagerCache.ak "S">
+<!ENTITY mi.extensionTable "Uzantı Verisi için Tablo Kullan">
+<!ENTITY mi.extensionTable.ak "E">
+<!ENTITY menu.db "Veritabanı">
+<!ENTITY menu.db.ak "D">
+<!ENTITY menu.db.new "Yeni Veritabanı">
+<!ENTITY menu.db.new.ak "N">
+<!ENTITY menu.db.connect "Veritabanına Bağlan">
+<!ENTITY menu.db.connect.ak "o">
+<!ENTITY menu.db.close "Veritabanını Kapat">
+<!ENTITY menu.db.close.ak "C">
+<!ENTITY menu.db.mru "Yakında Kullanılan">
+<!ENTITY menu.db.mru.ak "U">
+<!ENTITY menu.db.copy "Veritabanını Kopyala">
+<!ENTITY menu.db.copy.ak "p">
+<!ENTITY menu.db.compact "Veritabanını Sıkıştır">
+<!ENTITY menu.db.compact.ak "m">
+<!ENTITY menu.db.analyze "Veritabanını Analiz Et">
+<!ENTITY menu.db.analyze.ak "A">
+<!ENTITY menu.db.check "Bütünlüğü Kontrol Et">
+<!ENTITY menu.db.check.ak "k">
+<!ENTITY import "İçeri Aktar">
+<!ENTITY import.ak "I">
+<!ENTITY refresh "Tazele">
+<!ENTITY refresh.ak "R">
+<!ENTITY reconnect "Tekrar Bağlan">
+<!ENTITY reconnect.ak "e">
+<!ENTITY refreshDirection "Tazeleme için Shift+F5 tuşuna bas">
+<!ENTITY exit "Çıkış">
+<!ENTITY exit.ak "x">
+<!ENTITY createTable "Tablo Yarat">
+<!ENTITY dropTable "Tabloyu Sil">
+<!ENTITY emptyTable "Tabloyu Boşalt">
+<!ENTITY reindexTable "Tabloyu Tekrar Dizinle">
+<!ENTITY renameTable "Tabloyu Yeniden Adlandır">
+<!ENTITY copyTable "Tabloyu Kopyala">
+<!ENTITY exportTable "Tabloyu Dışarı Aktar">
+<!ENTITY createIndex "Dizin Yarat">
+<!ENTITY dropIndex "Dizini Sil">
+<!ENTITY reindexIndex "Dizini Yeniden Dizinle">
+<!ENTITY createView "Görünüm Yarat">
+<!ENTITY dropView "Görünümü Sil">
+<!ENTITY exportView "Görünümü Dışarı Aktar">
+<!ENTITY createTrigger "Trigger Yarat">
+<!ENTITY dropTrigger "Trigger'i Sil">
+<!ENTITY menu.table "Tablo">
+<!ENTITY menu.table.ak "T">
+<!ENTITY menu.index "Dizin">
+<!ENTITY menu.index.ak "I">
+<!ENTITY menu.view "Göster">
+<!ENTITY menu.view.ak "V">
+<!ENTITY menu.trigger "Trigger">
+<!ENTITY menu.trigger.ak "T">
+<!ENTITY create "Yarat">
+<!ENTITY create.ak "C">
+<!ENTITY drop "Sil">
+<!ENTITY drop.ak "D">
+<!ENTITY export "Dışarı Aktar">
+<!ENTITY export.ak "x">
+<!ENTITY empty "Boş">
+<!ENTITY empty.ak "y">
+<!ENTITY rename "Yeniden Adlandır">
+<!ENTITY rename.ak "R">
+<!ENTITY modify "Değiştir">
+<!ENTITY modify.ak "M">
+<!ENTITY copy "Kopyala">
+<!ENTITY copy.ak "p">
+<!ENTITY reindex "Yeniden Dizinle">
+<!ENTITY reindex.ak "i">
+<!ENTITY analyze "Analiz">
+<!ENTITY analyze.ak "A">
+<!ENTITY menu.help "Yardım">
+<!ENTITY menu.help.ak "H">
+<!ENTITY menu.help.reportProblem "Sorunu Raporla">
+<!ENTITY menu.help.reportProblem.ak "R">
+<!ENTITY menu.help.faq "Sıkça Sorulan Sorular">
+<!ENTITY menu.help.faq.ak "F">
+<!ENTITY menu.help.sqlitehome "SQLite Ev sayfası">
+<!ENTITY menu.help.sqlitehome.ak "Q">
+<!ENTITY menu.help.sqlitesyntax "SQLite Sözdizimi Yardımı">
+<!ENTITY menu.help.sqlitesyntax.ak "S">
+<!ENTITY menu.help.extensionhome "Eklenti Ev sayfası">
+<!ENTITY menu.help.extensionhome.ak "E">
+<!ENTITY menu.help.aboutextension "SQLite Yöneticisi Hakkında">
+<!ENTITY menu.help.aboutextension.ak "A">
+<!ENTITY profile.dblist.buttonlabel "Git">
+<!ENTITY string.enterSql "SQL Gir">
+<!ENTITY tab.structure "Yapısı">
+<!ENTITY tab.browse "Listele &amp; Arama">
+<!ENTITY tab.execute "SQL Çalıştır">
+<!ENTITY tab.dbinfo "DB Ayarları">
+<!ENTITY btn.search "Arama">
+<!ENTITY btn.search.ak "h">
+<!ENTITY btn.showAll "Tümünü Göster">
+<!ENTITY btn.showAll.ak "S">
+<!ENTITY btn.exporttable "Dışarı aktar">
+<!ENTITY btn.exporttable.ak "E">
+<!ENTITY btn.addrecord "Yeni Kayıt Ekle">
+<!ENTITY btn.addrecord.ak "A">
+<!ENTITY menu.editSelected "Seçileni Düzelt">
+<!ENTITY menu.editSelected.ak "E">
+<!ENTITY menu.deleteSelected "Seçileni Sil">
+<!ENTITY menu.deleteSelected.ak "l">
+<!ENTITY menu.copyCell "Hücreyi Kopyala">
+<!ENTITY menu.copyCell.ak "C">
+<!ENTITY menu.copyRows "Satır(ları) Kopyala">
+<!ENTITY menu.copyRows.ak "R">
+<!ENTITY btn.runsql "SQL Deyimini Çalıştır">
+<!ENTITY btn.runsql.ak "R">
+<!ENTITY label.sqlLastError "Son Hata">
+<!ENTITY label.resultOfQuery "Sorgunun Sonucu">
+<!ENTITY label.resultOfQuery.ak "Q">
+<!ENTITY btn.prevSql "Tarihçede önceki Sql">
+<!ENTITY btn.nextSql "Tarihçede bir sonraki Sql">
+<!ENTITY btn.saveQuery "Sorguyu İsme göre Kaydet">
+<!ENTITY btn.clearHistory "Sorgu Geçmişini Temizle">
+<!ENTITY sbp.db "DB">
+<!ENTITY masterinfo.tbl_name "Tablo/View ile İlişkilendirilen">
+<!ENTITY masterinfo.rootpage "Rootpage">
+<!ENTITY masterinfo.sql "Bu nesneyi yaratan SQL ifadesi">
+<!ENTITY table "Tablo">
+<!ENTITY index "Diniz">
+<!ENTITY view "Görünüm">
+<!ENTITY trigger "Trigger">
+<!ENTITY first "İlk">
+<!ENTITY previous "Önceki">
+<!ENTITY next "Sonraki">
+<!ENTITY last "Son">
+<!ENTITY to "git">
+<!ENTITY of "nin">
+<!ENTITY about "Hakkında">
+<!ENTITY version "Sürüm">
+<!ENTITY author "Yazar">

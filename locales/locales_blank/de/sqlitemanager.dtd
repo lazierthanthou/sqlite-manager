@@ -1,0 +1,292 @@
+<!ENTITY window.title "SQLite Manager">
+<!ENTITY menu.tools "Extras">
+<!ENTITY menu.tools.ak "x">
+<!ENTITY sqliteVersion "SQLite-Version">
+<!ENTITY sqliteVersion.ak "S">
+<!ENTITY mi.options "Einstellungen">
+<!ENTITY mi.options.ak "E">
+<!ENTITY mi.sharedPagerCache "Gemeinsamer Seiten-Cache">
+<!ENTITY mi.sharedPagerCache.ak "S">
+<!ENTITY mi.extensionTable "Tabelle für Erweiterungsdaten benutzen">
+<!ENTITY mi.extensionTable.ak "T">
+<!ENTITY mi.openOnConnectSqlTab "">
+<!ENTITY mi.openOnConnectSqlTab.ak "">
+<!ENTITY mi.console "Fehlerkonsole">
+<!ENTITY mi.console.ak "k">
+<!ENTITY mi.aboutconfig "about:config">
+<!ENTITY mi.aboutconfig.ak "b">
+<!ENTITY menu.db "Datenbank">
+<!ENTITY menu.db.ak "D">
+<!ENTITY menu.db.new "Neue Datenbank">
+<!ENTITY menu.db.new.ak "N">
+<!ENTITY menu.db.newMemory "Neue Datenbank im RAM">
+<!ENTITY menu.db.newMemory.ak "r">
+<!ENTITY menu.db.connect "Mit Datenbank verbinden">
+<!ENTITY menu.db.connect.ak "v">
+<!ENTITY menu.db.connectADS "Mit ADS-Datenbank verbinden">
+<!ENTITY menu.db.attach "Datenbank anhängen">
+<!ENTITY menu.db.attach.ak "h">
+<!ENTITY menu.db.detach "Datenbank abtrennen">
+<!ENTITY menu.db.detach.ak "a">
+<!ENTITY menu.db.close "Datenbank schließen">
+<!ENTITY menu.db.close.ak "s">
+<!ENTITY menu.db.mru "Kürzlich verwendet">
+<!ENTITY menu.db.mru.ak "K">
+<!ENTITY menu.db.copy "Datenbank kopieren">
+<!ENTITY menu.db.copy.ak "p">
+<!ENTITY menu.db.compact "Datenbank komprimieren">
+<!ENTITY menu.db.compact.ak "m">
+<!ENTITY menu.db.analyze "Datenbank analysieren">
+<!ENTITY menu.db.analyze.ak "a">
+<!ENTITY menu.db.check "Integrität überprüfen">
+<!ENTITY menu.db.check.ak "g">
+<!ENTITY exportAll "Alle Tabellen exportieren">
+<!ENTITY exportAll.ak "x">
+<!ENTITY exportDb "Datenbank exportieren">
+<!ENTITY exportDb.ak "b">
+<!ENTITY exportDbStr "Datenbank-Struktur exportieren">
+<!ENTITY exportDbStr.ak "u">
+<!ENTITY import "Importieren">
+<!ENTITY import.ak "I">
+<!ENTITY refresh "Aktualisieren">
+<!ENTITY refresh.ak "l">
+<!ENTITY reconnect "Wieder verbinden">
+<!ENTITY reconnect.ak "e">
+<!ENTITY refreshDirection "Shift+F5 drücken, um zu aktualisieren">
+<!ENTITY exit "Beenden">
+<!ENTITY exit.ak "B">
+<!ENTITY createTable "Tabelle erstellen">
+<!ENTITY dropTable "Tabelle löschen">
+<!ENTITY modifyTable "Tabelle bearbeiten">
+<!ENTITY emptyTable "Tabelle leeren">
+<!ENTITY reindexTable "Tabelle neu indexieren">
+<!ENTITY renameTable "Tabelle umbenennen">
+<!ENTITY copyTable "Tabelle kopieren">
+<!ENTITY exportTable "Tabelle exportieren">
+<!ENTITY createIndex "Index erstellen">
+<!ENTITY dropIndex "Index löschen">
+<!ENTITY reindexIndex "Index neu erstellen">
+<!ENTITY createView "Sicht erstellen">
+<!ENTITY dropView "Sicht löschen">
+<!ENTITY renameView "Sicht umbenennen">
+<!ENTITY modifyView "Sicht ändern">
+<!ENTITY exportView "Sicht exportieren">
+<!ENTITY createTrigger "Trigger erstellen">
+<!ENTITY dropTrigger "Trigger löschen">
+<!ENTITY renameTrigger "Trigger umbenennen">
+<!ENTITY menu.table "Tabelle">
+<!ENTITY menu.table.ak "T">
+<!ENTITY menu.index "Index">
+<!ENTITY menu.index.ak "I">
+<!ENTITY menu.view "Sicht">
+<!ENTITY menu.view.ak "S">
+<!ENTITY menu.trigger "Trigger">
+<!ENTITY menu.trigger.ak "r">
+<!ENTITY create "Erstellen">
+<!ENTITY create.ak "E">
+<!ENTITY drop "Löschen">
+<!ENTITY drop.ak "s">
+<!ENTITY export "Exportieren">
+<!ENTITY export.ak "x">
+<!ENTITY empty "Leeren">
+<!ENTITY empty.ak "L">
+<!ENTITY rename "Umbenennen">
+<!ENTITY rename.ak "U">
+<!ENTITY modify "Ändern">
+<!ENTITY modify.ak "d">
+<!ENTITY copy "Kopieren">
+<!ENTITY copy.ak "p">
+<!ENTITY reindex "Neu indexieren">
+<!ENTITY reindex.ak "i">
+<!ENTITY analyze "Analysieren">
+<!ENTITY analyze.ak "A">
+<!ENTITY menu.help "Hilfe">
+<!ENTITY menu.help.ak "H">
+<!ENTITY menu.help.reportProblem "Ein Problem melden">
+<!ENTITY menu.help.reportProblem.ak "p">
+<!ENTITY menu.help.faq "Häufig gestellte Fragen">
+<!ENTITY menu.help.faq.ak "F">
+<!ENTITY menu.help.sqlitehome "SQLite-Homepage">
+<!ENTITY menu.help.sqlitehome.ak "Q">
+<!ENTITY menu.help.sqlitesyntax "SQLite-Syntax-Hilfe">
+<!ENTITY menu.help.sqlitesyntax.ak "S">
+<!ENTITY menu.help.extensionhome "Homepage der Erweiterung">
+<!ENTITY menu.help.extensionhome.ak "E">
+<!ENTITY menu.help.aboutextension "Über SQLite Manager">
+<!ENTITY menu.help.aboutextension.ak "b">
+<!ENTITY profile.dblist.select "(Profildatenbank wählen)">
+<!ENTITY profile.dblist.buttonlabel "Los">
+<!ENTITY string.enterSql "SQL eingeben">
+<!ENTITY string.enterSql.ak "S">
+<!ENTITY tab.structure "Struktur">
+<!ENTITY tab.browse "Durchsuchen">
+<!ENTITY tab.execute "SQL ausführen">
+<!ENTITY tab.dbinfo "DB-Einstellungen">
+<!ENTITY tab.udf "Benutzerdefinierte Funktionen">
+<!ENTITY tab.connectSql "">
+<!ENTITY btn.search "Suchen">
+<!ENTITY btn.search.ak "h">
+<!ENTITY btn.showAll "Alle einblenden">
+<!ENTITY btn.showAll.ak "A">
+<!ENTITY btn.exporttable "Exportieren">
+<!ENTITY btn.exporttable.ak "x">
+<!ENTITY btn.addcol "Spalte hinzufügen">
+<!ENTITY btn.addrecord "Datensatz hinzufügen">
+<!ENTITY btn.addrecord.ak "A">
+<!ENTITY menu.editSelected "Ausgewählte bearbeiten">
+<!ENTITY menu.editSelected.ak "b">
+<!ENTITY menu.deleteSelected "Ausgewählte löschen">
+<!ENTITY menu.deleteSelected.ak "s">
+<!ENTITY menu.duplicateRecord "Datensatz duplizieren">
+<!ENTITY menu.duplicateRecord.ak "p">
+<!ENTITY menu.copyColName "Spaltennamen kopieren">
+<!ENTITY menu.copyColName.ak "S">
+<!ENTITY menu.copyCell "Zelle kopieren">
+<!ENTITY menu.copyCell.ak "Z">
+<!ENTITY menu.copyRows "Zeile(n) als CSV kopieren">
+<!ENTITY menu.copyRows.ak "i">
+<!ENTITY menu.copyRowsForExcel "Reihe(n) als CSV kopieren (kompatibel mit MSExcel)">
+<!ENTITY menu.copyRowsAsSql "Zeile(n) als SQL kopieren">
+<!ENTITY menu.copyRowsAsSql.ak "q">
+<!ENTITY menu.editColumn "Spalte bearbeiten">
+<!ENTITY menu.editColumn.ak "e">
+<!ENTITY menu.dropColumn "Spalte fallenlassen">
+<!ENTITY menu.dropColumn.ak "f">
+<!ENTITY btn.runsql "SQL ausführen">
+<!ENTITY btn.runsql.ak "a">
+<!ENTITY btn.runsql.tooltiptext "Benutzen Sie 'Strg + ;', um diese Abfrage auszuführen">
+<!ENTITY buttonRun "SQL-Statement ausführen (mit Ergebnissen)">
+<!ENTITY buttonRun.ak "r">
+<!ENTITY buttonExecute "Statement ausführen (keine Ergebnisse)">
+<!ENTITY buttonExecute.ak "e">
+<!ENTITY label.sqlLastError "Letzter Fehler">
+<!ENTITY mb.queryActions "Aktionen">
+<!ENTITY mi.viewQueryAsTable "Tabelle anzeigen">
+<!ENTITY mi.viewQueryAsTable.ak "T">
+<!ENTITY mi.viewQueryAsCsv "CSV anzeigen">
+<!ENTITY mi.viewQueryAsCsv.ak "C">
+<!ENTITY mi.saveQueryAsCsv "Ergebnis (CSV) in Datei speichern">
+<!ENTITY mi.saveQueryAsCsv.ak "s">
+<!ENTITY label.resultOfQuery "Ergebnis der Abfrage">
+<!ENTITY label.resultOfQuery.ak "b">
+<!ENTITY btn.prevSql "Voriges SQL aus Chronik">
+<!ENTITY btn.nextSql "Nächstes SQL aus Chronik">
+<!ENTITY btn.saveQuery "Abfrage mit Namen speichern">
+<!ENTITY btn.clearHistory "Abfragen-Chronik leeren">
+<!ENTITY sbp.db "DB">
+<!ENTITY masterinfo.tbl_name "Mit Tabelle/Sicht verknüpft">
+<!ENTITY masterinfo.rootpage "Wurzelseite">
+<!ENTITY masterinfo.sql "SQL-Befehl, der dieses Objekt erzeugt hat">
+<!ENTITY table "Tabelle">
+<!ENTITY index "Index">
+<!ENTITY view "Sicht">
+<!ENTITY trigger "Trigger">
+<!ENTITY first "Erster">
+<!ENTITY previous "Voriger">
+<!ENTITY next "Nächster">
+<!ENTITY last "Letzter">
+<!ENTITY to "bis">
+<!ENTITY of "von">
+<!ENTITY about "Über">
+<!ENTITY version "Version">
+<!ENTITY author "Autor">
+<!ENTITY license "Lizenz">
+<!ENTITY license.mpl "Mozilla Public License Version 1.1">
+<!ENTITY dir "Verzeichnis">
+<!ENTITY profileDir "Profil-Verzeichnis">
+<!ENTITY userDir "Benutzerdefiniertes Standard-Verzeichnis">
+<!ENTITY selectUserDir "Standard-Verzeichnis auswählen">
+<!ENTITY infoFromMaster "Informationen der Master-Tabelle">
+<!ENTITY moreInfo "Weitere Informationen">
+<!ENTITY numColumns "Anzahl Spalten">
+<!ENTITY numIndexes "Anzahl Indizes">
+<!ENTITY numTriggers "Anzahl von Triggern">
+<!ENTITY numRecords "Anzahl Datensätze">
+<!ENTITY Columns "Spalten">
+<!ENTITY name "Name">
+<!ENTITY type "Typ">
+<!ENTITY pKey "P.-Key">
+<!ENTITY notNull "Nicht Null">
+<!ENTITY default "Standard">
+<!ENTITY indexProp "Index-Eigenschaften">
+<!ENTITY indexedTable "Indexierte Tabelle">
+<!ENTITY indexedFields "Indexierte Felder">
+<!ENTITY indexDuplicate "Doppelte Werte">
+<!ENTITY selectAllRecords "Alle Datensätze auswählen">
+<!ENTITY selectAllRecords.ak "R">
+<!-- copyTable.xul -->
+<!ENTITY From "From">
+<!ENTITY To "To">
+<!ENTITY Database "Datenbank">
+<!ENTITY Database.ak "D">
+<!ENTITY Table "Tabelle">
+<!ENTITY onlyStructure "Nur Struktur (Daten werden nicht kopiert)">
+<!ENTITY enterNewTable "Namen für neue Tabelle eingeben">
+<!ENTITY enterNewTable.ak "T">
+<!-- create dialogs -->
+<!ENTITY Name.ak "N">
+<!ENTITY ViewName "Namen anzeigen">
+<!ENTITY Temporary "Temporär">
+<!ENTITY Temporary.ak "T">
+<!ENTITY ifNotExists "Falls nicht vorhanden">
+<!ENTITY ifNotExists.ak "F">
+<!ENTITY SelectStatement "Befehl auswählen">
+<!ENTITY SelectStatement.ak "B">
+<!ENTITY createIndex.dbName "Datenbank:">
+<!ENTITY createIndex.indexname "Indexname:">
+<!ENTITY createIndex.indexproperties "Indexeigenschaften festlegen">
+<!ENTITY createIndex.tabletoindex "Tabelle zu Index">
+<!ENTITY createIndex.loading "(laden)">
+<!ENTITY createIndex.duplicatevalues "Doppelte Werte:">
+<!ENTITY createIndex.allowed "Erlaubt">
+<!ENTITY createIndex.notallowed "Nicht erlaubt">
+<!ENTITY createIndex.indexcolumns "Indexspalten festlegen">
+<!ENTITY createTable.dbName "Datenbank">
+<!ENTITY createTable.tablename "Tabellenname:">
+<!ENTITY createTable.temptable "Temporäre Tabelle">
+<!ENTITY createTable.temptable.ak "T">
+<!ENTITY createTable.ifnotexists "Falls nicht vorhanden:">
+<!ENTITY createTable.ifnotexists.ak "i">
+<!ENTITY createTable.tablecolumns "Spalten festlegen">
+<!ENTITY createTable.colname "Spaltenname">
+<!ENTITY createTable.datatype "Datentyp">
+<!ENTITY createTable.primarykey "Primärer Schlüssel">
+<!ENTITY createTable.autoincrement "Autoinkrement?">
+<!ENTITY createTable.allownull "Null erlauben?">
+<!ENTITY createTable.default "Standardwert">
+<!ENTITY createTable.unique "Unique?">
+<!ENTITY createTable.primarykey.yes "Ja">
+<!ENTITY createTable.autoincrement.yes "Ja">
+<!ENTITY createTable.autoincrement.tooltip "AUTOINCREMENT ist only nur erlaubt bei einem INTEGER PRIMARY KEY">
+<!ENTITY createTable.allownull.yes "Ja">
+<!ENTITY createTable.unique.column "Eindeutige Spalte">
+<!ENTITY createTable.unique.columnlist "Liste eindeutiger Spalten">
+<!ENTITY createTrigger.dbName "Datenbank:">
+<!ENTITY createTrigger.triggername "Triggername:">
+<!ENTITY createTrigger.tabletoindex "in Tabelle:">
+<!ENTITY createTrigger.loading "(laden)">
+<!ENTITY createTrigger.tempObject "Temporär">
+<!ENTITY createTrigger.tempObject.ak "T">
+<!ENTITY createTrigger.ifnotexists "Falls nicht vorhanden">
+<!ENTITY createTrigger.ifnotexists.ak "i">
+<!ENTITY createTrigger.databaseevent "Datenbank-Ereignis">
+<!ENTITY createTrigger.triggerTime "Vorher/Nachher:">
+<!ENTITY createTrigger.triggerTime.ak "V">
+<!ENTITY createTrigger.dbEvent "Ereignis">
+<!ENTITY createTrigger.dbEvent.ak "g">
+<!ENTITY createTrigger.triggeraction "Aktion auslösen">
+<!ENTITY createTrigger.foreachrow "Für jede Reihe">
+<!ENTITY createTrigger.foreachrow.ak "F">
+<!ENTITY createTrigger.txtWhenExpression "WHEN-Ausdruck (Ausdruck ohne 'WHEN' eingeben):">
+<!ENTITY createTrigger.txtWhenExpression.ak "W">
+<!ENTITY createTrigger.txtTriggerSteps "Trigger-Schritte (getrennt durch Semikolon)">
+<!ENTITY createTrigger.txtTriggerSteps.ak "S">
+<!---->
+<!ENTITY confirm.button.accept "Ja">
+<!ENTITY confirm.button.cancel "Nein">
+<!---->
+<!ENTITY rowOperations.tablenames "Tabellenname">
+<!ENTITY rowOperations.tablenames.ak "n">
+<!ENTITY rowOperations.loading "(laden)">
+<!ENTITY oldValues "">
+<!ENTITY newValues "">

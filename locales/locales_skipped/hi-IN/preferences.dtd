@@ -1,0 +1,35 @@
+<!ENTITY prefwinTitle "SQLite मैनेजर अनुकूलन">
+<!ENTITY paneMain.title "मुख्य">
+<!ENTITY pref-openMode.label "SQLite मैनेजर खोलें">
+<!ENTITY pref-openMode-win "एक नए विंडो मे">
+<!ENTITY pref-openMode-win.ak "w">
+<!ENTITY pref-openMode-tab "एक नए टैब मे">
+<!ENTITY whenSMStarts "SQLite मैनेजर खुलने पर">
+<!ENTITY pref-openWithLastDb.label "पिछला प्रयुक्त डेटाबेस खोलें">
+<!ENTITY pref-openWithLastDb.ak "O">
+<!ENTITY pref-promptForLastDb.label "पिछला प्रयुक्त डेटाबेस खोलने के पहले कन्फ़र्म करें">
+<!ENTITY pref-promptForLastDb.ak "A">
+<!ENTITY pref-sqliteFileExtensions.label "SQLite फ़ाइलों के लिये Default फ़ाइल extension">
+<!ENTITY pref-sqliteFileExtensions.ak "S">
+<!ENTITY pref-tableForExtensionManagement.label "Extension प्रबन्धन डेटा स्टोर करने के लिए प्रयुक्त टेबल का नाम">
+<!ENTITY pref-tableForExtensionManagement.ak "m">
+<!ENTITY panePrompts.title "प्रॉम्पट">
+<!ENTITY confirmBeforeExecute "निम्नलिखित क्रियाओं को करने के पहले पक्का करने के लिए पूछें">
+<!ENTITY pref-confirm.records.label "रिकार्ड जोड़ने/सम्पादन के पहले">
+<!ENTITY pref-confirm.create.label "टेबल/इन्डैक्स/व्यू/ट्रिगर बनाने के पहले">
+<!ENTITY pref-confirm.otherSql.label "टेबल पर की जाने वाली अन्य क्रियाएँ">
+<!ENTITY paneInterface.title "प्रयोक्ता इन्टरफ़ेस">
+<!ENTITY toolbar.caption "टूलबार अनुकूलन">
+<!ENTITY pref-hideMainToolbar.label "सभी टूलबार छिपाएँ">
+<!ENTITY pref-showMainToolbarDatabase.label "डेटाबेस टूलबार दिखाएँ">
+<!ENTITY pref-showMainToolbarIndex.label "इन्डैक्स टूलबार दिखाएँ">
+<!ENTITY pref-showMainToolbarTable.label "टेबल टूलबार दिखाएँ">
+<!ENTITY pref-displayNumRecords.label "अवलोकन व खोज टैब मे दिखने वाले रिकार्डों की संख्या">
+<!ENTITY pref-displayNumRecords.ak "N">
+<!ENTITY pref-sqlTextboxRows.label "SQL लिखने के स्थान मे पंक्तियों">
+<!ENTITY pref-sqlTextboxRows.ak "R">
+<!ENTITY pref-maxColumnsInTable.label "टेबल बनाने के विंडो मे कॉलम की अधिकतम संख्या">
+<!ENTITY pref-maxColumnsInTable.ak "M">
+<!ENTITY pref-textForBlob.label "ब्लॉब डेटा की जगह यह शब्द दिखाएँ">
+<!ENTITY pref-textForBlob.ak "B">
+<!ENTITY pref-showBlobSize.label "ब्लॉब डेटा का साइज़ दिखाएँ">

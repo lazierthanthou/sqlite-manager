@@ -1,0 +1,78 @@
+<!ENTITY prefwinTitle "Opciones SQLiteManager">
+<!ENTITY paneMain.title "Principal">
+<!ENTITY pref-openMode.label "Iniciar SQLite Manager">
+<!ENTITY pref-openMode-win "en una ventana nueva">
+<!ENTITY pref-openMode-win.ak "w">
+<!ENTITY pref-openMode-tab "en una pestaña nueva">
+<!ENTITY pref-openADS.label "Abrir ADS (Sólo Windows/NTFS)">
+<!ENTITY disable "Deshabilitar">
+<!ENTITY enable "Habilitar">
+<!ENTITY whenSMStarts "Al iniciar SQLite Manager">
+<!ENTITY pref-openWithLastDb.label "Abrir la última base de datos utilizada">
+<!ENTITY pref-openWithLastDb.ak "O">
+<!ENTITY pref-promptForLastDb.label "Siempre confirmar al abrir la última base de datos utilizada">
+<!ENTITY pref-promptForLastDb.ak "A">
+<!ENTITY pref-autoBackup.label "Crear una copia de seguridad con marca de tiempo antes de abrir una base de datos">
+<!ENTITY pref-autoBackup.ak "B">
+<!ENTITY pref-autoBackup.on "on">
+<!ENTITY pref-autoBackup.off "off">
+<!ENTITY pref-autoBackup.prompt "prompt">
+<!ENTITY pref-sqliteFileExtensions.label "Extensión por defecto para archivos SQLite">
+<!ENTITY pref-sqliteFileExtensions.ak "S">
+<!ENTITY pref-tableForExtensionManagement.label "Nombre de la tabla donde guardar los datos de extensión de administración">
+<!ENTITY pref-tableForExtensionManagement.ak "m">
+<!ENTITY panePrompts.title "Prompts">
+<!ENTITY confirmBeforeExecute "Confirmar antes de ejecutar lo siguiente">
+<!ENTITY pref-confirm.records.label "Antes de añadir/editar un registro">
+<!ENTITY pref-confirm.create.label "Antes de crear tabla/índice/vista/trigger">
+<!ENTITY pref-confirm.otherSql.label "Cualquier otra operación sobre la tabla">
+<!ENTITY paneInterface.title "Interfaz de Usuario">
+<!ENTITY toolbar.caption "Configuración de la Barra de Herramientas">
+<!ENTITY pref-hideMainToolbar.label "Ocultar todas">
+<!ENTITY pref-showMainToolbarDatabase.label "Mostrar barra de Base de Datos">
+<!ENTITY pref-showMainToolbarIndex.label "Mostrar barra de Inicio">
+<!ENTITY pref-showMainToolbarTable.label "Mostrar barra de Tabla">
+<!ENTITY pref-showMainToolbarDebug.label "Mostrar barra de Depuración">
+<!ENTITY pref-notificationDuration.label "Duración (en segundos) de los mensajes de aviso">
+<!ENTITY pref-notificationDuration.ak "D">
+<!ENTITY pref-displayNumRecords.label "Número de registros a mostrar (pestaña Explorar &amp; Buscar)">
+<!ENTITY pref-displayNumRecords.ak "N">
+<!ENTITY pref-sqlTextboxRows.label "Numero de Filas en el cuadro de texto para introducir SQL (pestaña Ejecutar SQL)">
+<!ENTITY pref-sqlTextboxRows.ak "R">
+<!ENTITY pref-maxColumnsInTable.label "Máximo número de columnas en Crear Tabla">
+<!ENTITY pref-maxColumnsInTable.ak "M">
+<!ENTITY blobDisplay.caption "¿Como mostrar los datos BLOB?">
+<!ENTITY pref-textForBlob.label "Texto para mostrar el valor del BLOB">
+<!ENTITY pref-textForBlob.ak "B">
+<!ENTITY pref-showBlobSize.label "Mostrar tamaño de datos BLOB">
+<!ENTITY pref-maxSizeToShowBlobData.label "Tamaño inferior (en bytes) de cada BLOB debe ser mostrado como cadena">
+<!ENTITY pref-maxSizeToShowBlobData.ak "z">
+<!ENTITY pref-displayDataAs.label "Mostrar datos BLOB como:">
+<!ENTITY pref-displayDataAs-hex "Valor hexadecimal (e.g. X`31323334`">
+<!ENTITY pref-displayDataAs-string "Cadena">
+<!ENTITY pref-whenInsertingShow.label "Al añadir una nueva grabación, mostrar valores añadidos anteriormente, o valores por defecto">
+<!ENTITY pref-whenInsertingShow.ak "W">
+<!ENTITY pref-whenInsertingShow-previous "Anterior">
+<!ENTITY pref-whenInsertingShow-default "Por Defecto">
+<!ENTITY pref-identifierQuoteChar.label "Encerrar los identificadores con">
+<!ENTITY pref-identifierQuoteChar-doublequotes "Comillas dobles">
+<!ENTITY pref-identifierQuoteChar-squarebrackets "Corchetes []">
+<!ENTITY pref-identifierQuoteChar-graveaccents "Acentos graves ``">
+<!ENTITY paneDatatree.title "Estilo de Árbol de Datos">
+<!ENTITY paneDatatree.datatype "Tipo de datos">
+<!ENTITY paneDatatree.property "Propiedad">
+<!ENTITY paneDatatree.unselected "No seleccionado">
+<!ENTITY paneDatatree.selected "Seleccionado">
+<!ENTITY paneDatatree.typeNull "Null">
+<!ENTITY paneDatatree.typeInteger "Entero">
+<!ENTITY paneDatatree.typeReal "Real">
+<!ENTITY paneDatatree.typeText "Texto">
+<!ENTITY paneDatatree.typeBlob "Blob">
+<!ENTITY paneDatatree.textColor "color de texto">
+<!ENTITY paneDatatree.backgroundColor "color de fondo">
+<!ENTITY paneDatatree.fontSize "">
+<!ENTITY paneDatatree.fontFamily "">
+<!ENTITY paneDatatree.rowHeight "">
+<!ENTITY paneDatatree.btnSetDefault "Establecer Por Defecto">
+<!ENTITY paneDatatree.btnApply "Aplicar">
+<!ENTITY paneDatatree.btnNone "Ninguno">

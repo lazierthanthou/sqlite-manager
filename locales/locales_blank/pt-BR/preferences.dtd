@@ -1,0 +1,78 @@
+<!ENTITY prefwinTitle "Opções do SQLite Manager">
+<!ENTITY paneMain.title "Geral">
+<!ENTITY pref-openMode.label "Iniciar SQLite Manager">
+<!ENTITY pref-openMode-win "numa nova janela">
+<!ENTITY pref-openMode-win.ak "w">
+<!ENTITY pref-openMode-tab "numa nova aba">
+<!ENTITY pref-openADS.label "">
+<!ENTITY disable "">
+<!ENTITY enable "">
+<!ENTITY whenSMStarts "Quando SQLite Manager iniciar">
+<!ENTITY pref-openWithLastDb.label "Abrir o último banco de dados usado">
+<!ENTITY pref-openWithLastDb.ak "O">
+<!ENTITY pref-promptForLastDb.label "Sempre confirmar quando abrir o último banco de dados usado">
+<!ENTITY pref-promptForLastDb.ak "A">
+<!ENTITY pref-autoBackup.label "">
+<!ENTITY pref-autoBackup.ak "">
+<!ENTITY pref-autoBackup.on "">
+<!ENTITY pref-autoBackup.off "">
+<!ENTITY pref-autoBackup.prompt "">
+<!ENTITY pref-sqliteFileExtensions.label "Extensão padrão para os arquivos SQLite">
+<!ENTITY pref-sqliteFileExtensions.ak "S">
+<!ENTITY pref-tableForExtensionManagement.label "Nome da tabela para guardar dados de gerenciamento de extensão">
+<!ENTITY pref-tableForExtensionManagement.ak "m">
+<!ENTITY panePrompts.title "Perguntar">
+<!ENTITY confirmBeforeExecute "Confirmar antes de executar os seguintes procedimentos">
+<!ENTITY pref-confirm.records.label "Antes de adicionar/editar uma gravação">
+<!ENTITY pref-confirm.create.label "Antes de criar uma tabela/índice/visualização/trigger">
+<!ENTITY pref-confirm.otherSql.label "Qualquer outra operação na tabela">
+<!ENTITY paneInterface.title "Interface do usuário">
+<!ENTITY toolbar.caption "Configurações da barra de ferramentas">
+<!ENTITY pref-hideMainToolbar.label "Ocultar todas as barras de ferramentas">
+<!ENTITY pref-showMainToolbarDatabase.label "Exibir a barra de Banco de dados">
+<!ENTITY pref-showMainToolbarIndex.label "Exibir a barra de Índice">
+<!ENTITY pref-showMainToolbarTable.label "Exibir a barra de Tabela">
+<!ENTITY pref-showMainToolbarDebug.label "">
+<!ENTITY pref-notificationDuration.label "">
+<!ENTITY pref-notificationDuration.ak "">
+<!ENTITY pref-displayNumRecords.label "Número de gravações a exibir (Navegar &amp; aba Pesquisar)">
+<!ENTITY pref-displayNumRecords.ak "N">
+<!ENTITY pref-sqlTextboxRows.label "Número de linhas na caixa de texto para executar sql (Executar aba SQL)">
+<!ENTITY pref-sqlTextboxRows.ak "R">
+<!ENTITY pref-maxColumnsInTable.label "Número máximo de colunas no diálogo Criar Tabela">
+<!ENTITY pref-maxColumnsInTable.ak "M">
+<!ENTITY blobDisplay.caption "">
+<!ENTITY pref-textForBlob.label "Text to display for BLOB value">
+<!ENTITY pref-textForBlob.ak "B">
+<!ENTITY pref-showBlobSize.label "Display size of blob data">
+<!ENTITY pref-maxSizeToShowBlobData.label "">
+<!ENTITY pref-maxSizeToShowBlobData.ak "">
+<!ENTITY pref-displayDataAs.label "">
+<!ENTITY pref-displayDataAs-hex "">
+<!ENTITY pref-displayDataAs-string "">
+<!ENTITY pref-whenInsertingShow.label "">
+<!ENTITY pref-whenInsertingShow.ak "">
+<!ENTITY pref-whenInsertingShow-previous "">
+<!ENTITY pref-whenInsertingShow-default "">
+<!ENTITY pref-identifierQuoteChar.label "">
+<!ENTITY pref-identifierQuoteChar-doublequotes "">
+<!ENTITY pref-identifierQuoteChar-squarebrackets "">
+<!ENTITY pref-identifierQuoteChar-graveaccents "">
+<!ENTITY paneDatatree.title "">
+<!ENTITY paneDatatree.datatype "">
+<!ENTITY paneDatatree.property "">
+<!ENTITY paneDatatree.unselected "">
+<!ENTITY paneDatatree.selected "">
+<!ENTITY paneDatatree.typeNull "">
+<!ENTITY paneDatatree.typeInteger "">
+<!ENTITY paneDatatree.typeReal "">
+<!ENTITY paneDatatree.typeText "">
+<!ENTITY paneDatatree.typeBlob "">
+<!ENTITY paneDatatree.textColor "">
+<!ENTITY paneDatatree.backgroundColor "">
+<!ENTITY paneDatatree.fontSize "">
+<!ENTITY paneDatatree.fontFamily "">
+<!ENTITY paneDatatree.rowHeight "">
+<!ENTITY paneDatatree.btnSetDefault "">
+<!ENTITY paneDatatree.btnApply "">
+<!ENTITY paneDatatree.btnNone "">

@@ -1,0 +1,35 @@
+<!ENTITY tablename "Nom de la table:">
+<!ENTITY tablename.ak "N">
+<!ENTITY CSV "CSV">
+<!ENTITY SQL "SQL">
+<!ENTITY XML "XML">
+<!ENTITY csv.tableName "Entrez le nom de la table dans laquelle les données sont importées:">
+<!ENTITY Comma "Comma">
+<!ENTITY Comma.ak "C">
+<!ENTITY Tab "Tab">
+<!ENTITY csv.firstrow "Première rangée contient les noms de colonnes">
+<!ENTITY sql.settings "SQL Paramètres">
+<!ENTITY sql.create "Inclure instruction CREATE TABLE">
+<!ENTITY sql.transaction "BEGIN TRANSACTION/COMMIT doit être utilisé">
+<!ENTITY importWizard "Assistant Importation">
+<!ENTITY eximDbName "Base de données:">
+<!ENTITY eximDbName.ak "d">
+<!ENTITY loading "(Chargement)">
+<!ENTITY eximFilename "Sélectionnez Fichier">
+<!ENTITY eximFilename.ak "S">
+<!ENTITY eximFileCharSet "Codage des caractères">
+<!ENTITY eximCsv_encloser.doublequotes.standard "Les guillemets doubles (&quot;), si nécessaire (Standard)">
+<!ENTITY eximCsv_encloser.doublequotes.always "Les guillemets doubles (&quot;), toujours">
+<!ENTITY eximCsv_encloser.singlequotes "Les guillemets simples (')">
+<!ENTITY eximCsv_encloser.none "Aucun">
+<!ENTITY eximCsv_encloser.other "Autres">
+<!ENTITY eximCsv-expSaveSetting "Enregistrer les paramètres d'exportation CSV">
+<!ENTITY eximCsv-impSaveSetting "Enregistrer les paramètres d'importation CSV">
+<!ENTITY eximCsv-impSaveSetting-tooltiptext "Enregistrer les paramètres d'importation CSV">
+<!ENTITY eximCsv-expUseSetting "Utilisez les paramètres enregistrés">
+<!ENTITY eximCsv-impUseSetting "Utilisez les paramètres enregistrés">
+<!ENTITY eximXml_root-element "Nom de l'élément racine:">
+<!ENTITY eximXml_prefix-table-element "Préfixe ce tableau à l'élément:">
+<!ENTITY exim-exp-ok "OK">
+<!ENTITY exim-imp-ok "OK">
+<!ENTITY exim-cancel "Fermer l'Assistant">

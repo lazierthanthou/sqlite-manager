@@ -1,0 +1,18 @@
+<!ENTITY tablename "Ім'я таблиці:">
+<!ENTITY tablename.ak "N">
+<!ENTITY CSV "CSV">
+<!ENTITY XML "XML">
+<!ENTITY Comma.ak "C">
+<!ENTITY sql.settings "Налаштування SQL">
+<!ENTITY importWizard "Майстер імпорту:">
+<!ENTITY eximDbName "База даних:">
+<!ENTITY eximDbName.ak "D">
+<!ENTITY loading "(завантаження)">
+<!ENTITY eximFilename.ak "S">
+<!ENTITY eximFileCharSet "Кодування символів">
+<!ENTITY eximFileCharSet.ak "h">
+<!ENTITY eximCsv_encloser.doublequotes.standard.ak "q">
+<!ENTITY eximCsv_encloser.other "Інше">
+<!ENTITY exim-exp-ok "ОК">
+<!ENTITY exim-imp-ok "ОК">
+<!ENTITY exim-cancel "Закрити майстер">

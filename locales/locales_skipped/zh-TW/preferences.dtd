@@ -1,0 +1,35 @@
+<!ENTITY prefwinTitle "SQLiteManage選項">
+<!ENTITY paneMain.title "主選單">
+<!ENTITY pref-openMode.label "開啟SQLite Manager">
+<!ENTITY pref-openMode-win "在新的視窗">
+<!ENTITY pref-openMode-win.ak "w">
+<!ENTITY pref-openMode-tab "在新的分頁">
+<!ENTITY whenSMStarts "當SQLite Manager開始">
+<!ENTITY pref-openWithLastDb.label "開啟上次使用的資料庫">
+<!ENTITY pref-openWithLastDb.ak "O">
+<!ENTITY pref-promptForLastDb.label "當開啟上次所使用資料庫時將要求確認">
+<!ENTITY pref-promptForLastDb.ak "A">
+<!ENTITY pref-sqliteFileExtensions.label "SQLite檔案的預設副檔名">
+<!ENTITY pref-sqliteFileExtensions.ak "S">
+<!ENTITY pref-tableForExtensionManagement.label "儲存額外管理資料之table名稱">
+<!ENTITY pref-tableForExtensionManagement.ak "m">
+<!ENTITY panePrompts.title "提示">
+<!ENTITY confirmBeforeExecute "執行下列動作須先確認">
+<!ENTITY pref-confirm.records.label "在新增/編輯record">
+<!ENTITY pref-confirm.create.label "在新增table/index/view/trigger">
+<!ENTITY pref-confirm.otherSql.label "對於table的任何操作">
+<!ENTITY paneInterface.title "使用者介面">
+<!ENTITY toolbar.caption "工具列設定">
+<!ENTITY pref-hideMainToolbar.label "隱藏所有的工具列">
+<!ENTITY pref-showMainToolbarDatabase.label "顯示Database工具列">
+<!ENTITY pref-showMainToolbarIndex.label "顯示Index工具列">
+<!ENTITY pref-showMainToolbarTable.label "顯示Table工具列">
+<!ENTITY pref-displayNumRecords.label "顯示records的數目 (瀏覽及搜尋標籤)">
+<!ENTITY pref-displayNumRecords.ak "N">
+<!ENTITY pref-sqlTextboxRows.label "輸入sql文字方塊的欄數 (執行SQL標籤)">
+<!ENTITY pref-sqlTextboxRows.ak "R">
+<!ENTITY pref-maxColumnsInTable.label "Create Table對話視窗的最大列數">
+<!ENTITY pref-maxColumnsInTable.ak "M">
+<!ENTITY pref-textForBlob.label "BLOB值顯示的文字">
+<!ENTITY pref-textForBlob.ak "B">
+<!ENTITY pref-showBlobSize.label "顯示blob資料的大小">

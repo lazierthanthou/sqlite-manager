@@ -1,0 +1,6 @@
+<!ENTITY connectSql.reloadFunctions "Перезагрузить вкладку">
+<!ENTITY connectSql.closeTab "Закрыть вкладку">
+<!ENTITY connectSql.cancel "Отмена">
+<!ENTITY connectSql.save "Сохранить">
+<!ENTITY connectSql.sqlForAllDb "SQL-операторы, выполняемые при подключении к ЛЮБОЙ базе данных">
+<!ENTITY connectSql.sqlForThisDb "SQL-операторы, выполняемые при подключении к ЭТОЙ базе данных">

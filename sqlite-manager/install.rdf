@@ -11,7 +11,7 @@
     <em:name>SQLite Manager</em:name>
     <em:version>XXXversionXXX</em:version>
     <em:description>Manage any SQLite database on your computer</em:description>
-    <em:creator>Mrinal Kant</em:creator>
+    <em:creator>lazierthanthou</em:creator>
     <em:homepageURL>http://sqlite-manager.googlecode.com/</em:homepageURL>
     <em:iconURL>chrome://sqlitemanager/skin/images/default32.png</em:iconURL>
     <em:optionsURL>chrome://sqlitemanager/content/preferences.xul</em:optionsURL>

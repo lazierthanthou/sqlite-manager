@@ -55,7 +55,7 @@ var SmGlobals = {
       catch (ex) {
         var extInfo = Cc["@mozilla.org/extensions/manager;1"].getService(Ci.nsIExtensionManager).getItemForID(extId);
         this.extVersion = extInfo.version;
-        this.extCreator = "Mrinal Kant";
+        this.extCreator = "lazierthanthou";
       }
     }
   },

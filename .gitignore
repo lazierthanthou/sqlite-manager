@@ -1,6 +1,2 @@
-syntax: glob
-tempLangpack/**
-release/**
-out/**
-sm-chrome/**
-.hg/**
+release/
+out/

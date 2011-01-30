@@ -1,6 +1,0 @@
-syntax: glob
-tempLangpack/**
-release/**
-out/**
-sm-chrome/**
-.git/**

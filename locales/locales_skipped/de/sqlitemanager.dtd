@@ -283,3 +283,5 @@
 <!ENTITY rowOperations.tablenames "Tabellenname">
 <!ENTITY rowOperations.tablenames.ak "n">
 <!ENTITY rowOperations.loading "(laden)">
+<!ENTITY oldValues "Alte Werte">
+<!ENTITY newValues "Neue Werte">

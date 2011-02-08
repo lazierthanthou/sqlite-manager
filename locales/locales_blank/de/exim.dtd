@@ -31,14 +31,14 @@
 <!ENTITY eximCsv_encloser.doublequotes.always "Doppelte Anführungszeichen (&quot;), immer">
 <!ENTITY eximCsv_encloser.doublequotes.likeExcel "Wie MSExcel (doppelte Anführungszeichen, wenn Feld &quot; oder Trennungszeichen enthält)">
 <!ENTITY eximCsv_encloser.singlequotes "Einfache Anführungszeichen (')">
-<!ENTITY eximCsv_encloser.none "">
+<!ENTITY eximCsv_encloser.none "Keine">
 <!ENTITY eximCsv_encloser.other "Andere">
 <!ENTITY eximCsv-expSaveSetting "CSV-Exporteinstellungen speichern">
 <!ENTITY eximCsv-expSaveSetting-tooltiptext "Sie können diese Einstellungen speichern, wenn Sie möchten, dass die Operationen 'Reihen als CSV kopieren' diese Einstellungen verwenden.">
-<!ENTITY eximCsv-impSaveSetting "">
-<!ENTITY eximCsv-impSaveSetting-tooltiptext "">
-<!ENTITY eximCsv-expUseSetting "">
-<!ENTITY eximCsv-impUseSetting "">
+<!ENTITY eximCsv-impSaveSetting "CSV-Importeinstellungen speichern">
+<!ENTITY eximCsv-impSaveSetting-tooltiptext "CSV-Importeinstellungen speichern">
+<!ENTITY eximCsv-expUseSetting "Gespeicherte Einstellungen verwenden">
+<!ENTITY eximCsv-impUseSetting "Gespeicherte Einstellungen verwenden">
 <!ENTITY eximXml_root-element "Name des Wurzel-Elements">
 <!ENTITY eximXml_prefix-table-element "Dem Tabellenelement folgendes voranstellen:">
 <!ENTITY exim-exp-ok "OK">

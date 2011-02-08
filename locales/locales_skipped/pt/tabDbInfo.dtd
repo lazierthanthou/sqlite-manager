@@ -1,0 +1,48 @@
+<!ENTITY change "Alterar">
+<!ENTITY useWithCaution "Use com Cautela">
+<!ENTITY dbSettingsDesc "Estas definições modificam o funcionamento da biblioteca SQLite.">
+<!ENTITY versions "Versões">
+<!ENTITY schema_version "Versão do Esquema">
+<!ENTITY user_version "Versão do Usuário">
+<!ENTITY cache_size "Tamanho do Cache">
+<!ENTITY default_cache_size "Tamanho Padrão do Cache">
+<!ENTITY pages "Páginas">
+<!ENTITY page_size "Tamanho da Página (bytes)">
+<!ENTITY max_page_count "Contagem Máxima de Páginas">
+<!ENTITY page_count "Contagem de Páginas">
+<!ENTITY freelist_count "Contagem de Lista">
+<!ENTITY journals "Journals">
+<!ENTITY journal_mode "Modo de Journal">
+<!ENTITY journal_size_limit "Limite de Tamanho do Journal">
+<!ENTITY others "Outros">
+<!ENTITY auto_vacuum "Auto Vácuo">
+<!ENTITY case_sensitive_like "Case-sensitive Like">
+<!ENTITY count_changes "Alterações na Contagem">
+<!ENTITY empty_result_callbacks "Callbacks com Resultados Vazios">
+<!ENTITY encoding "Codificação">
+<!ENTITY UTF8 "UTF-8">
+<!ENTITY UTF16 "UTF-16">
+<!ENTITY UTF16le "UTF-16le">
+<!ENTITY UTF16be "UTF-16be">
+<!ENTITY full_column_names "Nomes de Colunas Completos">
+<!ENTITY foreign_keys "Chaves Externas">
+<!ENTITY fullfsync "Fullfsync flag">
+<!ENTITY legacy_file_format "Formato Legado de Arquivo">
+<!ENTITY locking_mode "Modo de Bloqueio">
+<!ENTITY read_uncommitted "Leitura Não Confirmada">
+<!ENTITY recursive_triggers "Gatilhos Recursivos">
+<!ENTITY reverse_unordered_selects "Seleções Reversas Não-Ordenadas">
+<!ENTITY short_column_names "Nomes de Colunas Curtos">
+<!ENTITY synchronous "Síncrono">
+<!ENTITY temp_store "Armazenamento Temporário">
+<!ENTITY temp_store_directory "Diretório de Armazenamento Temporário">
+<!ENTITY On "On">
+<!ENTITY Off "Off">
+<!ENTITY Default "Padrão">
+<!ENTITY File "Arquivo">
+<!ENTITY Memory "Memória">
+<!ENTITY Normal "Normal">
+<!ENTITY Exclusive "Exclusivo">
+<!ENTITY Full "Full">
+<!ENTITY None "Nenhum">
+<!ENTITY Incremental "Incremental">

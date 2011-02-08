@@ -38,8 +38,9 @@ com.googlecode.sqlitemanager = function() {
   pub.open = function() {
     var iOpenMode = 1;
     try {
-      var prefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("extensions.sqlitemanager.");      iOpenMode = prefService.getIntPref("openMode");
-    } 
+      var prefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("extensions.sqlitemanager.");
+      iOpenMode = prefService.getIntPref("openMode");
+    }
     catch(e) {
     }
 
@@ -65,18 +66,16 @@ com.googlecode.sqlitemanager = function() {
     try {
       var prefService = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("extensions.sqlitemanager.");
       iOpenMode = prefService.getIntPref("openMode");
-    } 
+    }
     catch(e) {
     }
 
     switch (iOpenMode) {
       case 1:      //open a chrome window
-        window.openDialog(this.smChrome, 'navigator:browser', 'chrome,all,resizable');
+        this.openInOwnWindow();
         break;
       case 2:      //open in a new tab
-  //      ko.windowManager.openOrFocusDialog(this.smChrome, 'navigator:sm',  'chrome,all,resizable');
         ko.views.manager.doFileOpenAsync(this.smChrome, 'browser');
-  //      ko.open.URI(this.smChrome,"browser");
         break;
     }
   };

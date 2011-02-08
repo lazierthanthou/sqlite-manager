@@ -2,9 +2,9 @@ Please report issues at [https://code.google.com/p/sqlite-manager/issues/list](h
 
 ###Downloads
 
-- Downloads are available at the [project homepage](https://code.google.com/p/sqlite-manager/).
+- Downloads are available at the [https://github.com/lazierthanthou/sqlite-manager/downloads](https://github.com/lazierthanthou/sqlite-manager/downloads).
 - SQLite Manager is available as a XULRunner application too. The file with XR in its name is the zip of the XULRunner application. [Read More...](https://code.google.com/p/sqlite-manager/wiki/XulrunnerApplication)
-- You can download the extension in [other languages](https://code.google.com/p/sqlite-manager/wiki/OtherLanguages) too.
+- Since version 0.6.8 the downloadable extension includes support for English, German, Japanese, French, Russian, Spanish and Swedish languages.
 - You can also download from [Mozilla Addons site](https://addons.mozilla.org/addon/sqlite-manager).
 
 ###SQLite Manager for other applications

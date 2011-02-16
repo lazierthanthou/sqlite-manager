@@ -1,8 +1,7 @@
 #!/bin/bash
 
-#hg clone https://sqlite-manager.googlecode.com/hg/
-
-rootDir="/home/user/sqlite-manager"
+cd $(dirname $(readlink -f "$0"))/..
+rootDir=`pwd` #rootDir is one level above this script's dir
 
 buildDir=$rootDir/build
 releaseDir=$rootDir/release
@@ -284,7 +283,7 @@ buildWithAllLanguages () {
 }
 
 runDbWithXrApp () {
-  /usr/bin/sqlite-manager -f ~/Desktop/csvtrial.sqlite
+  /usr/bin/sqlite-manager -f $HOME/Desktop/csvtrial.sqlite
 }
 userOption="z"
 

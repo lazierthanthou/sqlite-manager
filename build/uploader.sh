@@ -2,7 +2,8 @@
 
 project="sqlite-manager"
 
-rootDir="/home/user/sqlite-manager"
+cd $(dirname $(readlink -f "$0"))/..
+rootDir=`pwd` #rootDir is one level above this script's dir
 
 buildDir=$rootDir/build
 releaseDir=$rootDir/release
@@ -13,7 +14,7 @@ gpass=""
 
 getUserAndPass () {
   #hgrc contains username & password
-  hgrcFile=$rootDir/.hg/hgrc
+  hgrcFile=$HOME/Dropbox/scripts/hgrc
 
   #read the line containing 'https://' which should be like:
   #default = https://username:password@sqlite-manager.googlecode.com/hg/

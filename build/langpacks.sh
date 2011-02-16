@@ -2,7 +2,8 @@
 
 smversion=0.5.12
 
-rootDir="/home/user/sqlite-manager"
+cd $(dirname $(readlink -f "$0"))/..
+rootDir=`pwd` #rootDir is one level above this script's dir
 
 buildDir=$rootDir/build
 releaseDir=$rootDir/release

@@ -30,7 +30,7 @@ var SmGlobals = {
 
   appInfo: null,
   extVersion: "",
-  extCreator: "",
+  extCreator: "lazierthanthou",
 
   dialogFeatures: "chrome,resizable,centerscreen,modal,dialog",
 
@@ -49,13 +49,11 @@ var SmGlobals = {
         Components.utils.import("resource://gre/modules/AddonManager.jsm");
         AddonManager.getAddonByID(extId, function(addon) {
           SmGlobals.extVersion = addon.version;
-          SmGlobals.extCreator = addon.creator;
         });      
       }
       catch (ex) {
         var extInfo = Cc["@mozilla.org/extensions/manager;1"].getService(Ci.nsIExtensionManager).getItemForID(extId);
         this.extVersion = extInfo.version;
-        this.extCreator = "lazierthanthou";
       }
     }
   },

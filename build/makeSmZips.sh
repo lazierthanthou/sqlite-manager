@@ -307,6 +307,8 @@ while [ ! $userOption = "x" ]; do
 ###########################################
     if [ $userOption = "b" ]; then
       buildWithVersion
+      buildWithAllLanguages xpi
+      buildWithAllLanguages xr
     fi
 
     if [ $userOption = "c" ]; then

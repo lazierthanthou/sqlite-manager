@@ -68,6 +68,7 @@
         <menuitem label="" selected="true"/>
         <menuitem label="BEFORE"/>
         <menuitem label="AFTER"/>
+        <menuitem label="INSTEAD OF"/>
       </menupopup>
     </menulist>
     <label style="padding-top:3px" 

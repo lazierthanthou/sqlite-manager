@@ -1,4 +1,5 @@
-#button-sqlitemanager {
+#button-sqlitemanager,
+#sqlitemanager-in-addon-bar {
   list-style-image: url("chrome://sqlitemanager/skin/images/default16.png");
 }
 #menuitem-sqlitemanager {

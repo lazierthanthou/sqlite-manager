@@ -27,4 +27,20 @@
       oncommand="com.googlecode.sqlitemanager.open()"
       tooltiptext="SQLite Manager"/>
   </toolbarpalette>
+
+  <menupopup id="appmenu_webDeveloper_popup">
+    <menuitem oncommand="com.googlecode.sqlitemanager.open()"
+      label="SQLite Manager" id="menuitem-sqlitemanager-in-webdeveloper"
+      insertafter="appmenu_webConsole" class="menuitem-iconic"
+      accesskey="Q"/>
+  </menupopup>
+
+  <toolbar id="addon-bar">
+    <toolbarbutton
+      class="toolbarbutton-1"
+      id="sqlitemanager-in-addon-bar"
+      label="SQLite Manager"
+      oncommand="com.googlecode.sqlitemanager.open()"
+      tooltiptext="SQLite Manager"/>
+  </toolbar>
 </overlay>

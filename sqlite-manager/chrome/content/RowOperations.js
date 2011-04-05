@@ -424,7 +424,7 @@ var RowOperations = {
 
     //issue #428: for integer primary key column, do the following and return
     if (this.maFieldInfo[iIndex].isColPk) {
-      elt.setAttribute("emptytext", "Primary key (will autoincrement)");
+      elt.setAttribute("placeholder", "Primary key (will autoincrement)");
       elt.setAttribute("style", "-moz-appearance: none;background-color:#ffff99;");
       this.maFieldInfo[iIndex].newType = SQLiteTypes.INTEGER;
       this.maFieldInfo[iIndex].hasChanged = true;
@@ -460,10 +460,10 @@ var RowOperations = {
       imgRemove.setAttribute("hidden","true");
 
     var iType = this.maFieldInfo[iIndex].newType;
-    elt.setAttribute("emptytext", "Empty string");
+    elt.setAttribute("placeholder", "Empty string");
     switch (iType) {
       case SQLiteTypes.NULL:
-        elt.setAttribute("emptytext", "Null");
+        elt.setAttribute("placeholder", "Null");
         elt.setAttribute("style", "-moz-appearance: none;background-color:#ffcccc;");
         break;
       case SQLiteTypes.INTEGER:
@@ -479,7 +479,7 @@ var RowOperations = {
           elt.setAttribute("style", "-moz-appearance: none;background-color:#ccffff;");
         break;
       case SQLiteTypes.BLOB:
-        elt.setAttribute("emptytext", "Empty blob");
+        elt.setAttribute("placeholder", "Empty blob");
         if (imgSave)
           imgSave.setAttribute("hidden", "false");
         if (imgRemove)

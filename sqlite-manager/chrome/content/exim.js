@@ -57,6 +57,9 @@ var SmExim = {
 
       $$("eximFilename").value = "";
       this.loadCharsetMenu();
+
+      if ($$("eximXml-exporter-version").hasAttribute("disabled"))
+        $$("eximXml-exporter-version").removeAttribute("disabled");
       return;
     }
     if (sOpType == "export") {
@@ -72,6 +75,8 @@ var SmExim = {
       this.loadObjectNames("eximObjectNames", this.sObjectName, sObjectType);
 
       $$("eximLblObjectType").value = sm_getLStr("eximLblObjectType") + sObjectType;
+
+      $$("eximXml-exporter-version").setAttribute("disabled", "true");
       return;
     }
   },
@@ -188,7 +193,7 @@ var SmExim = {
         iExportNum = this.writeSqlContent(os, sDbName, this.sObjectName, bCreate, bTransact);
         break;
       case "xml":
-         var bType = $$("eximXml_type-attribute").checked;
+        var bType = $$("eximXml_type-attribute").checked;
         iExportNum = this.writeXmlContent(os, sQuery, bType);
         break;
     }
@@ -320,32 +325,40 @@ var SmExim = {
     var columns = SQLiteManager.mDb.getColumns();
     var types = SQLiteManager.mDb.getRecordTypes();
     var sDbName = SQLiteManager.mDb.getFileName();
-    var data = '<?xml version="1.0" encoding="utf-8" ?>\n';
+    var data = '<?xml version="1.0" encoding="utf-8"?>\n';
     data += "<!--\n";
-    data += "  GUID:  sqlite-manager@sqlite-manager.googlecode.com\n";
-    data += "  Homepage:  http://sqlite-manager.googlecode.com\n\n";
+    data += "- sqlite-manager XML Dump\n";
+    data += "- version 0.7.1\n";
+    data += "- http://sqlite-manager.googlecode.com\n-\n";
     var d = new Date();
-    data += "  Generation Time: " + d.toGMTString() + "\n";
-    data += "  SQLite version: " + SQLiteManager.mDb.sqliteVersion + "\n";
+    data += "- Generation Time: " + d.toGMTString() + "\n";
+    data += "- SQLite version: " + SQLiteManager.mDb.sqliteVersion + "\n";
     data += "-->\n\n";
     data += "<!-- Database: " + sDbName + " -->\n";
     foStream.writeString(data);
 
-    var xmlDatabase = <{sDbName}/>;
+    var xmlRoot = <sm_xml_export/>;
+    xmlRoot.@version = "2.0";
+    //xmlRoot.@xmlns:lsm = "http://sqlite-manager.googlecode.com/dummy2/";
+    var xmlDatabase = <database/>;
+    xmlDatabase.@name = sDbName;
     var xmlColumn, data, xmlTable, colName;
     for(var i = 0; i < allRecords.length; i++) {
       var row = allRecords[i];
-      xmlTable = <{this.sObjectName}/>;
+      xmlTable = <table/>;
+      xmlTable.@name = this.sObjectName;
       for (var iCol = 0; iCol < row.length; iCol++) {
         colName = columns[iCol][0];
-        xmlColumn = <{colName}>{row[iCol]}</{colName}>;
+        xmlColumn = <column>{row[iCol]}</column>;
+        xmlColumn.@name = colName;
         if (bType)
           xmlColumn.@type = types[i][iCol];
         xmlTable.appendChild(xmlColumn);
       }
       xmlDatabase.appendChild(xmlTable);
     }
-    data = xmlDatabase.toXMLString();
+    xmlRoot.appendChild(xmlDatabase);
+    data = xmlRoot.toXMLString();
     foStream.writeString(data);
     return allRecords.length;
   },
@@ -410,7 +423,11 @@ var SmExim = {
         iImportNum = this.readSqlContent(file, charset);
         break;
       case "xml":
-        iImportNum = this.readXmlContent(file, charset);
+        var sExpVersion = $$("eximXml-exporter-version").value;
+        if (sExpVersion == 1)
+          iImportNum = this.readXmlContent(file, charset);
+        if (sExpVersion == 2)
+          iImportNum = this.readXmlContent_v2(file, charset);
         break;
     }
     this.reportImportResult(iImportNum);
@@ -673,6 +690,88 @@ var SmExim = {
         sTabNameInInsert = actualTables[iFound];
       }
       sQuery = "INSERT INTO " + sTabNameInInsert + " (" + sCols + ") VALUES (" + sVals + ")";
+      aQueries.push(sQuery);
+    }
+
+    var answer = smPrompt.confirm(null, sm_getLStr("exim.confirm.irows.title"), sm_getLStr("exim.confirm.irows.msg") + iRows);
+    if(answer) {
+      var bReturn = SQLiteManager.mDb.executeTransaction(aQueries);
+      if (bReturn)
+        return iRows;
+    }
+    return -1;
+  },
+
+  readXmlContent_v2: function(file, charset) {
+    var bType = $$("eximXml_type-attribute").checked;
+
+    var aQueries = [];
+    //the following two arrays should be of equal length
+    var xmlTables = []; //unique table names in xml nodes
+    var actualTables = [];//names of tables as created
+
+    var sData = "";
+    //E4X doesn't support parsing XML declaration(<?xml version=...?>)(bug 336551)
+    //TODO:  yet to test
+    var sData = FileIO.read(file, charset);
+    sData = sData.replace(/<\?xml[^>]*\?>/, "");
+
+    var xmlData = new XML(sData);
+    XML.ignoreComments = true;
+    var sRootName = xmlData.name().localName;
+    var iRows = xmlData.database.table.length();
+
+    var aCols, asCols, aVals;
+    var colText, sTabName, sQuery, sTabNameInInsert;
+
+    for each (var row in xmlData.database.table) {
+      sTabName = row.@name;
+      sVal = "";
+      aVals = [];
+      aCols = [];
+      asCols = [];
+      for each (var col in row.column) {
+        asCols.push(SQLiteFn.quoteIdentifier(col.@name));
+        aCols.push(col.@name);
+
+        colText = col.toString();
+        if (bType) {
+          if (col.@type == 3)
+            sVal = SQLiteFn.quote(colText);
+          else if (col.@type == 0)
+            sVal = "NULL";
+          else if (col.@type == 1)
+            sVal = colText;
+          else
+            sVal = SQLiteFn.quote(colText);
+        }
+        else
+          sVal = SQLiteFn.quote(colText);
+
+        aVals.push(sVal);
+      }
+      var sDbName = SQLiteManager.mDb.logicalDbName;
+      sTabName = sTabName.toString(); //important if sTabName is like a number
+      if (xmlTables.indexOf(sTabName) == -1) {
+        //penultimate arg is true to indicate that user cannot edit column names needed until we can maintain arrays for original and new names like we do for tables using xmlTables & actualTables
+        var aRet = this.getCreateTableQuery(sTabName, sDbName, aCols, true, true);
+        if (aRet.error)
+          return -1;
+        if (aRet.query != "") {
+          aQueries.push(aRet.query);
+        }
+        xmlTables.push(sTabName);
+        actualTables.push(aRet.tableName);
+      }
+      var iFound = xmlTables.indexOf(sTabName);
+      if (iFound >= 0) {
+        sTabNameInInsert = actualTables[iFound];
+      }
+      else {
+        alert("Failure: Cannot find the table name in which data is to be inserted.");
+        return -1;
+      }
+      sQuery = "INSERT INTO " + sTabNameInInsert + " (" + asCols.join(", ") + ") VALUES (" + aVals.join(", ") + ")";
       aQueries.push(sQuery);
     }
 

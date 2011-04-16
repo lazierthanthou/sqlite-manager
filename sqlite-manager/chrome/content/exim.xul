@@ -5,7 +5,8 @@
 <!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/exim.dtd">
 <!-- all id should begin with exim -->
 <overlay id="eximOverlay"
-  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:html="http://www.w3.org/1999/xhtml">
 
 <tabpanel id="eximTabpanel" flex="1">
   <notificationbox id="boxNotifyExim" flex="1">
@@ -115,6 +116,11 @@
         </tabpanel>
         <tabpanel>
           <vbox>
+            <label value="Choose XML exporter version:"/>
+            <html:select id="eximXml-exporter-version">
+              <html:option value="2">v 2.0 (like phpMyAdmin 5)</html:option>
+              <html:option value="1">v 1.0 (like phpMyAdmin 4)</html:option>
+            </html:select>
             <checkbox id="eximXml_type-attribute" style="width:300px" label="&xml.type;" checked="true"/>
             <description width="60">&xml.type.desc;</description>
           </vbox>

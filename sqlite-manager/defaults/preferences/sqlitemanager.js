@@ -46,6 +46,10 @@ pref("extensions.sqlitemanager.tableForExtensionManagement", "__sm_ext_mgmt");
 //for max number of columns in create table dialog
 pref("extensions.sqlitemanager.maxColumnsInTable", 20);
 
+//whether to allow multiline input fields for various row operations
+//like insert, update
+pref("extensions.sqlitemanager.whetherMultilineInput", true);
+
 //Blob related
 //text to show for blob fields for increased performance
 pref("extensions.sqlitemanager.textForBlob", "BLOB");

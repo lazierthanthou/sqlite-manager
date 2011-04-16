@@ -124,6 +124,7 @@
           <preference id="pref-notificationDuration" name="extensions.sqlitemanager.notificationDuration" type="int"/>
           <preference id="pref-displayNumRecords" name="extensions.sqlitemanager.displayNumRecords" type="int"/>
           <preference id="pref-maxColumnsInTable" name="extensions.sqlitemanager.maxColumnsInTable" type="int"/>
+          <preference id="pref-whetherMultilineInput" name="extensions.sqlitemanager.whetherMultilineInput" type="bool"/>
 
           <preference id="pref-textForBlob" name="extensions.sqlitemanager.textForBlob" type="string"/>
           <preference id="pref-showBlobSize" name="extensions.sqlitemanager.showBlobSize" type="bool"/>
@@ -167,6 +168,12 @@
               <menuitem label="&pref-whenInsertingShow-default;" value="default"/>
             </menupopup>
           </menulist>
+        </hbox>
+        <hbox>
+          <checkbox id="cb-whetherMultilineInput" label="&pref-whetherMultilineInput.label;" style="padding-left:20px" preference="pref-whetherMultilineInput" checked="true"/>
+        </hbox>
+        <hbox>
+          <label style="padding-top:3px" value="&pref-whetherMultilineInput.label.more;"/>
         </hbox>
         <groupbox>
         <caption label="&blobDisplay.caption;"/>

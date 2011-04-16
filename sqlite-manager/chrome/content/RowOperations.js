@@ -45,6 +45,7 @@ var RowOperations = {
     this.mRowId = window.arguments[3];
 
     this.mbConfirmationNeeded = sm_prefsBranch.getBoolPref("confirm.records");
+    this.mbMultiline = sm_prefsBranch.getBoolPref("whetherMultilineInput");
 
     switch(this.sOperation) {
       case "insert":
@@ -563,16 +564,45 @@ var RowOperations = {
       }
       this.onInputValue(elt, true);
     }
+    else if (evt.keyCode && !this.mbMultiline) {
+      var elt = evt.target;
+      var iIndex = elt.getAttribute("fieldindex");
+      iIndex = parseInt(iIndex);
+
+      switch(evt.keyCode.toString()) {
+        case "40":
+          var newIdx = iIndex + 1;
+          var nextInp = document.getElementById("ctrl-tb-" + newIdx);
+          if (nextInp) {
+            nextInp.focus();
+            nextInp.select();
+          };
+          break;
+
+        case "38":
+          var newIdx = iIndex - 1;
+          var prevInp = document.getElementById("ctrl-tb-" + newIdx);
+          if (prevInp) {
+            prevInp.focus();
+            prevInp.select();
+          };
+          break;
+
+        default:
+          break;
+      }
+    }
   },
 
   getInputField: function(iIndex) {
     var inp1 = document.createElement("textbox");
     inp1.setAttribute("id", "ctrl-tb-" + iIndex);
     inp1.setAttribute("flex", "30");
-    inp1.setAttribute("multiline", "true");
+    inp1.setAttribute("multiline", this.mbMultiline);
     inp1.setAttribute("rows", "1");
     inp1.setAttribute("oninput", "RowOperations.onInputValue(this, true);");
     inp1.setAttribute("onkeypress", "RowOperations.onKeyPressValue(event);");
+    inp1.setAttribute("onfocus", "this.select();");
 
     //following attributes are not in xul
     inp1.setAttribute("fieldindex", iIndex);

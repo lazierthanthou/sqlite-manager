@@ -35,12 +35,16 @@
       accesskey="Q"/>
   </menupopup>
 
+<!-- to be enabled using a preference, if necessary -->
+<!--
   <toolbar id="addon-bar">
     <toolbarbutton
       class="toolbarbutton-1"
       id="sqlitemanager-in-addon-bar"
+      hidden="true"
       label="SQLite Manager"
       oncommand="com.googlecode.sqlitemanager.open()"
       tooltiptext="SQLite Manager"/>
   </toolbar>
+-->
 </overlay>

@@ -54,6 +54,8 @@
 <!ENTITY pref-whenInsertingShow.ak "П">
 <!ENTITY pref-whenInsertingShow-previous "предыдущее добавленное значение">
 <!ENTITY pref-whenInsertingShow-default "значение по умолчанию">
+<!ENTITY pref-whetherMultilineInput.label "Allow multiline textboxes for inserting/updating records.">
+<!ENTITY pref-whetherMultilineInput.label.more "(Disabling multiline allows navigation using up/down arrows.)">
 <!ENTITY pref-identifierQuoteChar.label "Заключать идентификаторы в">
 <!ENTITY pref-identifierQuoteChar-doublequotes "двойные кавычки">
 <!ENTITY pref-identifierQuoteChar-squarebrackets "квадратные скобки">

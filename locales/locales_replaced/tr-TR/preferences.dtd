@@ -54,6 +54,8 @@
 <!ENTITY pref-whenInsertingShow.ak "W">
 <!ENTITY pref-whenInsertingShow-previous "Previous">
 <!ENTITY pref-whenInsertingShow-default "Default">
+<!ENTITY pref-whetherMultilineInput.label "Allow multiline textboxes for inserting/updating records.">
+<!ENTITY pref-whetherMultilineInput.label.more "(Disabling multiline allows navigation using up/down arrows.)">
 <!ENTITY pref-identifierQuoteChar.label "Characters to enclose the identifiers with">
 <!ENTITY pref-identifierQuoteChar-doublequotes "Double quotes">
 <!ENTITY pref-identifierQuoteChar-squarebrackets "Square brackets []">

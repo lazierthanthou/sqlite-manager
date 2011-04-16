@@ -1,0 +1,16 @@
+<!ENTITY udf.selectDir "Selezionare cartella del database UDF">
+<!ENTITY udf.selectDir.ak "S">
+<!ENTITY udf.reloadFunctions "Ricarica le funzioni">
+<!ENTITY udf.viewFunction "Visualizza">
+<!ENTITY udf.editFunction "Modifica">
+<!ENTITY udf.deleteFunction "Cancella">
+<!ENTITY udf.addFunction "Nuovo">
+<!ENTITY udf.saveFunction "Salva">
+<!ENTITY udf.closeTab "Chiudi scheda">
+<!ENTITY udf.simpleFunctions "Funzioni semplici">
+<!ENTITY udf.aggFunctions "Funzioni composte">
+<!ENTITY udf.funcName "Nome della funzione">
+<!ENTITY udf.funcArgLength "Numero di argomenti">
+<!ENTITY udf.funcBody "Corpo della funzione:">
+<!ENTITY udf.funcOnStepBody "Corpo della funzione (per onStep):">
+<!ENTITY udf.funcOnFinalBody "Corpo della funzione (per onFinal):">

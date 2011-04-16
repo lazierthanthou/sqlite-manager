@@ -54,6 +54,8 @@
 <!ENTITY pref-whenInsertingShow.ak "ä">
 <!ENTITY pref-whenInsertingShow-previous "Tidigare">
 <!ENTITY pref-whenInsertingShow-default "Standard">
+<!ENTITY pref-whetherMultilineInput.label "Allow multiline textboxes for inserting/updating records.">
+<!ENTITY pref-whetherMultilineInput.label.more "(Disabling multiline allows navigation using up/down arrows.)">
 <!ENTITY pref-identifierQuoteChar.label "Tecken att omsluta identifierarna med">
 <!ENTITY pref-identifierQuoteChar-doublequotes "Dubbla citationstecken &quot;&quot;">
 <!ENTITY pref-identifierQuoteChar-squarebrackets "Hakparenteser []">

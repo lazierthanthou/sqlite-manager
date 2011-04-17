@@ -7,24 +7,24 @@
 <!ENTITY whenSMStarts "Lorsque le gestionnaire SQLite démarre">
 <!ENTITY pref-openWithLastDb.label "Ouvrir la dernière base de données utilisée">
 <!ENTITY pref-openWithLastDb.ak "O">
-<!ENTITY pref-promptForLastDb.label "Toujours confirmer lors de l&apos;ouverture de la dernière base de données utilisée">
+<!ENTITY pref-promptForLastDb.label "Toujours confirmer lors de l'ouverture de la dernière base de données utilisée">
 <!ENTITY pref-promptForLastDb.ak "T">
 <!ENTITY pref-sqliteFileExtensions.label "Extension par défaut pour les fichiers SQLite">
 <!ENTITY pref-sqliteFileExtensions.ak "E">
 <!ENTITY pref-tableForExtensionManagement.label "Nom de la table de sauvegarde des données de gestion des extensions">
 <!ENTITY pref-tableForExtensionManagement.ak "N">
 <!ENTITY panePrompts.title "Confirmation">
-<!ENTITY confirmBeforeExecute "Confirmer avant d&apos;exécuter les tâches suivantes">
-<!ENTITY pref-confirm.records.label "Avant de rajouter ou d&apos;éditer une entrée">
+<!ENTITY confirmBeforeExecute "Confirmer avant d'exécuter les tâches suivantes">
+<!ENTITY pref-confirm.records.label "Avant de rajouter ou d'éditer une entrée">
 <!ENTITY pref-confirm.create.label "Avant de créer un table, un index, une vue, un déclencheur">
 <!ENTITY pref-confirm.otherSql.label "Tout autre opération sur une table">
 <!ENTITY paneInterface.title "Interface utilisateur">
-<!ENTITY toolbar.caption "Configuration de la barre d&apos;outils">
-<!ENTITY pref-hideMainToolbar.label "Cacher toutes les barres d&apos;outils">
-<!ENTITY pref-showMainToolbarDatabase.label "Afficher la barre d&apos;outils des bases de données">
-<!ENTITY pref-showMainToolbarIndex.label "Afficher la barre d&apos;outils des index">
-<!ENTITY pref-showMainToolbarTable.label "Afficher la barre d&apos;outils des tables">
-<!ENTITY pref-displayNumRecords.label "Nombre d&apos;entrées à afficher (onglet de recherche)">
+<!ENTITY toolbar.caption "Configuration de la barre d'outils">
+<!ENTITY pref-hideMainToolbar.label "Cacher toutes les barres d'outils">
+<!ENTITY pref-showMainToolbarDatabase.label "Afficher la barre d'outils des bases de données">
+<!ENTITY pref-showMainToolbarIndex.label "Afficher la barre d'outils des index">
+<!ENTITY pref-showMainToolbarTable.label "Afficher la barre d'outils des tables">
+<!ENTITY pref-displayNumRecords.label "Nombre d'entrées à afficher (onglet de recherche)">
 <!ENTITY pref-displayNumRecords.ak "E">
 <!ENTITY pref-sqlTextboxRows.label "Nombre de lignes dans la zone de texte pour entrer du SQL (onglet « Exécution SQL »)">
 <!ENTITY pref-sqlTextboxRows.ak "S">

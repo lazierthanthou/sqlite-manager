@@ -25,7 +25,7 @@
 <!ENTITY menu.db.compact.ak "m">
 <!ENTITY menu.db.analyze "Analyser la base de données">
 <!ENTITY menu.db.analyze.ak "A">
-<!ENTITY menu.db.check "Vérifier l&apos;intégrité">
+<!ENTITY menu.db.check "Vérifier l'intégrité">
 <!ENTITY menu.db.check.ak "V">
 <!ENTITY import "Importer">
 <!ENTITY import.ak "I">
@@ -86,7 +86,7 @@
 <!ENTITY menu.help.sqlitehome.ak "Q">
 <!ENTITY menu.help.sqlitesyntax "Aide sur la syntaxe SQLite">
 <!ENTITY menu.help.sqlitesyntax.ak "S">
-<!ENTITY menu.help.extensionhome "Page Web de l&apos;extension">
+<!ENTITY menu.help.extensionhome "Page Web de l'extension">
 <!ENTITY menu.help.extensionhome.ak "e">
 <!ENTITY menu.help.aboutextension "À propos du gestionnaire SQLite">
 <!ENTITY menu.help.aboutextension.ak "p">
@@ -115,10 +115,10 @@
 <!ENTITY label.sqlLastError "Dernière erreur">
 <!ENTITY label.resultOfQuery "Résultat de la requête">
 <!ENTITY label.resultOfQuery.ak "q">
-<!ENTITY btn.prevSql "Commande SQL précédente à partir de l&apos;historique">
-<!ENTITY btn.nextSql "Commande SQL suivante à partir de l&apos;historique">
+<!ENTITY btn.prevSql "Commande SQL précédente à partir de l'historique">
+<!ENTITY btn.nextSql "Commande SQL suivante à partir de l'historique">
 <!ENTITY btn.saveQuery "Enregistrer la requête sous un nom">
-<!ENTITY btn.clearHistory "Vider l&apos;historique des commandes SQL">
+<!ENTITY btn.clearHistory "Vider l'historique des commandes SQL">
 <!ENTITY sbp.db "Base de données">
 <!ENTITY masterinfo.tbl_name "Associé avec la table / vue">
 <!ENTITY masterinfo.rootpage "Page principale">
@@ -136,3 +136,7 @@
 <!ENTITY about "À propos">
 <!ENTITY version "Version">
 <!ENTITY author "Auteur">
+<!-- copyTable.xul -->
+<!-- create dialogs -->
+<!-- confirm dialog -->
+<!-- RowOperations.xul -->

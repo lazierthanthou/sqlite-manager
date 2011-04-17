@@ -54,6 +54,8 @@
 <!ENTITY pref-whenInsertingShow.ak "H">
 <!ENTITY pref-whenInsertingShow-previous "Zurück">
 <!ENTITY pref-whenInsertingShow-default "Standard">
+<!ENTITY pref-whetherMultilineInput.label "">
+<!ENTITY pref-whetherMultilineInput.label.more "">
 <!ENTITY pref-identifierQuoteChar.label "Zeichen, mit denen die Bezeichner umschlossen werden sollen">
 <!ENTITY pref-identifierQuoteChar-doublequotes "Doppelte Anführungszeichen">
 <!ENTITY pref-identifierQuoteChar-squarebrackets "Eckige Klammern []">

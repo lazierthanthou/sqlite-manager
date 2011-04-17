@@ -204,6 +204,7 @@
 <!ENTITY indexDuplicate "Valores Duplicados">
 <!ENTITY selectAllRecords "Selecciona Todos los Registros">
 <!ENTITY selectAllRecords.ak "s">
+<!-- copyTable.xul -->
 <!ENTITY From "Desde">
 <!ENTITY To "a">
 <!ENTITY Database "Base de datos">
@@ -212,6 +213,7 @@
 <!ENTITY onlyStructure "Sólo Estructura (los datos no serán copiados)">
 <!ENTITY enterNewTable "Introducir nombre de la nueva tabla">
 <!ENTITY enterNewTable.ak "t">
+<!-- create dialogs -->
 <!ENTITY Name.ak "N">
 <!ENTITY ViewName "Nombre de Vista">
 <!ENTITY Temporary "Temporal">
@@ -269,8 +271,10 @@
 <!ENTITY createTrigger.txtWhenExpression.ak "W">
 <!ENTITY createTrigger.txtTriggerSteps "Pasos del Trigger (Finalizados por punto y coma):">
 <!ENTITY createTrigger.txtTriggerSteps.ak "S">
+<!-- confirm dialog -->
 <!ENTITY confirm.button.accept "Si">
 <!ENTITY confirm.button.cancel "No">
+<!-- RowOperations.xul -->
 <!ENTITY rowOperations.tablenames "Nombre de Tabla:">
 <!ENTITY rowOperations.tablenames.ak "N">
 <!ENTITY rowOperations.loading "(cargando)">

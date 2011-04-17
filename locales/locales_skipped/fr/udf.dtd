@@ -1,1 +1,10 @@
 <!ENTITY udf.viewFunction "Voir">
+<!ENTITY udf.editFunction "Éditer">
+<!ENTITY udf.deleteFunction "Supprimer">
+<!ENTITY udf.addFunction "Nouveau">
+<!ENTITY udf.saveFunction "Enregistrer">
+<!ENTITY udf.closeTab "Fermer l'onglet">
+<!ENTITY udf.simpleFunctions "Fonctions simples">
+<!ENTITY udf.aggFunctions "Fonctions d'agrégation">
+<!ENTITY udf.funcName "Nom de la fonction">
+<!ENTITY udf.funcArgLength "Nombre d'arguments">

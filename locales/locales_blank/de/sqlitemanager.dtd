@@ -281,10 +281,10 @@
 <!ENTITY createTrigger.txtWhenExpression.ak "W">
 <!ENTITY createTrigger.txtTriggerSteps "Trigger-Schritte (getrennt durch Semikolon)">
 <!ENTITY createTrigger.txtTriggerSteps.ak "S">
-<!---->
+<!-- confirm dialog -->
 <!ENTITY confirm.button.accept "Ja">
 <!ENTITY confirm.button.cancel "Nein">
-<!---->
+<!-- RowOperations.xul -->
 <!ENTITY rowOperations.tablenames "Tabellenname">
 <!ENTITY rowOperations.tablenames.ak "n">
 <!ENTITY rowOperations.loading "(laden)">

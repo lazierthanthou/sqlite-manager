@@ -3,11 +3,11 @@
 <!ENTITY dbSettingsDesc "Ces options modifient les opérations de la librairie SQLite.">
 <!ENTITY versions "Versions">
 <!ENTITY schema_version "Version du schéma">
-<!ENTITY user_version "Version de l&apos;utilisateur">
-<!ENTITY cache_size "Taille du cache (nb de pages)">
-<!ENTITY default_cache_size "Taille du Cache par défaut (nb de pages)">
+<!ENTITY user_version "Version de l'utilisateur">
+<!ENTITY cache_size "Taille du cache (nb. de pages)">
+<!ENTITY default_cache_size "Taille du Cache par défaut (nb. de pages)">
 <!ENTITY pages "Pages">
-<!ENTITY page_size "Taille d&apos;une page (octets)">
+<!ENTITY page_size "Taille d'une page (octets)">
 <!ENTITY max_page_count "Nombre de pages maximal">
 <!ENTITY page_count "Compte des pages">
 <!ENTITY freelist_count "Compte de Freelist">

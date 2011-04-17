@@ -1,6 +1,0 @@
-<!ENTITY connectSql.reloadFunctions "Recarregar Aba">
-<!ENTITY connectSql.closeTab "Fechar Aba">
-<!ENTITY connectSql.cancel "Cancelar">
-<!ENTITY connectSql.save "Salvar">
-<!ENTITY connectSql.sqlForAllDb "Conectar instruções SQL para TODOS os bancos de dados">
-<!ENTITY connectSql.sqlForThisDb "Conectar instruções SQL para ESTE os bancos de dados">

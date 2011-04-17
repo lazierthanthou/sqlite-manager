@@ -313,7 +313,7 @@ SQLiteHandler.prototype = {
   },
 
   setSetting: function(sSetting, sValue) {
-    if (sSetting == "encoding" || sSetting == "temp_store_directory")
+    if (sSetting == "encoding")
       sValue = "'" + sValue + "'";
     var sQuery = "PRAGMA " + sSetting + " = " + sValue;
     //do not execute in a transaction; some settings will cause error
@@ -329,10 +329,7 @@ SQLiteHandler.prototype = {
       iValue = this.aTableData[0][0];
       return iValue;
     } catch (e) {
-      if (sSetting == "temp_store_directory")
-        return '';
-      else
-        this.alert("PRAGMA " + sSetting + ": exception - " + e.message);
+      this.alert("PRAGMA " + sSetting + ": exception - " + e.message);
     }
   },
   
@@ -1163,37 +1160,6 @@ SQLiteHandler.prototype = {
       while (stmt.executeStep()) {
         if (stmt.row.seq > 1) //sometimes, temp is not returned
           aRows.push(stmt.row.name);
-      }
-      stmt.finalize();
-      //Cu.reportError("finalize");
-    }
-    catch (e) {
-      var msg = this.onSqlError(e, "Likely SQL syntax error: " + sQuery, this.dbConn.lastErrorString, true);
-      Cu.reportError(msg);
-      this.setErrorString();
-    }
-    return aRows;
-  },
-
-  getForeignKeyList: function(sTableName, sDbName) {
-    var sQuery = this.getPragmaSchemaQuery("foreign_key_list", sTableName, sDbName);
-    var aRows = [];
-    try {
-      var stmt = this.dbConn.createStatement(sQuery);
-      //Cu.reportError("createStatement");
-      while (stmt.executeStep()) {
-        var oRow = {};
-
-        oRow.id = stmt.row.id;
-        oRow.seq = stmt.row.seq;
-        oRow.table = stmt.row.table;
-        oRow.from = stmt.row.from;
-        oRow.to = stmt.row.to;
-        oRow.on_update = stmt.row.on_update;
-        oRow.on_delete = stmt.row.on_delete;
-        oRow.match = stmt.row.match;
-
-        aRows.push(oRow);
       }
       stmt.finalize();
       //Cu.reportError("finalize");

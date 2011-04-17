@@ -105,18 +105,6 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
         <html:button onclick="SQLiteManager.changeDbSetting('cache_size');">&change;</html:button>
       </html:td>
     </html:tr>
-
-    <html:tr>
-      <html:td>
-        <label value="&default_cache_size;" class="dbinfo"/>
-      </html:td>
-      <html:td>
-        <textbox id="pr-default_cache_size" type="number" />
-      </html:td>
-      <html:td>
-        <html:button onclick="SQLiteManager.changeDbSetting('default_cache_size');">&change;</html:button>
-      </html:td>
-    </html:tr>
    </groupbox>
 
    <groupbox>
@@ -186,36 +174,6 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
       </html:td>
     </html:tr>
 -->
-
-    <html:tr>
-      <html:td>
-        <label value="&count_changes;" class="dbinfo"/>
-      </html:td>
-      <html:td>
-        <html:select id="pr-count_changes">
-          <html:option value="1">&On;</html:option>
-          <html:option value="0">&Off;</html:option>
-        </html:select>
-      </html:td>
-      <html:td>
-          <html:button onclick="SQLiteManager.changeDbSetting('count_changes');">&change;</html:button>
-      </html:td>
-    </html:tr>
-
-    <html:tr>
-      <html:td>
-        <label value="&empty_result_callbacks;" class="dbinfo"/>
-      </html:td>
-      <html:td>
-        <html:select id="pr-empty_result_callbacks">
-          <html:option value="1">&On;</html:option>
-          <html:option value="0">&Off;</html:option>
-        </html:select>
-      </html:td>
-      <html:td>
-          <html:button onclick="SQLiteManager.changeDbSetting('empty_result_callbacks');">&change;</html:button>
-      </html:td>
-    </html:tr>
 
     <html:tr>
       <html:td>
@@ -341,36 +299,6 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
 
     <html:tr>
       <html:td>
-        <label value="&full_column_names;" class="dbinfo"/>
-      </html:td>
-      <html:td>
-        <html:select id="pr-full_column_names">
-          <html:option value="1">&On;</html:option>
-          <html:option value="0">&Off;</html:option>
-        </html:select>
-      </html:td>
-      <html:td>
-        <html:button onclick="SQLiteManager.changeDbSetting('full_column_names');">&change;</html:button>
-      </html:td>
-    </html:tr>
-
-    <html:tr>
-      <html:td>
-        <label value="&short_column_names;" class="dbinfo"/>
-      </html:td>
-      <html:td>
-        <html:select id="pr-short_column_names">
-          <html:option value="1">&On;</html:option>
-          <html:option value="0">&Off;</html:option>
-        </html:select>
-      </html:td>
-      <html:td>
-        <html:button onclick="SQLiteManager.changeDbSetting('short_column_names');">&change;</html:button>
-      </html:td>
-    </html:tr>
-
-    <html:tr>
-      <html:td>
         <label value="&synchronous;" class="dbinfo"/>
       </html:td>
       <html:td>
@@ -401,18 +329,6 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
       </html:td>
       <html:td>
         <html:button onclick="SQLiteManager.changeDbSetting('temp_store');">&change;</html:button>
-      </html:td>
-    </html:tr>
-
-    <html:tr>
-      <html:td>
-        <label value="&temp_store_directory;" class="dbinfo"/>
-      </html:td>
-      <html:td>
-        <html:input type="text" id="pr-temp_store_directory" />
-      </html:td>
-      <html:td>
-        <html:button onclick="SQLiteManager.changeDbSetting('temp_store_directory');">&change;</html:button>
       </html:td>
     </html:tr>
    </groupbox>

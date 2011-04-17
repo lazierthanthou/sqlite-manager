@@ -104,8 +104,6 @@
           label="PRAGMA table_info" value="PRAGMA table_info (tableName)"/>
         <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
           label="PRAGMA index_list" value="PRAGMA index_list (tableName)"/>
-        <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
-          label="PRAGMA foreign_key_list" value="PRAGMA foreign_key_list (tableName)"/>
         <menuseparator/>
         <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
           label="PRAGMA index_info" value="PRAGMA index_info (indexName)"/>

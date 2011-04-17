@@ -93,21 +93,6 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
    </groupbox>
 
    <groupbox>
-    <caption label="&cache_size;"/>
-    <html:tr>
-      <html:td>
-        <label value="&cache_size;" class="dbinfo"/>
-      </html:td>
-      <html:td>
-        <textbox id="pr-cache_size" type="number" />
-      </html:td>
-      <html:td>
-        <html:button onclick="SQLiteManager.changeDbSetting('cache_size');">&change;</html:button>
-      </html:td>
-    </html:tr>
-   </groupbox>
-
-   <groupbox>
     <caption label="&journals;"/>
     <html:tr>
       <html:td>
@@ -119,6 +104,7 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
           <html:option value="truncate">truncate</html:option>
           <html:option value="persist">persist</html:option>
           <html:option value="memory">memory</html:option>
+          <html:option value="wal">wal</html:option>
           <html:option value="off">off</html:option>
         </html:select>
       </html:td>
@@ -155,6 +141,33 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
       </html:td>
       <html:td>
           <html:button onclick="SQLiteManager.changeDbSetting('auto_vacuum');">&change;</html:button>
+      </html:td>
+    </html:tr>
+
+    <html:tr>
+      <html:td>
+        <label value="&automatic_index;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-automatic_index">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+          <html:button onclick="SQLiteManager.changeDbSetting('automatic_index');">&change;</html:button>
+      </html:td>
+    </html:tr>
+
+    <html:tr>
+      <html:td>
+        <label value="&cache_size;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <textbox id="pr-cache_size" type="number" />
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('cache_size');">&change;</html:button>
       </html:td>
     </html:tr>
 
@@ -299,6 +312,21 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
 
     <html:tr>
       <html:td>
+        <label value="&secure_delete;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-secure_delete">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('secure_delete');">&change;</html:button>
+      </html:td>
+    </html:tr>
+
+    <html:tr>
+      <html:td>
         <label value="&synchronous;" class="dbinfo"/>
       </html:td>
       <html:td>
@@ -312,10 +340,7 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
         <html:button onclick="SQLiteManager.changeDbSetting('synchronous');">&change;</html:button>
       </html:td>
     </html:tr>
-   </groupbox>
 
-   <groupbox>
-    <caption label="&temp_store;"/>
     <html:tr>
       <html:td>
         <label value="&temp_store;" class="dbinfo"/>

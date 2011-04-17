@@ -985,8 +985,9 @@ var SQLiteManager = {
 
     if (!this.mDb.isConnected())
       return false;
-//assume sqlite >= 3.6.19
-    var aSettings = ["schema_version", "user_version", "auto_vacuum", "cache_size", /*"case_sensitive_like",*/ "encoding", "fullfsync", "journal_mode", "journal_size_limit", "legacy_file_format", "locking_mode", "page_size", "max_page_count", "page_count", "freelist_count", "read_uncommitted", "reverse_unordered_selects", "synchronous", "temp_store", "foreign_keys", "recursive_triggers"];
+//assume sqlite >= 3.7.4
+    //the commented values have a set operation but no get operation
+    var aSettings = ["auto_vacuum", "automatic_index", "cache_size", /*"case_sensitive_like",*/ "encoding", "foreign_keys", "freelist_count", "fullfsync", /*"ignore_check_constraints",*/  "journal_mode", "journal_size_limit", "legacy_file_format", "locking_mode", "max_page_count", "page_count", "page_size", "read_uncommitted", "recursive_triggers", "reverse_unordered_selects", "schema_version", "secure_delete", "synchronous", "temp_store", "user_version"/*, "writable_schema"*/];
 
     for(var i = 0; i < aSettings.length; i++)  {
       var sSetting = aSettings[i];

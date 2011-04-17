@@ -20,6 +20,7 @@
 
 <!ENTITY others "Others">
 <!ENTITY auto_vacuum "Auto Vacuum">
+<!ENTITY automatic_index "Automatic Indexing">
 <!ENTITY case_sensitive_like "Case-sensitive Like">
 <!ENTITY encoding "Encoding">
 <!ENTITY UTF8 "UTF-8">
@@ -33,6 +34,7 @@
 <!ENTITY read_uncommitted "Read Uncommitted">
 <!ENTITY recursive_triggers "Recursive Triggers">
 <!ENTITY reverse_unordered_selects "Reverse Unordered Selects">
+<!ENTITY secure_delete "Secure Delete">
 <!ENTITY synchronous "Synchronous">
 
 <!ENTITY temp_store "Temporary Store">

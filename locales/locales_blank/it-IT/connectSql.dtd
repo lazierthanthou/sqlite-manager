@@ -1,0 +1,6 @@
+<!ENTITY connectSql.reloadFunctions "Ricarica scheda">
+<!ENTITY connectSql.closeTab "Chiudi scheda">
+<!ENTITY connectSql.cancel "Annulla">
+<!ENTITY connectSql.save "Salva">
+<!ENTITY connectSql.sqlForAllDb "Espressione SQL 'alla connessione' per TUTTI i database">
+<!ENTITY connectSql.sqlForThisDb "Espressione SQL 'alla connessione' per QUESTO database">

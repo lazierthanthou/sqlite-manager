@@ -112,7 +112,7 @@ uploadFiles () {
 #uploadFiles "fr" "French"
 #uploadFiles "de" "German"
 #uploadFiles "" "" #en-US
-uploadFiles "all" "English, German, Japanese, French, Spanish, Russian, Swedish"
+uploadFiles "all" "English, German, Japanese, French, Italian, Spanish, Russian, Swedish"
 
 echo "Press any key to exit..."
 read xxx

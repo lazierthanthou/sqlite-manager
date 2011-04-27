@@ -29,16 +29,16 @@
 <!ENTITY eximCsv_encloser.doublequotes.standard "Comillas dobles (&quot;), si es necesario (Estándar)">
 <!ENTITY eximCsv_encloser.doublequotes.standard.ak "q">
 <!ENTITY eximCsv_encloser.doublequotes.always "Comillas dobles (&quot;), siempre">
-<!ENTITY eximCsv_encloser.doublequotes.likeExcel "">
+<!ENTITY eximCsv_encloser.doublequotes.likeExcel "Como MS Excel (comillas dobles si el campo contiene &quot; o separador)">
 <!ENTITY eximCsv_encloser.singlequotes "Comillas simples (')">
-<!ENTITY eximCsv_encloser.none "">
+<!ENTITY eximCsv_encloser.none "Ninguno">
 <!ENTITY eximCsv_encloser.other "Otro">
 <!ENTITY eximCsv-expSaveSetting "Guardar configuración de exportación CSV">
 <!ENTITY eximCsv-expSaveSetting-tooltiptext "Puede guardar esta configuración si desea operaciones de 'Copia de Filas como CSV' usen esta configuración.">
-<!ENTITY eximCsv-impSaveSetting "">
-<!ENTITY eximCsv-impSaveSetting-tooltiptext "">
-<!ENTITY eximCsv-expUseSetting "">
-<!ENTITY eximCsv-impUseSetting "">
+<!ENTITY eximCsv-impSaveSetting "Guardar Ajustes de Importación CSV">
+<!ENTITY eximCsv-impSaveSetting-tooltiptext "Guardar Ajustes de Importación CSV">
+<!ENTITY eximCsv-expUseSetting "Usar Ajustes Guardados">
+<!ENTITY eximCsv-impUseSetting "Usar Ajustes Guardados">
 <!ENTITY eximXml_root-element "Nombre del Elemento Raiz">
 <!ENTITY eximXml_prefix-table-element "Prefijar a Elemento de la Tabla:">
 <!ENTITY exim-exp-ok "OK">

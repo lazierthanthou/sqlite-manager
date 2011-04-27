@@ -54,8 +54,8 @@
 <!ENTITY pref-whenInsertingShow.ak "П">
 <!ENTITY pref-whenInsertingShow-previous "предыдущее добавленное значение">
 <!ENTITY pref-whenInsertingShow-default "значение по умолчанию">
-<!ENTITY pref-whetherMultilineInput.label "">
-<!ENTITY pref-whetherMultilineInput.label.more "">
+<!ENTITY pref-whetherMultilineInput.label "Разрешить многострочные текстовые поля при вставке/обновлении записей.">
+<!ENTITY pref-whetherMultilineInput.label.more "(Отключение многострочности разрешает навигацию клавишами-стрелками.)">
 <!ENTITY pref-identifierQuoteChar.label "Заключать идентификаторы в">
 <!ENTITY pref-identifierQuoteChar-doublequotes "двойные кавычки">
 <!ENTITY pref-identifierQuoteChar-squarebrackets "квадратные скобки">

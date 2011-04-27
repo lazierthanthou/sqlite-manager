@@ -54,8 +54,8 @@
 <!ENTITY pref-whenInsertingShow.ak "W">
 <!ENTITY pref-whenInsertingShow-previous "Anterior">
 <!ENTITY pref-whenInsertingShow-default "Por Defecto">
-<!ENTITY pref-whetherMultilineInput.label "Allow multiline textboxes for inserting/updating records.">
-<!ENTITY pref-whetherMultilineInput.label.more "(Disabling multiline allows navigation using up/down arrows.)">
+<!ENTITY pref-whetherMultilineInput.label "Permitir cuadros de texto multilinea para insertar/actualizar registros.">
+<!ENTITY pref-whetherMultilineInput.label.more "(Deshabilitar multinea permite la navegación usando las flechas arriba/abajo).">
 <!ENTITY pref-identifierQuoteChar.label "Encerrar los identificadores con">
 <!ENTITY pref-identifierQuoteChar-doublequotes "Comillas dobles">
 <!ENTITY pref-identifierQuoteChar-squarebrackets "Corchetes []">
@@ -72,9 +72,9 @@
 <!ENTITY paneDatatree.typeBlob "Blob">
 <!ENTITY paneDatatree.textColor "color de texto">
 <!ENTITY paneDatatree.backgroundColor "color de fondo">
-<!ENTITY paneDatatree.fontSize "Font Size (in percent)">
-<!ENTITY paneDatatree.fontFamily "Font Family">
-<!ENTITY paneDatatree.rowHeight "Row Height (in pixels; 0 means default height)">
+<!ENTITY paneDatatree.fontSize "Tamaño de Fuente (Tanto por ciento)">
+<!ENTITY paneDatatree.fontFamily "Familia de Fuente">
+<!ENTITY paneDatatree.rowHeight "Altura de fila (en pixeles; 0 significa altura predeterminada)">
 <!ENTITY paneDatatree.btnSetDefault "Establecer Por Defecto">
 <!ENTITY paneDatatree.btnApply "Aplicar">
 <!ENTITY paneDatatree.btnNone "Ninguno">

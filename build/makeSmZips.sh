@@ -296,6 +296,7 @@ while [ ! $userOption = "x" ]; do
     echo "i : install xulrunner app"
     echo "r : run the xulrunner app (option to speed up testing)"
     echo "j : install .xpi for firefox4 profiles"
+    echo "bz : download locale files from babelzilla"
     echo "----"
     echo "u : upload to code.google.com"
     echo "----"
@@ -334,6 +335,11 @@ while [ ! $userOption = "x" ]; do
 
     if [ $userOption = "l" ]; then
       sh $buildDir/langpacks.sh
+    fi
+
+    if [ $userOption = "bz" ]; then
+      cd $outDir
+      sh $buildDir/getLocalesFromBz.sh
     fi
 
 ###########################################

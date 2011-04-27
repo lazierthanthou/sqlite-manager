@@ -6,16 +6,16 @@
 <!ENTITY csv.tableName "Entrez le nom de la table dans laquelle les données sont importées:">
 <!ENTITY Comma "Comma">
 <!ENTITY Comma.ak "C">
-<!ENTITY Semicolon "">
-<!ENTITY Pipe "">
+<!ENTITY Semicolon "Point-virgule">
+<!ENTITY Pipe "Pipe (|)">
 <!ENTITY Tab "Tab">
 <!ENTITY csv.firstrow "Première rangée contient les noms de colonnes">
-<!ENTITY csv.separate "">
-<!ENTITY csv.enclose "">
+<!ENTITY csv.separate "Champs séparés par">
+<!ENTITY csv.enclose "Champs limités par">
 <!ENTITY sql.settings "SQL Paramètres">
 <!ENTITY sql.create "Inclure instruction CREATE TABLE">
 <!ENTITY sql.transaction "BEGIN TRANSACTION/COMMIT doit être utilisé">
-<!ENTITY sql.transaction.desc "">
+<!ENTITY sql.transaction.desc "Si cette option est cochée, on considère que pour le fichier sélectionné, la première et la dernière déclaration sont respectivement BEGIN TRANSACTION et COMMIT. L'extension les ignorera et exécutera les autres déclarations en une seule passe. S'il existe des déclarations de transaction entre ces deux parties elles devront être supprimées manuellement du fichier avant son importation.">
 <!ENTITY xml.type "">
 <!ENTITY xml.type.desc "">
 <!ENTITY importWizard "Assistant Importation">
@@ -25,7 +25,7 @@
 <!ENTITY eximFilename "Sélectionnez Fichier">
 <!ENTITY eximFilename.ak "S">
 <!ENTITY eximFileCharSet "Codage des caractères">
-<!ENTITY eximFileCharSet.ak "">
+<!ENTITY eximFileCharSet.ak "C">
 <!ENTITY eximCsv_encloser.doublequotes.standard "Les guillemets doubles (&quot;), si nécessaire (Standard)">
 <!ENTITY eximCsv_encloser.doublequotes.standard.ak "">
 <!ENTITY eximCsv_encloser.doublequotes.always "Les guillemets doubles (&quot;), toujours">

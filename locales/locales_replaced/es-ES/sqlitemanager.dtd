@@ -9,7 +9,7 @@
 <!ENTITY mi.sharedPagerCache.ak "S">
 <!ENTITY mi.extensionTable "Usar Tabla para la Extensión de Datos">
 <!ENTITY mi.extensionTable.ak "E">
-<!ENTITY mi.openOnConnectSqlTab "Open On-Connect SQL Tab">
+<!ENTITY mi.openOnConnectSqlTab "Abrir Pestaña On-Connect SQL">
 <!ENTITY mi.openOnConnectSqlTab.ak "Q">
 <!ENTITY mi.console "Consola de Error">
 <!ENTITY mi.console.ak "C">
@@ -160,12 +160,12 @@
 <!ENTITY buttonExecute "Ejecutar sentencia (sin resultados)">
 <!ENTITY buttonExecute.ak "E">
 <!ENTITY label.sqlLastError "Ultimo Error">
-<!ENTITY mb.queryActions "Actions">
-<!ENTITY mi.viewQueryAsTable "View Table">
+<!ENTITY mb.queryActions "Acciones">
+<!ENTITY mi.viewQueryAsTable "Vista Tabla">
 <!ENTITY mi.viewQueryAsTable.ak "T">
-<!ENTITY mi.viewQueryAsCsv "View CSV">
+<!ENTITY mi.viewQueryAsCsv "Vista CSV">
 <!ENTITY mi.viewQueryAsCsv.ak "C">
-<!ENTITY mi.saveQueryAsCsv "Save Result (CSV) to File">
+<!ENTITY mi.saveQueryAsCsv "Guardar Resultado (CSV) en Archivo">
 <!ENTITY mi.saveQueryAsCsv.ak "S">
 <!ENTITY label.resultOfQuery "Resultado de la Consulta">
 <!ENTITY label.resultOfQuery.ak "Q">
@@ -288,5 +288,5 @@
 <!ENTITY rowOperations.tablenames "Nombre de Tabla:">
 <!ENTITY rowOperations.tablenames.ak "N">
 <!ENTITY rowOperations.loading "(cargando)">
-<!ENTITY oldValues "Old Values">
-<!ENTITY newValues "New Values">
+<!ENTITY oldValues "Valores Antiguos">
+<!ENTITY newValues "Valores nuevos">

@@ -1511,21 +1511,25 @@ var SQLiteManager = {
     return true;
   },
 
-  checkIntegrity: function() {
+  checkIntegrity: function(checkType) {
     if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
       return false;
     }
-    this.mDb.selectQuery("PRAGMA integrity_check");
+    var sQuery = "PRAGMA integrity_check";
+    if (checkType == "quick")
+      sQuery = "PRAGMA quick_check";
+
+    this.mDb.selectQuery(sQuery);
     var records = this.mDb.getRecords();
     var columns = this.mDb.getColumns();
 
-    var txt = sm_getLStr("integrityResultPrefix") + ": ";
+    var txt = sm_getLFStr("integrityResultPrefix", [sQuery]) + ": ";
     //report OK if i row returned containing the value "ok"
     if (records.length == 1 && records[0][0] == "ok")
       alert(txt + sm_getLStr("ok"));
     else
-      alert(txt + sm_getLStr("notOk"));
+      alert(txt + sm_getLFStr("notOk", [sQuery]));
     return true;
   },
 

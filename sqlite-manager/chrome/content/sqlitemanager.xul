@@ -187,7 +187,12 @@
             <menuitem label="&menu.db.copy;" accesskey="&menu.db.copy.ak;" oncommand="SQLiteManager.copyDatabase()" observes="bc-dbOpen"/>  
             <menuitem label="&menu.db.compact;" accesskey="&menu.db.compact.ak;" oncommand="SQLiteManager.compactDatabase()" observes="bc-dbOpen"/>  
             <menuitem label="&menu.db.analyze;" accesskey="&menu.db.analyze.ak;" oncommand="SQLiteManager.analyzeDatabase()" observes="bc-dbOpen"/>  
-            <menuitem label="&menu.db.check;" accesskey="&menu.db.check.ak;" oncommand="SQLiteManager.checkIntegrity()" observes="bc-dbOpen"/>  
+            <menu label="&menu.db.check;" accesskey="&menu.db.check.ak;" observes="bc-dbOpen">
+              <menupopup>
+                <menuitem label="&menu.db.checkComplete;" accesskey="&menu.db.checkComplete.ak;" oncommand="SQLiteManager.checkIntegrity('complete')" observes="bc-dbOpen"/>
+                <menuitem label="&menu.db.checkQuick;" accesskey="&menu.db.checkQuick.ak;" oncommand="SQLiteManager.checkIntegrity('quick')" observes="bc-dbOpen"/>
+              </menupopup>
+            </menu>
             <menuseparator/>
             <menuitem label="&exportAll;" accesskey="&exportAll.ak;" oncommand="SQLiteManager.exportAll('tables')" observes="bc-dbOpen"/>  
             <menuitem label="&exportDb;" accesskey="&exportDb.ak;" oncommand="SQLiteManager.exportAll('db')" observes="bc-dbOpen"/>  

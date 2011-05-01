@@ -21,7 +21,7 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
         <label value="&schema_version;" class="dbinfo"/>
       </html:td>
       <html:td>
-        <textbox id="pr-schema_version" type="number"  value=""/>
+        <textbox id="pr-schema_version" type="number"/>
       </html:td>
       <html:td>
         <html:button onclick="SQLiteManager.changeDbSetting('schema_version');" style="color:red;">&change;</html:button>
@@ -33,7 +33,7 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
         <label value="&user_version;" class="dbinfo"/>
       </html:td>
       <html:td>
-        <textbox id="pr-user_version" type="number"  value=""/>
+        <textbox id="pr-user_version" type="number"/>
       </html:td>
       <html:td>
         <html:button onclick="SQLiteManager.changeDbSetting('user_version');">&change;</html:button>
@@ -54,6 +54,9 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
           <html:option value="2048">2048</html:option>
           <html:option value="4096">4096</html:option>
           <html:option value="8192">8192</html:option>
+          <html:option value="16384">16384</html:option>
+          <html:option value="32768">32768</html:option>
+          <html:option value="65536">65536</html:option>
         </html:select>
       </html:td>
       <html:td>
@@ -354,6 +357,19 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
       </html:td>
       <html:td>
         <html:button onclick="SQLiteManager.changeDbSetting('temp_store');">&change;</html:button>
+      </html:td>
+    </html:tr>
+
+    <html:tr>
+      <html:td class="dbinfo">
+        <!-- not using label because the text needs more than a line -->
+        &wal_autocheckpoint;
+      </html:td>
+      <html:td>
+        <textbox id="pr-wal_autocheckpoint" type="number"/>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('wal_autocheckpoint');">&change;</html:button>
       </html:td>
     </html:tr>
    </groupbox>

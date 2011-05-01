@@ -36,6 +36,7 @@
 <!ENTITY reverse_unordered_selects "Reverse Unordered Selects">
 <!ENTITY secure_delete "Secure Delete">
 <!ENTITY synchronous "Synchronous">
+<!ENTITY wal_autocheckpoint "Size (in no. of pages) of write-ahead log at which checkpoint will be run automatically">
 
 <!ENTITY temp_store "Temporary Store">
 

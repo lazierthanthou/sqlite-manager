@@ -18,6 +18,11 @@ label.dbinfo {
 	text-align: right;
 }
 
+html|td.dbinfo {
+	width: 30ex;
+	text-align: right;
+}
+
 #dbInfoTab html|select,
 #dbInfoTab html|input {
   width: 160px;

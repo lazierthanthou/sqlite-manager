@@ -261,13 +261,13 @@
         </menu>
         <menu id="menu-help" label="&menu.help;">
           <menupopup>
-            <menuitem label="&menu.help.reportProblem;" accesskey="&menu.help.reportProblem.ak;" oncommand="SmGlobals.openURL(SmGlobals.webpages.issueNew)"/>
-            <menuitem label="&menu.help.faq;" accesskey="&menu.help.faq.ak;" oncommand="SmGlobals.openURL(SmGlobals.webpages.faq)"/>
+            <menuitem label="&menu.help.reportProblem;" accesskey="&menu.help.reportProblem.ak;" oncommand="SmGlobals.openURL(SmAppInfo.webpages.issueNew)"/>
+            <menuitem label="&menu.help.faq;" accesskey="&menu.help.faq.ak;" oncommand="SmGlobals.openURL(SmAppInfo.webpages.faq)"/>
             <menuseparator/>
-            <menuitem label="&menu.help.sqlitehome;" accesskey="&menu.help.sqlitehome.ak;" oncommand="SmGlobals.openURL(SmGlobals.webpages.sqliteHome)"/>
-            <menuitem label="&menu.help.sqlitesyntax;" accesskey="&menu.help.sqlitesyntax.ak;" oncommand="SmGlobals.openURL(SmGlobals.webpages.sqliteLang)"/>
+            <menuitem label="&menu.help.sqlitehome;" accesskey="&menu.help.sqlitehome.ak;" oncommand="SmGlobals.openURL(SmAppInfo.webpages.sqliteHome)"/>
+            <menuitem label="&menu.help.sqlitesyntax;" accesskey="&menu.help.sqlitesyntax.ak;" oncommand="SmGlobals.openURL(SmAppInfo.webpages.sqliteLang)"/>
             <menuseparator/>
-            <menuitem label="&menu.help.extensionhome;" accesskey="&menu.help.extensionhome.ak;" oncommand="SmGlobals.openURL(SmGlobals.webpages.home)"/>
+            <menuitem label="&menu.help.extensionhome;" accesskey="&menu.help.extensionhome.ak;" oncommand="SmGlobals.openURL(SmAppInfo.webpages.home)"/>
             <menuitem label="&menu.help.aboutextension;" accesskey="&menu.help.aboutextension.ak;" oncommand="window.openDialog(SmGlobals.chromes.aboutSM,'about','chrome, centerscreen, modal, dialog');"/>
           </menupopup>
         </menu>

@@ -1,5 +1,6 @@
 Components.utils.import("resource://sqlitemanager/sqlite.js");
 Components.utils.import("resource://sqlitemanager/tokenize.js");
+Components.utils.import("resource://sqlitemanager/appInfo.js");
 
 // SQLiteManager extension
 
@@ -106,8 +107,8 @@ var SQLiteManager = {
     SmGlobals.sbPanelDisplay = this.sbPanel["display"];
 
     //display Gecko version & extVersion in the status bar
-    $$("sbExtVersion").label = SmGlobals.extVersion;
-    $$("sbGeckoVersion").label = "Gecko " + SmGlobals.appInfo.platformVersion;
+    $$("sbExtVersion").label = SmAppInfo.getVersion();
+    $$("sbGeckoVersion").label = "Gecko " + SmAppInfo.appInfo.platformVersion;
 
     smHide(["vb-structureTab", "vb-browseTab", "vb-executeTab", "vb-dbInfoTab"]);
 
@@ -137,7 +138,7 @@ var SQLiteManager = {
 
     var bOpenLastDb = true;
     //proceed to check commandline arguments only if we are in an xulrunner app
-    if(SmGlobals.appInfo.name == 'sqlite-manager') {
+    if(SmAppInfo.appInfo.name == 'sqlite-manager') {
       if (window.arguments) {
         //commandline arguments if running with xulrunner
         try {
@@ -157,7 +158,7 @@ var SQLiteManager = {
       }
     }
 ///////////////////////////////////////////////////////////////
-    if(SmGlobals.appInfo.name == 'Firefox') {
+    if(SmAppInfo.appInfo.name == 'Firefox') {
       if (window.arguments && window.arguments.length) {
         if (typeof window.arguments[0] == "string") {
           var sPath = window.arguments[0];
@@ -420,7 +421,7 @@ var SQLiteManager = {
         }
         break;
       case "posInTargetApp":
-      if(SmGlobals.appInfo.ID == "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}") {
+      if(SmAppInfo.appInfo.ID == "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}") {
         var md = window.QueryInterface(Ci.nsIInterfaceRequestor)
           .getInterface(Ci.nsIWebNavigation)
           .QueryInterface(Ci.nsIDocShellTreeItem).rootTreeItem

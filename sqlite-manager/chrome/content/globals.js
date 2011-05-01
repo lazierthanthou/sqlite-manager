@@ -1,3 +1,7 @@
+//we call setVersion here to give it time to set version because the async function used there takes a lot of time
+Components.utils.import("resource://sqlitemanager/appInfo.js");
+SmAppInfo.setVersion();
+
 const Cc = Components.classes;
 const Ci = Components.interfaces;
 const Cu = Components.utils;
@@ -11,15 +15,6 @@ var SmGlobals = {
     aboutSM: "chrome://sqlitemanager/content/about.xul"
   },
 
-  webpages: {
-    home: "http://sqlite-manager.googlecode.com/",
-    faq: "http://code.google.com/p/sqlite-manager/wiki/FAQ",
-    issueNew: "http://code.google.com/p/sqlite-manager/issues/entry",
-    sqliteHome: "http://www.sqlite.org/",
-    sqliteLang: "http://www.sqlite.org/lang.html",
-    mpl: "http://www.mozilla.org/MPL/MPL-1.1.html"
-  },
-
   //these are the preferences which are being observed and which need to be initially read.
   observedPrefs: ["jsonDataTreeStyle", "hideMainToolbar", "showMainToolbarDatabase", "showMainToolbarTable", "showMainToolbarIndex", "showMainToolbarDebug", "sqliteFileExtensions", "displayNumRecords", "textForBlob", "identifierQuoteChar", "jsonMruData", "notificationDuration",
         "posInTargetApp" /* this one for firefox only*/,
@@ -28,35 +23,7 @@ var SmGlobals = {
   tempNamePrefix: "__temp__",
   sbPanelDisplay: null,
 
-  appInfo: null,
-  extVersion: "",
-  extCreator: "lazierthanthou",
-
   dialogFeatures: "chrome,resizable,centerscreen,modal,dialog",
-
-  setAppInfo: function() {
-    var extId = "SQLiteManager@mrinalkant.blogspot.com";
-    this.appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-
-    this.gecko_193b2pre = (Cc["@mozilla.org/xpcom/version-comparator;1"].getService(Ci.nsIVersionComparator).compare(this.appInfo.platformVersion, "1.9.3b2pre") >= 0);
-
-    if (this.appInfo.ID == extId) {
-      this.extVersion = this.appInfo.version;
-      this.extCreator = this.appInfo.vendor;
-    }
-    else {
-      try {
-        Components.utils.import("resource://gre/modules/AddonManager.jsm");
-        AddonManager.getAddonByID(extId, function(addon) {
-          SmGlobals.extVersion = addon.version;
-        });      
-      }
-      catch (ex) {
-        var extInfo = Cc["@mozilla.org/extensions/manager;1"].getService(Ci.nsIExtensionManager).getItemForID(extId);
-        this.extVersion = extInfo.version;
-      }
-    }
-  },
 
   //notification duration
   getNotificationDuration: function() {
@@ -116,8 +83,6 @@ function sm_setUnicodePref(prefName, prefValue) {
     sString.data = prefValue;
     sm_prefsBranch.setComplexValue(prefName, Ci.nsISupportsString, sString);
 }
-
-SmGlobals.setAppInfo();
 
 var smStrings = Cc["@mozilla.org/intl/stringbundle;1"].getService(Ci.nsIStringBundleService).createBundle("chrome://sqlitemanager/locale/strings.properties");
 //gets localized string

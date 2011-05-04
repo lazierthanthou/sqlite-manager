@@ -76,7 +76,11 @@ createXRFile () {
   sed -i -e "s/XXXbuildIdXXX/$buildID/g" $workDir/application.ini
   echo "application.ini modified."
 
-  echo "Set correct permissions on alll the files"
+  echo "Use the appropriate chrome.manifest"
+  rm $workDir/chrome.manifest
+  mv $workDir/chromeForXR.manifest $workDir/chrome.manifest
+
+  echo "Set correct permissions on all the files"
   chmod -R 744 ./
 
   echo "Creating zip file: "$xrFile
@@ -112,13 +116,15 @@ createXpiFile () {
 installXR () {
   xrAllLocales="sqlitemanager-xr-"$version"-all.zip"
   echo "Installing xulrunner app"
-  sudo xulrunner --install-app $releaseDir/$xrAllLocales
-  executable=/usr/lib/mrinalkant/sqlite-manager/sqlite-manager
-  smappini=/usr/lib/mrinalkant/sqlite-manager/application.ini
+  sudo xulrunner-2.0 --install-app $releaseDir/$xrAllLocales
+  executable=/usr/local/lib/lazierthanthou/sqlite-manager/sqlite-manager
+
+  #creating a link in /usr/bin is not useful because running it using sqlite-manager gives an error "Could not read application.ini".
+  #If we have to run using "/usr/bin/sqlite-manager" we could just as well use "$executable"
+  exeLink=/usr/bin/sqlite-manager
   echo "Creating shortcut for executable in /usr/bin/"
-  sudo ln -s $executable /usr/bin/sqlite-manager
-  echo "Creating shortcut for application.ini in /home/user/"
-  sudo ln -s $smappini ~/sm_app.ini
+  sudo rm $exeLink
+  sudo ln -s $executable $exeLink
 }
 
 installXPI () {
@@ -164,18 +170,14 @@ createLangFile () {
   echo "Copying the locale dir: "$babelDir/$locale
   cp -r $babelDir/$locale $workDir/chrome/locale/
 
-  echo "Adding locale entry in chrome.manifest..."
-  if [ $filetype = "xpi" ]; then
-    chrome=$workDir/chrome.manifest
-    echo "locale sqlitemanager $locale chrome/locale/$locale/" >> $chrome
+  chrome=$workDir/chrome.manifest
+  echo "Adding locale entry in chrome.manifest..." $chrome
+  echo "locale sqlitemanager $locale chrome/locale/$locale/" >> $chrome
 
+  if [ $filetype = "xpi" ]; then
     #modify install.rdf
     transEntry="<em:translator>$translator ($language)</em:translator>"
     sed -i "/em:creator/a $transEntry" $workDir/install.rdf
-  fi
-  if [ $filetype = "xr" ]; then
-    chrome=$workDir/chrome/chrome.manifest
-    echo "locale sqlitemanager $locale file:locale/$locale/" >> $chrome
   fi
 
   echo "Creating file: "$newFile
@@ -258,17 +260,13 @@ buildWithAllLanguages () {
       cp -r $babelDir/$locale $workDir/chrome/locale/
 
       echo "Adding locale entry in chrome.manifest..."
-      if [ $filetype = "xpi" ]; then
-        chrome=$workDir/chrome.manifest
-        echo "locale sqlitemanager $locale chrome/locale/$locale/" >> $chrome
+      chrome=$workDir/chrome.manifest
+      echo "locale sqlitemanager $locale chrome/locale/$locale/" >> $chrome
 
+      if [ $filetype = "xpi" ]; then
         #modify install.rdf
         transEntry="<em:translator>$translator ($language)</em:translator>"
         sed -i "/em:creator/a $transEntry" $workDir/install.rdf
-      fi
-      if [ $filetype = "xr" ]; then
-        chrome=$workDir/chrome/chrome.manifest
-        echo "locale sqlitemanager $locale file:locale/$locale/" >> $chrome
       fi
     fi
   done < $fileTranslators

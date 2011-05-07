@@ -15,8 +15,8 @@
 <!ENTITY journal_size_limit "Taille limite du journal">
 <!ENTITY others "Autres">
 <!ENTITY auto_vacuum "Nettoyage automatique">
-<!ENTITY automatic_index "">
-<!ENTITY case_sensitive_like "*** Comme sensible à la casse">
+<!ENTITY automatic_index "Indexation automatique">
+<!ENTITY case_sensitive_like "De type sensible à la casse">
 <!ENTITY encoding "Encodage">
 <!ENTITY UTF8 "UTF-8">
 <!ENTITY UTF16 "UTF-16">
@@ -27,10 +27,11 @@
 <!ENTITY legacy_file_format "Ancien format de fichier">
 <!ENTITY locking_mode "Mode de verrouillage de fichiers">
 <!ENTITY read_uncommitted "lecture automatique">
-<!ENTITY recursive_triggers "*** lancements récursifs">
-<!ENTITY reverse_unordered_selects "*** Inverser les sélections de listes à puces">
-<!ENTITY secure_delete "">
+<!ENTITY recursive_triggers "Lancements récursifs">
+<!ENTITY reverse_unordered_selects "Inverser les sélections de listes à puces">
+<!ENTITY secure_delete "Suppression sécurisée">
 <!ENTITY synchronous "Synchronisation">
+<!ENTITY wal_autocheckpoint "">
 <!ENTITY temp_store "Sauvegarde temporaire">
 <!ENTITY On "Activé">
 <!ENTITY Off "Désactivé">

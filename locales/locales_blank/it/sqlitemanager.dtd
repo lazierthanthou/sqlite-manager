@@ -40,6 +40,10 @@
 <!ENTITY menu.db.analyze.ak "A">
 <!ENTITY menu.db.check "Controlla integrità">
 <!ENTITY menu.db.check.ak "g">
+<!ENTITY menu.db.checkComplete "">
+<!ENTITY menu.db.checkComplete.ak "">
+<!ENTITY menu.db.checkQuick "">
+<!ENTITY menu.db.checkQuick.ak "">
 <!ENTITY exportAll "Esporta tutte le tabelle">
 <!ENTITY exportAll.ak "l">
 <!ENTITY exportDb "Esporta Database">

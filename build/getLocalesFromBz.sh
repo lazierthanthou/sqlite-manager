@@ -15,10 +15,12 @@ downloadLocales () {
 }
 
 wget http://www.babelzilla.org/wts/download/locale/all/blank/4034 -O blank-all.tar.gz
+rm -r blank-all
 mkdir -p blank-all
 tar -xvf blank-all.tar.gz -C blank-all
 
 wget http://www.babelzilla.org/wts/download/locale/all/replaced/4034 -O replaced-all.tar.gz
+rm -r replaced-all
 mkdir -p replaced-all
 tar -xvf replaced-all.tar.gz -C replaced-all
 

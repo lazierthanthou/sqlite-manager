@@ -31,6 +31,7 @@
 <!ENTITY reverse_unordered_selects "Изменить неупорядоченный выбор">
 <!ENTITY secure_delete "Безопасное удаление">
 <!ENTITY synchronous "Синхронность">
+<!ENTITY wal_autocheckpoint "Размер журнала упреждающей записи (в страницах) при котором будет автоматически выполняться создание контрольной точки">
 <!ENTITY temp_store "Временное хранилище">
 <!ENTITY On "Вкл.">
 <!ENTITY Off "Выкл.">

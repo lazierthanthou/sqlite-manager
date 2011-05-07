@@ -40,6 +40,10 @@
 <!ENTITY menu.db.analyze.ak "л">
 <!ENTITY menu.db.check "Проверить целостность">
 <!ENTITY menu.db.check.ak "ц">
+<!ENTITY menu.db.checkComplete "Полная проверка">
+<!ENTITY menu.db.checkComplete.ak "П">
+<!ENTITY menu.db.checkQuick "Быстрая проверка">
+<!ENTITY menu.db.checkQuick.ak "Б">
 <!ENTITY exportAll "Экспортировать все таблицы">
 <!ENTITY exportAll.ak "в">
 <!ENTITY exportDb "Экспортировать базу данных">

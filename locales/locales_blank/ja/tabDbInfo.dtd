@@ -31,6 +31,7 @@
 <!ENTITY reverse_unordered_selects "">
 <!ENTITY secure_delete "">
 <!ENTITY synchronous "同期">
+<!ENTITY wal_autocheckpoint "">
 <!ENTITY temp_store "一時的な記憶">
 <!ENTITY On "オン">
 <!ENTITY Off "オフ">

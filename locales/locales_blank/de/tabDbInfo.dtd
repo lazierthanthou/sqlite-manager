@@ -31,6 +31,7 @@
 <!ENTITY reverse_unordered_selects "Ungeordnete Selects umkehren">
 <!ENTITY secure_delete "Sicheres Löschen">
 <!ENTITY synchronous "Synchron">
+<!ENTITY wal_autocheckpoint "">
 <!ENTITY temp_store "Temporärer Speicher">
 <!ENTITY On "Ein">
 <!ENTITY Off "Aus">

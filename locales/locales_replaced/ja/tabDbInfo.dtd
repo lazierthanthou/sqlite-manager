@@ -31,6 +31,7 @@
 <!ENTITY reverse_unordered_selects "Reverse Unordered Selects">
 <!ENTITY secure_delete "Secure Delete">
 <!ENTITY synchronous "同期">
+<!ENTITY wal_autocheckpoint "Size (in no. of pages) of write-ahead log at which checkpoint will be run automatically">
 <!ENTITY temp_store "一時的な記憶">
 <!ENTITY On "オン">
 <!ENTITY Off "オフ">

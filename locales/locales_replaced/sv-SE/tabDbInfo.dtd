@@ -31,6 +31,7 @@
 <!ENTITY reverse_unordered_selects "Vänd på osorterade markeringar">
 <!ENTITY secure_delete "Säker borttagning">
 <!ENTITY synchronous "Synkron">
+<!ENTITY wal_autocheckpoint "Storlek (i antal sidor) för write-ahead-loggen, vid vilken kontrollpunkten kommer att köras automatiskt">
 <!ENTITY temp_store "Temporär lagring">
 <!ENTITY On "På">
 <!ENTITY Off "Av">

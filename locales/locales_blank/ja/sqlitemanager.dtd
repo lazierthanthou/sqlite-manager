@@ -40,6 +40,10 @@
 <!ENTITY menu.db.analyze.ak "A">
 <!ENTITY menu.db.check "整合性を確認">
 <!ENTITY menu.db.check.ak "k">
+<!ENTITY menu.db.checkComplete "">
+<!ENTITY menu.db.checkComplete.ak "">
+<!ENTITY menu.db.checkQuick "">
+<!ENTITY menu.db.checkQuick.ak "">
 <!ENTITY exportAll "すべてのテーブルを書き出す">
 <!ENTITY exportAll.ak "x">
 <!ENTITY exportDb "データベースを書き出す">

@@ -5,8 +5,8 @@
 <!ENTITY pref-openMode-win.ak "f">
 <!ENTITY pref-openMode-tab "dans un nouvel onglet">
 <!ENTITY pref-openADS.label "Open ADS (Windows/NTFS only)">
-<!ENTITY disable "Disable">
-<!ENTITY enable "Enable">
+<!ENTITY disable "Désactiver">
+<!ENTITY enable "Activer">
 <!ENTITY whenSMStarts "Lorsque le gestionnaire SQLite démarre">
 <!ENTITY pref-openWithLastDb.label "Ouvrir la dernière base de données utilisée">
 <!ENTITY pref-openWithLastDb.ak "O">

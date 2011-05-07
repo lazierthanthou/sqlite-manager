@@ -40,6 +40,10 @@
 <!ENTITY menu.db.analyze.ak "A">
 <!ENTITY menu.db.check "Kontrollera integritet">
 <!ENTITY menu.db.check.ak "K">
+<!ENTITY menu.db.checkComplete "Fullständig kontroll">
+<!ENTITY menu.db.checkComplete.ak "u">
+<!ENTITY menu.db.checkQuick "Snabbkontroll">
+<!ENTITY menu.db.checkQuick.ak "n">
 <!ENTITY exportAll "Exportera alla tabeller">
 <!ENTITY exportAll.ak "x">
 <!ENTITY exportDb "Exportera databas">

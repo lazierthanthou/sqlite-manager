@@ -1,5 +1,4 @@
 /chrome/*
-/components/*
 /defaults/*
 /chrome.manifest
 /install.rdf

@@ -4,7 +4,7 @@ rel|de|German|Dryopteris,Team erweiterungen.de,Tobbi
 rel|es-ES|Spanish (Spain)|danyaljim
 rel|fr|French|Danny B.,Goofy,myahoo
 beta|hi-IN|Hindi|team
-rel|it-IT|Italian|Mutu makassi
+rel|it|Italian|Mutu makassi
 rel|ja|Japanese|drry
 beta|pl|Polish|WacławJacek
 beta|pt-BR|Portuguese(Brazil)|AlbertoEidh

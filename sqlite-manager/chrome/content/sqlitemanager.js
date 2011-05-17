@@ -324,7 +324,7 @@ var SQLiteManager = {
     switch(data) {
       case "jsonDataTreeStyle":
         if (SmGlobals.stylerDataTree.addTreeStyle())
-          this.loadTabBrowse(); //TODO: effect shown only when browsed object changes
+          this.loadTabBrowse(false); //TODO: effect shown only when browsed object changes
         break;
       case "jsonMruData":
         this.showMruList();
@@ -368,7 +368,7 @@ var SQLiteManager = {
         }
         //empty the criteria after use for security
         sm_prefsBranch.setCharPref("searchCriteria", "");
-        this.loadTabBrowse();
+        this.loadTabBrowse(false);
         break;
       case "displayNumRecords":
         var iPrefVal = sm_prefsBranch.getIntPref("displayNumRecords");
@@ -552,7 +552,7 @@ var SQLiteManager = {
     this.mostCurrObjType = r_type;
 
     this.loadTabStructure();
-    this.loadTabBrowse();
+    this.loadTabBrowse(false);
 
     return true;
   },
@@ -765,10 +765,11 @@ var SQLiteManager = {
   },
 
   //loadTabBrowse: populates the table list and the tree view for current table; must be called whenever a database is opened/closed and whenever the schema changes; depends entirely upon the values in "browse-type" and "browse-name" controls
-  loadTabBrowse: function() {
+  loadTabBrowse: function(bForce) {
     //no need to waste resources if this tab is not selected
-    if(this.getSelectedTabId() != "tab-browse")
-      return false;
+    if (!bForce)
+      if(this.getSelectedTabId() != "tab-browse")
+        return false;
 
     if (!this.mDb.isConnected())
       return false;
@@ -822,7 +823,7 @@ var SQLiteManager = {
     treeChildren.setAttribute("context", setting[1]);
     treeChildren.setAttribute("ondblclick", setting[2]);
 
-    if (bBrowseObjectChanged)
+    if (bBrowseObjectChanged || bForce)
       treeBrowse.ShowTable(false);
 
     try {
@@ -847,7 +848,7 @@ var SQLiteManager = {
       $$("browse-tree").setAttribute("smObjType", sObjType);
       $$("browse-tree").setAttribute("smObjName", sObjName);
 
-      if (bBrowseObjectChanged) {
+      if (bBrowseObjectChanged || bForce) {
         treeBrowse.createColumns(columns, iRetVal, this.maSortInfo);
 
         var jsonColInfo = smExtManager.getBrowseTreeColState(sObjType, sObjName);
@@ -902,7 +903,7 @@ var SQLiteManager = {
         this.miOffset = this.miCount - ((iRem==0)?this.miLimit:iRem);
         break;
     }
-    this.loadTabBrowse();
+    this.loadTabBrowse(false);
   },
 
   manageNavigationControls: function() {
@@ -1099,7 +1100,7 @@ var SQLiteManager = {
         this.loadTabStructure();
         break;
       case "tab-browse":
-        this.loadTabBrowse();
+        this.loadTabBrowse(false);
         break;
       case "tab-execute":
         this.loadTabExecute();
@@ -1297,7 +1298,7 @@ var SQLiteManager = {
     //the following two lines must be before the code for tree
     //otherwise, it does not refresh the structure tree as expected
     this.refreshDbStructure();
-    this.loadTabBrowse();
+    this.loadTabBrowse(false);
 
     this.setQueryView("table");
     treeExecute.ShowTable(false);
@@ -1608,7 +1609,7 @@ var SQLiteManager = {
      if (aRetVals.ok) {
       this.mDb.confirmAndExecute([aRetVals.createQuery], sm_getLFStr("sqlm.confirm.createTable", [aRetVals.tableName]), "confirm.create");
       this.refreshDbStructure();
-      this.loadTabBrowse();
+      this.loadTabBrowse(false);
     }
   },
 
@@ -1627,7 +1628,7 @@ var SQLiteManager = {
       if (aRetVals.ok) {
         this.mDb.confirmAndExecute(aRetVals.queries, sm_getLFStr("sqlm.confirm.createObj", [sObjectType, aRetVals.objectName]), "confirm.create");
         this.refreshDbStructure();
-        this.loadTabBrowse();
+        this.loadTabBrowse(false);
       }
     }
     else
@@ -1636,7 +1637,7 @@ var SQLiteManager = {
               this.mDb, this.aCurrObjNames["table"], sObjectType);
 
     this.refreshDbStructure();
-    this.loadTabBrowse();
+    this.loadTabBrowse(false);
     return true;
   },
 
@@ -1652,7 +1653,7 @@ var SQLiteManager = {
     if (aRetVals.ok) {
       this.mDb.confirmAndExecute(aRetVals.queries, sm_getLFStr("sqlm.confirm.modifyView", [aRetVals.objectName]), "confirm.create");
       this.refreshDbStructure();
-      this.loadTabBrowse();
+      this.loadTabBrowse(false);
     }
   },
 
@@ -1720,7 +1721,7 @@ var SQLiteManager = {
 
       this.refreshDbStructure();
       this.loadTabStructure();
-      this.loadTabBrowse();
+      this.loadTabBrowse(true);
     }
     return bReturn;
   },
@@ -1743,7 +1744,7 @@ var SQLiteManager = {
     if(bReturn) {
       this.refreshDbStructure();
       this.loadTabStructure();
-      this.loadTabBrowse();
+      this.loadTabBrowse(true);
     }
     return bReturn;
   },
@@ -1776,7 +1777,7 @@ var SQLiteManager = {
     if(bReturn) {
       sm_message(sm_getLStr("dropDone"), 0x2);
       this.refreshDbStructure();
-      this.loadTabBrowse();
+      this.loadTabBrowse(false);
     }
     return bReturn;
   },
@@ -2008,6 +2009,7 @@ var SQLiteManager = {
         $$("tb-addcol-notnull").checked = false;
         $$("tb-addcol-default").value = "";
         this.refresh();
+        this.loadTabBrowse(true);
       }
       $$("tb-addcol-name").focus();
       return bReturn;
@@ -2055,7 +2057,7 @@ var SQLiteManager = {
         //IMPORTANT: the last parameter is totally undocumented.
         var bReturn = this.mDb.confirmAndExecute([sQuery], [sm_getLFStr("sqlm.deleteRecs", [aRowIds.length, sCurrTable]), false]);
         if(bReturn)
-          this.loadTabBrowse();
+          this.loadTabBrowse(false);
         return bReturn;
       }
     }
@@ -2066,7 +2068,7 @@ var SQLiteManager = {
       if(sOperation != "update") {
         this.refreshDbStructure();
       }
-      this.loadTabBrowse();
+      this.loadTabBrowse(false);
     }
     else {
       RowOps.loadDialog(this.aCurrObjNames["table"], sOperation, rowCriteria);

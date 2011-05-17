@@ -104,7 +104,7 @@ SmDatabaseTreeView.prototype = {
       col.element.setAttribute("style", "color:" + sBgColor);
 
       //the following function repopulates the data in the view by calling this view's init function indirectly via TreeDataTable's PopulateTableData function
-      SQLiteManager.loadTabBrowse();
+      SQLiteManager.loadTabBrowse(false);
     }
     else
       this.SortColumn(col);

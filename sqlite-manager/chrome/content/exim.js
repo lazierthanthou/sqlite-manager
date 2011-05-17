@@ -455,7 +455,7 @@ var SmExim = {
       sm_notify("boxNotifyExim", sMessage, sType);
 
       SQLiteManager.refreshDbStructure();
-      SQLiteManager.loadTabBrowse();
+      SQLiteManager.loadTabBrowse(false);
     }
     else if (iImportNum == 0) {
       var sMessage = sm_getLStr("exim.importCancelled");

@@ -40,6 +40,10 @@
 <!ENTITY menu.db.analyze.ak "">
 <!ENTITY menu.db.check "">
 <!ENTITY menu.db.check.ak "">
+<!ENTITY menu.db.checkComplete "">
+<!ENTITY menu.db.checkComplete.ak "">
+<!ENTITY menu.db.checkQuick "">
+<!ENTITY menu.db.checkQuick.ak "">
 <!ENTITY exportAll "">
 <!ENTITY exportAll.ak "">
 <!ENTITY exportDb "">

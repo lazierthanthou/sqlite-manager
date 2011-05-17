@@ -29,16 +29,16 @@
 <!ENTITY eximCsv_encloser.doublequotes.standard "Cudzysłowy (&quot;), jeśli konieczne (standardowo)">
 <!ENTITY eximCsv_encloser.doublequotes.standard.ak "c">
 <!ENTITY eximCsv_encloser.doublequotes.always "Cudzysłowy (&quot;), zawsze">
-<!ENTITY eximCsv_encloser.doublequotes.likeExcel "Like MSExcel (double quotes if field contains &quot; or separator)">
+<!ENTITY eximCsv_encloser.doublequotes.likeExcel "Jak MSExcel (cudzysłowy, jeśli pole zawiera &quot; lub separator)">
 <!ENTITY eximCsv_encloser.singlequotes "Apostrofy (')">
-<!ENTITY eximCsv_encloser.none "None">
+<!ENTITY eximCsv_encloser.none "Brak">
 <!ENTITY eximCsv_encloser.other "Inne">
 <!ENTITY eximCsv-expSaveSetting "Zapisz ustawienia eksportu do plików CSV">
 <!ENTITY eximCsv-expSaveSetting-tooltiptext "Możesz zapisać te ustawienia, jeśli chcesz, aby były one używane przez operację 'Kopiuj wiersze jako CSV'.">
-<!ENTITY eximCsv-impSaveSetting "Save CSV Import Settings">
-<!ENTITY eximCsv-impSaveSetting-tooltiptext "Save CSV Import Settings">
-<!ENTITY eximCsv-expUseSetting "Use Saved Settings">
-<!ENTITY eximCsv-impUseSetting "Use Saved Settings">
+<!ENTITY eximCsv-impSaveSetting "Zapisz ustawienia importu CSV">
+<!ENTITY eximCsv-impSaveSetting-tooltiptext "Zapisuje ustawienia importu CSV">
+<!ENTITY eximCsv-expUseSetting "Użyj zapisanych ustawień">
+<!ENTITY eximCsv-impUseSetting "Używa zapisanych ustawień">
 <!ENTITY eximXml_root-element "Nazwa elementu-korzenia:">
 <!ENTITY eximXml_prefix-table-element "Ustaw to jako prefiks tabeli">
 <!ENTITY exim-exp-ok "OK">

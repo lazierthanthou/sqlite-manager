@@ -5,7 +5,6 @@
 <!ENTITY schema_version "">
 <!ENTITY user_version "">
 <!ENTITY cache_size "">
-<!ENTITY default_cache_size "">
 <!ENTITY pages "">
 <!ENTITY page_size "">
 <!ENTITY max_page_count "">
@@ -16,15 +15,13 @@
 <!ENTITY journal_size_limit "">
 <!ENTITY others "">
 <!ENTITY auto_vacuum "">
+<!ENTITY automatic_index "">
 <!ENTITY case_sensitive_like "">
-<!ENTITY count_changes "">
-<!ENTITY empty_result_callbacks "">
 <!ENTITY encoding "">
 <!ENTITY UTF8 "">
 <!ENTITY UTF16 "">
 <!ENTITY UTF16le "">
 <!ENTITY UTF16be "">
-<!ENTITY full_column_names "">
 <!ENTITY foreign_keys "">
 <!ENTITY fullfsync "">
 <!ENTITY legacy_file_format "">
@@ -32,10 +29,10 @@
 <!ENTITY read_uncommitted "">
 <!ENTITY recursive_triggers "">
 <!ENTITY reverse_unordered_selects "">
-<!ENTITY short_column_names "">
+<!ENTITY secure_delete "">
 <!ENTITY synchronous "">
+<!ENTITY wal_autocheckpoint "">
 <!ENTITY temp_store "">
-<!ENTITY temp_store_directory "">
 <!ENTITY On "">
 <!ENTITY Off "">
 <!ENTITY Default "">

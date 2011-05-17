@@ -40,6 +40,10 @@
 <!ENTITY menu.db.analyze.ak "a">
 <!ENTITY menu.db.check "Sprawdź integralność">
 <!ENTITY menu.db.check.ak "t">
+<!ENTITY menu.db.checkComplete "Complete Check">
+<!ENTITY menu.db.checkComplete.ak "">
+<!ENTITY menu.db.checkQuick "Quick Check">
+<!ENTITY menu.db.checkQuick.ak "">
 <!ENTITY exportAll "Export All Tables">
 <!ENTITY exportAll.ak "x">
 <!ENTITY exportDb "Export Database">
@@ -112,9 +116,9 @@
 <!ENTITY menu.help.sqlitesyntax.ak "s">
 <!ENTITY menu.help.extensionhome "Strona domowa rozszerzenia">
 <!ENTITY menu.help.extensionhome.ak "r">
-<!ENTITY menu.help.aboutextension "O SQLite Managerze">
-<!ENTITY menu.help.aboutextension.ak "O">
-<!ENTITY profile.dblist.select "(Select Profile Database)">
+<!ENTITY menu.help.aboutextension "Informacja">
+<!ENTITY menu.help.aboutextension.ak "I">
+<!ENTITY profile.dblist.select "(Wybierz bazę danych profilu)">
 <!ENTITY profile.dblist.buttonlabel "Przejdź">
 <!ENTITY string.enterSql "Wprowadź zapytanie SQL">
 <!ENTITY string.enterSql.ak "S">
@@ -122,7 +126,7 @@
 <!ENTITY tab.browse "Przeglądanie i wyszukiwanie">
 <!ENTITY tab.execute "Wykonaj zapytanie SQL">
 <!ENTITY tab.dbinfo "Ustawienia bazy danych">
-<!ENTITY tab.udf "User-defined Functions">
+<!ENTITY tab.udf "Funkcje definiowane przez użytkownika">
 <!ENTITY tab.connectSql "On-connect SQL">
 <!ENTITY btn.search "Wyszukaj">
 <!ENTITY btn.search.ak "W">
@@ -130,23 +134,23 @@
 <!ENTITY btn.showAll.ak "P">
 <!ENTITY btn.exporttable "Wyeksportuj">
 <!ENTITY btn.exporttable.ak "e">
-<!ENTITY btn.addcol "Add Column">
+<!ENTITY btn.addcol "Dodaj kolumnę">
 <!ENTITY btn.addrecord "Dodaj nowy rekord">
 <!ENTITY btn.addrecord.ak "D">
 <!ENTITY menu.editSelected "Edytuj wybrany">
 <!ENTITY menu.editSelected.ak "E">
 <!ENTITY menu.deleteSelected "Usuń wybrany">
 <!ENTITY menu.deleteSelected.ak "U">
-<!ENTITY menu.duplicateRecord "Duplicate">
+<!ENTITY menu.duplicateRecord "Duplikuj">
 <!ENTITY menu.duplicateRecord.ak "p">
-<!ENTITY menu.copyColName "Copy Column Name">
-<!ENTITY menu.copyColName.ak "C">
+<!ENTITY menu.copyColName "Kopiuj nazwę kolumny">
+<!ENTITY menu.copyColName.ak "K">
 <!ENTITY menu.copyCell "Skopiuj komórkę">
 <!ENTITY menu.copyCell.ak "k">
 <!ENTITY menu.copyRows "Skopiuj wiersz">
 <!ENTITY menu.copyRows.ak "w">
-<!ENTITY menu.copyRowsForExcel "Copy Row(s) as CSV (MSExcel compatible)">
-<!ENTITY menu.copyRowsAsSql "Copy Row(s) as SQL">
+<!ENTITY menu.copyRowsForExcel "Kopiuj rząd (rzędy) w formacie CSV (kompatybilność z MSExcel)">
+<!ENTITY menu.copyRowsAsSql "Kopiuj rząd (rzędy) jako SQL">
 <!ENTITY menu.copyRowsAsSql.ak "q">
 <!ENTITY menu.editColumn "Edit Column">
 <!ENTITY menu.editColumn.ak "E">

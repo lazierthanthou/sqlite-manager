@@ -54,6 +54,8 @@
 <!ENTITY pref-whenInsertingShow.ak "">
 <!ENTITY pref-whenInsertingShow-previous "">
 <!ENTITY pref-whenInsertingShow-default "">
+<!ENTITY pref-whetherMultilineInput.label "">
+<!ENTITY pref-whetherMultilineInput.label.more "">
 <!ENTITY pref-identifierQuoteChar.label "">
 <!ENTITY pref-identifierQuoteChar-doublequotes "">
 <!ENTITY pref-identifierQuoteChar-squarebrackets "">

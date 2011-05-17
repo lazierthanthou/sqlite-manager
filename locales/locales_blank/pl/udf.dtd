@@ -1,16 +1,16 @@
-<!ENTITY udf.selectDir "">
-<!ENTITY udf.selectDir.ak "">
-<!ENTITY udf.reloadFunctions "">
-<!ENTITY udf.viewFunction "">
-<!ENTITY udf.editFunction "">
-<!ENTITY udf.deleteFunction "">
-<!ENTITY udf.addFunction "">
-<!ENTITY udf.saveFunction "">
-<!ENTITY udf.closeTab "">
-<!ENTITY udf.simpleFunctions "">
-<!ENTITY udf.aggFunctions "">
-<!ENTITY udf.funcName "">
-<!ENTITY udf.funcArgLength "">
-<!ENTITY udf.funcBody "">
-<!ENTITY udf.funcOnStepBody "">
-<!ENTITY udf.funcOnFinalBody "">
+<!ENTITY udf.selectDir "Wybierz katalog UDF DB">
+<!ENTITY udf.selectDir.ak "W">
+<!ENTITY udf.reloadFunctions "Przeładuj funkcje">
+<!ENTITY udf.viewFunction "Pokaż">
+<!ENTITY udf.editFunction "Edytuj">
+<!ENTITY udf.deleteFunction "Usuń">
+<!ENTITY udf.addFunction "Nowa">
+<!ENTITY udf.saveFunction "Zapisz">
+<!ENTITY udf.closeTab "Zamknij kartę">
+<!ENTITY udf.simpleFunctions "Proste funkcje">
+<!ENTITY udf.aggFunctions "Funkcje agregujące">
+<!ENTITY udf.funcName "Nazwa funkcji">
+<!ENTITY udf.funcArgLength "Liczba argumentów">
+<!ENTITY udf.funcBody "Ciało funkcji:">
+<!ENTITY udf.funcOnStepBody "Ciało funkcji (dla onStep):">
+<!ENTITY udf.funcOnFinalBody "Ciało funkcji (dla onFinal):">

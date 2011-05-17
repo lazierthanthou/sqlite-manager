@@ -4,7 +4,7 @@
 <!ENTITY pref-openMode-win "w nowym oknie">
 <!ENTITY pref-openMode-win.ak "o">
 <!ENTITY pref-openMode-tab "w nowej karcie">
-<!ENTITY pref-openADS.label "">
+<!ENTITY pref-openADS.label "Otwórz ADS (tylko Windows / NTFS)">
 <!ENTITY disable "Wyłącz">
 <!ENTITY enable "Włącz">
 <!ENTITY whenSMStarts "Kiedy SQLite Manager jest uruchamiany">
@@ -12,11 +12,11 @@
 <!ENTITY pref-openWithLastDb.ak "O">
 <!ENTITY pref-promptForLastDb.label "Zawsze potwierdzaj otwieranie ostatnio używanej bazy danych">
 <!ENTITY pref-promptForLastDb.ak "A">
-<!ENTITY pref-autoBackup.label "">
-<!ENTITY pref-autoBackup.ak "">
-<!ENTITY pref-autoBackup.on "">
-<!ENTITY pref-autoBackup.off "">
-<!ENTITY pref-autoBackup.prompt "">
+<!ENTITY pref-autoBackup.label "Twórz kopie zapasowe z datą przed otwarciem bazy danych">
+<!ENTITY pref-autoBackup.ak "b">
+<!ENTITY pref-autoBackup.on "wł.">
+<!ENTITY pref-autoBackup.off "wył.">
+<!ENTITY pref-autoBackup.prompt "potwierdzenie">
 <!ENTITY pref-sqliteFileExtensions.label "Domyślne rozszerzenie plików SQLite">
 <!ENTITY pref-sqliteFileExtensions.ak "S">
 <!ENTITY pref-tableForExtensionManagement.label "Nazwa tabeli, w której będą przechowywane dane rozszerzenia">
@@ -32,33 +32,35 @@
 <!ENTITY pref-showMainToolbarDatabase.label "Pokazuj pasek narzędzi &quot;Baza danych&quot;">
 <!ENTITY pref-showMainToolbarIndex.label "Pokazuj pasek narzędzi &quot;Indeks&quot;">
 <!ENTITY pref-showMainToolbarTable.label "Pokazuj pasek narzędzi &quot;Tabela&quot;">
-<!ENTITY pref-showMainToolbarDebug.label "">
-<!ENTITY pref-notificationDuration.label "">
-<!ENTITY pref-notificationDuration.ak "">
+<!ENTITY pref-showMainToolbarDebug.label "Pokaż pasek narzędzi Debug">
+<!ENTITY pref-notificationDuration.label "Czas trwania zgłoszenia wiadomości (w sekundach)">
+<!ENTITY pref-notificationDuration.ak "C">
 <!ENTITY pref-displayNumRecords.label "Liczba wyświetlanych rekordów (karta &quot;Przeglądanie i wyszukiwanie&quot;)">
 <!ENTITY pref-displayNumRecords.ak "N">
 <!ENTITY pref-sqlTextboxRows.label "Liczba wierszy w polu zapytania SQL (karta &quot;Zapytania SQL&quot;)">
 <!ENTITY pref-sqlTextboxRows.ak "W">
 <!ENTITY pref-maxColumnsInTable.label "Maksymalna liczba kolumn w oknie tworzenia tabeli">
 <!ENTITY pref-maxColumnsInTable.ak "M">
-<!ENTITY blobDisplay.caption "">
-<!ENTITY pref-textForBlob.label "Tekst dla wartości blob">
+<!ENTITY blobDisplay.caption "Jak wyświetlać dane BLOB?">
+<!ENTITY pref-textForBlob.label "Tekst dla wartości BLOB">
 <!ENTITY pref-textForBlob.ak "B">
 <!ENTITY pref-showBlobSize.label "Wyświetlaj rozmiar danych blob">
-<!ENTITY pref-maxSizeToShowBlobData.label "">
-<!ENTITY pref-maxSizeToShowBlobData.ak "">
-<!ENTITY pref-displayDataAs.label "">
-<!ENTITY pref-displayDataAs-hex "">
-<!ENTITY pref-displayDataAs-string "">
-<!ENTITY pref-whenInsertingShow.label "">
-<!ENTITY pref-whenInsertingShow.ak "">
-<!ENTITY pref-whenInsertingShow-previous "">
-<!ENTITY pref-whenInsertingShow-default "">
-<!ENTITY pref-identifierQuoteChar.label "">
-<!ENTITY pref-identifierQuoteChar-doublequotes "">
-<!ENTITY pref-identifierQuoteChar-squarebrackets "">
-<!ENTITY pref-identifierQuoteChar-graveaccents "">
-<!ENTITY paneDatatree.title "">
+<!ENTITY pref-maxSizeToShowBlobData.label "Rozmiar (w bajtach), w którym blob powinien być wyświetlany jako ciąg">
+<!ENTITY pref-maxSizeToShowBlobData.ak "z">
+<!ENTITY pref-displayDataAs.label "Wyświetl danych blob jako:">
+<!ENTITY pref-displayDataAs-hex "Wartość szesnastkowa (np. X &quot;31323334&quot;)">
+<!ENTITY pref-displayDataAs-string "Ciąg">
+<!ENTITY pref-whenInsertingShow.label "Przy dodawaniu nowego rekordu pokazuj wartości dodane wcześniej, lub wartości domyślne">
+<!ENTITY pref-whenInsertingShow.ak "w">
+<!ENTITY pref-whenInsertingShow-previous "Poprzednie">
+<!ENTITY pref-whenInsertingShow-default "Domyślne">
+<!ENTITY pref-whetherMultilineInput.label "Pozwól na wiele linii w polach tekstowych przy wstawianiu/aktualizacji rekordów.">
+<!ENTITY pref-whetherMultilineInput.label.more "(Wyłączenie możliwości nawigacji wielu linii za pomocą strzałek góra/dół)">
+<!ENTITY pref-identifierQuoteChar.label "Znaki do załączenia identyfikatorów">
+<!ENTITY pref-identifierQuoteChar-doublequotes "Podwójne cudzysłowy">
+<!ENTITY pref-identifierQuoteChar-squarebrackets "Nawiasy kwadratowe []">
+<!ENTITY pref-identifierQuoteChar-graveaccents "Akcenty ``">
+<!ENTITY paneDatatree.title "Styl drzewa danych">
 <!ENTITY paneDatatree.datatype "Typ danych">
 <!ENTITY paneDatatree.property "Właściwość">
 <!ENTITY paneDatatree.unselected "Odznaczone">
@@ -70,9 +72,9 @@
 <!ENTITY paneDatatree.typeBlob "Blob">
 <!ENTITY paneDatatree.textColor "kolor tekstu">
 <!ENTITY paneDatatree.backgroundColor "kolor tła">
-<!ENTITY paneDatatree.fontSize "">
-<!ENTITY paneDatatree.fontFamily "">
-<!ENTITY paneDatatree.rowHeight "">
+<!ENTITY paneDatatree.fontSize "Rozmiar czcionki (w procentach)">
+<!ENTITY paneDatatree.fontFamily "Rodzina czcionek">
+<!ENTITY paneDatatree.rowHeight "Wysokość wiersza (w pikselach, domyślna wysokość to 0)">
 <!ENTITY paneDatatree.btnSetDefault "Ustaw domyślne">
 <!ENTITY paneDatatree.btnApply "Zastosuj">
 <!ENTITY paneDatatree.btnNone "Brak">

@@ -1,6 +1,6 @@
-<!ENTITY connectSql.reloadFunctions "">
-<!ENTITY connectSql.closeTab "">
-<!ENTITY connectSql.cancel "">
-<!ENTITY connectSql.save "">
-<!ENTITY connectSql.sqlForAllDb "">
-<!ENTITY connectSql.sqlForThisDb "">
+<!ENTITY connectSql.reloadFunctions "Przeładuj Tab">
+<!ENTITY connectSql.closeTab "Zamknij kartę">
+<!ENTITY connectSql.cancel "Anuluj">
+<!ENTITY connectSql.save "Zapisz">
+<!ENTITY connectSql.sqlForAllDb "Poświadczenia przy łączeniu SQL dla WSZYSTKICH baz danych">
+<!ENTITY connectSql.sqlForThisDb "Poświadczenia przy łączeniu SQL dla TEJ bazy danych">

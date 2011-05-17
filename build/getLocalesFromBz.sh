@@ -14,15 +14,19 @@ downloadLocales () {
   done < $fileTranslators
 }
 
-wget http://www.babelzilla.org/wts/download/locale/all/blank/4034 -O blank-all.tar.gz
-rm -r blank-all
-mkdir -p blank-all
-tar -xvf blank-all.tar.gz -C blank-all
+downloadSelectedLocales () {
+  dirLocales=$HOME/lazierthanthou/sqlite-manager/locales/
+  dirUnzip=locales_$1
+  fileDownload=$1-selected.tar.gz
+  wget http://www.babelzilla.org/wts/download/locale/selected/$1/4034 -O $fileDownload
+  rm -r $dirUnzip
+  mkdir -p $dirUnzip
+  tar -xvf $fileDownload -C $dirUnzip
+  rm -r $dirLocales$dirUnzip
+  mv $dirUnzip $dirLocales
+}
 
-wget http://www.babelzilla.org/wts/download/locale/all/replaced/4034 -O replaced-all.tar.gz
-rm -r replaced-all
-mkdir -p replaced-all
-tar -xvf replaced-all.tar.gz -C replaced-all
+downloadSelectedLocales blank
+downloadSelectedLocales replaced
 
 ####################################################
-

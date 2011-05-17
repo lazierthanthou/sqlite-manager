@@ -5,7 +5,6 @@
 <!ENTITY schema_version "Schema 版本">
 <!ENTITY user_version "用户版本">
 <!ENTITY cache_size "缓存大小(页数)">
-<!ENTITY default_cache_size "默认缓存大小(页数)">
 <!ENTITY pages "Pages">
 <!ENTITY page_size "页面大小(字节)">
 <!ENTITY max_page_count "最大页数">
@@ -16,15 +15,13 @@
 <!ENTITY journal_size_limit "Journal Size Limit">
 <!ENTITY others "Others">
 <!ENTITY auto_vacuum "自动收缩">
+<!ENTITY automatic_index "Automatic Indexing">
 <!ENTITY case_sensitive_like "Case-sensitive Like">
-<!ENTITY count_changes "返回改变行数">
-<!ENTITY empty_result_callbacks "回收空结果集">
 <!ENTITY encoding "编码">
 <!ENTITY UTF8 "UTF-8">
 <!ENTITY UTF16 "UTF-16">
 <!ENTITY UTF16le "UTF-16le">
 <!ENTITY UTF16be "UTF-16be">
-<!ENTITY full_column_names "完整列名">
 <!ENTITY foreign_keys "Foreign Keys">
 <!ENTITY fullfsync "Fullfsync 标记">
 <!ENTITY legacy_file_format "旧文件格式">
@@ -32,10 +29,10 @@
 <!ENTITY read_uncommitted "读取未提交">
 <!ENTITY recursive_triggers "Recursive Triggers">
 <!ENTITY reverse_unordered_selects "Reverse Unordered Selects">
-<!ENTITY short_column_names "排序列名">
+<!ENTITY secure_delete "Secure Delete">
 <!ENTITY synchronous "同步">
+<!ENTITY wal_autocheckpoint "Size (in no. of pages) of write-ahead log at which checkpoint will be run automatically">
 <!ENTITY temp_store "临时存储">
-<!ENTITY temp_store_directory "临时存储目录">
 <!ENTITY On "开">
 <!ENTITY Off "关">
 <!ENTITY Default "默认">

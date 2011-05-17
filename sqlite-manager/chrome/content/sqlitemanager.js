@@ -173,12 +173,12 @@ var SQLiteManager = {
     //close the current database
     this.closeDatabase(false);
     //Destruction - this should be done once you're done observing
-    //Failure to do so may result in memory leaks.  
+    //Failure to do so may result in memory leaks.
     this.prefs.removeObserver("", this);
 
     this.clipService= null;
     SmUdf.close();
-  },  
+  },
 
   openLastDb: function() {
     // opening with last used DB if preferences set to do so
@@ -286,7 +286,7 @@ var SQLiteManager = {
         if (this.aObjTypes.indexOf(info) > 0) //thus omit master
           mpId = "create-" + info;
       }
-    }  
+    }
     if (level == 1) {
        if (this.aObjTypes.indexOf(info) != -1)
          mpId = info;
@@ -320,7 +320,7 @@ var SQLiteManager = {
   observe: function(subject, topic, data) {
     if (topic != "nsPref:changed")
       return;
-    
+
     switch(data) {
       case "jsonDataTreeStyle":
         if (SmGlobals.stylerDataTree.addTreeStyle())
@@ -355,8 +355,8 @@ var SQLiteManager = {
         for (var iC = 0; iC < this.maFileExt.length; iC++) {
           this.maFileExt[iC] = this.maFileExt[iC].trim();
         }
-        // Load profile folder's sqlite db files list into dropdown 
-        this.populateDBList("profile");   
+        // Load profile folder's sqlite db files list into dropdown
+        this.populateDBList("profile");
         break;
       case "searchToggler":
         //Issue #285: get unicode string
@@ -423,7 +423,7 @@ var SQLiteManager = {
     if (!this.mDb.isConnected())
       return false;
     this.refreshDbStructure();
-    return true; 
+    return true;
   },
   //Issue #108
   reconnect: function() {
@@ -470,7 +470,7 @@ var SQLiteManager = {
       smStructTrees[0].setExpandableNodes(aExpand);
     }
 
-    //3. 
+    //3.
     var tree = $$(smStructTrees[this.miDbObjects].treeId);
 
     //requery for all the objects afresh and redraw the tree
@@ -486,7 +486,7 @@ var SQLiteManager = {
       idx = 0;
 
     tree.view.selection.select(idx); //triggers getDbObjectInfo function
-    
+
     //now assign the current objects
     for(var i = 0; i < this.aObjTypes.length; i++) {
       var type = this.aObjTypes[i];
@@ -507,7 +507,7 @@ var SQLiteManager = {
         this.aCurrObjNames[type] = null;
     }
   },
-          
+
   //getDbObjectInfo: this function must show the structural info about the
   // selected database object (table, index, view & trigger)
   //this function is triggered by the select event on the tree
@@ -540,11 +540,11 @@ var SQLiteManager = {
       //level 2 is a field name of the parent table
       if(level == 2) {
         idx = tree.view.getParentIndex(idx);
-      }  
+      }
       r_name = tree.view.getCellText(idx, tree.columns.getColumnAt(0));
       r_type = smStructTrees[this.miDbObjects].getSmType(idx);
-    }  
-      
+    }
+
     //assign current selection in tree as current object
     this.aCurrObjNames[r_type] = r_name;
 
@@ -586,8 +586,8 @@ var SQLiteManager = {
     //there is a database object at level 1 only
     if(this.mostCurrObjName == null) {
       return false;
-    }  
-    
+    }
+
     var r_name = this.mostCurrObjName;
     var r_type = this.mostCurrObjType;
 
@@ -830,7 +830,7 @@ var SQLiteManager = {
       var aArgs = {sWhere: this.msBrowseCondition, iLimit: this.miLimit, iOffset: this.miOffset, aOrder: this.maSortInfo};
       var iRetVal = this.mDb.loadTableData(sObjType, sObjName, aArgs);
       var timeElapsed = this.mDb.getElapsedTime();
-    } catch (e) { 
+    } catch (e) {
       sm_message(e + "\n" + sm_getLStr("loadDataFailed"), 0x3);
       return false;
     }
@@ -843,7 +843,7 @@ var SQLiteManager = {
     this.miCount = this.mDb.getRowCount(sObjName, this.msBrowseCondition);
     $$("sbQueryTime").label = "ET: " + timeElapsed + " ms";
 
-    this.manageNavigationControls();      
+    this.manageNavigationControls();
     if (records && columns) {
       $$("browse-tree").setAttribute("smObjType", sObjType);
       $$("browse-tree").setAttribute("smObjName", sObjName);
@@ -1007,7 +1007,7 @@ var SQLiteManager = {
       types[col] = '';
     }
     var aColumns = [names, types];
-    
+
     this.aFieldNames = aColumns[0];
     var aTypes = aColumns[1];
 
@@ -1024,7 +1024,7 @@ var SQLiteManager = {
 
       var lbl = document.createElement("label");
       var lblVal = (i+1) + ". " + this.aFieldNames[i];
-      lblVal += " ( " + aTypes[i] + " )"; 
+      lblVal += " ( " + aTypes[i] + " )";
       lbl.setAttribute("value", lblVal);
       lbl.setAttribute("style", "padding-top:5px;width:25ex");
       lbl.setAttribute("accesskey", (i+1));
@@ -1258,7 +1258,7 @@ var SQLiteManager = {
 
     //get the query string from an xul page
     var sQuery = $$("txtSqlStatement").value;
-    
+
     var queries = sql_tokenizer(sQuery);
     if (queries.length == 0) {
       alert(sm_getLStr("writeSomeSql"));
@@ -1288,7 +1288,7 @@ var SQLiteManager = {
       bRet = this.mDb.executeTransaction(queries);
       timeElapsed = this.mDb.getElapsedTime();
     }
-    
+
     //display the last error in the textbox
     $$("sqlLastError").value = this.mDb.getLastError();
     if (bRet) {
@@ -1345,7 +1345,7 @@ var SQLiteManager = {
     foStream.init(file, 0x02 | 0x08 | 0x20, 0664, 0); // write, create, truncate
 
     var os = Cc["@mozilla.org/intl/converter-output-stream;1"].createInstance(Ci.nsIConverterOutputStream);
-    
+
     // This assumes that fos is the nsIOutputStream you want to write to
     os.init(foStream, "UTF-8", 0, 0x0000);
 
@@ -1363,11 +1363,11 @@ var SQLiteManager = {
     //if cancelled, abort
     if (fname == "" || fname == null)
       return false;
-    
+
     //append the extension to the chosen name
     fname += sExt;
-    
-    //let the user choose the folder for the new db file  
+
+    //let the user choose the folder for the new db file
     var dir = SmGlobals.chooseDirectory(sm_getLStr("selectFolderForDb"));
     if (dir != null) {
       //access this new copied file
@@ -1375,8 +1375,8 @@ var SQLiteManager = {
                 .createInstance(Ci.nsILocalFile);
       newfile.initWithPath(dir.path);
       newfile.append(fname);
-      
-      //if the file already exists, alert user that existing file will be opened 
+
+      //if the file already exists, alert user that existing file will be opened
       if(newfile.exists()) {
         alert(sm_getLStr("dbFileExists"));
       }
@@ -1384,7 +1384,7 @@ var SQLiteManager = {
       //if another file is already open,
       //confirm from user that it should be closed
       if(this.closeDatabase(false)) {
-        //if the file does not exist, openDatabase will create it 
+        //if the file does not exist, openDatabase will create it
         this.setDatabase(newfile);
         return true;
       }
@@ -1392,15 +1392,15 @@ var SQLiteManager = {
     return false;
   },
 
-  //closeDatabase: 
+  //closeDatabase:
   closeDatabase: function(bAlert) {
-    //nothing to close if no database is already open    
+    //nothing to close if no database is already open
     if (!this.mDb.isConnected()) {
        if(bAlert)
         alert(sm_getLStr("noOpenDb"));
       return true;
     }
-      
+
      //if another file is already open, confirm before closing
      var answer = true;
      if(bAlert)
@@ -1417,13 +1417,13 @@ var SQLiteManager = {
       var aAttached = this.mDb.getAttachedDbList();
       smExtManager.setAttachedDbList(aAttached);
     }
-    //make the current database as null and 
+    //make the current database as null and
     //call setDatabase to do appropriate things
     this.mDb.closeConnection();
     this.setDatabase(null);
     return true;
   },
-    
+
   copyDatabase: function() {
      if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
@@ -1438,8 +1438,8 @@ var SQLiteManager = {
       return;
     else
       fname += sExt;
-      
-    //let the user choose the folder for the new db file  
+
+    //let the user choose the folder for the new db file
     var dir = SmGlobals.chooseDirectory(sm_getLStr("selectFolderForDb"));
     if (dir != null) {
       //copy the opened file to chosen location
@@ -1450,8 +1450,8 @@ var SQLiteManager = {
                 .createInstance(Ci.nsILocalFile);
       newfile.initWithPath(dir.path);
       newfile.append(fname);
-      
-      //if the file does not exist, openDatabase will create it 
+
+      //if the file does not exist, openDatabase will create it
       if(!newfile.exists()) {
         var ans = smPrompt.confirm(null, sm_getLStr("extName"), sm_getLStr("copyFailed"));
         if(!ans)
@@ -1466,7 +1466,7 @@ var SQLiteManager = {
     }
     return;
   },
-    
+
   compactDatabase: function() {
     if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
@@ -1514,7 +1514,7 @@ var SQLiteManager = {
     return true;
   },
 
-  openDatabase: function() {        
+  openDatabase: function() {
     const nsIFilePicker = Ci.nsIFilePicker;
     var fp = Cc["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
     fp.init(window, sm_getLStr("selectDb"), nsIFilePicker.modeOpen);
@@ -1524,7 +1524,7 @@ var SQLiteManager = {
     }
     fp.appendFilter(sm_getLStr("sqliteDbFiles") + " (" + sExt + ")", sExt);
     fp.appendFilters(nsIFilePicker.filterAll);
-    
+
     var rv = fp.show();
     if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
       // work with returned nsILocalFile...
@@ -1536,7 +1536,7 @@ var SQLiteManager = {
     return false;
   },
 
-  openDatabaseADS: function() {        
+  openDatabaseADS: function() {
     const nsIFilePicker = Ci.nsIFilePicker;
     var fp = Cc["@mozilla.org/filepicker;1"].createInstance(nsIFilePicker);
     fp.init(window, sm_getLStr("selectDb"), nsIFilePicker.modeOpen);
@@ -1546,7 +1546,7 @@ var SQLiteManager = {
     }
     fp.appendFilter(sm_getLStr("sqliteDbFiles") + " (" + sExt + ")", sExt);
     fp.appendFilters(nsIFilePicker.filterAll);
-    
+
     var rv = fp.show();
     if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
       var check = {value: false};// default the checkbox to false
@@ -1585,7 +1585,7 @@ var SQLiteManager = {
     return false;
   },
 
-  saveDatabase: function() {        
+  saveDatabase: function() {
   },
 
   openUdfTab: function() {
@@ -1598,7 +1598,7 @@ var SQLiteManager = {
     SmConnectSql.loadTab();
   },
 
-  createTable: function() {        
+  createTable: function() {
     if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
       return false;
@@ -1622,8 +1622,8 @@ var SQLiteManager = {
     var xul = "chrome://sqlitemanager/content/create" + sObjectType + ".xul";
     if (sObjectType == "view") {
        var aRetVals = {dbName: this.mDb.logicalDbName, tableName: this.aCurrObjNames["table"]};
-      window.openDialog(xul, "create" + sObjectType, 
-              "chrome, resizable, centerscreen, modal, dialog", 
+      window.openDialog(xul, "create" + sObjectType,
+              "chrome, resizable, centerscreen, modal, dialog",
               this.mDb, aRetVals);
       if (aRetVals.ok) {
         this.mDb.confirmAndExecute(aRetVals.queries, sm_getLFStr("sqlm.confirm.createObj", [sObjectType, aRetVals.objectName]), "confirm.create");
@@ -1632,8 +1632,8 @@ var SQLiteManager = {
       }
     }
     else
-      window.openDialog(xul, "create" + sObjectType, 
-              "chrome, resizable, centerscreen, modal, dialog", 
+      window.openDialog(xul, "create" + sObjectType,
+              "chrome, resizable, centerscreen, modal, dialog",
               this.mDb, this.aCurrObjNames["table"], sObjectType);
 
     this.refreshDbStructure();
@@ -1726,7 +1726,7 @@ var SQLiteManager = {
     return bReturn;
   },
 
-  dropColumn: function() {        
+  dropColumn: function() {
     var bConfirm = sm_confirm(sm_getLStr("dangerous.op"), sm_getLStr("sqlm.confirm.dangerousOp") + sm_getLStr("q.proceed"));
     if (!bConfirm)
       return false;
@@ -1749,7 +1749,7 @@ var SQLiteManager = {
     return bReturn;
   },
 
-  reindexIndex: function() {        
+  reindexIndex: function() {
     var sCurrIndex = this.aCurrObjNames["index"];
     if(sCurrIndex != null && sCurrIndex != undefined && sCurrIndex.length > 0) {
       var bReturn = this.mDb.reindexObject("INDEX", sCurrIndex);
@@ -1766,7 +1766,7 @@ var SQLiteManager = {
 
     var sObjectName = "";
     sObjectName = this.aCurrObjNames[sObjectType];
-    
+
     var aNames = this.aObjNames[sObjectType];
 
     if(aNames.length == 0) {
@@ -1802,9 +1802,9 @@ var SQLiteManager = {
     fp.init(window, sm_getLStr("sqlm.export.fp.title"), nsIFilePicker.modeSave);
     fp.appendFilters(nsIFilePicker.filterAll);
     fp.defaultString = sFileName + "." + sExpType;
-    
+
     var rv = fp.show();
-    
+
     //if chosen then
     if (rv != nsIFilePicker.returnOK && rv != nsIFilePicker.returnReplace) {
       alert(sm_getLStr("sqlm.export.fp.descr"));
@@ -1870,7 +1870,7 @@ var SQLiteManager = {
     this.loadTabWithId("tab-exim");
     SmExim.loadDialog("import");
   },
-  
+
   exportObject: function(sObjectType) {
     if (!this.mDb.isConnected()) {
       alert(sm_getLStr("firstOpenADb"));
@@ -1893,11 +1893,11 @@ var SQLiteManager = {
 
     if (sNewTable.length == 0)
       return false;
-      
+
     var info = this.mDb.getMasterInfo(sTableName, "");
     var r_sql = info.sql;
     sNewTable = this.mDb.getPrefixedName(sNewTable, sNewDb);
-    var sOldTable = this.mDb.getPrefixedName(sTableName, "");  
+    var sOldTable = this.mDb.getPrefixedName(sTableName, "");
 
     var sNewSql = replaceObjectNameInSql(r_sql, sNewTable);
     if (sNewSql == "") {
@@ -1932,7 +1932,7 @@ var SQLiteManager = {
     //returns true on OK, false on cancel
     if (!result || sNewName.length == 0)
       return false;
-      
+
     sNewName = this.mDb.getPrefixedName(sNewName, "");
     var info = this.mDb.getMasterInfo(sObjName, "");
     var sOldSql = info.sql;
@@ -1951,7 +1951,7 @@ var SQLiteManager = {
   },
 
 // operateOnTable: various operations on a given table
-// sOperation = rename | copy | reindex | delete  | 
+// sOperation = rename | copy | reindex | delete  |
 //              insert | duplicate | update
   operateOnTable: function(sOperation) {
     //these operations make sense in the context of some table
@@ -2124,7 +2124,7 @@ var SQLiteManager = {
     while (fileList.hasMoreElements()) {
       file = fileList.getNext().QueryInterface(Ci.nsIFile);
       aSplit = file.leafName.split(".");
-      sExt = aSplit[aSplit.length - 1]; 
+      sExt = aSplit[aSplit.length - 1];
 
       if (this.maFileExt.indexOf(sExt) != -1) {
         iFileCount++;
@@ -2135,8 +2135,8 @@ var SQLiteManager = {
   },
 
   // openSelectedDatabase: open a file from the database dropdown list
-  openSelectedDatabase: function(sMenuListId) { 
-    //get the node for dropdown menu in which profile db list is shown       
+  openSelectedDatabase: function(sMenuListId) {
+    //get the node for dropdown menu in which profile db list is shown
     var listbox = $$(sMenuListId);
     var sPath = listbox.selectedItem.value;
     var sType = listbox.getAttribute("dirType"); //profile/user
@@ -2182,7 +2182,7 @@ var SQLiteManager = {
     var answer = smPrompt.confirm(null, sm_getLStr("extName"), sm_getLFStr("sqlm.detachDb.confirm", [sDbName]) + mi.getAttribute("tooltiptext"));
     if(!answer) {
       return false;
-     } 
+     }
     var sQuery = "DETACH DATABASE " + SQLiteFn.quoteIdentifier(sDbName);
     if (this.mDb.selectQuery(sQuery)) {
       var mi = mlist.removeItemAt(mlist.selectedIndex);
@@ -2211,7 +2211,7 @@ var SQLiteManager = {
     }
     fp.appendFilter(sm_getLStr("sqliteDbFiles") + " (" + sExt + ")", sExt);
     fp.appendFilters(nsIFilePicker.filterAll);
-    
+
     var rv = fp.show();
     if (rv == nsIFilePicker.returnOK || rv == nsIFilePicker.returnReplace) {
       // work with returned nsILocalFile...
@@ -2236,7 +2236,7 @@ var SQLiteManager = {
       else {
         sm_message(sm_getLFStr("sqlm.attachDb.msgFailed", [sPath]), 0x2);
         return false;
-      }      
+      }
     }
     return false;
   },
@@ -2256,7 +2256,7 @@ var SQLiteManager = {
     var mi = mlist.appendItem(sm_getLStr("sqlm.tooltip.attachedDbs"), sm_getLStr("sqlm.tooltip.attachedDbs"), "");
     mi.setAttribute("dbName", "");
     mi.setAttribute("disabled", "true");
-  
+
     //attach all db that were attached when this db was last closed
     var aAttached = smExtManager.getAttachedDbList();
     for (var i = 0; i < aAttached.length; i++) {
@@ -2283,13 +2283,13 @@ var SQLiteManager = {
         var bAnswer = smPrompt.confirm(null, sm_getLStr("extName"), sm_getLStr("confirmBackup"));
         if (!bAnswer) return false;
         break;
-      default:        return false;    
+      default:        return false;
     }
 
     //construct a name for the new file as originalname_timestamp.ext
 //    var dt = new Date();
-//    var sTimestamp = dt.getFullYear() + dt.getMonth() + dt.getDate(); 
-    var sTimestamp = SmGlobals.getISODateTimeFormat(null, "", "s");//Date.now(); 
+//    var sTimestamp = dt.getFullYear() + dt.getMonth() + dt.getDate();
+    var sTimestamp = SmGlobals.getISODateTimeFormat(null, "", "s");//Date.now();
     var sFileName = nsiFileObj.leafName;
     var sMainName = sFileName, sExt = "";
     var iPos = sFileName.lastIndexOf(".");
@@ -2344,7 +2344,7 @@ var SQLiteManager = {
         else {
          //create backup before opening
           this.createTimestampedBackup(nsiFileObj);
-  
+
           var mi = $$("menu-general-sharedPagerCache");
           var bSharedPagerCache = mi.hasAttribute("checked");
           bConnected = this.mDb.openDatabase(nsiFileObj, bSharedPagerCache);
@@ -2546,7 +2546,7 @@ SmGlobals.stylerDataTree = {
   convert: function() {
     //we are handling conversion from pref jsonDataTreeStyle version 1 to version 2 only
     //users coming from pref styleDataTree will lose their color settings (very few users)
-    //users having older versions will not be affected 
+    //users having older versions will not be affected
     try {
       var obj = SmGlobals.getJsonPref("jsonDataTreeStyle");
       //if jsonDataTreeStyle preference exists and has version 2, then no conversion needed

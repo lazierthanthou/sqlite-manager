@@ -216,7 +216,9 @@
             <menuitem label="&emptyTable;" accesskey="&empty.ak;" command="smc-emptyTable"/>
             <menuseparator/>
             <menuitem label="&renameTable;" accesskey="&rename.ak;" command="smc-renameTable"/>
+            <!--
             <menuitem label="&modifyTable;" accesskey="&modify.ak;" command="smc-modifyTable"/>
+            -->
             <menuitem label="&copyTable;" accesskey="&copy.ak;" command="smc-copyTable"/>
             <menuitem label="&exportTable;" accesskey="&export.ak;" command="smc-exportTable"/>
             <menuseparator/>
@@ -298,7 +300,9 @@
       <toolbar id="sm-toolbar-table">
         <toolbarbutton id="tbb_createTable" command="smc-createTable"/>
         <toolbarbutton id="tbb_dropTable" command="smc-dropTable"/>
+        <!--
         <toolbarbutton id="tbb_modifyTable" command="smc-modifyTable"/>
+        -->
         <toolbarseparator/>
       </toolbar>
       <toolbar id="sm-toolbar-index">

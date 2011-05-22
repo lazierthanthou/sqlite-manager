@@ -192,14 +192,14 @@ var CreateManager = {
   },
 
   doOKCreateIndex: function() {
-    var name = $$("indexname").value;
-    if(name == "") {
+    var sName = $$("indexname").value;
+    if(sName == "") {
       alert(sm_getLStr("createMngr.index.cannotBeNull"));
       return false;
     }
 
     var dbName = $$("dbName").value;
-     name = this.mDb.getPrefixedName(name, dbName);
+     sName = this.mDb.getPrefixedName(sName, dbName);
 
     var tbl = $$("tabletoindex").value;
     var dup = $$("duplicatevalues").selectedItem.value;
@@ -221,8 +221,8 @@ var CreateManager = {
       return false;
     }
     
-    var sQuery = "CREATE " + dup + " INDEX " + name + " ON " + SQLiteFn.quoteIdentifier(tbl) +  " (" + cols + ")";
-    return this.mDb.confirmAndExecute([sQuery], sm_getLFStr("createMngr.index.confirm", [name], 1), "confirm.create");
+    var sQuery = "CREATE " + dup + " INDEX " + sName + " ON " + SQLiteFn.quoteIdentifier(tbl) +  " (" + cols + ")";
+    return this.mDb.confirmAndExecute([sQuery], sm_getLFStr("createMngr.index.confirm", [sName], 1), "confirm.create");
   },
 
   loadCreateTriggerDialog: function () {
@@ -245,6 +245,10 @@ var CreateManager = {
       aMastTableNames = this.mDb.getObjectList("master", dbName);
     var aNormTableNames = this.mDb.getObjectList("table", dbName);
     var aObjectNames = aMastTableNames.concat(aNormTableNames);
+    if(this.sObject == "trigger") {
+      var aViewNames = this.mDb.getObjectList("view", dbName);
+      aObjectNames = aObjectNames.concat(aViewNames);
+    }
     PopulateDropDownItems(aObjectNames, listbox, sTableName);
 
     if(this.sObject == "INDEX")
@@ -261,12 +265,12 @@ var CreateManager = {
   },
 
   doOKCreateTable: function() {
-    var name = $$("tablename").value;
-    if(name == "") {
+    var sName = $$("tablename").value;
+    if(sName == "") {
       alert(sm_getLStr("createMngr.tbl.cannotBeNull"));
       return false;
     }
-    if(name.indexOf("sqlite_") == 0) {
+    if(sName.indexOf("sqlite_") == 0) {
       alert(sm_getLStr("createMngr.tbl.cannotBeginSqlite"));
       return false;
     }
@@ -278,10 +282,10 @@ var CreateManager = {
     //temp object will be created in temp db only
     if (txtTemp == "") {
       var dbName = $$("dbName").value;
-       name = this.mDb.getPrefixedName(name, dbName);
-     }
-     else
-       name = SQLiteFn.quoteIdentifier(name);
+      sName = this.mDb.getPrefixedName(sName, dbName);
+    }
+    else
+      sName = SQLiteFn.quoteIdentifier(sName);
 
     var txtExist = "";
     if($$("ifnotexists").checked)
@@ -373,10 +377,10 @@ var CreateManager = {
       aColDefs.push(constraintPK);
     }
 
-    var sQuery = "CREATE " + txtTemp + " TABLE " + txtExist + name + " (" + aColDefs.join(", ") + ")";
+    var sQuery = "CREATE " + txtTemp + " TABLE " + txtExist + sName + " (" + aColDefs.join(", ") + ")";
 
     var aRetVals = window.arguments[1];
-    aRetVals.tableName = name;
+    aRetVals.tableName = sName;
     aRetVals.createQuery = sQuery;
     aRetVals.ok = true;
     return true;
@@ -404,8 +408,8 @@ var CreateManager = {
   },
   
   doOKCreateView: function() {
-    var name = $$("objectName").value;
-    if(name == "") {
+    var sName = $$("objectName").value;
+    if(sName == "") {
       alert(sm_getLStr("createMngr.view.cannotBeNull"));
       return false;
     }
@@ -417,10 +421,10 @@ var CreateManager = {
     //temp object will be created in temp db only
     if (txtTemp == "") {
       var dbName = $$("dbName").value;
-       name = this.mDb.getPrefixedName(name, dbName);
+       sName = this.mDb.getPrefixedName(sName, dbName);
      }
      else
-       name = SQLiteFn.quoteIdentifier(name);
+       sName = SQLiteFn.quoteIdentifier(sName);
 
     var txtExist = "";
     if($$("ifnotexists").checked)
@@ -435,21 +439,21 @@ var CreateManager = {
     var aRetVals = window.arguments[1];
     var aQueries = [];
     if (typeof aRetVals.modify != "undefined") {
-      aQueries.push("DROP VIEW " + name);
+      aQueries.push("DROP VIEW " + sName);
     }
-    var sQuery = "CREATE " + txtTemp + " VIEW " + txtExist + name 
+    var sQuery = "CREATE " + txtTemp + " VIEW " + txtExist + sName 
           + " AS " + selectStatement;
     aQueries.push(sQuery);
 
-    aRetVals.objectName = name;
+    aRetVals.objectName = sName;
     aRetVals.queries = aQueries;
     aRetVals.ok = true;
     return true;
   },
 
   doOKCreateTrigger: function() {
-    var name = $$("objectName").value;
-    if(name == "") {
+    var sName = $$("objectName").value;
+    if(sName == "") {
       alert(sm_getLStr("createMngr.trigger.cannotBeNull"));
       return false;
     }
@@ -461,10 +465,10 @@ var CreateManager = {
     //temp object will be created in temp db only
     if (txtTemp == "") {
       var dbName = $$("dbName").value;
-       name = this.mDb.getPrefixedName(name, dbName);
-     }
-     else
-       name = SQLiteFn.quoteIdentifier(name);
+      sName = this.mDb.getPrefixedName(sName, dbName);
+    }
+    else
+      sName = SQLiteFn.quoteIdentifier(sName);
 
     var txtExist = "";
     if($$("ifnotexists").checked)
@@ -491,8 +495,8 @@ var CreateManager = {
     var txtTime = $$("triggerTime").selectedItem.label;
     var txtEvent = $$("dbEvent").selectedItem.label;
 
-    var sQuery = "CREATE " + txtTemp + " TRIGGER " + txtExist + name + " " + txtTime + " " + txtEvent + " ON " + txtTable + txtForEachRow + whenExpression + " BEGIN " + steps + " END";
-    return this.mDb.confirmAndExecute([sQuery], sm_getLFStr("createMngr.trigger.confirm", [name], 1), "confirm.create");
+    var sQuery = "CREATE " + txtTemp + " TRIGGER " + txtExist + sName + " " + txtTime + " " + txtEvent + " ON " + SQLiteFn.quoteIdentifier(txtTable) + txtForEachRow + whenExpression + " BEGIN " + steps + " END";
+    return this.mDb.confirmAndExecute([sQuery], sm_getLFStr("createMngr.trigger.confirm", [sName], 1), "confirm.create");
   },
 
   doCancel: function() {

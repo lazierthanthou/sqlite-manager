@@ -302,7 +302,7 @@
 <!ENTITY createTable.unique.columnlist      "Unique Column-list">
 <!ENTITY createTrigger.dbName               "Database:">
 <!ENTITY createTrigger.triggername          "Trigger Name:">
-<!ENTITY createTrigger.tabletoindex         "on Table:">
+<!ENTITY createTrigger.tabletoindex         "on Table/View:">
 <!ENTITY createTrigger.loading              "(loading)">
 <!ENTITY createTrigger.tempObject           "Temporary">
 <!ENTITY createTrigger.tempObject.ak        "T">

@@ -38,6 +38,15 @@ SmDatabaseTreeView.prototype = {
       return "<" + row + "," + col.id + ">";
     }
   },
+  //function to get sqlite data type
+  getCellDataType: function(row, col) {
+    try {
+      return this.aTypes[row][col.id];
+    }
+    catch (e) {
+      return SQLiteTypes.TEXT;
+    }
+  },
 
   setTree: function(treebox) { this.treebox = treebox; },
   isContainer: function(row) { return false; },

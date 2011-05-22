@@ -64,6 +64,7 @@ SQLiteHandler.prototype = {
   maDbList: ["main", "temp"],
   mLogicalDbName: "main", //for main, temp and attached databases
 
+  lastError: "",
   lastErrorString: "",
   miTime: 0, //time elapsed during queries (in milliseconds)
 
@@ -251,9 +252,11 @@ SQLiteHandler.prototype = {
   getRecords: function() { return this.aTableData; },
   getRecordTypes: function() { return this.aTableType; },
   getColumns: function() { return this.aColumns; },
+  getLastErrorId: function() { return this.lastError; },
   getLastError: function() { return this.lastErrorString; },
 
   setErrorString: function() {
+    this.lastError = this.dbConn.lastError;
     this.lastErrorString = this.dbConn.lastErrorString;
   },
 
@@ -1081,6 +1084,52 @@ SQLiteHandler.prototype = {
 
   logMessage: function(sMsg) {
     this.consoleService.logStringMessage("SQLiteManager: " + sMsg);
+  },
+
+  getAllowedOpsOnView: function(sViewName, sDbName) {
+    if (sDbName == "")
+      sDbName = this.mLogicalDbName;
+
+    var aReturn = {"delete": true, "insert": true, "update": true};
+    var aCols = this.getTableInfo(sViewName, sDbName);
+    var sQuery = 'DELETE FROM "' + sViewName + '"';
+    try {
+      var stmt = this.dbConn.createStatement(sQuery);
+      stmt.finalize();
+    }
+    catch (e) {
+      aReturn["delete"] = false;
+      var msg = this.onSqlError(e, "Error in SQL: " + sQuery, this.dbConn.lastErrorString, false);
+      this.setErrorString();
+    }
+
+    var sQuery = 'UPDATE "' + sViewName + '" SET "' + aCols[0]["name"] + '" = 1';
+    try {
+      var stmt = this.dbConn.createStatement(sQuery);
+      stmt.finalize();
+    }
+    catch (e) {
+      aReturn["update"] = false;
+      var msg = this.onSqlError(e, "Error in SQL: " + sQuery, this.dbConn.lastErrorString, false);
+      this.setErrorString();
+    }
+
+    var aVal = [];
+    for (var i = 0; i < aCols.length; i++) {
+      aVal.push(1);
+    }
+    var sQuery = 'INSERT INTO "' + sViewName + '" VALUES (' + aVal.join(",") + ')';
+    try {
+      var stmt = this.dbConn.createStatement(sQuery);
+      stmt.finalize();
+    }
+    catch (e) {
+      aReturn["insert"] = false;
+      var msg = this.onSqlError(e, "Error in SQL: " + sQuery, this.dbConn.lastErrorString, false);
+      this.setErrorString();
+    }
+
+    return aReturn;
   },
 
   getMasterInfo: function(sObjName, sDbName) {

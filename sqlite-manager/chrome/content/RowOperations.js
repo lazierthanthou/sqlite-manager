@@ -43,11 +43,17 @@ var RowOperations = {
     this.sCurrentTable = window.arguments[1];
     this.sOperation = window.arguments[2];
     this.mRowId = window.arguments[3];
+    this.mObjType = window.arguments[4];
 
     this.mbConfirmationNeeded = sm_prefsBranch.getBoolPref("confirm.records");
     this.mbMultiline = sm_prefsBranch.getBoolPref("whetherMultilineInput");
 
-    switch(this.sOperation) {
+    if (this.mObjType == "view") {
+      $$("tablenames").hidden = true;
+      $$("label-name").value = sm_getLStr("rowOp.viewName") + this.sCurrentTable;
+    }
+
+    switch (this.sOperation) {
       case "insert":
       case "duplicate":
         document.title = sm_getLStr("rowOp.insert.title");
@@ -129,7 +135,7 @@ var RowOperations = {
   initFieldData: function(iCols) {
     this.maFieldInfo = [];
 
-    for(var i = 0; i < iCols; i++) {
+    for (var i = 0; i < iCols; i++) {
       var oInfo = {colName: "", colType: "",
                    oldValue: "", dflt_value: null, notnull: 0,
                    oldType: SQLiteTypes.TEXT, newType: SQLiteTypes.TEXT,
@@ -143,7 +149,12 @@ var RowOperations = {
   populateFieldData: function(sTableName, sRowCriteria) {
     var sql = "SELECT * FROM " + this.mDb.getPrefixedName(sTableName, "") + " WHERE " + sRowCriteria;
     this.mDb.selectQuery(sql);
-    var row = this.mDb.getRecords()[0];
+    var row = this.mDb.getRecords();
+    if (row.length == 0) {
+      alert("ERROR:\nNo matching record found.\nSQL: " + sql);
+      return false;
+    }
+    row = row[0];
     var cols = this.mDb.getColumns();
     var rowTypes = this.mDb.getRecordTypes()[0];
     for (var j = 0; j < this.maFieldInfo.length; j++) {
@@ -166,12 +177,14 @@ var RowOperations = {
         }
       }
     }
+
     //now, manage the textbox
     for (var i = 0; i < this.maFieldInfo.length; i++) {
       var txtBox = $$("ctrl-tb-" + i);
       txtBox.value = this.maFieldInfo[i].oldValue;
       this.onInputValue(txtBox, false);
     }
+    return true;
   },
 
   loadForTableRecord: function() {
@@ -188,7 +201,7 @@ var RowOperations = {
 
     this.initFieldData(cols.length);
 
-    for(var i = 0; i < cols.length; i++) {
+    for (var i = 0; i < cols.length; i++) {
       this.maFieldInfo[i].colName = cols[i].name;
       this.maFieldInfo[i].colType = cols[i].type;
       this.maFieldInfo[i].dflt_value = cols[i].dflt_value;
@@ -203,7 +216,7 @@ var RowOperations = {
     cap.setAttribute("label", sm_getLStr("rowOp.enterFieldValues"));
     grbox.appendChild(cap);
 
-    for(var i = 0; i < this.maFieldInfo.length; i++) {
+    for (var i = 0; i < this.maFieldInfo.length; i++) {
       var hbox = document.createElement("hbox");
       hbox.setAttribute("flex", "0");
       hbox.setAttribute("style", "margin:2px 3px 2px 3px");
@@ -223,7 +236,7 @@ var RowOperations = {
       spacer.flex = "1";
       hbox.appendChild(spacer);
 
-      if(this.sOperation == "search") {
+      if (this.sOperation == "search") {
         var vb = this.getSearchMenuList(this.maFieldInfo[i].colName);
         hbox.appendChild(vb);
       }
@@ -248,7 +261,7 @@ var RowOperations = {
   },
 
   saveBlob: function(iIndex) {
-    if(this.sOperation != "update")
+    if (this.sOperation != "update")
       return false;
 
     const nsIFilePicker = Ci.nsIFilePicker;
@@ -263,7 +276,7 @@ var RowOperations = {
       if (data == null)
         data = this.maFieldInfo[iIndex].oldBlob;
 
-      if(data.length == 0) //nothing to write
+      if (data.length == 0) //nothing to write
         return false;
 
       var file = fp.file;
@@ -1009,7 +1022,6 @@ var RowOperations = {
     if (this.mAcceptAction == "doOKUpdate") {
       //reset values so that no further change means no more update
       this.populateFieldData(this.sCurrentTable, this.mRowId);
-      
     }
     return false;
   },

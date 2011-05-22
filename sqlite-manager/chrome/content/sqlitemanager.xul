@@ -134,9 +134,9 @@
   
     <!-- context menu for tree in browse tab for other tables -->
     <menupopup id="mp-editTableRow">
-      <menuitem label="&menu.editSelected;" accesskey="&menu.editSelected.ak;" oncommand="SQLiteManager.operateOnTable('update')"/>
-      <menuitem label="&menu.deleteSelected;" accesskey="&menu.deleteSelected.ak;" oncommand="SQLiteManager.operateOnTable('delete')"/>
-      <menuitem label="&menu.duplicateRecord;" accesskey="&menu.duplicateRecord.ak;" oncommand="SQLiteManager.operateOnTable('duplicate')"/>
+      <menuitem id="mp-editTableRow-mi-update" label="&menu.editSelected;" accesskey="&menu.editSelected.ak;" oncommand="SQLiteManager.operateOnTable('update')"/>
+      <menuitem id="mp-editTableRow-mi-delete" label="&menu.deleteSelected;" accesskey="&menu.deleteSelected.ak;" oncommand="SQLiteManager.operateOnTable('delete')"/>
+      <menuitem id="mp-editTableRow-mi-duplicate" label="&menu.duplicateRecord;" accesskey="&menu.duplicateRecord.ak;" oncommand="SQLiteManager.operateOnTable('duplicate')"/>
       <menuseparator/>
       <menuitem label="&menu.copyRows;" accesskey="&menu.copyRows.ak;" oncommand="treeBrowse.UserCopyRows('csv')"/>
       <menuitem label="&menu.copyRowsForExcel;" oncommand="treeBrowse.UserCopyRows('csv-excel')"/>

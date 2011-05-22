@@ -812,14 +812,28 @@ var SQLiteManager = {
     if (sObjType == "master") {
       setting = [true, "mp-browse-copy", ""];
     }
-    if (sObjType == "view") {
-      setting = [true, "mp-browse-copy", ""];
-    }
 
     btnAdd.disabled = setting[0];
     btnDup.disabled = setting[0];
     btnEdit.disabled = setting[0];
     btnDelete.disabled = setting[0];
+
+    $$("mp-editTableRow-mi-update").hidden = false;
+    $$("mp-editTableRow-mi-delete").hidden = false;
+    $$("mp-editTableRow-mi-duplicate").hidden = false;
+
+    if (sObjType == "view") {
+      var aRet = this.mDb.getAllowedOpsOnView(sObjName, "");
+      btnAdd.disabled = !aRet["insert"];
+      btnDup.disabled = !aRet["insert"];
+      btnEdit.disabled = !aRet["update"];
+      btnDelete.disabled = !aRet["delete"];
+
+      $$("mp-editTableRow-mi-update").hidden = !aRet["update"];
+      $$("mp-editTableRow-mi-delete").hidden = !aRet["delete"];
+      $$("mp-editTableRow-mi-duplicate").hidden = !aRet["duplicate"];
+    }
+
     treeChildren.setAttribute("context", setting[1]);
     treeChildren.setAttribute("ondblclick", setting[2]);
 
@@ -986,7 +1000,7 @@ var SQLiteManager = {
     if (oType == "VIEW")
       return this.searchView(oName);
     if (oType == "TABLE" || oType == "MASTER") {
-      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul", "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, oName, "search");
+      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul", "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, oName, "search", "", "table");
       return true;
     }
   },
@@ -1065,7 +1079,7 @@ var SQLiteManager = {
       types[col] = '';
     }
     var cols = [names, types];
-    window.openDialog("chrome://sqlitemanager/content/RowOperations.xul",  "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, sViewName, "search-view", cols);
+    window.openDialog("chrome://sqlitemanager/content/RowOperations.xul",  "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, sViewName, "search-view", cols, "view");
     return true;
   },
 
@@ -1954,6 +1968,10 @@ var SQLiteManager = {
 // sOperation = rename | copy | reindex | delete  |
 //              insert | duplicate | update
   operateOnTable: function(sOperation) {
+    var oType = $$("browse-type").value.toUpperCase();
+    if (oType == "VIEW" && (sOperation == "insert" || sOperation == "duplicate" || sOperation == "update" || sOperation == "delete")) {
+      return this.operateOnView(sOperation);
+    }
     //these operations make sense in the context of some table
     //so, take action only if there is a valid selected db and table
     if (!this.mDb.isConnected() || this.aCurrObjNames["table"] == null) {
@@ -2064,7 +2082,7 @@ var SQLiteManager = {
 /* following code if dialog is popped up for editing etc. */
     var bUseWindow = true;
     if (bUseWindow) {
-      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul", "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, this.aCurrObjNames["table"], sOperation, rowCriteria);
+      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul", "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, this.aCurrObjNames["table"], sOperation, rowCriteria, "table");
       if(sOperation != "update") {
         this.refreshDbStructure();
       }
@@ -2072,6 +2090,95 @@ var SQLiteManager = {
     }
     else {
       RowOps.loadDialog(this.aCurrObjNames["table"], sOperation, rowCriteria);
+    }
+
+    return true;
+  },
+
+// operateOnView: various operations on a given view
+// sOperation = delete  | insert | duplicate | update
+  operateOnView: function(sOperation) {
+    //these operations make sense in the context of some view
+    //so, take action only if there is a valid selected db and view
+    if (!this.mDb.isConnected() || this.aCurrObjNames["view"] == null) {
+      alert(sm_getLStr("noDbOrTable"));//TODO: change message to noDbOrView
+      return false;
+    }
+    var sCurrView = this.aCurrObjNames["view"];
+    var bReturn = false;
+    var bRefresh = false; //to reload tabs
+
+    //update the first selected row in the tree, else alert to select
+    //if selection exists, pass the rowid as the last arg of openDialog
+    var aRowIds = [];
+    var rowCriteria = "";
+    if(sOperation == "update" || sOperation == "delete" || sOperation == "duplicate") {
+      //allowing for multiple selection in the tree
+      var tree = $$("browse-tree");
+      var start = new Object();
+      var end = new Object();
+      var numRanges = tree.view.selection.getRangeCount();
+
+      for (var t = 0; t < numRanges; t++) {
+        tree.view.selection.getRangeAt(t,start,end);
+        for (var v = start.value; v <= end.value; v++) {
+          var cols = tree.columns;
+          //where criteria has to be based on all columns
+          var aWhere = [];
+          for (var colCnt = 0; colCnt < cols.length; colCnt++) {
+            var colName = cols.getColumnAt(colCnt).element.getAttribute("label");
+            var colValue = tree.view.getCellText(v, cols.getColumnAt(colCnt));
+            var dataType = treeBrowse.treeView.getCellDataType(v, cols.getColumnAt(colCnt));
+            var sCondition = '"' + colName + '"';
+            if (dataType == SQLiteTypes.INTEGER || dataType == SQLiteTypes.REAL || dataType == SQLiteTypes.BLOB)
+              sCondition += "=" + colValue;
+            else if (dataType == SQLiteTypes.NULL)
+              sCondition += " ISNULL";
+            else
+              sCondition += "='" + colValue + "'";
+            aWhere.push(sCondition);
+          }
+          aRowIds.push(aWhere.join(" AND "));
+        }
+      }
+      //do nothing, if nothing is selected
+      if(aRowIds.length == 0) {
+        alert(sm_getLStr("noRecord"));
+        return false;
+      }
+      //if editing, should select only one record
+      if (sOperation == "update" || sOperation == "duplicate") {
+        if (aRowIds.length != 1) {
+          alert(sm_getLStr("onlyOneRecord"));
+          return false;
+        }
+        rowCriteria = aRowIds[0];
+      }
+      //if deleting, pass as argument rowid of all selected records to delete
+      if (sOperation == "delete") {
+        var aQueries = [];
+        for (var t = 0; t < aRowIds.length; t++) {
+          var sQuery = "DELETE FROM " + this.mDb.getPrefixedName(sCurrView, "") + " WHERE " + aRowIds[t];
+          aQueries.push(sQuery);
+        }
+        //IMPORTANT: the last parameter is totally undocumented.
+        var bReturn = this.mDb.confirmAndExecute(aQueries, [sm_getLFStr("sqlm.deleteRecs", [aRowIds.length, sCurrView]), false]);
+        if(bReturn)
+          this.loadTabBrowse(false);
+        return bReturn;
+      }
+    }
+    /* following code if dialog is popped up for editing etc. */
+    var bUseWindow = true;
+    if (bUseWindow) {
+      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul", "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, this.aCurrObjNames["view"], sOperation, rowCriteria, "view");
+      if(sOperation != "update") {
+        this.refreshDbStructure();
+      }
+      this.loadTabBrowse(false);
+    }
+    else {
+      RowOps.loadDialog(this.aCurrObjNames["view"], sOperation, rowCriteria);
     }
 
     return true;

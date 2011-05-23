@@ -267,7 +267,7 @@
 <!ENTITY createTable.unique.columnlist "Уникальный столбец-список">
 <!ENTITY createTrigger.dbName "База данных:">
 <!ENTITY createTrigger.triggername "Имя триггера:">
-<!ENTITY createTrigger.tabletoindex "в таблице:">
+<!ENTITY createTrigger.tabletoindex "в таблице/производной таблице:">
 <!ENTITY createTrigger.loading "(загрузка)">
 <!ENTITY createTrigger.tempObject "Временный">
 <!ENTITY createTrigger.tempObject.ak "В">

@@ -267,7 +267,7 @@
 <!ENTITY createTable.unique.columnlist "Unik kolumn-lista">
 <!ENTITY createTrigger.dbName "Databas:">
 <!ENTITY createTrigger.triggername "Utlösarnamn:">
-<!ENTITY createTrigger.tabletoindex "på tabellen:">
+<!ENTITY createTrigger.tabletoindex "på tabellen/vyn:">
 <!ENTITY createTrigger.loading "(läser in)">
 <!ENTITY createTrigger.tempObject "Temporär">
 <!ENTITY createTrigger.tempObject.ak "T">

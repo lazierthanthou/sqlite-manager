@@ -67,14 +67,16 @@ var SmExim = {
       this.sObjectType = sObjectType;
       this.sObjectName = sObjectName;
       $$("tab-exim").label = sm_getLStr("eximTab.export.label");
-//      $$("eximSubtitle").value = sm_getLFStr("eximTab.export.subtitle", [sObjectType], 1) + this.sObjectName;
       smHide(this.mImpControls);
       smShow(this.mExpControls);
 
       this.loadDbNames("eximDbName", SQLiteManager.mDb.logicalDbName);
       this.loadObjectNames("eximObjectNames", this.sObjectName, sObjectType);
 
-      $$("eximLblObjectType").value = sm_getLStr("eximLblObjectType") + sObjectType;
+      if (sObjectType == "table")
+        $$("eximLblObjectType").value = sm_getLStr("eximLblNameOfTable");
+      if (sObjectType == "view")
+        $$("eximLblObjectType").value = sm_getLStr("eximLblNameOfView");
 
       $$("eximXml-exporter-version").setAttribute("disabled", "true");
       return;

@@ -3,6 +3,7 @@ Components.utils.import("resource://sqlitemanager/tokenize.js");
 Components.utils.import("resource://sqlitemanager/appInfo.js");
 
 // SQLiteManager extension
+SmGlobals.disableChrome();
 
 var smStructTrees = [];
 smStructTrees[0] = new TreeDbStructure("t-dbStructNorm", "tc-dbStructNorm", 0);

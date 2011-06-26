@@ -21,10 +21,10 @@
  xmlns:html="http://www.w3.org/1999/xhtml">
 
   <!-- Icon from chrome -->
-<!-- without div, there is error -->
-  <html:div>
+  <!-- the following is based on recommendation at https://developer.mozilla.org/en/XUL/window -->
+  <html:head>
     <html:link rel="icon" href="chrome://sqlitemanager/skin/images/default16.png"/>
-  </html:div>
+  </html:head>
 
   <script type="application/x-javascript" src="globals.js"/>
   <script type="application/x-javascript" src="tokenize.js"/>

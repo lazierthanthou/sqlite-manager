@@ -25,6 +25,28 @@ var SmGlobals = {
 
   dialogFeatures: "chrome,resizable,centerscreen,modal,dialog",
 
+  // remove address bar when opening in firefox or seamonkey
+  disableChrome: function() {
+    if (/*SmAppInfo.appInfo.name == 'Firefox'*/true) {
+      //neither is a global called XULBrowserWindow available nor is there window.XULBrowserWindow
+      //but found navWindow.XULBrowserWindow
+      //the following both also fail:
+      //  navWindow.disablechrome = true;
+      //  window.disablechrome = true;
+      try {
+        var wm = Cc["@mozilla.org/appshell/window-mediator;1"].getService(Ci.nsIWindowMediator);
+        var navWindow = wm.getMostRecentWindow("navigator:browser");
+
+        //alert(navWindow.XULBrowserWindow.inContentWhitelist);
+        if (navWindow.XULBrowserWindow) {
+          navWindow.XULBrowserWindow.inContentWhitelist.push("chrome://sqlitemanager/content/sqlitemanager.xul");
+        }
+      } catch (e) {
+        Components.utils.reportError("Exception thrown during attempt to include extension's URL in inContentWhitelist for hiding chrome. The exception message is as follows:\n" + e.message);
+      }
+    }
+  },
+
   //notification duration
   getNotificationDuration: function() {
     return sm_prefsBranch.getIntPref("notificationDuration") * 1000;

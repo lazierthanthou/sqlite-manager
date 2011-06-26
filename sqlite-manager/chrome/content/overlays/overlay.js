@@ -44,6 +44,17 @@ com.googlecode.sqlitemanager = function() {
     catch(e) {
     }
 
+    //for disabling chrome in firefox
+    try {
+      var wm = Cc["@mozilla.org/appshell/window-mediator;1"].getService(Ci.nsIWindowMediator);
+      var navWindow = wm.getMostRecentWindow("navigator:browser");
+      if (navWindow.XULBrowserWindow) {
+        navWindow.XULBrowserWindow.inContentWhitelist.push("chrome://sqlitemanager/content/sqlitemanager.xul");
+      }
+    } catch (e) {
+      Components.utils.reportError("Exception thrown during attempt to include extension's URL in inContentWhitelist for hiding chrome. The exception message is as follows:\n" + e.message);
+    }
+
     switch (iOpenMode) {
       case 1:      //open a chrome window
         this.openInOwnWindow();

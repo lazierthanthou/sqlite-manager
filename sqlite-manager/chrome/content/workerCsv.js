@@ -81,11 +81,21 @@ function processCsvData(whichReader) {
     tempStore.columns = tempStore.csvRecords[0];
     //if col names are enclosed in quotes, remove them from both ends
     for (var c = 0; c < tempStore.columns.length; c++) {
+      if (tempStore.columns[c] == null) {
+        var msg = 'Column no. ' + (c + 1) + ' should have a name.';
+        var obj = {stage: gStage, success: 0, description: msg};
+        return obj;
+      }
       tempStore.columns[c] = tempStore.columns[c].trim();
       if (tempStore.columns[c][0] == "'" ||
         tempStore.columns[c][0] == '"') {
         var len = tempStore.columns[c].length;
         tempStore.columns[c] = tempStore.columns[c].substring(1, len - 1);
+        if (tempStore.columns[c].trim() == "") {
+          var msg = 'Column no. ' + (c + 1) + ' should have a name.';
+          var obj = {stage: gStage, success: 0, description: msg};
+          return obj;
+        }
       }
     }
   }

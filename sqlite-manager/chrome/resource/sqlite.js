@@ -18,8 +18,13 @@ const Ci = Components.interfaces;
 const Cr = Components.results;
 const Cu = Components.utils;
 
+const promptService  = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
+
+//promptService.alert(null, "SQLite Manager Alert", sMsg);
+
 var stmtCallback = {
   handleResult: function(aResultSet) {
+    Cu.reportError("in handleResult: ");
     for (let row = aResultSet.getNextRow(); row; row = aResultSet.getNextRow()) {
 //      Cc["@mozilla.org/consoleservice;1"].getService(Ci.nsIConsoleService).logStringMessage("handleResult\n" + 11);
 //       let value = row.getResultByName("column_name");
@@ -27,10 +32,11 @@ var stmtCallback = {
   },
 
   handleError: function(aError) {
-    alert("Error in executeAsync: " + aError.message);
+    Cu.reportError("Error in executeAsync: " + aError.message);
   },
 
   handleCompletion: function(aReason) {
+    Cu.reportError("in handleCompletion: " + aReason);
     switch (aReason) {
       case Ci.mozIStorageStatementCallback.REASON_FINISHED:
         return true;
@@ -857,11 +863,11 @@ SQLiteHandler.prototype = {
       try {
         stmt = this.dbConn.createStatement(aQueries[i]);
         //Cu.reportError("createStatement");
-        aStmt.push(stmt);
-        //stmt.executeAsync(stmtCallback);
+//        aStmt.push(stmt);
+        stmt.executeAsync(stmtCallback);
       }
       catch (e) {
-        stmt.finalize();
+//        stmt.finalize();
         //Cu.reportError("finalize");
         this.setErrorString();
         var msg = this.onSqlError(e, "Error in createStatement: " + aQueries[i], this.dbConn.lastErrorString, true);
@@ -870,8 +876,8 @@ SQLiteHandler.prototype = {
       }
     }
 
-    var stmtPending = this.dbConn.executeAsync(aStmt, aStmt.length, stmtCallback);
-    this.setErrorString();
+//    var stmtPending = this.dbConn.executeAsync(aStmt, aStmt.length, stmtCallback);
+//    this.setErrorString();
 
     this.miTime = Date.now() - timeStart;
     return true;

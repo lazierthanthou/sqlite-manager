@@ -55,6 +55,8 @@ var SQLiteManager = {
     //result: failure
 //    window.localStorage.setItem("status", "checking");
 //    alert(window.localStorage.getItem("status"));
+    this.mDb.executeAsync(["create table abcd (aa, bb, cc, dd)"]);
+    return;
     var sImportTestFileName = sm_prefsBranch.getCharPref("6de03bb8c386207");
     SmTestExim.doOKImport(sImportTestFileName);
   },

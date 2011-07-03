@@ -52,7 +52,7 @@ var SQLiteManager = {
 
   experiment: function() {
     //checking the use of localStorage in extension
-    //result: failure
+    //result: failure even with firefox 5 on 2011-07-03
 //    window.localStorage.setItem("status", "checking");
 //    alert(window.localStorage.getItem("status"));
     this.mDb.executeAsync(["create table abcd (aa, bb, cc, dd)"]);

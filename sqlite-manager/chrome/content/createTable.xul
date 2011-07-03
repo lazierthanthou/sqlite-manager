@@ -199,7 +199,7 @@
         </row>
         <row id="row-template" style="display:none">
           <html:input type="text" id="colname"  size="10"/>
-          <menulist id="datatype"   style="width:120px"
+          <menulist id="datatype" style="width:120px"
             sizetopopup="always" editable="true"
             oncommand="CreateManager.changeDataType(this.id);"
             onblur="CreateManager.changeDataType(this.id);">
@@ -228,10 +228,9 @@
             label="&createTable.autoincrement.yes;" checked="false" disabled="true"
             tooltiptext="&createTable.autoincrement.tooltip;"
             onclick=""/>
-          <checkbox id="allownull" 
-            label="&createTable.allownull.yes;"  checked="true"/>
+          <checkbox id="allownull" label="&createTable.allownull.yes;" checked="true"/>
           <checkbox id="cb-unique" label="&createTable.allownull.yes;" />
-          <menulist id="defaultvalue"   style="width:150px"
+          <menulist id="defaultvalue" style="width:150px"
             sizetopopup="always" editable="true">
             <menupopup>
               <menuitem id="mi-val-null" label="" selected="true"/>

@@ -2591,11 +2591,11 @@ var SQLiteManager = {
   },
 
   openConsoleWindow: function(aElt) {
-    window.openDialog(SmGlobals.chromes.console, 'console', 'chrome,resizable,titlebar,toolbar,centerscreen,modal');
+    window.open(SmGlobals.chromes.console, 'console', 'chrome,resizable,titlebar,toolbar,centerscreen');
   },
 
   openAboutConfigWindow: function(aElt) {
-    window.openDialog(SmGlobals.chromes.aboutconfig, 'aboutconfig', 'chrome,resizable,titlebar,toolbar,centerscreen,modal');
+    window.open(SmGlobals.chromes.aboutconfig, 'aboutconfig', 'chrome,resizable,titlebar,toolbar,centerscreen');
   },
 
   openDomIWindow: function(aElt) {

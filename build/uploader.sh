@@ -13,24 +13,14 @@ guser=""
 gpass=""
 
 getUserAndPass () {
-  #hgrc contains username & password
-  hgrcFile=$HOME/Dropbox/scripts/hgrc
+  #use .netrc file which is also used for git push to code.google.com
+  #read the line containing 'code.google.com' which should be like:
+  #machine code.google.com login username password thepassword
+  importantLine=`grep 'code.google.com' $HOME/.netrc`
 
-  #read the line containing 'https://' which should be like:
-  #default = https://username:password@sqlite-manager.googlecode.com/hg/
-  importantLine=`grep 'https://' $hgrcFile`
-
-  #remove the text after '@'
-  importantLine=`echo ${importantLine%%@*}`
-  #now, we have (default = https://username:password)
-
-  #remove the text before last '/' (use ##)
-  importantLine=`echo ${importantLine##*/}`
-  #now, we have (username:password)
-
-  #username is till the ':', password after it
-  guser=`echo ${importantLine%%:*}`
-  gpass=`echo ${importantLine##*:}`
+  set -- $importantLine
+  guser=$4
+  gpass=$6
 }
 
 getUserAndPass

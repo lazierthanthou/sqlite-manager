@@ -983,12 +983,10 @@ var RowOperations = {
 
     var answer = true;
     if(answer) {
-      //the order in which the following are set is important
-      //Issue #285: set unicode string
-      sm_setUnicodePref("searchCriteria", where);
-      //the value of searchToggler should toggle for change event to fire.
-      var bTemp = sm_prefsBranch.getBoolPref("searchToggler");
-      sm_prefsBranch.setBoolPref("searchToggler", !bTemp);
+      var aRetVals = window.arguments[5];
+      aRetVals.sWhere = where;
+      aRetVals.ok = true;
+      return true;
     }
     //return false so that window stays there for more queries
     //the user must cross, escape or cancel to exit
@@ -1004,9 +1002,9 @@ var RowOperations = {
     var bRet = this.mDb.executeWithoutConfirm(this.maQueries, this.maParamData);
     if (bRet) {
       this.notify(this.mNotifyMessages[0], "info");
-
+      var aRetVals = window.arguments[5];
       //do the following to trigger SQLiteManager.loadTabBrowse();
-      sm_setUnicodePref("searchCriteria", "nocriteria");
+      sm_setUnicodePref("searchCriteria", aRetVals.instanceId);
       //the value of searchToggler should toggle for loadTabBrowse() to be called.
       var bTemp = sm_prefsBranch.getBoolPref("searchToggler");
       sm_prefsBranch.setBoolPref("searchToggler", !bTemp);

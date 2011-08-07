@@ -16,6 +16,11 @@ var smExtManager = null;
 var SQLiteManager = {
   mDb: null,
 
+  //used to identify this instance of addon
+  //needed, if addon is open in more than one tab
+  //as of now, used only with searchToggler preference22
+  mInstanceId: Date.now(),
+
   msQuerySelectInstruction: null,
   prefs: null,
 
@@ -362,16 +367,13 @@ var SQLiteManager = {
         this.populateDBList("profile");
         break;
       case "searchToggler":
-        //Issue #285: get unicode string
-        var sPrefVal = sm_prefsBranch.getComplexValue("searchCriteria", Ci.nsISupportsString).data;
-        if (sPrefVal != "nocriteria") {
-          this.msBrowseCondition = sPrefVal;
-          //because search criteria has changed, set offset for navigating to zero
-          this.miOffset = 0;
+        var sPrefVal = sm_prefsBranch.getCharPref("searchCriteria", "");
+        //because multiple windows can be open at the same time,
+        //we first check whether browse tab has to be refreshed for
+        //this instance of the application
+        if (sPrefVal = this.mInstanceId) {
+          this.loadTabBrowse(false);
         }
-        //empty the criteria after use for security
-        sm_prefsBranch.setCharPref("searchCriteria", "");
-        this.loadTabBrowse(false);
         break;
       case "displayNumRecords":
         var iPrefVal = sm_prefsBranch.getIntPref("displayNumRecords");
@@ -1003,7 +1005,14 @@ var SQLiteManager = {
     if (oType == "VIEW")
       return this.searchView(oName);
     if (oType == "TABLE" || oType == "MASTER") {
-      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul", "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, oName, "search", "", "table");
+      var aRetVals = {instanceId: this.mInstanceId};
+      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul", "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, oName, "search", "", "table", aRetVals);
+      if (aRetVals.ok) {
+        this.msBrowseCondition = aRetVals.sWhere;
+        //because search criteria has changed, set offset for navigating to zero
+        this.miOffset = 0;
+        this.loadTabBrowse(false);
+      }
       return true;
     }
   },
@@ -1034,7 +1043,7 @@ var SQLiteManager = {
 //        cap.setAttribute("label", "Enter Field Values");
 //        grbox.appendChild(cap);
 
-    for(var i = 0; i < this.aFieldNames.length; i++) {
+    for (var i = 0; i < this.aFieldNames.length; i++) {
       var hbox = document.createElement("hbox");
       hbox.setAttribute("flex", "1");
       hbox.setAttribute("style", "margin:2px 3px 2px 3px");
@@ -1082,16 +1091,22 @@ var SQLiteManager = {
       types[col] = '';
     }
     var cols = [names, types];
-    window.openDialog("chrome://sqlitemanager/content/RowOperations.xul",  "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, sViewName, "search-view", cols, "view");
+    var aRetVals = {instanceId: this.mInstanceId};
+    window.openDialog("chrome://sqlitemanager/content/RowOperations.xul",  "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, sViewName, "search-view", cols, "view", aRetVals);
+    if (aRetVals.ok) {
+      this.msBrowseCondition = aRetVals.sWhere;
+      //because search criteria has changed, set offset for navigating to zero
+      this.miOffset = 0;
+      this.loadTabBrowse(false);
+    }
     return true;
   },
 
   showAll: function() {
-    sm_prefsBranch.setCharPref("searchCriteria", "");
-
-    //the value of searchToggler should toggle for change event to fire.
-    var bTemp = sm_prefsBranch.getBoolPref("searchToggler");
-    sm_prefsBranch.setBoolPref("searchToggler", !bTemp);
+    this.msBrowseCondition = "";
+    //because search criteria has changed, set offset for navigating to zero
+    this.miOffset = 0;
+    this.loadTabBrowse(false);
   },
 
   //getSelectedTabId: returns the id of the selected tab
@@ -2085,7 +2100,8 @@ var SQLiteManager = {
 /* following code if dialog is popped up for editing etc. */
     var bUseWindow = true;
     if (bUseWindow) {
-      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul", "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, this.aCurrObjNames["table"], sOperation, rowCriteria, "table");
+      var aRetVals = {instanceId: this.mInstanceId};
+      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul", "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, this.aCurrObjNames["table"], sOperation, rowCriteria, "table", aRetVals);
       if(sOperation != "update") {
         this.refreshDbStructure();
       }
@@ -2099,7 +2115,7 @@ var SQLiteManager = {
   },
 
 // operateOnView: various operations on a given view
-// sOperation = delete  | insert | duplicate | update
+// sOperation = delete | insert | duplicate | update
   operateOnView: function(sOperation) {
     //these operations make sense in the context of some view
     //so, take action only if there is a valid selected db and view
@@ -2171,10 +2187,11 @@ var SQLiteManager = {
         return bReturn;
       }
     }
-    /* following code if dialog is popped up for editing etc. */
+    // following code if dialog is popped up for editing etc.
     var bUseWindow = true;
     if (bUseWindow) {
-      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul", "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, this.aCurrObjNames["view"], sOperation, rowCriteria, "view");
+      var aRetVals = {instanceId: this.mInstanceId};
+      window.openDialog("chrome://sqlitemanager/content/RowOperations.xul", "RowOperations", "chrome, resizable, centerscreen, modal, dialog", this.mDb, this.aCurrObjNames["view"], sOperation, rowCriteria, "view", aRetVals);
       if(sOperation != "update") {
         this.refreshDbStructure();
       }

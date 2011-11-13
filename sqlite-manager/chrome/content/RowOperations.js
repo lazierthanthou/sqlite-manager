@@ -336,6 +336,7 @@ var RowOperations = {
 
       ctrltb.value = val;
       this.maFieldInfo[iIndex].newType = SQLiteTypes.BLOB;
+      this.maFieldInfo[iIndex].hasChanged = true; //added to handle issue #655
       //ctrltb.setAttribute("readonly", "true");
 
       this.onInputValue(ctrltb, false);
@@ -1051,6 +1052,7 @@ var RowOperations = {
         var sVal = this.maParamData[i][1];
         if (sType == "null") sVal = "NULL";
         if (sType == "blob") sVal = SQLiteFn.blobToHex(this.maParamData[i][1]);
+        if (sVal.length > 100) sVal = sVal.substr(0, 100) + "..."; //Issue #648
         txt += "param " + (i + 1) + " (" + sType + "): " + sVal + "\n";
       }
     }

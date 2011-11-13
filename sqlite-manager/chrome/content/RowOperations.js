@@ -1052,12 +1052,10 @@ var RowOperations = {
         var sVal = this.maParamData[i][1];
         if (sType == "null") sVal = "NULL";
         if (sType == "blob") sVal = SQLiteFn.blobToHex(this.maParamData[i][1]);
-        if (sVal.length > 100) sVal = sVal.substr(0, 100) + "..."; //Issue #648
         txt += "param " + (i + 1) + " (" + sType + "): " + sVal + "\n";
       }
     }
-//    $$("tbMessage").value = txt;
-    $$("tbMessage").textContent = txt;
+    $$("tbMessage").value = txt; //Issue #648
     this.changeState(1);
   }
 };

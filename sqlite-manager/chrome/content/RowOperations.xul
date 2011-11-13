@@ -57,8 +57,8 @@
   </vbox>
 </vbox>
 <vbox id="vbConfirm">
-<description id="tbMessage" style="white-space: pre-wrap;" flex="1"/>
-<!--<textbox id="tbMessage" rows="8" multiline="true" readonly="true" flex="1"/>-->
+<!-- Using textbox instead of description to fix Issue #648 -->
+<textbox id="tbMessage" rows="8" multiline="true" readonly="true" flex="1"/>
 </vbox>
 </deck>
 </notificationbox>

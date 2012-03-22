@@ -70,8 +70,10 @@ SMExtensionManager.prototype = {
   addQuery: function(sQuery) {
     if (!this.m_bUseConfig)
       return false;
-
-    SQLiteManager.mDb.executeTransaction(["insert into " + this.m_tbl + "(type, value) values('QueryHistory', " + SQLiteFn.quote(sQuery) + ")"]);
+// only insert a new query if the previous query is different	
+    SQLiteManager.mDb.executeTransaction(["insert into " + this.m_tbl + "(type, value) select 'QueryHistory', " + SQLiteFn.quote(sQuery) + " where not exists "
+	+ "( select value from (select tb1.value as value from " + this.m_tbl + " tb1 inner join " + this.m_tbl + " tb2 ON tb1.id=tb2.id"
+	+ " where tb1.type='QueryHistory' order by tb1.id desc limit 1) SUB where value=" + SQLiteFn.quote(sQuery) + ")"]);
     return true;
   },
 

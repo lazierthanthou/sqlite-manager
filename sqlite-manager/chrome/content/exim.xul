@@ -51,7 +51,9 @@
       <tabs id="eximTabsFormat" onselect="SmExim.onSelectTab();">
         <tab id="eximTabCsv" class="exportTabs" label="&CSV;" persist="selected"/>
         <tab id="eximTabSql" class="exportTabs" label="&SQL;" persist="selected"/>
+        <!--
         <tab id="eximTabXml" class="exportTabs" label="&XML;" persist="selected"/>
+        -->
       </tabs>
       <tabpanels>
         <tabpanel>
@@ -114,6 +116,7 @@
           </groupbox>
           </vbox>
         </tabpanel>
+        <!--
         <tabpanel>
           <vbox>
             <label value="Choose XML exporter version:"/>
@@ -125,6 +128,7 @@
             <description width="60">&xml.type.desc;</description>
           </vbox>
         </tabpanel>
+        -->
       </tabpanels>
     </tabbox>
   

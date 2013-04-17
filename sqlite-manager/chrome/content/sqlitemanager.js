@@ -585,7 +585,7 @@ var SQLiteManager = {
     this.hideTabStructure();
     this.cancelEditColumn();
 
-    if (!this.mDb.isConnected())
+    if (!this.mDb || !this.mDb.isConnected())
       return false;
 
     //there is a database object at level 1 only

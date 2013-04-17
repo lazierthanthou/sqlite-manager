@@ -320,7 +320,7 @@ var SmExim = {
     }
     return allRecords.length;
   },
-
+/*
   writeXmlContent: function(foStream, sQuery, bType) {
     SQLiteManager.mDb.selectQuery(sQuery, true);
     var allRecords = SQLiteManager.mDb.getRecords();
@@ -364,7 +364,7 @@ var SmExim = {
     foStream.writeString(data);
     return allRecords.length;
   },
-
+*/
   selectFile: function() {
     this.onSelectTab();
     const nsIFilePicker = Ci.nsIFilePicker;
@@ -623,7 +623,7 @@ var SmExim = {
     }
     return -1;
   },
-
+/*
   readXmlContent: function(file, charset) {
     var bType = $$("eximXml_type-attribute").checked;
 
@@ -703,7 +703,8 @@ var SmExim = {
     }
     return -1;
   },
-
+*/
+/*
   readXmlContent_v2: function(file, charset) {
     var bType = $$("eximXml_type-attribute").checked;
 
@@ -785,7 +786,7 @@ var SmExim = {
     }
     return -1;
   },
-
+*/
   getCreateTableQuery: function(sTabName, sDbName, aCols, bReadOnlyColNames, bAllowPrompts) {
     //importing to an existing table
     if (SQLiteManager.mDb.tableExists(sTabName, sDbName)) {

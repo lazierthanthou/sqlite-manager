@@ -56,36 +56,30 @@ SmDatabaseTreeView.prototype = {
   getImageSrc: function(row, col) { return null; },
   getRowProperties: function(row, properties) {},
   getCellProperties: function(row, col, properties) {
-    var atomService = Components.classes["@mozilla.org/atom-service;1"].getService(Components.interfaces.nsIAtomService);
+    properties = "";
     switch(this.aTypes[row][col.id]) {
       case SQLiteTypes.INTEGER:
-        var atom = atomService.getAtom("integervalue");
-        properties.AppendElement(atom);
+        properties = "integervalue";
         break;
       case SQLiteTypes.REAL:
-        var atom = atomService.getAtom("floatvalue");
-        properties.AppendElement(atom);
+        properties = "floatvalue";
         break;
       case SQLiteTypes.BLOB:
-        var atom = atomService.getAtom("blobvalue");
-        properties.AppendElement(atom);
+        properties = "blobvalue";
         break;
       case SQLiteTypes.NULL: 
-        var atom = atomService.getAtom("nullvalue");
-        properties.AppendElement(atom);
+        properties = "nullvalue";
         break;
       case SQLiteTypes.TEXT:
       default:
-        var atom = atomService.getAtom("textvalue");
-        properties.AppendElement(atom);
+        properties = "textvalue";
         break;
     }
     if (typeof this.getCellText(row,col) == "number") {
-      var atom = atomService.getAtom("numbervalue");
-      properties.AppendElement(atom);
+      properties += " numbervalue ";
     }
-    var atom = atomService.getAtom("tabledata");
-    properties.AppendElement(atom);
+    properties += " tabledata ";
+    return properties;
   },
 
   getColumnProperties: function(colid, col, properties){},

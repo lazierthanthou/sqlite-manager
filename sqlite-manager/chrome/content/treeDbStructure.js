@@ -183,23 +183,20 @@ TreeDbStructure.prototype = {
   performActionOnCell: function(action, index, column) {},
   getRowProperties: function(idx, column, prop) {},
   getCellProperties: function(row, col, properties) {
-    var atomService = Components.classes["@mozilla.org/atom-service;1"].getService(Components.interfaces.nsIAtomService);
+    properties = "";
     if (this.getSmType(row) == "table") {
-      var atom = atomService.getAtom("dbObjTable");
-      properties.AppendElement(atom);
+      properties = "dbObjTable";
     }
     if (this.getSmType(row) == "index") {
-      var atom = atomService.getAtom("dbObjIndex");
-      properties.AppendElement(atom);
+      properties = "dbObjIndex";
     }
     if (this.getSmType(row) == "view") {
-      var atom = atomService.getAtom("dbObjView");
-      properties.AppendElement(atom);
+      properties = "dbObjView";
     }
     if (this.getSmType(row) == "trigger") {
-      var atom = atomService.getAtom("dbObjTrigger");
-      properties.AppendElement(atom);
+      properties = "dbObjTrigger";
     }
+    return properties;
   },
   getColumnProperties: function(column, element, prop) {}
 };

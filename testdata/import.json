@@ -1,5 +1,5 @@
 {
-  "csvPath": "file:///home/user/sqlite-manager/testdata/",
+  "csvPath": "file:///home/user/sqmwork/sqlite-manager/testdata/",
 
   "csvArray": [
     {"remarks": "Use column names when importing from CSV if column names are first row; this is for importing into an existing table",

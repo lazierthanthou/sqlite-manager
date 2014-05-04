@@ -60,8 +60,8 @@ var SQLiteManager = {
     //result: failure even with firefox 5 on 2011-07-03
 //    window.localStorage.setItem("status", "checking");
 //    alert(window.localStorage.getItem("status"));
-    this.mDb.executeAsync(["create table abcd (aa, bb, cc, dd)"]);
-    return;
+    //this.mDb.executeAsync(["create table abcd (aa, bb, cc, dd)"]);
+    //return;
     var sImportTestFileName = sm_prefsBranch.getCharPref("6de03bb8c386207");
     SmTestExim.doOKImport(sImportTestFileName);
   },
@@ -988,7 +988,7 @@ var SQLiteManager = {
       return false;
 //assume sqlite >= 3.7.4
     //the commented values have a set operation but no get operation
-    var aSettings = ["auto_vacuum", "automatic_index", "cache_size", /*"case_sensitive_like",*/ "encoding", "foreign_keys", "freelist_count", "fullfsync", /*"ignore_check_constraints",*/  "journal_mode", "journal_size_limit", "legacy_file_format", "locking_mode", "max_page_count", "page_count", "page_size", "read_uncommitted", "recursive_triggers", "reverse_unordered_selects", "schema_version", "secure_delete", "synchronous", "temp_store", "user_version", "wal_autocheckpoint"/*, "writable_schema"*/];
+    var aSettings = ["application_id", "auto_vacuum", "automatic_index", "busy_timeout", "cache_size", "cache_spill", /*"case_sensitive_like",*/ "checkpoint_fullfsync", "defer_foreign_keys", "encoding", "foreign_keys", "freelist_count", "fullfsync", /*"ignore_check_constraints",*/  "journal_mode", "journal_size_limit", "legacy_file_format", "locking_mode", "max_page_count", "mmap_size", "page_count", "page_size", "query_only", "read_uncommitted", "recursive_triggers", "reverse_unordered_selects", "schema_version", "secure_delete", "soft_heap_limit", "synchronous", "temp_store", "user_version", "wal_autocheckpoint"/*, "writable_schema"*/];
 
     for(var i = 0; i < aSettings.length; i++)  {
       var sSetting = aSettings[i];

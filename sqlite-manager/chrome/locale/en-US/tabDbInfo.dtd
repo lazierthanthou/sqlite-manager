@@ -6,8 +6,6 @@
 <!ENTITY schema_version "Schema Version">
 <!ENTITY user_version "User Version">
 
-<!ENTITY cache_size "Cache Size">
-
 <!ENTITY pages "Pages">
 <!ENTITY page_size "Page Size (bytes)">
 <!ENTITY max_page_count "Max Page Count">
@@ -19,9 +17,15 @@
 <!ENTITY journal_size_limit "Journal Size Limit">
 
 <!ENTITY others "Others">
+<!ENTITY application_id "Application Id">
 <!ENTITY auto_vacuum "Auto Vacuum">
 <!ENTITY automatic_index "Automatic Indexing">
+<!ENTITY busy_timeout "Busy Timeout">
+<!ENTITY cache_size "Cache Size">
+<!ENTITY cache_spill "Cache Spill">
 <!ENTITY case_sensitive_like "Case-sensitive Like">
+<!ENTITY checkpoint_fullfsync "Checkpoint Fullfsync">
+<!ENTITY defer_foreign_keys "Defer Foreign Keys">
 <!ENTITY encoding "Encoding">
 <!ENTITY UTF8 "UTF-8">
 <!ENTITY UTF16 "UTF-16">
@@ -29,16 +33,20 @@
 <!ENTITY UTF16be "UTF-16be">
 <!ENTITY foreign_keys "Foreign Keys">
 <!ENTITY fullfsync "Fullfsync flag">
+<!ENTITY ignore_check_constraints "Ignore Check Constraints">
 <!ENTITY legacy_file_format "Legacy File Format">
 <!ENTITY locking_mode "Locking Mode">
+<!ENTITY mmap_size "Mmap Size">
+<!ENTITY query_only "Query Only">
 <!ENTITY read_uncommitted "Read Uncommitted">
 <!ENTITY recursive_triggers "Recursive Triggers">
 <!ENTITY reverse_unordered_selects "Reverse Unordered Selects">
 <!ENTITY secure_delete "Secure Delete">
+<!ENTITY soft_heap_limit "Soft Heap Limit">
 <!ENTITY synchronous "Synchronous">
-<!ENTITY wal_autocheckpoint "Size (in no. of pages) of write-ahead log at which checkpoint will be run automatically">
-
 <!ENTITY temp_store "Temporary Store">
+<!ENTITY wal_autocheckpoint "WAL Auto Checkpoint (size in no. of pages)">
+<!ENTITY writable_schema "Writable Schema">
 
 <!ENTITY On "On">
 <!ENTITY Off "Off">

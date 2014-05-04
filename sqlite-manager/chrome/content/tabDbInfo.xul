@@ -133,6 +133,18 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
     <caption label="&others;"/>
     <html:tr>
       <html:td>
+        <label value="&application_id;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <textbox id="pr-application_id" type="number" />
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('application_id');">&change;</html:button>
+      </html:td>
+    </html:tr>
+
+    <html:tr>
+      <html:td>
         <label value="&auto_vacuum;" class="dbinfo"/>
       </html:td>
       <html:td>
@@ -164,6 +176,18 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
 
     <html:tr>
       <html:td>
+        <label value="&busy_timeout;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <textbox id="pr-busy_timeout" type="number" />
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('busy_timeout');">&change;</html:button>
+      </html:td>
+    </html:tr>
+
+    <html:tr>
+      <html:td>
         <label value="&cache_size;" class="dbinfo"/>
       </html:td>
       <html:td>
@@ -171,6 +195,21 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
       </html:td>
       <html:td>
         <html:button onclick="SQLiteManager.changeDbSetting('cache_size');">&change;</html:button>
+      </html:td>
+    </html:tr>
+
+    <html:tr>
+      <html:td>
+        <label value="&cache_spill;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-cache_spill">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+          <html:button onclick="SQLiteManager.changeDbSetting('cache_spill');">&change;</html:button>
       </html:td>
     </html:tr>
 
@@ -190,6 +229,36 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
       </html:td>
     </html:tr>
 -->
+
+    <html:tr>
+      <html:td>
+        <label value="&checkpoint_fullfsync;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-checkpoint_fullfsync">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('checkpoint_fullfsync');">&change;</html:button>
+      </html:td>
+    </html:tr>
+
+    <html:tr>
+      <html:td>
+        <label value="&defer_foreign_keys;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-defer_foreign_keys">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('defer_foreign_keys');">&change;</html:button>
+      </html:td>
+    </html:tr>
 
     <html:tr>
       <html:td>
@@ -238,6 +307,23 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
       </html:td>
     </html:tr>
 
+<!-- can set the value but not get it; see pragma help at sqlite.org
+    <html:tr>
+      <html:td>
+        <label value="&ignore_check_constraints;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-ignore_check_constraints">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('ignore_check_constraints');">&change;</html:button>
+      </html:td>
+    </html:tr>
+-->
+
     <html:tr>
       <html:td>
         <label value="&legacy_file_format;" class="dbinfo"/>
@@ -265,6 +351,33 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
       </html:td>
       <html:td>
         <html:button onclick="SQLiteManager.changeDbSetting('locking_mode');">&change;</html:button>
+      </html:td>
+    </html:tr>
+
+    <html:tr>
+      <html:td>
+        <label value="&mmap_size;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <textbox id="pr-mmap_size" type="number" />
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('mmap_size');">&change;</html:button>
+      </html:td>
+    </html:tr>
+
+    <html:tr>
+      <html:td>
+        <label value="&query_only;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-query_only">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('query_only');">&change;</html:button>
       </html:td>
     </html:tr>
 
@@ -330,6 +443,18 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
 
     <html:tr>
       <html:td>
+        <label value="&soft_heap_limit;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <textbox id="pr-soft_heap_limit" type="number"/>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('soft_heap_limit');">&change;</html:button>
+      </html:td>
+    </html:tr>
+
+    <html:tr>
+      <html:td>
         <label value="&synchronous;" class="dbinfo"/>
       </html:td>
       <html:td>
@@ -372,6 +497,23 @@ Omitted: case_sensitive_like, incremental_vacuum(N)
         <html:button onclick="SQLiteManager.changeDbSetting('wal_autocheckpoint');">&change;</html:button>
       </html:td>
     </html:tr>
+
+<!-- can set the value but not get it; see pragma help at sqlite.org
+    <html:tr>
+      <html:td>
+        <label value="&writable_schema;" class="dbinfo"/>
+      </html:td>
+      <html:td>
+        <html:select id="pr-writable_schema">
+          <html:option value="1">&On;</html:option>
+          <html:option value="0">&Off;</html:option>
+        </html:select>
+      </html:td>
+      <html:td>
+        <html:button onclick="SQLiteManager.changeDbSetting('writable_schema');">&change;</html:button>
+      </html:td>
+    </html:tr>
+-->
    </groupbox>
   </vbox>
   </notificationbox>

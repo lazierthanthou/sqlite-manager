@@ -12,7 +12,7 @@ var SmTestExim = {
     req.overrideMimeType('text/plain; charset=UTF-8');
     req.send(null);
     var contents = "";
-    if(req.status == 0) {
+    if(req.status == 0 || req.status == 200) {
       try {
       contents = JSON.parse(req.responseText);
       }

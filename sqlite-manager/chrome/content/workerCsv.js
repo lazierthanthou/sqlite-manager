@@ -17,7 +17,7 @@ var gFile = {
     req.open('GET', file, false);
     req.overrideMimeType('text/plain; charset='+charset);
     req.send(null);
-    if(req.status == 0) {
+    if(req.status == 0 || req.status == 200) {
       this.contents = req.responseText;
       this.size = this.contents.length;
     }

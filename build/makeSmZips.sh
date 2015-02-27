@@ -8,6 +8,7 @@ releaseDir=$rootDir/release
 sourceDir=$rootDir/sqlite-manager
 outDir=$rootDir/out
 workDir=$outDir/workhere
+babelDir=$rootDir/locales/locales_replaced
 
 mkdir -p $releaseDir
 mkdir -p $outDir
@@ -113,7 +114,7 @@ createXpiFile () {
 
 ####################################################
 installXR () {
-  xrAllLocales="sqlitemanager-xr-"$version".zip"
+  xrAllLocales="sqlitemanager-xr-"$version"-all.zip"
   echo "Installing xulrunner app"
   sudo xulrunner-2.0 --install-app $releaseDir/$xrAllLocales
   executable=/usr/local/lib/lazierthanthou/sqlite-manager/sqlite-manager
@@ -127,7 +128,7 @@ installXR () {
 }
 
 installXPI () {
-  xpiAllLocales="sqlitemanager-"$version".xpi"
+  xpiAllLocales="sqlitemanager-"$version"-all.xpi"
 
   loc=/home/user/.mozilla/firefox/$1/extensions/SQLiteManager@mrinalkant.blogspot.com.xpi
 
@@ -139,6 +140,53 @@ installXPI () {
 
   echo "Listing the installed files:"
   ls -l $loc
+}
+
+createLangFile () {
+  locale=$1
+  translator=$2
+  language=$3
+  filetype=$4
+
+  cd $rootDir
+  rm -r $workDir
+  mkdir -p $workDir
+  cd $workDir
+
+  workFile=""
+  newFile=""
+  if [ $filetype = "xpi" ]; then
+    workFile=$xpiFile
+    newFile=$xpiLangFile
+  fi
+  if [ $filetype = "xr" ]; then
+    workFile=$xrFile
+    newFile=$xrLangFile
+  fi
+  
+  echo "Extracting the en-US only version: "$workFile
+  unzip -o $releaseDir/$workFile
+
+  echo "Copying the locale dir: "$babelDir/$locale
+  cp -r $babelDir/$locale $workDir/chrome/locale/
+
+  chrome=$workDir/chrome.manifest
+  echo "Adding locale entry in chrome.manifest..." $chrome
+  echo "locale sqlitemanager $locale chrome/locale/$locale/" >> $chrome
+
+  if [ $filetype = "xpi" ]; then
+    #modify install.rdf
+    transEntry="<em:translator>$translator ($language)</em:translator>"
+    sed -i "/em:creator/a $transEntry" $workDir/install.rdf
+  fi
+
+  echo "Creating file: "$newFile
+  zip -r $newFile ./ >> $logFile
+  echo "Moving file $newFile to $releaseDir/"
+  mv $newFile $releaseDir/
+
+  cd $rootDir
+  rm -r $workDir
 }
 
 buildWithVersion () {
@@ -157,6 +205,81 @@ buildWithVersion () {
   ls -l $releaseDir/$xrFile
 }
 
+buildWithLanguage () {
+  getNewVersion
+  getNewBuildId
+
+  xrFile="sqlitemanager-xr-"$version".zip"
+  xpiFile="sqlitemanager-"$version".xpi"
+
+  while IFS='|' read relflag locale language translator; do
+    if [ $relflag = "rel" ]; then
+      xrLangFile="sqlitemanager-xr-"$version"-"$locale".zip"
+      xpiLangFile="sqlitemanager-"$version"-"$locale".xpi"
+      #use quotes because some variables may have spaces
+      createLangFile $locale "$translator" "$language" "xpi"
+      createLangFile $locale "$translator" "$language" "xr"
+    fi
+  done < $fileTranslators
+}
+
+buildWithAllLanguages () {
+  filetype=$1
+
+  getNewVersion
+  getNewBuildId
+
+  xrFile="sqlitemanager-xr-"$version".zip"
+  xpiFile="sqlitemanager-"$version".xpi"
+
+  xrLangFile="sqlitemanager-xr-"$version"-all.zip"
+  xpiLangFile="sqlitemanager-"$version"-all.xpi"
+
+  cd $rootDir
+  rm -r $workDir
+  mkdir -p $workDir
+  cd $workDir
+
+  workFile=""
+  newFile=""
+  if [ $filetype = "xpi" ]; then
+    workFile=$xpiFile
+    newFile=$xpiLangFile
+  fi
+  if [ $filetype = "xr" ]; then
+    workFile=$xrFile
+    newFile=$xrLangFile
+  fi
+  
+  echo "Extracting the en-US only version: "$workFile
+  unzip -o $releaseDir/$workFile
+
+  while IFS='|' read relflag locale language translator; do
+    if [ $relflag = "rel" ]; then
+      echo "Copying the locale dir: "$babelDir/$locale
+      cp -r $babelDir/$locale $workDir/chrome/locale/
+
+      echo "Adding locale entry in chrome.manifest..."
+      chrome=$workDir/chrome.manifest
+      echo "locale sqlitemanager $locale chrome/locale/$locale/" >> $chrome
+
+      if [ $filetype = "xpi" ]; then
+        #modify install.rdf
+        transEntry="<em:translator>$translator ($language)</em:translator>"
+        sed -i "/em:creator/a $transEntry" $workDir/install.rdf
+      fi
+    fi
+  done < $fileTranslators
+
+  echo "Creating file: "$newFile
+  zip -r $newFile ./ >> $logFile
+  echo "Moving file $newFile to $releaseDir/"
+  mv $newFile $releaseDir/
+
+  cd $rootDir
+  rm -r $workDir
+}
+
 runDbWithXrApp () {
   /usr/bin/sqlite-manager -f $HOME/Desktop/csvtrial.sqlite
 }
@@ -167,9 +290,13 @@ while [ ! $userOption = "x" ]; do
     echo "Please choose one of these options:"
     echo "----"
     echo "b : build & install extension"
+    echo "c : build with language"
     echo "i : install xulrunner app"
     echo "r : run the xulrunner app (option to speed up testing)"
     echo "j : install .xpi for firefox"
+    echo "bz : download locale files from babelzilla"
+    echo "----"
+    echo "u : upload to code.google.com"
     echo "----"
     echo "l : make localization packs"
     echo "----"
@@ -179,6 +306,14 @@ while [ ! $userOption = "x" ]; do
 ###########################################
     if [ $userOption = "b" ]; then
       buildWithVersion
+      buildWithAllLanguages xpi
+      buildWithAllLanguages xr
+    fi
+
+    if [ $userOption = "c" ]; then
+      buildWithAllLanguages xpi
+      buildWithAllLanguages xr
+      #buildWithLanguage
     fi
 
     if [ $userOption = "i" ]; then
@@ -194,6 +329,12 @@ while [ ! $userOption = "x" ]; do
     if [ $userOption = "l" ]; then
       sh $buildDir/langpacks.sh
     fi
+
+    if [ $userOption = "bz" ]; then
+      cd $outDir
+      sh $buildDir/getLocalesFromBz.sh
+    fi
+
 ###########################################
 done;
 

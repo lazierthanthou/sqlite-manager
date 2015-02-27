@@ -94,13 +94,6 @@
     "charset": "UTF-8"},
 
     {"remarks": "",
-    "title": "issues.csv",
-    "file": "issues.csv",
-    "tableName": "issues", "separator": ",", "encloser": "\"",
-    "bColNames": true, "ignoreTrailingDelimiter": false,
-    "charset": "UTF-8"},
-
-    {"remarks": "",
     "title": "try.csv",
     "file": "try.csv",
     "tableName": "try", "separator": ",", "encloser": "N",

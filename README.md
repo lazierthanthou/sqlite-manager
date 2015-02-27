@@ -1,4 +1,3 @@
-Please report issues at [https://code.google.com/p/sqlite-manager/issues/list](https://code.google.com/p/sqlite-manager/issues/list).
 
 ###Downloads
 
@@ -10,11 +9,7 @@ Please report issues at [https://code.google.com/p/sqlite-manager/issues/list](h
 
 ###SQLite Manager for other applications
 
-- Songbird: [http://addons.songbirdnest.com/addon/1711](http://addons.songbirdnest.com/addon/1711)
 - Komodo: [http://community.activestate.com/xpi/sqlite-manager](http://community.activestate.com/xpi/sqlite-manager)
-- Firefox 3.6: [http://sqlite-manager.googlecode.com/files/sqlitemanager-0.6.8-all.xpi](http://sqlite-manager.googlecode.com/files/sqlitemanager-0.6.8-all.xpi)
-- Firefox 3.5: [http://sqlite-manager.googlecode.com/files/sqlitemanager-0.5.17.xpi](http://sqlite-manager.googlecode.com/files/sqlitemanager-0.5.17.xpi)
-- Firefox 3.0: [http://sqlite-manager.googlecode.com/files/SQLiteManager_0.4.8.xpi](http://sqlite-manager.googlecode.com/files/SQLiteManager_0.4.8.xpi)
 
 ### Features
 

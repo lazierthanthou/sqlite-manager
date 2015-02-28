@@ -1,9 +1,8 @@
 //the advice given at http://blogger.ziesemer.com/2007/10/respecting-javascript-global-namespace.html has been followed
-if(!com) var com={};
-if(!com.googlecode) com.googlecode={};
+if(!lazierthanthou) var lazierthanthou={};
 
 // The only global object here.
-com.googlecode.sqlitemanager = function() {
+lazierthanthou.sqlitemanager = function() {
   //the following are private variables.
 
   //public object returned by this function
@@ -13,8 +12,8 @@ com.googlecode.sqlitemanager = function() {
 
   // Clean up
   pub.shutdown = function() {
-    window.removeEventListener("load", com.googlecode.sqlitemanager.start, false);
-    window.removeEventListener("unload", com.googlecode.sqlitemanager.shutdown, false);
+    window.removeEventListener("load", lazierthanthou.sqlitemanager.start, false);
+    window.removeEventListener("unload", lazierthanthou.sqlitemanager.shutdown, false);
   };
 
   //only for firefox

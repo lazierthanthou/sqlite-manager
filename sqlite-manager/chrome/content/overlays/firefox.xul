@@ -7,13 +7,13 @@
   <script type="application/x-javascript">
   <![CDATA[
     // Register handlers to maintain extension life cycle.
-    window.addEventListener("load", com.googlecode.sqlitemanager.start, false);
-    window.addEventListener("unload", com.googlecode.sqlitemanager.shutdown, false);
+    window.addEventListener("load", lazierthanthou.sqlitemanager.start, false);
+    window.addEventListener("unload", lazierthanthou.sqlitemanager.shutdown, false);
   ]]>
   </script>
 
   <menupopup id="menu_ToolsPopup">
-    <menuitem oncommand="com.googlecode.sqlitemanager.open()"
+    <menuitem oncommand="lazierthanthou.sqlitemanager.open()"
       label="SQLite Manager" id="menuitem-sqlitemanager"
       insertafter="devToolsSeparator" class="menuitem-iconic"
       accesskey="Q"/>
@@ -24,12 +24,12 @@
       class="toolbarbutton-1"
       id="button-sqlitemanager"
       label="SQLite Manager"
-      oncommand="com.googlecode.sqlitemanager.open()"
+      oncommand="lazierthanthou.sqlitemanager.open()"
       tooltiptext="SQLite Manager"/>
   </toolbarpalette>
 
   <menupopup id="appmenu_webDeveloper_popup">
-    <menuitem oncommand="com.googlecode.sqlitemanager.open()"
+    <menuitem oncommand="lazierthanthou.sqlitemanager.open()"
       label="SQLite Manager" id="menuitem-sqlitemanager-in-webdeveloper"
       insertafter="appmenu_webConsole" class="menuitem-iconic"
       accesskey="Q"/>
@@ -43,7 +43,7 @@
       id="sqlitemanager-in-addon-bar"
       hidden="true"
       label="SQLite Manager"
-      oncommand="com.googlecode.sqlitemanager.open()"
+      oncommand="lazierthanthou.sqlitemanager.open()"
       tooltiptext="SQLite Manager"/>
   </toolbar>
 -->

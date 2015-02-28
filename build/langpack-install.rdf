@@ -12,7 +12,7 @@
     <em:description>XXXlanguageXXX Language Pack for SQLiteManager</em:description>
     <em:version>XXXversionXXX</em:version>
     <em:creator>XXXtranslatorXXX</em:creator>
-    <em:homepageURL>http://sqlite-manager.googlecode.com/</em:homepageURL>
+    <em:homepageURL>https://github.com/lazierthanthou/sqlite-manager</em:homepageURL>
 
     <em:requires>
       <Description>

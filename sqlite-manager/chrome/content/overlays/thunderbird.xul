@@ -6,7 +6,7 @@
   <script type="application/x-javascript" src="overlay.js"/>  
 
   <menupopup id="taskPopup">
-    <menuitem oncommand="com.googlecode.sqlitemanager.openInOwnWindow()"
+    <menuitem oncommand="lazierthanthou.sqlitemanager.openInOwnWindow()"
       label="SQLite Manager" id="menuitem-sqlitemanager"
       insertafter="prefSep" class="menuitem-iconic"
       accesskey="Q"/>
@@ -17,7 +17,7 @@
       class="toolbarbutton-1"
       id="button-sqlitemanager"
       label="SQLite Manager"
-      oncommand="com.googlecode.sqlitemanager.openInOwnWindow()"
+      oncommand="lazierthanthou.sqlitemanager.openInOwnWindow()"
       tooltiptext="SQLite Manager"/>
   </toolbarpalette>
 </overlay>

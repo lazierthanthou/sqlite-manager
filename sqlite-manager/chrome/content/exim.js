@@ -331,7 +331,7 @@ var SmExim = {
     data += "<!--\n";
     data += "- sqlite-manager XML Dump\n";
     data += "- version 0.7.1\n";
-    data += "- http://sqlite-manager.googlecode.com\n-\n";
+    data += "- https://github.com/lazierthanthou/sqlite-manager\n-\n";
     var d = new Date();
     data += "- Generation Time: " + d.toGMTString() + "\n";
     data += "- SQLite version: " + SQLiteManager.mDb.sqliteVersion + "\n";
@@ -341,7 +341,7 @@ var SmExim = {
 
     var xmlRoot = <sm_xml_export/>;
     xmlRoot.@version = "2.0";
-    //xmlRoot.@xmlns:lsm = "http://sqlite-manager.googlecode.com/dummy2/";
+    //xmlRoot.@xmlns:lsm = "https://github.com/lazierthanthou/sqlite-manager/dummy2/";
     var xmlDatabase = <database/>;
     xmlDatabase.@name = sDbName;
     var xmlColumn, data, xmlTable, colName;

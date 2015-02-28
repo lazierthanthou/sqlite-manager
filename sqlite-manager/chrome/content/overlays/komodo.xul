@@ -7,13 +7,13 @@
   <script type="application/x-javascript">
   <![CDATA[
     // Register handlers to maintain extension life cycle.
-    window.addEventListener("load", com.googlecode.sqlitemanager.start, false);
-    window.addEventListener("unload", com.googlecode.sqlitemanager.shutdown, false);
+    window.addEventListener("load", lazierthanthou.sqlitemanager.start, false);
+    window.addEventListener("unload", lazierthanthou.sqlitemanager.shutdown, false);
   ]]>
   </script>
 
   <menupopup id="popup_tools">
-    <menuitem oncommand="com.googlecode.sqlitemanager.openKo()"
+    <menuitem oncommand="lazierthanthou.sqlitemanager.openKo()"
       label="SQLite Manager" id="menuitem-sqlitemanager"
       class="menuitem-iconic"
       accesskey="Q"/>
@@ -24,7 +24,7 @@
       persist="buttonstyle"
       buttonstyle="pictures"
       label="SQLite Manager"
-      oncommand="com.googlecode.sqlitemanager.openKo()"
+      oncommand="lazierthanthou.sqlitemanager.openKo()"
       tooltiptext="SQLite Manager"/>
   </toolbar>
 </overlay>

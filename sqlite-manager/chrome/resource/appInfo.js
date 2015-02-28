@@ -13,9 +13,9 @@ var SmAppInfo = {
   extCreator: "lazierthanthou",
 
   webpages: {
-    home: "http://sqlite-manager.googlecode.com/",
-    faq: "http://code.google.com/p/sqlite-manager/wiki/FAQ",
-    issueNew: "http://code.google.com/p/sqlite-manager/issues/entry",
+    home: "https://github.com/lazierthanthou/sqlite-manager",
+    faq: "https://github.com/lazierthanthou/sqlite-manager/wiki/Frequently-Asked-Questions",
+    issueNew: "https://github.com/lazierthanthou/sqlite-manager/issues/new",
     sqliteHome: "http://www.sqlite.org/",
     sqliteLang: "http://www.sqlite.org/lang.html",
     mpl: "http://www.mozilla.org/MPL/MPL-1.1.html"

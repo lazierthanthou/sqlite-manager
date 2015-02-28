@@ -4,7 +4,6 @@
 <!ENTITY versions "Версии">
 <!ENTITY schema_version "Версия схемы">
 <!ENTITY user_version "Пользовательская версия">
-<!ENTITY cache_size "Размер кэша">
 <!ENTITY pages "Страницы">
 <!ENTITY page_size "Размер страницы (байты)">
 <!ENTITY max_page_count "Максимальное число страниц">
@@ -14,9 +13,15 @@
 <!ENTITY journal_mode "Режим журнала">
 <!ENTITY journal_size_limit "Предельный размер журнала">
 <!ENTITY others "Другое">
+<!ENTITY application_id "Application Id">
 <!ENTITY auto_vacuum "Директива AUTOVACUUM">
 <!ENTITY automatic_index "Автоматическое индексирование">
+<!ENTITY busy_timeout "Busy Timeout">
+<!ENTITY cache_size "Размер кэша">
+<!ENTITY cache_spill "Cache Spill">
 <!ENTITY case_sensitive_like "Регистрозависимый">
+<!ENTITY checkpoint_fullfsync "Checkpoint Fullfsync">
+<!ENTITY defer_foreign_keys "Defer Foreign Keys">
 <!ENTITY encoding "Кодировка символов">
 <!ENTITY UTF8 "UTF-8">
 <!ENTITY UTF16 "UTF-16">
@@ -24,15 +29,20 @@
 <!ENTITY UTF16be "UTF-16BE">
 <!ENTITY foreign_keys "Внешние ключи">
 <!ENTITY fullfsync "Флаг FULLFSYNC">
+<!ENTITY ignore_check_constraints "Ignore Check Constraints">
 <!ENTITY legacy_file_format "Устаревший формат файла">
 <!ENTITY locking_mode "Режим блокировки">
+<!ENTITY mmap_size "Mmap Size">
+<!ENTITY query_only "Query Only">
 <!ENTITY read_uncommitted "Несвязное чтение">
 <!ENTITY recursive_triggers "Рекурсивные триггеры">
 <!ENTITY reverse_unordered_selects "Изменить неупорядоченный выбор">
 <!ENTITY secure_delete "Безопасное удаление">
+<!ENTITY soft_heap_limit "Soft Heap Limit">
 <!ENTITY synchronous "Синхронность">
-<!ENTITY wal_autocheckpoint "Размер журнала упреждающей записи (в страницах) при котором будет автоматически выполняться создание контрольной точки">
 <!ENTITY temp_store "Временное хранилище">
+<!ENTITY wal_autocheckpoint "Размер журнала упреждающей записи (в страницах) при котором будет автоматически выполняться создание контрольной точки">
+<!ENTITY writable_schema "Writable Schema">
 <!ENTITY On "Вкл.">
 <!ENTITY Off "Выкл.">
 <!ENTITY Default "По умолчанию">

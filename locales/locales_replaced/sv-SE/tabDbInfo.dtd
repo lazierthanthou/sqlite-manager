@@ -4,7 +4,6 @@
 <!ENTITY versions "Versioner">
 <!ENTITY schema_version "Schemaversion">
 <!ENTITY user_version "Användarversion">
-<!ENTITY cache_size "Cachestorlek">
 <!ENTITY pages "Sidor">
 <!ENTITY page_size "Sidstorlek (byte)">
 <!ENTITY max_page_count "Max antal sidor">
@@ -14,9 +13,15 @@
 <!ENTITY journal_mode "Journalläge">
 <!ENTITY journal_size_limit "Storleksgräns för journal">
 <!ENTITY others "Övrigt">
+<!ENTITY application_id "Application Id">
 <!ENTITY auto_vacuum "Automatisk städning">
 <!ENTITY automatic_index "Automatisk indexering">
+<!ENTITY busy_timeout "Busy Timeout">
+<!ENTITY cache_size "Cachestorlek">
+<!ENTITY cache_spill "Cache Spill">
 <!ENTITY case_sensitive_like "Skiftlägeskänslig som">
+<!ENTITY checkpoint_fullfsync "Checkpoint Fullfsync">
+<!ENTITY defer_foreign_keys "Defer Foreign Keys">
 <!ENTITY encoding "Teckenkodning">
 <!ENTITY UTF8 "UTF-8">
 <!ENTITY UTF16 "UTF-16">
@@ -24,15 +29,20 @@
 <!ENTITY UTF16be "UTF-16be">
 <!ENTITY foreign_keys "Sekundärnycklar">
 <!ENTITY fullfsync "FullFSync-flagga">
+<!ENTITY ignore_check_constraints "Ignore Check Constraints">
 <!ENTITY legacy_file_format "Befintligt filformat">
 <!ENTITY locking_mode "Låsningsläge">
+<!ENTITY mmap_size "Mmap Size">
+<!ENTITY query_only "Query Only">
 <!ENTITY read_uncommitted "Läs obekräftade">
 <!ENTITY recursive_triggers "Rekursiva utlösare">
 <!ENTITY reverse_unordered_selects "Vänd på osorterade markeringar">
 <!ENTITY secure_delete "Säker borttagning">
+<!ENTITY soft_heap_limit "Soft Heap Limit">
 <!ENTITY synchronous "Synkron">
-<!ENTITY wal_autocheckpoint "Storlek (i antal sidor) för write-ahead-loggen, vid vilken kontrollpunkten kommer att köras automatiskt">
 <!ENTITY temp_store "Temporär lagring">
+<!ENTITY wal_autocheckpoint "Storlek (i antal sidor) för write-ahead-loggen, vid vilken kontrollpunkten kommer att köras automatiskt">
+<!ENTITY writable_schema "Writable Schema">
 <!ENTITY On "På">
 <!ENTITY Off "Av">
 <!ENTITY Default "Standard">

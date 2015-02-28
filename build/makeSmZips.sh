@@ -311,9 +311,7 @@ while [ ! $userOption = "x" ]; do
     fi
 
     if [ $userOption = "c" ]; then
-      buildWithAllLanguages xpi
-      buildWithAllLanguages xr
-      #buildWithLanguage
+      buildWithLanguage
     fi
 
     if [ $userOption = "i" ]; then

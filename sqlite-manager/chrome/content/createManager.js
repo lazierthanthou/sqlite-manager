@@ -314,7 +314,7 @@ var CreateManager = {
         if (si.hasAttribute('sm_check')) {
           col["type"] = si.getAttribute('sm_type');
           col["check"] = si.getAttribute('sm_check');
-          col["check"] = col["check"].replace("zzzz", colname, "g");
+          col["check"] = col["check"].replace(/zzzz/g, colname);
         }
       }
       col["pk"] = $$("primarykey-" + i).checked;

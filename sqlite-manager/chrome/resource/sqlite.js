@@ -1406,7 +1406,7 @@ var SQLiteFn = {
 
   quote: function(str) {
     if (typeof str == "string")
-      str = str.replace("'", "''", "g");
+      str = str.replace(/'/g,"''");
     return "'" + str + "'";
   },
 
@@ -1544,7 +1544,7 @@ function getCsvRowFromArray(arrRow, arrTypes, oCsv) {
         break;
       case SQLiteTypes.TEXT:
       default:
-        arrRow[i] = arrRow[i].replace("\"", "\"\"", "g");
+        arrRow[i] = arrRow[i].replace(/"/g,"\"\"");
         arrRow[i] = '"' + arrRow[i] + '"';
         break;
     }

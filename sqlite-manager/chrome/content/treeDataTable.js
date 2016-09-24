@@ -256,7 +256,7 @@ TreeDataTable.prototype = {
       }
       else {
         if (typeof txt == "string")
-          txt = txt.replace("\"", "\"\"", "g");
+          txt = txt.replace(/"/g,"\"\"");
         txt = '"' + txt + '"';
       }
       result.push(txt);

@@ -19,7 +19,7 @@ var FileIO = {
 
   getFileFromProfDir: function(aAppendNames) {
     var file = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties).get('ProfD', Ci.nsIFile);
-    for each(let sName in aAppendNames)
+    for (let sName of aAppendNames)
       file.append(sName);
     return file;
   },

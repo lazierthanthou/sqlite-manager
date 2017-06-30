@@ -1,3 +1,4 @@
+After installing the addon, the SQLite Manager is accessible through Tools menu.
 
 ###Downloads
 

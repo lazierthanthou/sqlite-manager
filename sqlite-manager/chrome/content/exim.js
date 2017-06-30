@@ -727,13 +727,13 @@ var SmExim = {
     var aCols, asCols, aVals;
     var colText, sTabName, sQuery, sTabNameInInsert;
 
-    for each (var row in xmlData.database.table) {
+    for (var row of xmlData.database.table) {
       sTabName = row.@name;
       sVal = "";
       aVals = [];
       aCols = [];
       asCols = [];
-      for each (var col in row.column) {
+      for (var col of row.column) {
         asCols.push(SQLiteFn.quoteIdentifier(col.@name));
         aCols.push(col.@name);
 

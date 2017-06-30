@@ -220,7 +220,7 @@ var SmExim = {
       var i = 0;
       for(var i in columns) {
         if (cEncloser == "din" || cEncloser == '"') {
-          columns[i][0] = columns[i][0].replace("\"", "\"\"", "g");        
+          columns[i][0] = columns[i][0].replace(/"/g,"\"\"");        
           data.push('"' + columns[i][0] + '"');
         }
         else
@@ -246,7 +246,7 @@ var SmExim = {
         }
         if (cEncloser == "din") {
           if (typeof row[iCol] == "string") {
-            row[iCol] = row[iCol].replace("\"", "\"\"", "g");
+            row[iCol] = row[iCol].replace(/"/g,"\"\"");
             row[iCol] = '"' + row[iCol] + '"';
           }
            data.push(row[iCol]);
@@ -254,7 +254,7 @@ var SmExim = {
         }
         if (cEncloser == '"') {
           if (typeof row[iCol] == "string") {
-            row[iCol] = row[iCol].replace("\"", "\"\"", "g");
+            row[iCol] = row[iCol].replace(/"/g,"\"\"");
           }
           row[iCol] = '"' + row[iCol] + '"';
            data.push(row[iCol]);

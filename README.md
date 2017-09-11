@@ -1,10 +1,10 @@
-After installing the addon, the SQLite Manager is accessible through Tools menu.
+After installing the addon, the SQLite Manager is accessible through Tools menu (Click Customize and drag SQLite Manager icon into the Menu if not found by default).
 
-###Downloads
+### Downloads
 
 - You can download from [Mozilla Addons site](https://addons.mozilla.org/addon/sqlite-manager).
 
-###SQLite Manager for other applications
+### SQLite Manager for other applications
 
 - Komodo: [http://community.activestate.com/xpi/sqlite-manager](http://community.activestate.com/xpi/sqlite-manager)
 
